@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Media Feature Pack for Windows N",
+  "description": "This adds media-related technologies (Windows Media Player) and certain media apps (Groove, Movies & TV, Voice Recorder, Skype). New features such as Cortana, Windows Hello, and PDF viewing in the new Edge browser will work. This download works with Windows 7, 8, 8.1, 10 \"N\" editions. You need to restart Windows to complete the install.",
+  "tags": [
+    "Windows",
+    "Windows 10 N",
+    "Media",
+    "Windows Media",
+    "Windows N",
+    "Media Feature Pack",
+    "Windows Media Player"
+  ],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-media-feature-pack/windows-media-player.png",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File InstallMedia.ps1"
+  }
+}

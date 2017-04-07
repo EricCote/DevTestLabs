@@ -1,0 +1,115 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "newLabName": {
+      "type": "string",
+      "metadata": {
+        "description": "The name of the new lab instance to be created"
+      }
+    }
+  },
+  "variables": {
+    "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "2016-05-15",
+      "type": "Microsoft.DevTestLab/labs",
+      "name": "[parameters('newLabName')]",
+      "location": "[resourceGroup().location]",
+
+      "properties": {
+          "labStorageType":"Standard"
+      },
+      "resources": [
+        {
+          "apiVersion": "2016-05-15",
+          "name": "[variables('labVirtualNetworkName')]",
+          "type": "virtualNetworks",
+          "dependsOn": [
+            "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
+          ]
+        },
+  //      {          
+  //          "type": "microsoft.devtestlab/labs/artifactsources",
+  //          "name": "[concat(parameters('newLabName'),'/privaterepo')]",
+  //          "apiVersion": "2016-05-15",
+  //          "properties": {
+  //              "displayName": "Private Repo",
+  //              "uri": "https://github.com/EricCote/DevTestLabs.git",
+  //              "sourceType": "GitHub",
+  //              "folderPath": "/Artifacts",
+  //              "branchRef": "master",
+  //              "status": "Enabled",
+  //              "securityToken": "33f57ea3fd055b91705ce92adb1626a388e49202"
+  //          },
+  //          "dependsOn": [
+  //              "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+  //          ]
+  //      },
+            {
+            "type": "microsoft.devtestlab/labs/schedules",
+            "name": "[concat(parameters('newLabName'),'/LabVmsShutdown')]",
+            "apiVersion": "2016-05-15",
+            "properties": {
+                "status": "Enabled",
+                "taskType": "LabVmsShutdownTask",
+                "dailyRecurrence": {
+                    "time": "1730"
+                },
+                "timeZoneId": "Eastern Standard Time"
+            },
+            "dependsOn": [
+                "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+            ]
+        },
+        {
+            "type": "microsoft.devtestlab/labs/schedules",
+            "name": "[concat(parameters('newLabName'),'/labvmreclamation')]",
+            "apiVersion": "2016-05-15",
+            "properties": {
+                "status": "Enabled",
+                "taskType": "LabVmReclamationTask",
+                "dailyRecurrence": {
+                    "time": "1800"
+                },
+                "timeZoneId": "Eastern Standard Time"
+            },
+            "dependsOn": [
+                "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+            ]
+        },
+        {
+            "type": "microsoft.devtestlab/labs/schedules",
+            "name": "[concat(parameters('newLabName'),'/labvmautostart')]",
+            "apiVersion": "2016-05-15",
+            "properties": {
+                "status": "Enabled",
+                "taskType": "LabVmsStartupTask",
+                "weeklyRecurrence": {
+                    "weekdays": [
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday"
+                    ],
+                    "time": "0745"
+                },
+                "timeZoneId": "Eastern Standard Time"
+            },
+            "dependsOn": [
+                "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+            ]
+        }
+      ]
+    }
+  ],
+  "outputs": {
+    "labId": {
+      "type": "string",
+      "value": "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
+    }
+  }
+}

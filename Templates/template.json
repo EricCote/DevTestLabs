@@ -1,0 +1,235 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "labs_coursapi_name": {
+            "defaultValue": "coursapi",
+            "type": "String"
+        },
+        "vaults_coursApi7256_name": {
+            "defaultValue": "coursApi",
+            "type": "String"
+        },
+        "virtualNetworks_DtlcoursApi_name": {
+            "defaultValue": "DtlcoursApi",
+            "type": "String"
+        },
+        "storageAccounts_acoursapi8952_name": {
+            "defaultValue": "acoursapi",
+            "type": "String"
+        },
+        "storageAccounts_dcoursapi6931_name": {
+            "defaultValue": "dcoursapi",
+            "type": "String"
+        },
+        "storageAccounts_dpcoursapi4890_name": {
+            "defaultValue": "dpcoursapi",
+            "type": "String"
+        },
+        "artifactsources_public_repo_name": {
+            "defaultValue": "coursapi/public repo",
+            "type": "String"
+        },
+        "schedules_labvmsshutdown_name": {
+            "defaultValue": "coursapi/labvmsshutdown",
+            "type": "String"
+        },
+        "virtualnetworks_dtlcoursapi_name_1": {
+            "defaultValue": "coursapi/dtlcoursapi",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+           "type": "microsoft.devtestlab/labs",
+            "name": "[parameters('labs_coursapi_name')]",
+            "apiVersion": "2016-05-15",
+            "location": "canadaeast",
+            "properties": {
+                "defaultStorageAccount":  "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dcoursapi6931_name'))]",
+                "defaultPremiumStorageAccount": "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dpcoursapi4890_name'))]",
+                "artifactsStorageAccount":  "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_acoursapi8952_name'))]",
+                "vaultName": "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_coursApi7256_name'))]",
+                "labStorageType": "Standard"
+               
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('vaults_coursApi7256_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_acoursapi8952_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dcoursapi6931_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_dpcoursapi4890_name'))]"
+            ]
+        },
+        {
+            "type": "Microsoft.KeyVault/vaults",
+            "name": "[parameters('vaults_coursApi7256_name')]",
+            "apiVersion": "2015-06-01",
+            "location": "canadaeast",
+            "tags": {
+                "CreatedBy": "DevTestLabs"
+            },
+            "properties": {
+                "sku": {
+                    "family": "A",
+                    "name": "standard"
+                },
+               "tenantId": "e0072463-2165-47e0-b1ec-363866202ac5",
+               "accessPolicies": [
+                    {   
+                        "tenantId": "e0072463-2165-47e0-b1ec-363866202ac5",
+                        "objectId": "8e9b622e-8af1-4163-b8d0-12c580d7f145",
+                        "permissions": {
+                            
+                            "secrets": [
+                                "all"
+                            ]
+                        }
+                    }
+                ],
+                "enabledForDeployment": true
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_DtlcoursApi_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "canadaeast",
+           
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.0.0.0/20"
+                    ]
+                },
+                "dhcpOptions": {
+                    "dnsServers": []
+                },
+                "subnets": [
+                    {
+                        "name": "[concat(parameters('virtualNetworks_DtlcoursApi_name'),'Subnet')]",
+                        "properties": {
+                            "addressPrefix": "10.0.0.0/20"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        { "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_acoursapi8952_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "canadaeast",
+            
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+           "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_dcoursapi6931_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "canadaeast",
+           
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_dpcoursapi4890_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "canadaeast",
+          
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+          "type": "microsoft.devtestlab/labs/artifactsources",
+            "name": "[parameters('artifactsources_public_repo_name')]",
+            "apiVersion": "2016-05-15",
+            "properties": {
+                "displayName": "Public Repo",
+                "uri": "https://github.com/Azure/azure-devtestlab.git",
+                "sourceType": "GitHub",
+                "folderPath": "/Artifacts",
+                "branchRef": "",
+                "status": "Enabled",
+                "provisioningState": "Succeeded"
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('microsoft.devtestlab/labs', parameters('labs_coursapi_name'))]"
+            ]
+        },
+        {
+           "type": "microsoft.devtestlab/labs/schedules",
+            "name": "[parameters('schedules_labvmsshutdown_name')]",
+            "apiVersion": "2016-05-15",
+            "location": "canadaeast",
+            "properties": {
+                "status": "Enabled",
+                "taskType": "LabVmsShutdownTask",
+                "dailyRecurrence": {
+                    "time": "1900"
+                },
+                "timeZoneId": "Eastern Standard Time",
+                "provisioningState": "Succeeded",
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('microsoft.devtestlab/labs', parameters('labs_coursapi_name'))]"
+            ]
+        },
+        {
+           "type": "microsoft.devtestlab/labs/virtualnetworks",
+            "name": "[parameters('virtualnetworks_dtlcoursapi_name_1')]",
+            "apiVersion": "2016-05-15",
+            "properties": {
+                "allowedSubnets": [
+                    {
+                        "resourceId": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DtlcoursApi_name')), '/subnets/DtlcoursApiSubnet')]",
+                        "labSubnetName": "DtlcoursApiSubnet",
+                        "allowPublicIp": "Allow"
+                    }
+                ],
+                "externalProviderResourceId": "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DtlcoursApi_name'))]",
+                "subnetOverrides": [
+                    {
+                        "resourceId": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DtlcoursApi_name')), '/subnets/DtlcoursApiSubnet')]",
+                        "labSubnetName": "DtlcoursApiSubnet",
+                        "useInVmCreationPermission": "Allow",
+                        "usePublicIpAddressPermission": "Allow"
+                    }
+                ],
+                "provisioningState": "Succeeded"
+         
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('microsoft.devtestlab/labs', parameters('labs_coursapi_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_DtlcoursApi_name'))]"
+            ]
+        }
+    ]
+}

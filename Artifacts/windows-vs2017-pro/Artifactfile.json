@@ -1,0 +1,23 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Visual Studio 2017 Professional",
+    "description": "Installs Visual Studio 2017 Professional. If no key is provided, provides a 30 day trial. You can switch from trial to licensed at any time using your product key or your VS account.",
+    "tags": [
+        "Windows",
+        "Visual Studio"
+    ],
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-vs2017-pro/vs2017.png",
+    
+    "parameters": {
+        "Key": {
+            "type": "string",
+            "displayName": "Visual Studio key",
+            "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial.",
+            "allowEmpty": true
+        }
+    },
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File vs2017pro.ps1 -key ', padLeft(parameters('Key'),1,'a'))]"
+    }
+}

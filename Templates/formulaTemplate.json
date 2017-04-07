@@ -1,0 +1,76 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "existingLabName": {
+            "type": "String"
+        },
+        "password": {
+            "type": "String",
+            defaultValue: "[[vmpwd]]"
+        },
+        "formulaName": {
+            "defaultValue": "win10formula",
+            "type": "String"
+        }
+   
+    },
+    "variables": {
+    
+        "labVirtualNetworkName": "[concat('Dtl', parameters('existingLabName'))]",
+        "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
+        "labVirtualNetworkId": "[concat('/virtualnetworks/', variables('labVirtualNetworkName'))]"
+    
+    },
+    "resources": [
+  
+        {
+            "type": "microsoft.devtestlab/labs/formulas",
+            "name": "[concat(parameters('existingLabName'), '/', parameters('formulaName'))]",
+            "apiVersion": "2016-05-15",
+            "properties": {
+                "description": "Formula for Windows VM.",
+                "author": "ecote@dotnet-expertise.com",
+                "osType": "Windows",
+                "formulaContent": {
+                    "properties": {
+                        "size": "Standard_DS2_v2",
+                        "userName": "afi",
+                        "password": "[parameters('password')]",
+                        "labsubnetname": "[variables('labSubnetName')]",
+                        "labvirtualnetworkid": "[variables('labVirtualNetworkId')]",
+                        "disallowPublicIpAddress": false,
+                        "provisioningState": "Succeeded",
+                        "artifacts": [
+                            {
+                                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
+                                "parameters": []
+                            },
+                            {
+                                "artifactId": "/artifactsources/public repo/artifacts/windows-enable-local-admins",
+                                "parameters": []
+                            },
+                                {
+                                "artifactId": "/artifactsources/privaterepo1/artifacts/windows-office2016-pro-plus",
+                                "parameters": []
+                            },
+                                {
+                                "artifactId": "/artifactsources/privaterepo1/artifacts/windows-vs2017",
+                                "parameters": []
+                            }
+                        ],
+                        "galleryImageReference": {
+                            "offer": "Windows",
+                            "publisher": "MicrosoftVisualStudio",
+                            "sku": "Windows-10-N-x64",
+                            "osType": "Windows",
+                            "version": "latest"
+                        }
+                    }
+                }
+            },
+            "resources": []
+        }
+        
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "canadaeast"
+        },
+        "virtualMachineName": {
+            "value": "win10a"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_DS2_v2"
+        },
+        "adminUsername": {
+            "value": "afi"
+        },
+        "storageAccountName": {
+            "value": "win10vmdisks435"
+        },
+        "virtualNetworkName": {
+            "value": "win10vm-vnet"
+        },
+        "networkInterfaceName": {
+            "value": "win10a149"
+        },
+        "networkSecurityGroupName": {
+            "value": "win10a-nsg"
+        },
+        "adminPassword": {
+            "value": "afi12345678!"
+        },
+        "storageAccountType": {
+            "value": "Premium_LRS"
+        },
+        "addressPrefix": {
+            "value": "10.0.0.0/16"
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "subnetPrefix": {
+            "value": "10.0.0.0/24"
+        },
+        "publicIpAddressName": {
+            "value": "win10a-ip"
+        },
+        "publicIpAddressType": {
+            "value": "Dynamic"
+        },
+        "ex0_vmName": {
+            "value": "win10a"
+        },
+        "ex0_location": {
+            "value": "canadaeast"
+        },
+        "ex0_fileUris": {
+            "value": "https://raw.githubusercontent.com/EricCote/EricCote.github.io/master/AzureVm/deploy3.ps1"
+        }
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "fr-CA Language Pack",
+    "description": "Downloads and installs the French-Canada LanguagePack. Allows the UI to display in French-Canada. You will need to set the UI manually, or execute the French-Canadidian Artifact.",
+    "tags": [
+        "Français",
+        "Francais",
+        "French",
+        "Language Pack"
+    ],
+    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Add-FrCaLanguagePack.ps1"
+    }
+}

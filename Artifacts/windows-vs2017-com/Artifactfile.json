@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Visual Studio 2017 Community",
+    "description": "Installs Visual Studio 2017 Community. 30 day trial. You can switch from trial to licensed at any moment using your VS account.",
+    "tags": [
+        "Windows",
+        "Visual Studio",
+        "VS"
+    ],
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-vs2017-com/vs2017.png",
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File vs2017com.ps1"
+    }
+}
