@@ -2,6 +2,7 @@
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
     "title": "Visual Studio 2017 Professional",
     "description": "Installs Visual Studio 2017 Professional. If no key is provided, provides a 30 day trial. You can switch from trial to licensed at any time using your product key or your VS account.",
+    "publisher": "Eric Côté",
     "tags": [
         "Windows",
         "Visual Studio"
