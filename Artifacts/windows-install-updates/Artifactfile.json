@@ -1,7 +1,7 @@
 {
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
     "title": "Windows Updates",
-    "description": "Download and installs Windows Updates",
+    "description": "Download and installs Windows Updates. You need to restart Windows to complete the installation.",
     "publisher": "Eric Côté",
     "tags": [
         "Windows Updates",

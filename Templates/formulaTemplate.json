@@ -2,18 +2,24 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "formulaName": {
+            "type": "string"
+        },
         "existingLabName": {
-            "type": "String"
+            "type": "string"
+        },
+        "description" : {
+            "type": "string"
+        },
+        "customImage" : {
+            "type": "string"
+        },
+        "userName": {
+            "type": "string"
         },
         "password": {
-            "type": "String",
-            defaultValue: "[[vmpwd]]"
-        },
-        "formulaName": {
-            "defaultValue": "win10formula",
-            "type": "String"
+            "type": "securestring"
         }
-   
     },
     "variables": {
     
@@ -23,26 +29,25 @@
     
     },
     "resources": [
-  
         {
-            "type": "microsoft.devtestlab/labs/formulas",
+            "type": "Microsoft.DevTestLab/labs/formulas",
             "name": "[concat(parameters('existingLabName'), '/', parameters('formulaName'))]",
             "apiVersion": "2016-05-15",
             "properties": {
-                "description": "Formula for Windows VM.",
-                "author": "ecote@dotnet-expertise.com",
+                "description": "[parameters('description')]",
+                "author": "Eric Cote",
                 "osType": "Windows",
                 "formulaContent": {
                     "properties": {
                         "size": "Standard_DS2_v2",
-                        "userName": "afi",
+                        "userName": "[parameters('userName')]",
                         "password": "[parameters('password')]",
                         "labsubnetname": "[variables('labSubnetName')]",
                         "labvirtualnetworkid": "[variables('labVirtualNetworkId')]",
                         "disallowPublicIpAddress": false,
-                        "provisioningState": "Succeeded",
+                        "customImageId": "[concat('/customimages/', parameters('customImage'))]",
                         "artifacts": [
-                            {
+                          /*  {
                                 "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
                                 "parameters": []
                             },
@@ -53,19 +58,9 @@
                                 {
                                 "artifactId": "/artifactsources/privaterepo1/artifacts/windows-office2016-pro-plus",
                                 "parameters": []
-                            },
-                                {
-                                "artifactId": "/artifactsources/privaterepo1/artifacts/windows-vs2017",
-                                "parameters": []
-                            }
-                        ],
-                        "galleryImageReference": {
-                            "offer": "Windows",
-                            "publisher": "MicrosoftVisualStudio",
-                            "sku": "Windows-10-N-x64",
-                            "osType": "Windows",
-                            "version": "latest"
-                        }
+                            }  */
+                        ]
+                        
                     }
                 }
             },

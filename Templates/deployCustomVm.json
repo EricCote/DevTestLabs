@@ -8,10 +8,10 @@
     "labName": {
       "type": "string"
     },
-    "existingCustomImageId": {
+    "customImage": {
       "type": "string",
       "metadata": {
-        "description": "The id of an existing custom image which will be used to create the new vm. The specified image must exist in the lab (identified via the 'existingLabName' parameter)."
+        "description": "The name of an existing custom image which will be used to create the new vm. The specified image must exist in the lab (identified via the 'existingLabName' parameter)."
       }
     },
     "numberOfInstances": {
@@ -19,7 +19,7 @@
       "minValue": 1,
       "defaultValue": 2,
       "metadata": {
-        "description": "Number of VM instances to be created behind load balancer."
+        "description": "Number of VM instances to be created."
       }
     },
     "size": {
@@ -27,12 +27,13 @@
       "defaultValue": "Standard_DS2_v2"
     },
     "userName": {
-      "type": "string",
-      "defaultValue": "afi"
+      "type": "string"
     },
     "password": {
-      "type": "securestring",
-      "defaultValue": "[[[pwd]]"
+      "type": "securestring"
+    },
+    "expirationDate": {
+      "type": "string"
     }
   },
   "variables": {
@@ -46,7 +47,7 @@
     {
       "apiVersion": "2016-05-15",
       "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "name": "[concat(variables('vmName'),copyindex())]",
+      "name": "[concat(variables('vmName'),padLeft(copyIndex(), 2, '0'))]",
       "location": "[resourceGroup().location]",
       "tags": {
 
@@ -60,7 +61,7 @@
       "properties": {
         "labVirtualNetworkId": "[variables('labVirtualNetworkId')]",
         "notes": "Windows 10 Enterprise N",
-        "customImageId": "[parameters('existingCustomImageId')]",
+        "customImageId":  "[resourceId('Microsoft.DevTestLab/labs/customimages', parameters('labName'), parameters('customImage'))]",
         "size": "[parameters('size')]",
         "userName": "[parameters('userName')]",
         "password": "[parameters('password')]",
@@ -73,7 +74,8 @@
         "labSubnetName": "[variables('labSubnetName')]",
         "disallowPublicIpAddress": false,
         "storageType": "Standard",
-        "allowClaim": true
+        "allowClaim": true,
+        "expirationDate": "[parameters('expirationDate')]"
       }
     }
   ],

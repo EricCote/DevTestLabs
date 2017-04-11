@@ -7,7 +7,37 @@
       "metadata": {
         "description": "The name of the new lab instance to be created"
       }
-    }
+    },
+    "timeZone":  {
+      "type": "string",
+      "defaultValue": "Eastern Standard Time",
+      "metadata": {
+        "description": "The name of the time zone"
+      }
+    },
+    "reclamationTime": {
+      "type": "string",
+      "defaultValue": "1800",
+      "metadata": {
+        "description": "The time when a machine will be reclaimed to unclaimed status"
+      }
+    },
+    "shutdownTime": {
+      "type": "string",
+      "defaultValue": "1715",
+      "metadata": {
+        "description": "The time when a machine will be shutdown"
+      }
+    },
+    "startupTime": {
+      "type": "string",
+      "defaultValue": "0745",
+      "metadata": {
+        "description": "The time when a machine will be started up"
+      }
+    
+    },
+    
   },
   "variables": {
     "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]"
@@ -56,9 +86,9 @@
                 "status": "Enabled",
                 "taskType": "LabVmsShutdownTask",
                 "dailyRecurrence": {
-                    "time": "1730"
+                    "time": "[parameters('shutdownTime')]"
                 },
-                "timeZoneId": "Eastern Standard Time"
+                "timeZoneId": "[parameters('timeZone')]"
             },
             "dependsOn": [
                 "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
@@ -72,9 +102,9 @@
                 "status": "Enabled",
                 "taskType": "LabVmReclamationTask",
                 "dailyRecurrence": {
-                    "time": "1800"
+                    "time": "[parameters('reclamationTime')]"
                 },
-                "timeZoneId": "Eastern Standard Time"
+                "timeZoneId": "[parameters('timeZone')]"
             },
             "dependsOn": [
                 "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
@@ -95,9 +125,9 @@
                         "Thursday",
                         "Friday"
                     ],
-                    "time": "0745"
+                    "time": "[parameters('startupTime')]"
                 },
-                "timeZoneId": "Eastern Standard Time"
+                "timeZoneId": "[parameters('timeZone')]"
             },
             "dependsOn": [
                 "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
