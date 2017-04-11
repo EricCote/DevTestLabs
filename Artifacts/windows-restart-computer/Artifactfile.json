@@ -10,6 +10,9 @@
     "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "powershell -ExecutionPolicy bypass -file restart.ps1"
-    }
+        "commandToExecute": "ver >nul"
+    },
+   "postDeployActions": [
+       {"action": "restart"}
+    ]
 }
