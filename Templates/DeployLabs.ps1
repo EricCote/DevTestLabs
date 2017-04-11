@@ -76,7 +76,7 @@ $SecurePassword = $MyPwd | ConvertTo-SecureString -AsPlainText -Force
 $createVMTemplate=     "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/ARMTemplates/101-dtl-create-vm-username-pwd-galleryimage/azuredeploy.json"
 $createFormulaTemplate="https://raw.githubusercontent.com/Azure/azure-devtestlab/master/ARMTemplates/201-dtl-create-formula/azuredeploy.json"
 $createImageFromVHD=   "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/ARMTemplates/201-dtl-create-customimage-from-vhd/azuredeploy.json"  
-
+ 
 
 $createLab=          "C:\code\DevTestLabs\templates\createLab.json"
 $addPrivateRepo=     "C:\code\DevTestLabs\templates\addPrivateRepo.json"
