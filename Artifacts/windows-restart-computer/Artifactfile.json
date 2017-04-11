@@ -12,7 +12,10 @@
     "runCommand": {
         "commandToExecute": "ver >nul"
     },
-   "postDeployActions": [
-       {"action": "restart"}
+   "postDeployActions": [ 
+       {
+            "delayStart": 5,
+            "action": "restart"
+        }
     ]
 }
