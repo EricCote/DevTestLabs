@@ -10,6 +10,6 @@
     "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "shutdown -r -t0 && timeout 4"
+        "commandToExecute": "shutdown -r -t 0 && ping 127.0.0.1 -n 50 > nul"
     }
 }
