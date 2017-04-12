@@ -7,9 +7,7 @@
 ###########################
 # start of script
 
-
 Set-ExecutionPolicy -ExecutionPolicy bypass -Scope Process
-
 
 $myPwd=$env:AzureVmPwd;
 if ($myPwd -eq $null)
@@ -209,7 +207,9 @@ $creationElapsed=$creationTime.Subtract($formulaTime)
 #                                 -Time "8:00 AM-5:00" -Days Monday, Tuesday, wednesday, Thursday, Friday
 
 #on saute
+
 <#
+
 New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
                                    -ResourceGroupName $groupName `
                                    -TemplateUri $createVMTemplate `
