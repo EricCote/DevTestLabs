@@ -99,13 +99,13 @@ $startTime=get-Date;
 New-AzureRmResourceGroup -Name $groupName -Location $location
 
 #On créé un Lab
-New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
+New-AzureRmResourceGroupDeployment -name "CreateLab" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $createLab `
                                    -newLabName $LabName 
                                
 #On ajoute un private repo
-New-AzureRmResourceGroupDeployment -name "CoursWebApi96" `
+New-AzureRmResourceGroupDeployment -name "CreatePrivateRepo" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $addPrivateRepo `
                                    -existingLabName $LabName `
@@ -116,7 +116,7 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi96" `
 
 
 #On instancie une VM "gold"                                
-New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
+New-AzureRmResourceGroupDeployment -name "CreateGoldVm" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $deployMasterVm `
                                    -newVMName $goldVmName `
@@ -134,7 +134,7 @@ $masterVm = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs/virtua
                                  -ResourceNameContains $goldVmName | select-object -First 1
 
 #On crée une image custom "gold"                                
-New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
+New-AzureRmResourceGroupDeployment -name "Create Gold Image" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $addMasterImage `
                                    -imageName $imageName `
@@ -152,7 +152,7 @@ $imageElapsed=$imageTime.Subtract($goldTime)
 "####Temps de création de l'image: " + $imageElapsed.TotalMinutes  + " minutes."
 
 #On créé une formule 
-New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
+New-AzureRmResourceGroupDeployment -name "CreateFormula" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $createFormula `
                                    -formulaName "Vs2017Formula" `
@@ -172,7 +172,7 @@ $expires = New-Object -TypeName "DateTime" ($seven.Year, $seven.Month, $seven.Da
 
 
 #on créé quelques machines
-New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
+New-AzureRmResourceGroupDeployment -name "CreateMachines" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $deployCustomVm `
                                    -newVMName $vmPrefix `
