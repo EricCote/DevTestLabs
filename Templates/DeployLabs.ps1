@@ -1,13 +1,14 @@
-﻿#Get-Module -ListAvailable Azure*
-#Install-Module AzureRM -AllowClobber
-#Import-Module azurerm
-#$PSVersionTable.PSVersion
-#Import-Module AzureRM
- 
+﻿#preReq for Azure modules
+
+#Install-PackageProvider -Name NuGet -force
+#Install-Module AzureRM -AllowClobber -force
+
+#Get-Module -ListAvailable Azure*
+
 ###########################
 # start of script
 
-Set-ExecutionPolicy -ExecutionPolicy bypass -Scope Process
+Set-ExecutionPolicy -ExecutionPolicy bypass -Scope Process -force
 
 $myPwd=$env:AzureVmPwd;
 if ($myPwd -eq $null)
@@ -55,9 +56,6 @@ Login-AzureRmAccount
 # Login-AzureRmAccount -TenantId xxxx
 
 
-# To view all subscriptions for your account
-Get-AzureRmSubscription
-
 # To select a default subscription for your current session.
 # This is useful when you have multiple subscriptions.
 Get-AzureRmSubscription -SubscriptionName "Msdn2 sub" | Select-AzureRmSubscription
@@ -68,8 +66,6 @@ Get-AzureRmSubscription -SubscriptionName "Msdn2 sub" | Select-AzureRmSubscripti
 
 #Get-AzureRmStorageAccount | Get-AzureStorageContainer | Get-AzureStorageBlob
 
-$vmUsername="afi"
-$SecurePassword = $MyPwd | ConvertTo-SecureString -AsPlainText -Force
 
 $createVMTemplate=     "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/ARMTemplates/101-dtl-create-vm-username-pwd-galleryimage/azuredeploy.json"
 $createFormulaTemplate="https://raw.githubusercontent.com/Azure/azure-devtestlab/master/ARMTemplates/201-dtl-create-formula/azuredeploy.json"
@@ -84,12 +80,15 @@ $deployMasterVm=     "C:\code\DevTestLabs\templates\deployMasterVm.json"
 $deployVm=           "C:\code\DevTestLabs\templates\deployvm.json"
 $deployCustomVm=     "C:\code\DevTestLabs\templates\deployCustomVm.json"
 
-$groupName="CoursVs2017"
 $location="Canada East"
-$labName="Vs2017"
-$goldVmName="VS2017-Master"
-$imageName= "Vs2017-Image"
-$vmPrefix="afivs"
+$groupName="CoursVs2019"
+$labName="Vs2019"
+$goldVmName="Vs2019-Master"
+$imageName= "Vs2019-Image"
+$vmPrefix="afivs-"
+$vmUsername="afi"
+$SecurePassword = $MyPwd | ConvertTo-SecureString -AsPlainText -Force
+
 
 #début du travail!
 $startTime=get-Date;
@@ -142,7 +141,12 @@ New-AzureRmResourceGroupDeployment -name "CreateGoldImage" `
                                    -imageDescription "C'est une image de Windows 10 avec Visual Studio 2017 Enterprise"
 
 #On delete la VM gold
-Remove-AzureRmResource -ResourceId $masterVm.ResourceId -Force
+$jobId = Start-Job -ScriptBlock {
+  Remove-AzureRmResource -ResourceId $masterVm.ResourceId -Force
+}
+
+
+
 
 $imageTime = get-Date
 $imageElapsed=$imageTime.Subtract($goldTime)
