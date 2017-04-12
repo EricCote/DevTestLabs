@@ -94,10 +94,10 @@
           },
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-restart-computer')]"
-          }, 
+          }/*, 
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'public repo', 'windows-sysprep')]"
-          }
+          }*/
         ],
         "labSubnetName": "[variables('labSubnetName')]",
         "disallowPublicIpAddress": false,

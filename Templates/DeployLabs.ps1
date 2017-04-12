@@ -93,14 +93,10 @@ $goldVmName="VS2017-Master"
 $imageName= "Vs2017-Image"
 $vmPrefix="afivs"
 
+#début du travail!
+$startTime=get-Date;
 
 New-AzureRmResourceGroup -Name $groupName -Location $location
-
-#On installe un lab vierge
-#New-AzureRmResourceGroupDeployment -name "CoursWebApi12345" `
-#                                   -ResourceGroupName $groupName `
-#                                   -TemplateFile $CreateLabTemplate `
-#                                   -newLabName $labName
 
 #On créé un Lab
 New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
@@ -108,7 +104,6 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
                                    -TemplateFile $createLab `
                                    -newLabName $LabName 
                                
-
 #On ajoute un private repo
 New-AzureRmResourceGroupDeployment -name "CoursWebApi96" `
                                    -ResourceGroupName $groupName `
@@ -118,7 +113,6 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi96" `
                                    -displayName "Private Repo 1" `
                                    -uri "https://github.com/EricCote/DevTestLabs.git" `
                                    -securityToken $gitHubToken
-
 
 
 #On instancie une VM "gold"                                
@@ -131,9 +125,13 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
                                    -userName $vmUsername `
                                    -vskey $VsEntKey
 
+$goldTime = get-Date
+$goldElapsed=$goldTime.Subtract($startTime)
+
+"####Temps de création du Gold: " + $goldElapsed.TotalMinutes  + " minutes."
+
 $masterVm = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs/virtualMachines' `
                                  -ResourceNameContains $goldVmName | select-object -First 1
-
 
 #On crée une image custom "gold"                                
 New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
@@ -148,6 +146,10 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
 #On delete la VM gold
 Remove-AzureRmResource -ResourceId $masterVm.ResourceId -Force
 
+$imageTime = get-Date
+$imageElapsed=$imageTime.Subtract($goldTime)
+
+"####Temps de création de l'image: " + $imageElapsed.TotalMinutes  + " minutes."
 
 #On créé une formule 
 New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
@@ -160,6 +162,11 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
                                    -userName $vmUsername `
                                    -password $SecurePassword
 
+$formulaTime = get-Date
+$formulaElapsed=$formulaTime.Subtract($imageTime)
+
+"####Temps de création de la formule: " + $formulaElapsed.TotalMinutes  + " minutes."
+
 $seven = [Datetime]::Now.AddDays(7)
 $expires = New-Object -TypeName "DateTime" ($seven.Year, $seven.Month, $seven.Day, 18,15,00)
 
@@ -171,12 +178,21 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
                                    -newVMName $vmPrefix `
                                    -customImage $imageName `
                                    -labName  $labName   `
-                                   -numberOfInstances 4 `
+                                   -numberOfInstances 2 `
                                    -userName $vmUsername `
                                    -password $SecurePassword `
                                    -expirationDate $expires.ToString("yyyy-MM-ddTHH:mm:ss-05:00")
 
 
+$creationTime = get-Date
+$creationElapsed=$creationTime.Subtract($formulaTime)
+"####Temps de création des vm: " + $creationElapsed.TotalMinutes  + " minutes."
+
+#On installe un lab vierge
+#New-AzureRmResourceGroupDeployment -name "CoursWebApi12345" `
+#                                   -ResourceGroupName $groupName `
+#                                   -TemplateFile $CreateLabTemplate `
+#                                   -newLabName $labName
 
 
 #Règle de shutdown
@@ -193,6 +209,7 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
 #                                 -Time "8:00 AM-5:00" -Days Monday, Tuesday, wednesday, Thursday, Friday
 
 #on saute
+<#
 New-AzureRmResourceGroupDeployment -name "CoursWebApi97" `
                                    -ResourceGroupName $groupName `
                                    -TemplateUri $createVMTemplate `
@@ -216,7 +233,6 @@ New-AzureRmResourceGroupDeployment -name "CoursWebApi99" `
                                    -TemplateFile $createFormula `
                                    -formulaName "win18Formula" `
                                    -existingLabName $labName 
-
 
 
 
@@ -409,3 +425,4 @@ if($copyStatus.Status -eq "Success")
   Write-Host "$vhdFileName successfully copied to Lab $labName"
 }
 
+#>
