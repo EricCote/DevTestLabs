@@ -30,7 +30,7 @@ if (-NOT $isserver)
     {
         if ($BuildVersion -le 15063) #creator's edition (1703) 
         {
-            $url="https://download.microsoft.com/download/1/3/F/XXXXXX/KB33333333-x64.msu"
+            $url="http://download.microsoft.com/download/9/E/C/9EC0EC2C-8151-468A-95A3-2F2AD6A2AC13/Microsoft-Windows-MediaFeaturePack-OOB-Package.msu"
         }    
              
         if ($BuildVersion -le 14393) #anniversary edition  (1607)

@@ -7,13 +7,13 @@
 
 
 #   $fileSource = "https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=ProPlusRetail&platform=X86&language=en-us&TaxRegion=pr&version=O16GA&source=O15HUP&Br=1"
-#   $fileDest= ($dl + "office.exe")
+#   $fileDest= ($tempFolder + "office.exe")
 
-$dl= ${env:Temp};
+$tempFolder= ${env:Temp};
 
-$OdtFolder = $dl;
+$OdtFolder = $tempFolder;
 $OdtSource = "https://download.microsoft.com/download/2/7/A/27AF1BE6-DD20-4CB4-B154-EBAB8A7D4A7E/officedeploymenttool_8008-3601.exe";
-$fileDest= ($dl + "OdtOffice.exe");
+$fileDest= ($tempFolder + "OdtOffice.exe");
 
 $wc = new-object System.Net.WebClient ;
 $wc.DownloadFile($OdtSource, $fileDest) ; 
@@ -40,7 +40,7 @@ $xml= @"
 & $fileDest  /extract:"$OdtFolder" /quiet | out-null ; 
 
 $conf=(Join-Path $OdtFolder "configuration.xml") ;
-sc $conf $xml ;
+Set-Content $conf $xml ;
 
 "Installing Office 2016.  Might take a while."
 & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-null ;

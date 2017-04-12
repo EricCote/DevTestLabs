@@ -134,7 +134,7 @@ $masterVm = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs/virtua
                                  -ResourceNameContains $goldVmName | select-object -First 1
 
 #On crée une image custom "gold"                                
-New-AzureRmResourceGroupDeployment -name "Create Gold Image" `
+New-AzureRmResourceGroupDeployment -name "CreateGoldImage" `
                                    -ResourceGroupName $groupName `
                                    -TemplateFile $addMasterImage `
                                    -imageName $imageName `

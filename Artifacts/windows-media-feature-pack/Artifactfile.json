@@ -16,5 +16,9 @@
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File InstallMedia.ps1"
-  }
+  },
+  "postDeployActions": [
+    {"delayStart": 10,
+     "action": "restart" }
+  ]
 }
