@@ -69,17 +69,17 @@ Get-AzureRmSubscription -SubscriptionName "Msdn2 sub" | Select-AzureRmSubscripti
 
 $createLab=          "C:\code\DevTestLabs\templates\createLab.json"
 $addPrivateRepo=     "C:\code\DevTestLabs\templates\addPrivateRepo.json"
-$addMasterImage=     "C:\code\DevTestLabs\templates\addMasterImage.json"
-$createFormula=      "C:\code\DevTestLabs\templates\FormulaTemplate.json"
+$createMasterImage=  "C:\code\DevTestLabs\templates\CreateMasterImage.json"
+$addFormula=         "C:\code\DevTestLabs\templates\AddFormula.json"
 $deployMasterVm=     "C:\code\DevTestLabs\templates\deployMasterVm.json"
 $deployVm=           "C:\code\DevTestLabs\templates\deployvm.json"
 $deployCustomVm=     "C:\code\DevTestLabs\templates\deployCustomVm.json"
 
 $location=        "Canada East"
-$groupName=       "CoursVs2017"
-$labName=         "Vs2017"
-$goldVmName=      "Vs2017-Master"
-$imageName=       "Vs2017-Image"
+$groupName=       "CoursVs2018"
+$labName=         "Vs2018"
+$goldVmName=      "Vs2018-Master"
+$imageName=       "Vs2018-Image"
 $vmPrefix=        "afivs-"
 $vmUsername=      "afi"
 $SecurePassword = $MyPwd | ConvertTo-SecureString -AsPlainText -Force
@@ -116,11 +116,22 @@ New-AzureRmResourceGroupDeployment -name "CreateGoldVm" `
                                    -password $SecurePassword `
                                    -userName $vmUsername `
                                    -vskey $VsEntKey
+                                 
 
 $goldTime = get-Date
 $goldElapsed=$goldTime.Subtract($startTime)
 
 "#### Gold Time:  $($goldElapsed.TotalMinutes) minutes."
+
+#check that the machine is deallocated. If it isn't the case, something wrong happened.
+$vmToCheck = Find-AzureRmResource -ResourceType 'Microsoft.Compute/virtualMachines' -ResourceNameEquals  $goldVmName | select-object -first 1
+$vmStatus = Get-AzureRmVm   -Name $vmToCheck.ResourceName   -ResourceGroupName $vmToCheck.ResourceGroupName -Status -WarningAction SilentlyContinue
+if ($vmStatus.Statuses[1].Code -ne 'PowerState/deallocated' )
+{
+  "The artifacts have NOT finished with a sysprep that deallocated the machine. Let's interrupt this script";
+  return ;
+}
+
 
 $masterVm = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs/virtualMachines' `
                                  -ResourceNameContains $goldVmName | select-object -First 1
@@ -128,7 +139,7 @@ $masterVm = Find-AzureRmResource -ResourceType 'Microsoft.DevTestLab/labs/virtua
 #On crée une image custom "gold"                                
 New-AzureRmResourceGroupDeployment -name "CreateGoldImage" `
                                    -ResourceGroupName $groupName `
-                                   -TemplateFile $addMasterImage `
+                                   -TemplateFile $createMasterImage `
                                    -imageName $imageName `
                                    -existingLabName $labName `
                                    -existingVMResourceId $masterVm.ResourceId `
@@ -137,11 +148,11 @@ New-AzureRmResourceGroupDeployment -name "CreateGoldImage" `
 
 #On delete la VM gold
 $contextPath = "$env:temp\context.json"
-Save-AzureRmContext -Path $contextPath -force
+Save-AzureRmContext -Path $contextPath -force -WarningAction SilentlyContinue
 
 $jobId = Start-Job -ScriptBlock {
   Param($contextPath, $masterVm)
-  Import-AzureRmContext -Path $contextPath
+  Import-AzureRmContext -Path $contextPath -WarningAction SilentlyContinue
   Remove-AzureRmResource -ResourceId $masterVm.ResourceId -Force
 } -ArgumentList $contextPath, $masterVm 
 
@@ -154,9 +165,9 @@ $imageElapsed=$imageTime.Subtract($goldTime)
 "#### Image Creation Time: $($imageElapsed.TotalMinutes) minutes."
 
 #On créé une formule 
-New-AzureRmResourceGroupDeployment -name "CreateFormula" `
+New-AzureRmResourceGroupDeployment -name "addFormula" `
                                    -ResourceGroupName $groupName `
-                                   -TemplateFile $createFormula `
+                                   -TemplateFile $addFormula `
                                    -formulaName "Vs2017Formula" `
                                    -existingLabName $labName `
                                    -description "Créer des VM avec Windows 10 et Visual Studio 2017..." `

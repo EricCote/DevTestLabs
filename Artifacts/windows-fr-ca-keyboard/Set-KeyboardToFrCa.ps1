@@ -39,8 +39,11 @@ if ($OsVersion -eq 10)
 #Order the list accordingly 
 $frFirst = "hex(7):66,00,72,00,2d,00,43,00,41,00,00,00,65,00,6e,00,2d,00,55,00,53,00,00,00"
 $enFirst = "hex(7):65,00,6e,00,2d,00,55,00,53,00,00,00,66,00,72,00,2d,00,43,00,41,00,00,00"
+$enbrowser= "en-US,en;q=0.8,fr-CA;q=0.5,fr;q=0.3"
+$frbrowser= "fr-CA,fr;q=0.8,en-CA;q=0.5,en;q=0.3"
 
 $langlist=$(if ($lang -eq "fr-CA") {$frFirst} else {$enFirst})
+$browserlist=$(if ($lang -eq "fr-CA") {$frbrowser} else {$enbrowser})
 
 #create a .ini registry string
 $regini = @"
@@ -100,7 +103,6 @@ Windows Registry Editor Version 5.00
 "ShowShiftLock"=dword:00000001
 "InputMethodOverride"="0c0c:00001009"
 
-
 [-HKEY_CURRENT_USER\Control Panel\International\User Profile\en-US]
 
 [HKEY_CURRENT_USER\Control Panel\International\User Profile\en-US]
@@ -139,7 +141,8 @@ Windows Registry Editor Version 5.00
 "Hotkey"="3"
 "Layout Hotkey"="3"
 
-
+[HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\International]
+"AcceptLanguage"="$browserlist"
 
 ;[HKEY_CURRENT_USER\Control Panel\Desktop]
 ;"PreferredUILanguages"=$langlist
