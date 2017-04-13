@@ -1,5 +1,5 @@
-$groupName="CoursVs2019"
-$labName="Vs2019"
+$groupName="CoursVs2017"
+$labName="Vs2017"
 $path = "$env:temp\context.json"
 
 Login-AzureRmAccount
@@ -27,3 +27,6 @@ $myjob = Start-Job -ScriptBlock $deleteBlock -ArgumentList $path, $lab, $groupNa
 $myjob.State
 
 
+$firstjob=$myjob
+$myjob.State
+$firstjob.State
