@@ -27,6 +27,7 @@ try
         --add Microsoft.NetCore.ComponentGroup.DevelopmentTools `
         --add Microsoft.Net.Core.Component.SDK `
         --add Microsoft.VisualStudio.Component.PowerShell.Tools `
+        --add Microsoft.VisualStudio.Component.VC.CoreIde `
         --includeRecommended --passive | Out-Null;
 }
 catch
