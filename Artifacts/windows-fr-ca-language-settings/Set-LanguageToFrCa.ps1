@@ -1,4 +1,4 @@
-
+ï»¿
 $tempFolder= ${env:Temp};
 
 
@@ -132,12 +132,12 @@ Windows Registry Editor Version 5.00
 "sLongDate"="d MMMM yyyy"
 "sMonDecimalSep"=","
 "sMonGrouping"="3;0"
-"sMonThousandSep"=" "
+"sMonThousandSep"="Â "
 "sNativeDigits"="0123456789"
 "sNegativeSign"="-"
 "sPositiveSign"=""
 "sShortDate"="yyyy-MM-dd"
-"sThousand"=" "
+"sThousand"="Â "
 "sTime"=":"
 "sTimeFormat"="HH:mm:ss"
 "sShortTime"="HH:mm"
@@ -231,7 +231,7 @@ function  ModifyRegistry($Regini, $profileName)
 
     #save it in a temp file and import it using reg.exe
     $confPath= Join-Path $tempFolder "lang.reg"
-    sc $confPath $regSys 
+    sc $confPath $regSys -Encoding Unicode 
     $params = "/c reg.exe IMPORT `"$confPath`" /reg:64 2> null:"
     &cmd $params
 }
