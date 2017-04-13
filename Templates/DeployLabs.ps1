@@ -80,15 +80,14 @@ $deployMasterVm=     "C:\code\DevTestLabs\templates\deployMasterVm.json"
 $deployVm=           "C:\code\DevTestLabs\templates\deployvm.json"
 $deployCustomVm=     "C:\code\DevTestLabs\templates\deployCustomVm.json"
 
-$location="Canada East"
-$groupName="CoursVs2019"
-$labName="Vs2019"
-$goldVmName="Vs2019-Master"
-$imageName= "Vs2019-Image"
-$vmPrefix="afivs-"
-$vmUsername="afi"
+$location=        "Canada East"
+$groupName=       "CoursVs2018"
+$labName=         "Vs2018"
+$goldVmName=      "Vs2018-Master"
+$imageName=       "Vs2018-Image"
+$vmPrefix=        "afivs-"
+$vmUsername=      "afi"
 $SecurePassword = $MyPwd | ConvertTo-SecureString -AsPlainText -Force
-
 
 #début du travail!
 $startTime=get-Date;
@@ -141,12 +140,17 @@ New-AzureRmResourceGroupDeployment -name "CreateGoldImage" `
                                    -imageDescription "C'est une image de Windows 10 avec Visual Studio 2017 Enterprise"
 
 #On delete la VM gold
+$contextPath = "$env:temp\context.json"
+Save-AzureRmContext -Path $contextPath -force
+
 $jobId = Start-Job -ScriptBlock {
+  Param($contextPath, $masterVm)
+  Import-AzureRmContext -Path $contextPath
   Remove-AzureRmResource -ResourceId $masterVm.ResourceId -Force
-}
+} -ArgumentList $contextPath, $masterVm 
 
-
-
+#$jobId.state
+#receive-job $jobId
 
 $imageTime = get-Date
 $imageElapsed=$imageTime.Subtract($goldTime)
