@@ -7,11 +7,9 @@ DesktopShortcut=false
 
 $prefs = @'
 //comment
-//defaultPref("browser.shell.checkDefaultBrowser", false); 
 pref("browser.shell.checkDefaultBrowser", false); 
-//lockPref("browser.shell.checkDefaultBrowser", false); 
 //defaultPref("startup.homepage_welcome_url", "");
-pref("browser.startup.homepage_override.mstone","52.0.2");
+pref("browser.startup.homepage_override.mstone","");
 pref("browser.usedOnWindows10",true);
 pref("browser.disableResetPrompt", true);  //To remove the prompt of: "previous install detected, click here to refresh and remove addon from your profile"
 //defaultPref("browser.tabs.remote.force-enable", true);
