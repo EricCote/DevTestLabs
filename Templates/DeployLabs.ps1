@@ -76,11 +76,11 @@ $deployVm=           "C:\code\DevTestLabs\templates\deployvm.json"
 $deployCustomVm=     "C:\code\DevTestLabs\templates\deployCustomVm.json"
 
 $location=        "Canada East"
-$groupName=       "CoursVs2018"
-$labName=         "Vs2018"
-$goldVmName=      "Vs2018-Master"
-$imageName=       "Vs2018-Image"
-$vmPrefix=        "afivs-"
+$groupName=       "CoursVs2017"
+$labName=         "Vs2017"
+$goldVmName=      "Vs2017-Master"
+$imageName=       "Vs2017-Image"
+$vmPrefix=        "afivs"
 $vmUsername=      "afi"
 $SecurePassword = $MyPwd | ConvertTo-SecureString -AsPlainText -Force
 
