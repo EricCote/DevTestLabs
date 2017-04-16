@@ -45,3 +45,37 @@ Set-Content $conf $xml ;
 "Installing Office 2016.  Might take a while."
 & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-null ;
 
+
+$sys32="$env:windir\system32"
+$lic16="${env:ProgramFiles(x86)}\Microsoft Office\root\Licenses16"
+$off16="${env:ProgramFiles(x86)}\Microsoft Office\Office16"
+
+#& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusDemoR_BypassTrial180-pl.xrm-ms"
+#& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusDemoR_BypassTrial180-ppd.xrm-ms"
+#& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusDemoR_BypassTrial180-ul-oob.xrm-ms"
+
+
+#Make it an Office VL Licence so we'll then have a 25 day grace period.
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusVL_KMS_Client-ppd.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusVL_KMS_Client-ul.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusVL_KMS_Client-ul-oob.xrm-ms"
+
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProjectProVL_KMS_Client-ppd.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProjectProVL_KMS_Client-ul-oob.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProjectProVL_KMS_Client-ul.xrm-ms"
+
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\VisioProVL_KMS_Client-ppd.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\VisioProVL_KMS_Client-ul-oob.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\VisioProVL_KMS_Client-ul.xrm-ms"
+
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\client-issuance-bridge-office.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\client-issuance-root.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\client-issuance-root-bridge-test.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\client-issuance-stil.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\client-issuance-ul.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\client-issuance-ul-oob.xrm-ms"
+& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\pkeyconfig-office.xrm-ms"
+
+#kms generic key from Microsoft
+#from this page: https://technet.microsoft.com/en-us/library/dn385360(v=office.16).aspx
+& cscript //nologo "$off16\ospp.vbs" /inpkey:XQNVK-8JYDB-WJ9W3-YJ8YR-WFG99  
