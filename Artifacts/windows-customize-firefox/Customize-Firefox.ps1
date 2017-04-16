@@ -9,7 +9,7 @@ $prefs = @'
 //comment
 pref("browser.shell.checkDefaultBrowser", false); 
 //defaultPref("startup.homepage_welcome_url", "");
-pref("browser.startup.homepage_override.mstone","");
+pref("browser.startup.homepage_override.mstone", "ignore");
 pref("browser.usedOnWindows10",true);
 pref("browser.disableResetPrompt", true);  //To remove the prompt of: "previous install detected, click here to refresh and remove addon from your profile"
 //defaultPref("browser.tabs.remote.force-enable", true);
