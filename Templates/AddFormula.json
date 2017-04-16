@@ -47,6 +47,9 @@
                         "disallowPublicIpAddress": false,
                         "customImageId": "[concat('/customimages/', parameters('customImage'))]",
                         "artifacts": [
+                           {
+                               "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-eastern-time')]"
+                           }
                           /*  {
                                 "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
                                 "parameters": []
@@ -55,7 +58,7 @@
                                 "artifactId": "/artifactsources/public repo/artifacts/windows-enable-local-admins",
                                 "parameters": []
                             },
-                                {
+                            {
                                 "artifactId": "/artifactsources/privaterepo1/artifacts/windows-office2016-pro-plus",
                                 "parameters": []
                             }  */
