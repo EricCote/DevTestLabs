@@ -71,7 +71,10 @@ if(!(Test-Path "$env:ALLUSERSPROFILE\Microsoft\Windows\Start Menu\Programs\Inter
   $ShortCut.Description = "Finds and displays information and Web sites on the Internet.";
   $ShortCut.Save()
 }
+
 set-content "C:\users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" $xml -encoding utf8
 
+
+Remove-Item "$env:PUBLIC\desktop\*.*"
 
 
