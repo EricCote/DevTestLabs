@@ -6,17 +6,18 @@ DesktopShortcut=false
 '@
 
 $prefs = @'
-//comment
-pref("browser.shell.checkDefaultBrowser", false); 
-//defaultPref("startup.homepage_welcome_url", "");
-pref("browser.startup.homepage_override.mstone", "ignore");
-pref("browser.usedOnWindows10",true);
+//comment because firefox disregards the first line of this file 
+pref("browser.shell.checkDefaultBrowser", false);   //removes the popup "make firefox your default browser"
+//defaultPref("startup.homepage_welcome_url", "");  //not sure what this does
+pref("browser.startup.homepage_override.mstone", "ignore");  //removes the prompt of configuring a firefox account to sync
+pref("browser.aboutHomeSnippets.updateUrl", "")    //removes the ads at the bottom of start page
+pref("browser.usedOnWindows10",true);      //Removes the windows 10 tutorial
 pref("browser.disableResetPrompt", true);  //To remove the prompt of: "previous install detected, click here to refresh and remove addon from your profile"
-//defaultPref("browser.tabs.remote.force-enable", true);
+//defaultPref("browser.tabs.remote.force-enable", true);  //to force usage of Electrolysis (e10s) 
 
 defaultPref("browser.startup.homepage", "data:text/plain,browser.startup.homepage=http://www.afiexpertise.com/fr/");
-//defaultPref("general.useragent.locale", "fr");
-defaultPref("intl.locale.matchOS", true);
+//defaultPref("general.useragent.locale", "fr");  //forces the language of the browser
+defaultPref("intl.locale.matchOS", true);         //syncs the browser language with the OS language
 defaultPref("toolkit.telemetry.prompted", 2);
 defaultPref("toolkit.telemetry.rejected", true);
 defaultPref("toolkit.telemetry.enabled", false);
