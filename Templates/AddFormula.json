@@ -48,7 +48,8 @@
                         "customImageId": "[concat('/customimages/', parameters('customImage'))]",
                         "artifacts": [
                            {
-                               "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-eastern-time')]"
+                               "artifactId":  "/artifactsources/privaterepo1/artifacts/windows-eastern-time",
+                               "parameters": []
                            }
                           /*  {
                                 "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
