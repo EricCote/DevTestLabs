@@ -45,14 +45,37 @@ Set-Content $conf $xml ;
 "Installing Office 2016.  Might take a while."
 & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-null ;
 
+##################################
+#remove first run dialog and eula
+##################################
+New-PSDrive HKU Registry HKEY_USERS | out-null
 
+& REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT | out-null
+
+
+#Create Registry key 
+        New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
+                 -force | out-null
+
+#Create Registry value
+New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
+                 -Name "ShownFirstRunOptin" `
+                 -Value 1 -PropertyType dword `
+                 -Force | out-null
+
+
+[gc]::Collect()
+
+& REG UNLOAD HKU\Default | out-null
+Remove-PSDrive HKU
+
+
+########################
+# Manage Volume License
+########################
 $sys32="$env:windir\system32"
 $lic16="${env:ProgramFiles(x86)}\Microsoft Office\root\Licenses16"
 $off16="${env:ProgramFiles(x86)}\Microsoft Office\Office16"
-
-#& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusDemoR_BypassTrial180-pl.xrm-ms"
-#& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusDemoR_BypassTrial180-ppd.xrm-ms"
-#& cscript //nologo $sys32\slmgr.vbs /ilc "$lic16\ProPlusDemoR_BypassTrial180-ul-oob.xrm-ms"
 
 
 #Make it an Office VL Licence so we'll then have a 25 day grace period.
