@@ -10,7 +10,6 @@
 # start of script
 
 $location=      "Canada East"
-$labName=       "Vs2017"
 
 $vmPrefix=          "Classe01-"
 $ExpiresInXDays=    7
