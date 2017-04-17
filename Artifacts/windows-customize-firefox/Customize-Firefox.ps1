@@ -10,24 +10,24 @@ $prefs = @'
 pref("browser.shell.checkDefaultBrowser", false);   //removes the popup "make firefox your default browser"
 //defaultPref("startup.homepage_welcome_url", "");  //not sure what this does
 pref("browser.startup.homepage_override.mstone", "ignore");  //removes the prompt of configuring a firefox account to sync
-pref("browser.aboutHomeSnippets.updateUrl", "")    //removes the ads at the bottom of start page
+pref("browser.aboutHomeSnippets.updateUrl", "");   //removes the ads at the bottom of start page
 pref("browser.usedOnWindows10",true);      //Removes the windows 10 tutorial
 pref("browser.disableResetPrompt", true);  //To remove the prompt of: "previous install detected, click here to refresh and remove addon from your profile"
-//defaultPref("browser.tabs.remote.force-enable", true);  //to force usage of Electrolysis (e10s) 
-
-defaultPref("browser.startup.homepage", "data:text/plain,browser.startup.homepage=http://www.afiexpertise.com/fr/");
+pref("browser.tabs.remote.force-enable", true);  //to force usage of Electrolysis (e10s) 
+//defaultPref("browser.startup.homepage", "data:text/plain,browser.startup.homepage=http://www.afiexpertise.com/fr/");
 //defaultPref("general.useragent.locale", "fr");  //forces the language of the browser
-defaultPref("intl.locale.matchOS", true);         //syncs the browser language with the OS language
-defaultPref("toolkit.telemetry.prompted", 2);
-defaultPref("toolkit.telemetry.rejected", true);
-defaultPref("toolkit.telemetry.enabled", false);
+pref("intl.locale.matchOS", true);         //syncs the browser language with the OS language
+pref("toolkit.telemetry.prompted", 2);
+pref("toolkit.telemetry.rejected", true);
+pref("toolkit.telemetry.enabled", false);
 pref("datareporting.healthreport.service.enabled", false);
 pref("datareporting.healthreport.uploadEnabled", false);
 pref("datareporting.healthreport.service.firstRun", false);
-defaultPref("datareporting.healthreport.logging.consoleEnabled", false);
-defaultPref("datareporting.policy.dataSubmissionEnabled", false);
-defaultPref("datareporting.policy.dataSubmissionPolicyResponseType", "accepted-info-bar-dismissed");
-defaultPref("datareporting.policy.dataSubmissionPolicyAccepted", false);
+pref("datareporting.healthreport.logging.consoleEnabled", false);
+pref("datareporting.policy.dataSubmissionEnabled", false);
+pref("datareporting.policy.dataSubmissionPolicyResponseType", "accepted-info-bar-dismissed");
+pref("datareporting.policy.dataSubmissionPolicyAccepted", false);
+
 '@
 
 
@@ -51,7 +51,7 @@ if(!(Test-Path "c:\program files\mozilla firefox\browser\defaults\preferences"))
   mkdir "c:\program files\mozilla firefox\browser\defaults\preferences"
 }
 
-Set-Content "c:\program files\mozilla firefox\browser\defaults\preferences\all-afi.js" $prefs
+Set-Content "c:\program files\mozilla firefox\browser\defaults\preferences\all-afi.js" $prefs -Encoding Utf8
 Set-Content "c:\program files\mozilla firefox\browser\override.ini" $override
 
 if(!(Test-Path "c:\program files\mozilla firefox\distribution\extensions")){

@@ -4,7 +4,7 @@
    "default_browser_infobar_last_declined":"66666666666666",
    "should_reset_check_default_browser": false,
    "default_browser_setting_enabled": false
-             },
+ },
  "first_run_tabs": ["about:newtab"],
  "homepage" : "http://www.afiexpertise.com", 
  "homepage_is_newtabpage" : false, 
@@ -14,9 +14,7 @@
    "make_chrome_default" : false, 
    "make_chrome_default_for_user": false, 
    "suppress_first_run_default_browser_prompt": true,
-   "suppress_first_run_bubble": true, 
-   "show_welcome_page": false,
-   "skip_first_run_ui": true,
+   "suppress_first_run_bubble": true,
    "do_not_create_desktop_shortcut":true,
    "do_not_create_quick_launch_shortcut":true,
    "do_not_create_taskbar_shortcut":true,
@@ -30,5 +28,11 @@
 }
 '@
 
-Set-Content "c:\program files (x86)\Google\Chrome\Application\master_preferences" $master_prefs
+Set-Content "c:\program files (x86)\Google\Chrome\Application\master_preferences" $master_prefs -Encoding Utf8
+
+
+#these do nothing under "distribution" object.  they were removed:
+#   "show_welcome_page": false,
+#   "skip_first_run_ui": true,
+#cf https://serverfault.com/questions/635202/how-can-i-customize-the-default-settings-when-deploying-google-chrome-for-busine/635203#635203
 

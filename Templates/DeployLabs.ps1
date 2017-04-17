@@ -172,7 +172,7 @@ New-AzureRmResourceGroupDeployment -name "addFormula" `
                                    -TemplateFile $addFormula `
                                    -formulaName "$LabName Formula" `
                                    -existingLabName $labName `
-                                   -description "Créer des VM avec Windows 10 et Visual Studio 2017..." `
+                                   -description $imageDescription`
                                    -customImage $imageName `
                                    -userName $vmUsername `
                                    -password $SecurePassword
