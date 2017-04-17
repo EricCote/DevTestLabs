@@ -15,6 +15,8 @@
    "make_chrome_default_for_user": false, 
    "suppress_first_run_default_browser_prompt": true,
    "suppress_first_run_bubble": true, 
+   "show_welcome_page": false,
+   "skip_first_run_ui": true,
    "do_not_create_desktop_shortcut":true,
    "do_not_create_quick_launch_shortcut":true,
    "do_not_create_taskbar_shortcut":true,
