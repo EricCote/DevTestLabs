@@ -41,6 +41,7 @@ try
         --add Microsoft.VisualStudio.Component.PowerShell.Tools `
         --add Microsoft.VisualStudio.Component.VC.CoreIde `
         $stringKey $keyNoDashes `
+        --addProductLang fr-FR --addProductLang en-US `
         --includeRecommended --quiet --wait | Out-Null;
 }
 catch

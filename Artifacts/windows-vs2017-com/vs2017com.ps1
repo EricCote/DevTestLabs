@@ -28,6 +28,7 @@ try
         --add Microsoft.Net.Core.Component.SDK `
         --add Microsoft.VisualStudio.Component.PowerShell.Tools `
         --add Microsoft.VisualStudio.Component.VC.CoreIde `
+        --addProductLang fr-FR --addProductLang en-US `
         --includeRecommended --passive | Out-Null;
 }
 catch
