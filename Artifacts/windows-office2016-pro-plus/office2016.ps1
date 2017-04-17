@@ -79,3 +79,12 @@ $off16="${env:ProgramFiles(x86)}\Microsoft Office\Office16"
 #kms generic key from Microsoft
 #from this page: https://technet.microsoft.com/en-us/library/dn385360(v=office.16).aspx
 & cscript //nologo "$off16\ospp.vbs" /inpkey:XQNVK-8JYDB-WJ9W3-YJ8YR-WFG99  
+
+#& cscript //nologo "$off16\ospp.vbs" /sethst:kms.myenterprise.com
+#& cscript //nologo "$off16\ospp.vbs" /act
+
+#& cscript //nologo "$off16\ospp.vbs" /dstatus
+#& cscript //nologo "$off16\ospp.vbs" /dstatusall
+#& cscript //nologo "$off16\ospp.vbs" /dinstid
+#& cscript //nologo "$off16\ospp.vbs" /dhistoryacterr
+
