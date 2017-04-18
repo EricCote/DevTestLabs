@@ -1,0 +1,18 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "fr-CA app language",
+    "description": "quick test Sets the UI Language, regional settings, country and keyboard to French Canadian. It sets the UI Language only if the fr-CA Language Pack is previously downloaded (keeps UI in en-US if LP is not present).",
+    "publisher": "Eric Côté",
+    "tags": [
+        "Français",
+        "Francais",
+        "French",
+        "Canada",
+        "Regional Settings"
+    ],
+    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-LanguageToFrCa.ps1"
+    }
+}

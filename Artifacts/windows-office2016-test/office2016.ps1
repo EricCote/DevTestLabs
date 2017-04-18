@@ -15,7 +15,7 @@ New-PSDrive HKU Registry HKEY_USERS | out-null
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
                  -Name "ShownFirstRunOptin" `
                  -Value 1 -PropertyType dword `
-                 -Force | out-null
+                 -Force | out-null
 
 #Create Registry key 
         New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
@@ -25,7 +25,7 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Com
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
                  -Name "AcceptAllEulas" `
                  -Value "1" -PropertyType dword `
-                 -Force | out-null
+                 -Force | out-null
 
 [gc]::Collect()
 
