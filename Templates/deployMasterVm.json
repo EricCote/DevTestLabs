@@ -3,12 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "newVMName": {
-      "type": "string",
-      "defaultValue": "Vs2017Master"
+      "type": "string"
     },
     "labName": {
-      "type": "string",
-      "defaultValue": "Vs2017"
+      "type": "string"
     },
     "size": {
       "type": "string",
@@ -21,8 +19,7 @@
       "type": "securestring"
     },
     "vskey": {
-      "type": "string",
-      "defaultValue": "NJVYC-BMHX2-G77MM-4XJMR-6Q8QF"
+      "type": "string"
     }
   },
   "variables": {
@@ -66,11 +63,11 @@
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-fr-ca-language-pack')]"
           }, 
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-fr-ca-language-settings')]"
-          },
-          {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-restart-computer')]"
           },     
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-fr-ca-language-settings')]"
+          },
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-office2016-pro-plus')]"
           },         
