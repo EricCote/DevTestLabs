@@ -174,7 +174,7 @@ New-AzureRmResourceGroupDeployment -name "addFormula" `
                                    -TemplateFile $addFormula `
                                    -formulaName "$LabName Formula" `
                                    -existingLabName $labName `
-                                   -description $imageDescription`
+                                   -description $imageDescription `
                                    -customImage $imageName `
                                    -userName $vmUsername `
                                    -password $SecurePassword

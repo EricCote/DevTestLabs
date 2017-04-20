@@ -24,15 +24,16 @@ function Add-OptionalFeature ($Name)
 
 if ($OsVersion -eq 10)
 {      
-  Add-OptionalFeature -Name "Language.Basic~~~fr-CA~0.0.1.0"
   Add-OptionalFeature -Name "Language.Basic~~~fr-FR~0.0.1.0"
+  Add-OptionalFeature -Name "Language.Basic~~~fr-CA~0.0.1.0"
   Add-OptionalFeature -Name "Language.Handwriting~~~fr-FR~0.0.1.0"
+  Add-OptionalFeature -Name "Language.OCR~~~fr-FR~0.0.1.0"
   Add-OptionalFeature -Name "Language.OCR~~~fr-CA~0.0.1.0"
+
   Add-OptionalFeature -Name "Language.Speech~~~fr-CA~0.0.1.0"
   Add-OptionalFeature -Name "Language.Speech~~~en-CA~0.0.1.0"
   Add-OptionalFeature -Name "Language.TextToSpeech~~~fr-CA~0.0.1.0"
   Add-OptionalFeature -Name "Language.TextToSpeech~~~EN-CA~0.0.1.0"
-
 }
 
 
