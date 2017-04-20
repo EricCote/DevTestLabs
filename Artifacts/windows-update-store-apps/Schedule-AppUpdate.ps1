@@ -7,6 +7,9 @@ New-item -path "hku:\def\Software\Microsoft\Windows\CurrentVersion\RunOnce" -for
 Set-ItemProperty  -path "hku:\def\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name "update" -Value 'schtasks /run /tn "\Microsoft\Windows\WindowsUpdate\Automatic App Update"'
 
 [System.GC]::Collect();
+[System.GC]::WaitForPendingFinalizers();
+[System.GC]::Collect();
+
 &reg unload hku\def
 Remove-PSDrive HKU
 
