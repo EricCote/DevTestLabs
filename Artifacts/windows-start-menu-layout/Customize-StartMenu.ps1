@@ -1,7 +1,7 @@
 ﻿
 New-PSDrive HKU Registry HKEY_USERS | out-null
 &reg load hku\def "C:\users\default user\NTUSER.DAT"
-$lang=(Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "WindowsOverride" -ErrorAction SilentlyContinue);
+$lang=(try{Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "WindowsOverride" -ErrorAction SilentlyContinue;} catch{});
 if ($lang -eq $null)
 {
   $lang=(Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "Languages")[0];
