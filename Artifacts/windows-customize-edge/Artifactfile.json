@@ -1,0 +1,15 @@
+{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Edge customization",
+    "description": "Will customize the Microsoft Edge browser, removing the welcome page.",
+    "publisher": "Eric Côté",
+    "tags": [
+        "Edge",
+        "Browser"
+    ],
+    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Customize-Edge.ps1"
+    }
+}
