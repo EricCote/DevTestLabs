@@ -7,6 +7,8 @@ if ($lang -eq $null)
   $lang=(Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "Languages")[0];
 }
 
+$lang
+
 [System.GC]::Collect();
 &reg unload hku\def
 Remove-PSDrive HKU
@@ -17,6 +19,107 @@ $life = if ($en){"Life at a glance"}else{"Coup d'oeil sur les activités"};
 $play = if ($en){"Play and explore"}else{"Jouer et explorer"};
 $nav= if ($en){"Browsers"}else{"Navigateurs"};
 $desc= if ($en){"Finds and displays information and Web sites on the Internet."}else{"Navigue sur Internet."}
+
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Skype for Business 2016.lnk")
+{
+    Rename-Item -NewName "Skype Business 2016.lnk" -Path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Skype for Business 2016.lnk";
+}
+
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business 2016.lnk")
+{
+    Rename-Item -NewName "OneDrive Business 2016.lnk" -Path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business 2016.lnk";
+}
+
+
+$office="";
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Access 2016.lnk")
+{   $office=@"     
+
+        <start:Group Name="Office">
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Access 2016.lnk" /> 
+          <start:DesktopApplicationTile Size="2x2" Column="2" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Excel 2016.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\OneDrive Business.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\OneNote 2016.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="2" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Outlook 2016.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="4" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\PowerPoint 2016.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Publisher 2016.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="2" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Skype Business 2016.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="4" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Word 2016.lnk" />
+        </start:Group>
+"@;
+}
+
+$dev="";
+$innerDev="";
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk")
+{    $innerDev = $innerDev + @"
+
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk" />
+"@
+      $vsCodeBar=@"  
+      
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk" />
+"@
+}
+
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017.lnk")
+{    $innerDev = $innerDev + @"
+
+          <start:DesktopApplicationTile Size="2x2" Column="2" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017.lnk" />
+"@
+      $vsBar=@"  
+      
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Internet Explorer.lnk" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017.lnk" />
+"@         
+}
+else
+{
+     $officeBar=@"
+
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Outlook 2016.lnk" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Excel 2016.lnk" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Word 2016.lnk" />
+"@
+}
+
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Blend for Visual Studio 2017.lnk")
+{    $innerDev = $innerDev + @"
+
+          <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Blend for Visual Studio 2017.lnk" />
+"@
+}
+if ($innerDev -eq "")
+{ $dev  = "" }
+else
+{
+  $dev= @"
+
+        <start:Group Name="Dev">  $innerDev
+        </start:Group>
+"@
+}
+
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Mozilla Firefox.lnk")
+{    $firefox = @"
+
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Mozilla Firefox.lnk" />
+"@
+     $firefoxBar = @"
+
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Mozilla Firefox.lnk" />
+"@
+}
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk")
+{    $chrome = @"
+
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
+"@
+     $chromeBar = @"
+
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
+"@
+}
 
 
 $xml = @"
@@ -30,29 +133,11 @@ $xml = @"
   <LayoutOptions StartTileGroupCellWidth="6" />
   <DefaultLayoutOverride  LayoutCustomizationRestrictionType="OnlySpecifiedGroups">
     <StartLayoutCollection>
-      <defaultlayout:StartLayout GroupCellWidth="6" >
-        <start:Group Name="Office">
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Access 2016.lnk" /> 
-          <start:DesktopApplicationTile Size="2x2" Column="2" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Excel 2016.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\OneDrive for Business.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\OneNote 2016.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="2" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Outlook 2016.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="4" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\PowerPoint 2016.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Publisher 2016.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="2" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Skype for Business 2016.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="4" Row="4" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Word 2016.lnk" />
-        </start:Group>
-        <start:Group Name="$Nav">
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Mozilla Firefox.lnk" />
+      <defaultlayout:StartLayout GroupCellWidth="6" >   $office       
+        <start:Group Name="$Nav"> $firefox $chrome
           <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Internet Explorer.lnk" />
           <start:Tile Size="2x2" Column="2" Row="0" AppUserModelID="Microsoft.MicrosoftEdge_8wekyb3d8bbwe!MicrosoftEdge" />
-        </start:Group>
-        <start:Group Name="Dev">
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="2" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017.lnk" />
-          <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Blend for Visual Studio 2017.lnk" />
-        </start:Group>
+        </start:Group>  $dev
         <start:Group Name="$Life">
           <start:Tile Size="2x2" Column="0" Row="0" AppUserModelID="microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.calendar" />
           <start:Tile Size="4x2" Column="2" Row="0" AppUserModelID="microsoft.windowscommunicationsapps_8wekyb3d8bbwe!microsoft.windowslive.mail" />
@@ -70,12 +155,7 @@ $xml = @"
   </DefaultLayoutOverride>
   <CustomTaskbarLayoutCollection>
     <defaultlayout:TaskbarLayout>
-      <taskbar:TaskbarPinList>
-        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
-        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Mozilla Firefox.lnk" />
-        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Internet Explorer.lnk" />
-        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk" />
-        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017.lnk" />
+      <taskbar:TaskbarPinList>  $officeBar  $chromeBar $firefoxBar  $vsBar $vsCodeBar
       </taskbar:TaskbarPinList>
     </defaultlayout:TaskbarLayout>
  </CustomTaskbarLayoutCollection>
@@ -85,7 +165,7 @@ $xml = @"
 if(!(Test-Path "$env:ALLUSERSPROFILE\Microsoft\Windows\Start Menu\Programs\Internet Explorer.lnk")) {
   $Shell = New-Object -ComObject ("WScript.Shell")
   $ShortCut = $Shell.CreateShortcut("$env:ALLUSERSPROFILE\Microsoft\Windows\Start Menu\Programs\Internet Explorer.lnk")
-  $ShortCut.TargetPath="C:\Program Files\Internet Explorer\iexplore.exe"
+  $ShortCut.TargetPath="${env:ProgramFiles(x86)}\Internet Explorer\iexplore.exe"
   $ShortCut.WorkingDirectory = "%HOMEDRIVE%%HOMEPATH%";
   $ShortCut.WindowStyle = 1;
   $ShortCut.Description = $desc;

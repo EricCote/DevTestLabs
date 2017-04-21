@@ -11,7 +11,7 @@
 # start of script
 
 $location=      "Canada East"
-$labName=       "Vs2019"
+$labName=       "Vs2017"
 
 $vmPrefix=          "Test"
 $ExpiresInXDays=    7
