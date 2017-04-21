@@ -11,17 +11,17 @@ new-item "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\Curre
 new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FirstRun" -Name "LastFirstRunVersionDelivered" -Value 1 -Type DWORD -Force | out-null ;
 new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main" -Name IE10TourShown -Value 1 -Type DWORD -Force | out-null;
 
-sc "`$env:USERPROFILE\desktop\done.txt" (get-date)
+set-content "`$env:USERPROFILE\desktop\done.txt" (get-date) -force
 
 "@
 
 new-item "$env:ProgramData\scripts" -directory -force
+set-content "$env:ProgramData\scripts\EdgeWelcome.ps1"  $script -Force
 
-sc "$env:ProgramData\scripts\EdgeWelcome.ps1"  $script
 
-
-New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -type Directory 
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force 
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -Name "StubPath" -Value "powershell.exe  -ExecutionPolicy ByPass -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType ExpandString -Force
+New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -type Directory -force
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force 
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "StubPath" -Value "powershell.exe  -ExecutionPolicy ByPass -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType String -Force
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Enabled" -Value 1 -PropertyType dword -Force
 
 
