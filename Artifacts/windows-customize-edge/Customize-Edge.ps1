@@ -22,6 +22,6 @@ sc "$env:ProgramData\scripts\EdgeWelcome.ps1"  $script
 
 New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -type Directory 
 new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force 
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -Name "StubPath" -Value 'powershell.exe  -NoProfile -ExecutionPolicy ByPass -File "$env:ProgramData\scripts\EdgeWelcome.ps1"' -PropertyType ExpandString -Force
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\EdgeWelcome" -Name "StubPath" -Value "powershell.exe  -NoProfile -ExecutionPolicy ByPass -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType ExpandString -Force
 
 
