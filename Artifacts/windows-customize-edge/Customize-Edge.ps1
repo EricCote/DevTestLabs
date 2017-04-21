@@ -11,7 +11,7 @@ new-item "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\Curre
 new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FirstRun" -Name "LastFirstRunVersionDelivered" -Value 1 -Type DWORD -Force | out-null ;
 new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main" -Name IE10TourShown -Value 1 -Type DWORD -Force | out-null;
 
-sc "$env:USERPROFILE\desktop\done.txt" (get-date)
+sc "`$env:USERPROFILE\desktop\done.txt" (get-date)
 
 "@
 
