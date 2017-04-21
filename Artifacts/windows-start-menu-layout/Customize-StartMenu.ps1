@@ -1,7 +1,7 @@
 ﻿
 New-PSDrive HKU Registry HKEY_USERS | out-null
 &reg load hku\def "C:\users\default user\NTUSER.DAT"
-$lang=(Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "WindowsOverride");
+$lang=(Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "WindowsOverride" -ErrorAction SilentlyContinue);
 if ($lang -eq $null)
 {
   $lang=(Get-ItemPropertyValue "HKU:\def\Control Panel\International\User Profile" "Languages")[0];
@@ -25,7 +25,7 @@ if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Skype 
     Rename-Item -NewName "Skype Business 2016.lnk" -Path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Skype for Business 2016.lnk";
 }
 
-if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business 2016.lnk")
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business.lnk")
 {
     Rename-Item -NewName "OneDrive Business.lnk" -Path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business.lnk";
 }
@@ -172,7 +172,7 @@ if(!(Test-Path "$env:ALLUSERSPROFILE\Microsoft\Windows\Start Menu\Programs\Inter
   $ShortCut.Save()
 }
 
-set-content "C:\users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" $xml -encoding utf8 -
+set-content "C:\users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" $xml -encoding utf8 
 
 Remove-Item "$env:PUBLIC\desktop\*.*"
 
