@@ -27,7 +27,7 @@ if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Skype 
 
 if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business 2016.lnk")
 {
-    Rename-Item -NewName "OneDrive Business 2016.lnk" -Path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business 2016.lnk";
+    Rename-Item -NewName "OneDrive Business.lnk" -Path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\OneDrive for Business.lnk";
 }
 
 
@@ -113,7 +113,7 @@ if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Mozill
 if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk")
 {    $chrome = @"
 
-          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
 "@
      $chromeBar = @"
 
@@ -172,7 +172,7 @@ if(!(Test-Path "$env:ALLUSERSPROFILE\Microsoft\Windows\Start Menu\Programs\Inter
   $ShortCut.Save()
 }
 
-set-content "C:\users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" $xml -encoding utf8
+set-content "C:\users\Default\AppData\Local\Microsoft\Windows\Shell\LayoutModification.xml" $xml -encoding utf8 -
 
 Remove-Item "$env:PUBLIC\desktop\*.*"
 
