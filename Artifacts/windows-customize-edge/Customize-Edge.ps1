@@ -12,13 +12,13 @@ new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windo
 
 "@ ;
 
-new-item "c:\programdata\scripts" -directory -force;
-set-content "c:\programdata\scripts\EdgeWelcome.ps1"  $script;
+new-item "c:\programdata\scripts" -type directory -force | Out-Null;
+set-content  "c:\programdata\scripts\EdgeWelcome.ps1"  $script -encoding UTF8;
 
 
-New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -type Directory -Value "EdgeWelcome" -force;
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force ;
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "StubPath" -Value "powershell.exe -NoProfile  -ExecutionPolicy ByPass -WindowStyle Hidden -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType String -Force;
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Enabled" -Value 1 -PropertyType dword -Force;
+New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}"  -Value "EdgeWelcome" -force | Out-Null;
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force | Out-Null ;
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "StubPath" -Value "powershell.exe -NoProfile  -ExecutionPolicy ByPass -WindowStyle Hidden -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType String -Force | Out-Null;
+new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Enabled" -Value 1 -PropertyType dword -Force | Out-Null;
 
 
