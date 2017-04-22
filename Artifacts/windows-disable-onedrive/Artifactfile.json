@@ -9,6 +9,6 @@
     "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Remove-OneDrive.ps1"
+        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Disable-OneDrive.ps1"
     }
 }
