@@ -20,7 +20,7 @@ new-item "$env:ProgramData\scripts" -directory -force
 set-content "$env:ProgramData\scripts\EdgeWelcome.ps1"  $script -Force
 
 
-New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -type Directory -force
+New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -type Directory -Value "Edge Welcome" -force
 new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force 
 new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "StubPath" -Value "powershell.exe  -ExecutionPolicy ByPass -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType String -Force
 new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Enabled" -Value 1 -PropertyType dword -Force
