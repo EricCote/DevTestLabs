@@ -1,4 +1,5 @@
-﻿##############################################
+﻿
+##############################################
 #preReq for Azure modules
 
 #Install-PackageProvider -Name NuGet -force
@@ -11,7 +12,7 @@
 # start of script
 
 $location=      "Canada East"
-$labName=       "Vs2017"
+$labName=       "Vs2018"
 
 $vmPrefix=          "Test"
 $ExpiresInXDays=    7

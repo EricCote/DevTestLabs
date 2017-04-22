@@ -1,6 +1,4 @@
 ﻿
-
-
 $script=@"
 do {
      Start-Sleep -Milliseconds 2000;
@@ -12,10 +10,10 @@ new-item "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\Curre
 new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FirstRun" -Name "LastFirstRunVersionDelivered" -Value 1 -Type DWORD -Force | out-null ;
 new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main" -Name IE10TourShown -Value 1 -Type DWORD -Force | out-null;
 
-"@
+"@ ;
 
-new-item "$env:ProgramData\scripts" -directory -force;
-set-content "$env:ProgramData\scripts\EdgeWelcome.ps1"  $script -Force;
+new-item "c:\programdata\scripts" -directory -force;
+set-content "c:\programdata\scripts\EdgeWelcome.ps1"  $script;
 
 
 New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -type Directory -Value "EdgeWelcome" -force;
