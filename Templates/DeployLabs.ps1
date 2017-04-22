@@ -18,6 +18,7 @@ $vmPrefix=          "Test"
 $ExpiresInXDays=    7
 $numberOfInstances= 2
 $imageDescription=  "Windows 10 with Visual Studio 2017 Enterprise and Office 2016"
+$language=          "en-US"
 
 
 Set-ExecutionPolicy -ExecutionPolicy bypass -Scope Process -force
@@ -114,7 +115,7 @@ New-AzureRmResourceGroupDeployment -name "CreateGoldVm" `
                                    -password $SecurePassword `
                                    -userName $vmUsername `
                                    -vskey $VsEntKey `
-                                   -language "fr-CA"
+                                   -language $language
                                    
                                  
 

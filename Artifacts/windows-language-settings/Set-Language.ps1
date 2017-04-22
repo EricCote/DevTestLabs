@@ -116,7 +116,8 @@ $enFirst = "hex(7):65,00,6e,00,2d,00,55,00,53,00,00,00,66,00,72,00,2d,00,43,00,4
 $enbrowser= "en-US,en;q=0.8,fr-CA;q=0.5,fr;q=0.3";
 $frbrowser= "fr-CA,fr;q=0.8,en-CA;q=0.5,en;q=0.3";
 
-$langlist=$(if ($lang -eq "fr-CA") {$frFirst} else {$enFirst});
+$langlist=   $(if ($lang -eq "fr-CA") {$frFirst} else {$enFirst});
+$inverse=    $(if ($lang -eq "fr-CA") {$enFirst} else {$frFirst});
 $browserlist=$(if ($lang -eq "fr-CA") {$frbrowser} else {$enbrowser});
 
 #create a .ini registry string
@@ -128,6 +129,7 @@ Windows Registry Editor Version 5.00
 "LocaleName"="fr-CA"
 "s1159"=""
 "s2359"=""
+"iCountry"="2"
 "sCountry"="Canada"
 "sCurrency"="$"
 "sDate"="-"
@@ -149,7 +151,6 @@ Windows Registry Editor Version 5.00
 "sShortTime"="HH:mm"
 "sYearMonth"="MMMM, yyyy"
 "iCalendarType"="1"
-"iCountry"="1"
 "iCurrDigits"="2"
 "iCurrency"="3"
 "iDate"="2"
@@ -165,6 +166,10 @@ Windows Registry Editor Version 5.00
 "iTime"="1"
 "iTimePrefix"="0"
 "iTLZero"="1"
+
+
+[HKEY_CURRENT_USER\Control Panel\International\Geo]
+"Nation"="39"
 
 [HKEY_CURRENT_USER\Control Panel\International\User Profile]
 "Languages"=$langlist
@@ -217,7 +222,7 @@ Windows Registry Editor Version 5.00
 "AcceptLanguage"="$browserlist"
 
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"PreferredUILanguages"=$langlist
+"PreferredUILanguages"=$inverse
 "PreferredUILanguagesPending"=$langlist
 
 [HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached]
