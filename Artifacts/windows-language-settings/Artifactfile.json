@@ -27,6 +27,6 @@
    
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Language.ps1 -language ',parameters('language')]"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Language.ps1 -language ',parameters('language'))]"
     }
 }
