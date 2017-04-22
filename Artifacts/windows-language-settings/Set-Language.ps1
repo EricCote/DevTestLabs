@@ -1,43 +1,45 @@
-﻿
-$tempFolder= ${env:Temp};
+﻿Param
+(
+    [string] $language
+)
+
+$lang = if ($language -eq "fr-CA") {"fr-CA"} else {"en-US"};
+
+$tempFolder= $env:Temp;
+ 
+[int]$OsVersion=[Environment]::OSVersion.Version.Major ;
 
 
-$BuildVersion=[Environment]::OSVersion.Version.Build
-$OsVersion=[Environment]::OSVersion.Version.Major 
-$isServer= (Gwmi  Win32_OperatingSystem).productType -gt 1
+#$languagePacks = (Get-WmiObject -Class Win32_OperatingSystem).MUILanguages;
+#$hasFrenchCa =($languagePacks | where {$_ -eq "fr-CA"}).count -gt 0
 
-
-$OSInfo = Get-WmiObject -Class Win32_OperatingSystem
-$languagePacks = $OSInfo.MUILanguages
-$hasFrenchCa =($languagePacks | where {$_ -eq "fr-CA"}).count -gt 0
-
-$lang = if ($hasFrenchCa) {"fr-CA"} else {"en-US"}
+#$lang = if ($hasFrenchCa) {"fr-CA"} else {"en-US"}
 
 
 function Add-OptionalFeature ($Name)
 {
   if((Get-WindowsCapability -online -Name $Name).State -eq "NotPresent")
   {
-    Add-WindowsCapability -online -Name $Name
+    Add-WindowsCapability -online -Name $Name;
   }
 }
 
-if ($OsVersion -eq 10)
+if ($OsVersion -ge 8)
 {      
-  Add-OptionalFeature -Name "Language.Basic~~~fr-FR~0.0.1.0"
-  Add-OptionalFeature -Name "Language.Basic~~~fr-CA~0.0.1.0"
-  Add-OptionalFeature -Name "Language.Handwriting~~~fr-FR~0.0.1.0"
-  Add-OptionalFeature -Name "Language.OCR~~~fr-FR~0.0.1.0"
-  Add-OptionalFeature -Name "Language.OCR~~~fr-CA~0.0.1.0"
+  Add-OptionalFeature -Name "Language.Basic~~~fr-FR~0.0.1.0";
+  Add-OptionalFeature -Name "Language.Basic~~~fr-CA~0.0.1.0";
+  Add-OptionalFeature -Name "Language.Handwriting~~~fr-FR~0.0.1.0";
+  Add-OptionalFeature -Name "Language.OCR~~~fr-FR~0.0.1.0";
+  Add-OptionalFeature -Name "Language.OCR~~~fr-CA~0.0.1.0";
 
-  Add-OptionalFeature -Name "Language.Speech~~~fr-CA~0.0.1.0"
-  Add-OptionalFeature -Name "Language.Speech~~~en-CA~0.0.1.0"
-  Add-OptionalFeature -Name "Language.TextToSpeech~~~fr-CA~0.0.1.0"
-  Add-OptionalFeature -Name "Language.TextToSpeech~~~EN-CA~0.0.1.0"
+  Add-OptionalFeature -Name "Language.Speech~~~fr-CA~0.0.1.0";
+  Add-OptionalFeature -Name "Language.Speech~~~en-CA~0.0.1.0";
+  Add-OptionalFeature -Name "Language.TextToSpeech~~~fr-CA~0.0.1.0";
+  Add-OptionalFeature -Name "Language.TextToSpeech~~~EN-CA~0.0.1.0";
 }
 
 
-
+<#
 $xml = @"
 <gs:GlobalizationServices xmlns:gs="urn:longhornGlobalizationUnattend">
 
@@ -90,32 +92,32 @@ $arg = "/c control.exe intl.cpl,, /f:`"$confPath`""
 "waiting 10 seconds..."
 start-sleep 10
 "resume"
+#>
 
 
 #modify language list for current user
-$languages = New-WinUserLanguageList $lang
-$languages.Add("en-US")
-$languages.Add("fr-CA")
-Set-WinUserLanguageList $languages -force
+$languages = New-WinUserLanguageList $lang;
+$languages.Add("en-US");
+$languages.Add("fr-CA");
+Set-WinUserLanguageList $languages -force;
 
 #modify keyboards for French-Canada (remove multilingual)
-$languages = Get-WinUserLanguageList
+$languages = Get-WinUserLanguageList;
 $fr=$languages | Where {$_.LanguageTag -eq "fr-CA"}[0];
 $fr.InputMethodTips.clear();
 $fr.InputMethodTips.add("0c0c:00001009");
-Set-WinUserLanguageList $languages -force
-
-#Get-WinUILanguageOverride
-Set-WinUILanguageOverride $lang
+Set-WinUserLanguageList $languages -force;
+#Get-WinUILanguageOverride;
+Set-WinUILanguageOverride $lang;
 
 #Order the list accordingly 
-$frFirst = "hex(7):66,00,72,00,2d,00,43,00,41,00,00,00,65,00,6e,00,2d,00,55,00,53,00,00,00"
-$enFirst = "hex(7):65,00,6e,00,2d,00,55,00,53,00,00,00,66,00,72,00,2d,00,43,00,41,00,00,00"
-$enbrowser= "en-US,en;q=0.8,fr-CA;q=0.5,fr;q=0.3"
-$frbrowser= "fr-CA,fr;q=0.8,en-CA;q=0.5,en;q=0.3"
+$frFirst = "hex(7):66,00,72,00,2d,00,43,00,41,00,00,00,65,00,6e,00,2d,00,55,00,53,00,00,00";
+$enFirst = "hex(7):65,00,6e,00,2d,00,55,00,53,00,00,00,66,00,72,00,2d,00,43,00,41,00,00,00";
+$enbrowser= "en-US,en;q=0.8,fr-CA;q=0.5,fr;q=0.3";
+$frbrowser= "fr-CA,fr;q=0.8,en-CA;q=0.5,en;q=0.3";
 
-$langlist=$(if ($lang -eq "fr-CA") {$frFirst} else {$enFirst})
-$browserlist=$(if ($lang -eq "fr-CA") {$frbrowser} else {$enbrowser})
+$langlist=$(if ($lang -eq "fr-CA") {$frFirst} else {$enFirst});
+$browserlist=$(if ($lang -eq "fr-CA") {$frbrowser} else {$enbrowser});
 
 #create a .ini registry string
 $regini = @"
@@ -231,6 +233,8 @@ Windows Registry Editor Version 5.00
 function  ModifyRegistry($Regini, $profileName)
 {
     $profileName= "HKEY_USERS\" + $profileName
+    if ($profileName -eq "HKCU") {$profileName = "HKEY_CURRENT_USER" }
+    
     #modify ini to affect system user
     $regSys = $regini.Replace("HKEY_CURRENT_USER",$profileName)
 
@@ -241,6 +245,7 @@ function  ModifyRegistry($Regini, $profileName)
     &cmd $params
 }
 
+ModifyRegistry  -Regini $regini -profilename "HKCU"
 ModifyRegistry  -Regini $regini -profilename ".DEFAULT"
 ModifyRegistry  -Regini $regini -profilename "S-1-5-19"
 ModifyRegistry  -Regini $regini -profilename "S-1-5-20"

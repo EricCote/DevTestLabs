@@ -12,7 +12,7 @@
 # start of script
 
 $location=      "Canada East"
-$labName=       "Vs2018"
+$labName=       "Vs2019"
 
 $vmPrefix=          "Test"
 $ExpiresInXDays=    7
@@ -113,7 +113,8 @@ New-AzureRmResourceGroupDeployment -name "CreateGoldVm" `
                                    -labName $labName `
                                    -password $SecurePassword `
                                    -userName $vmUsername `
-                                   -vskey $VsEntKey
+                                   -vskey $VsEntKey `
+                                   -language "fr-CA"
                                    
                                  
 

@@ -20,6 +20,10 @@
     },
     "vskey": {
       "type": "string"
+    },
+    "language": {
+      "type": "string",
+      "defaultValue": "en-US"
     }
   },
   "variables": {
@@ -66,7 +70,13 @@
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-restart-computer')]"
           },     
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-fr-ca-language-settings')]"
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-language-settings')]",
+            "parameters": [
+              {
+                "name": "language",
+                "value": "[parameters('language')]"
+              }
+            ]
           },
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-office2016-pro-plus')]"

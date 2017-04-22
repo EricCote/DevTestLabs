@@ -11,8 +11,20 @@
         "Regional Settings"
     ],
     "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+     "parameters": {
+        "language": {
+            "type": "string",
+            "displayName": "Language",
+            "description": "Language in the typical format (en-US, fr-CA). Leave empty for en-US.",
+            "defaultValue": "en-US",
+            "allowedValues": [
+                "en-US", "fr-CA"
+            ]
+        }
+    },
+   
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-LanguageToFrCa.ps1"
+        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Language.ps1 -language ',parameters('language')]"
     }
 }
