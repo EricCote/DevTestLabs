@@ -12,7 +12,7 @@
     "Media Feature Pack",
     "Windows Media Player"
   ],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-media-feature-pack/windows-media-player.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows-media-player.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File InstallMedia.ps1"

@@ -8,7 +8,7 @@
         "Visual Studio",
         "VS"
     ],
-    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-vs2017-com/vs2017.png",
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/vs2017.png",
     "targetOsType": "Windows",
     "runCommand": {
         "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File vs2017com.ps1"

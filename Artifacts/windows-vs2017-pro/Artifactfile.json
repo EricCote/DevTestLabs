@@ -7,7 +7,7 @@
         "Windows",
         "Visual Studio"
     ],
-    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-vs2017-pro/vs2017.png",
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/vs2017.png",
     
     "parameters": {
         "Key": {

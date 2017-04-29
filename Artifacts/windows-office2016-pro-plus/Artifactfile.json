@@ -10,7 +10,7 @@
     "Excel",
     "Powerpoint"
   ],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-office2016-pro-plus/office200x175.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/office200x175.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Office2016.ps1"
