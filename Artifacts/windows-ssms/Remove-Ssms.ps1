@@ -1,5 +1,4 @@
 ﻿
-
 function Uninstall-Program
 {
     Param([parameter(Position=1)]
@@ -25,8 +24,9 @@ function Uninstall-Program
         % -Process {  $unstr=$_.UninstallString.Replace("\Package Cache\","\Package_Cache\" ).Replace("  "," ") ;
                 $items = ($unstr.split(" ",2));
                 $items[0]= $items[0].Replace("\Package_Cache\","\Package Cache\" ).Replace("`"", "") ;
-                $items[1]= $items[1].Replace("/I","/x"); 
-                & ($items[0]) $items[1] /quiet | Out-Null;
+                $items[1]= $items[1].Replace("/I","/x");
+                "$($items[0]) $($items[1]) /quiet" 
+                & ($items[0]) $items[1] /quiet | Out-default;
         }
 
     }
@@ -35,17 +35,13 @@ function Uninstall-Program
 
 
 
-& "$env:programFiles\Microsoft SQL Server\130\Setup Bootstrap\SQLServer2016\setup.exe" /q `
-                       /Action=uninstall `
-                       /IAcceptSqlServerLicenseTerms `
-                       /Features=SQL,AS,RS,IS,DQC,MDS,SQL_SHARED_MR,Tools `
-                       /InstanceName=MSSQLSERVER | Out-default
 
-$ssms= "$env:Temp\SSMS-setup-enu.exe"
-& $ssms /uninstall /quiet | Out-Null
 
-$ssdt= "$env:Temp\SSDTSetup.exe"
-& $ssdt /uninstall /quiet | Out-Null
+#$ssms= "$env:Temp\SSMS-setup-enu.exe"
+#& $ssms /uninstall /quiet | Out-Null
+
+#$ssdt= "$env:Temp\SSDTSetup.exe"
+#& $ssdt /uninstall /quiet | Out-Null
 
 uninstall-program * -list
 
@@ -53,27 +49,21 @@ uninstall-program "*Data tools for*"  -list
 
 uninstall-program "*Data tools*" -list
 uninstall-program "*ssdt*"  -list
-
-uninstall-program "Microsoft SQL Server Management Studio*" -list
-
 uninstall-program "Microsoft Visual Studio 2015 Shell (Integrated)" -list
-uninstall-program "Microsoft Visual Studio 2015 Shell (Isolated)"   -list
 
-uninstall-program "*help viewer 2.2*" -list
+#-----------------------------------------------------------------------------------
 
+uninstall-program "Microsoft SQL Server Management Studio*" 
+uninstall-program "Microsoft Visual Studio 2015 Shell (Isolated)" 
 
-uninstall-program "Microsoft Visual Studio Tools for Applications 2015 Language Support"  
-uninstall-program "Microsoft Visual Studio Tools for Applications 2015" 
+uninstall-program "Microsoft Help Viewer 2.2"
+uninstall-program "Microsoft SQL Server 2014 Management Objects*" 
+uninstall-program "Microsoft System CLR Types for SQL Server 2014"
+Uninstall-Program "Active Directory Authentication Library for SQL Server"
 
-uninstall-program "Microsoft help viewer 1.1"
-
-uninstall-program "Microsoft SQL Server Data-Tier Application Framework (x86)" 
-uninstall-program "Microsoft SQL Server 2012 Native Client*" 
-Uninstall-Program "Microsoft ODBC Driver 13 for SQL Server"
-Uninstall-Program "Microsoft SQL Server 2016 T-SQL Language Service*"
-
-uninstall-program "Microsoft MPI *" 
-
+uninstall-program "Microsoft Visual C++ 2013 Redistributable (x86)*"
+uninstall-program "Microsoft Visual C++ 2013 Redistributable (x64)*"
+#--------------------------------------------------------------------------
 uninstall-program "Microsoft Visual C++ 2015 Redistributable (x86)*"
 uninstall-program "Microsoft Visual C++ 2015 Redistributable (x64)*"
 uninstall-program "Microsoft Visual C++ 2010  x86 Redistributable*"
