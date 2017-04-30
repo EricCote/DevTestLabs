@@ -1,4 +1,4 @@
-{
+﻿{
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
     "title": "Disable OneDrive",
     "description": "Disables OneDrive through policies.",
@@ -6,7 +6,7 @@
     "tags": [
         "OneDrive"
     ],
-    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ondrive.png",
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/onedrive.png",
     "targetOsType": "Windows",
     "runCommand": {
         "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Disable-OneDrive.ps1"
