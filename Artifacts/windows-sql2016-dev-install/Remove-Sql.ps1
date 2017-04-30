@@ -56,8 +56,94 @@ INSTANCENAME="MSSQLSERVER"
 
 Set-Content "$env:temp\uninstall.ini" $uninstall
 
-& "$env:programFiles\Microsoft SQL Server\130\Setup Bootstrap\SQLServer2016\setup.exe" /ConfigurationFile="$env:temp\uninstall.ini"  | Out-Default
+#& "$env:programFiles\Microsoft SQL Server\130\Setup Bootstrap\SQLServer2016\setup.exe" /ConfigurationFile="$env:temp\uninstall.ini"  | Out-Default
 
 
 
 
+
+
+function Uninstall-Program
+{
+    Param([parameter(Position=1)]
+        $Name,
+        [switch] $List
+    )
+
+    $programs = Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | `
+    Select-Object DisplayName, UninstallString | `
+    ? DisplayName -like $name ;
+     
+
+    if ($programs -eq $null) {
+        $programs = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | `
+        Select-Object DisplayName, UninstallString | `
+        ? DisplayName -like $name; 
+    }
+
+    if ($programs -eq $null) {
+        return "No programs found with the name: " + $name;
+    }
+
+    if ($list) {
+        return $programs;
+    }
+    else {
+     
+        $programs | `
+        % -Process {  $unstr=$_.UninstallString.Replace("\Package Cache\","\Package_Cache\" ).Replace("  "," ") ;
+                $items = ($unstr.split(" ",2));
+                $items[0]= $items[0].Replace("\Package_Cache\","\Package Cache\" ).Replace("`"", "") ;
+                $items[1]= $items[1].Replace("/I","/x"); 
+                & ($items[0]) $items[1] /quiet| Out-Null;
+        }
+
+    }
+ }
+
+
+
+
+& "$env:programFiles\Microsoft SQL Server\130\Setup Bootstrap\SQLServer2016\setup.exe" /q `
+                       /Action=uninstall `
+                       /IAcceptSqlServerLicenseTerms `
+                       /Features=SQL,AS,RS,IS,DQC,MDS,SQL_SHARED_MR,Tools `
+                       /InstanceName=MSSQLSERVER | Out-Null
+
+$ssms= "$env:Temp\SSMS-setup-enu.exe"
+& $ssms /uninstall /passive | Out-Null
+
+$ssdt= "$env:Temp\SSDTSetup.exe"
+& $ssdt /uninstall /passive | Out-Null
+
+
+
+uninstall-program "*Data tools for*" 
+
+uninstall-program "*Data tools*" 
+uninstall-program "*ssdt*"
+
+uninstall-program "Microsoft SQL Server Management Studio*" -list
+
+
+uninstall-program "Microsoft Visual Studio Tools for Applications 2015 Language Support"  
+uninstall-program "Microsoft Visual Studio Tools for Applications 2015"  
+
+
+uninstall-program "Microsoft Visual Studio 2015 Shell (Integrated)"
+uninstall-program "Microsoft Visual Studio 2015 Shell (Isolated)" 
+
+uninstall-program "*help viewer 2.2*"
+uninstall-program "*help viewer 1.1*"
+
+
+
+uninstall-program "*sql server*" 
+uninstall-program "*sql server*"  #64 bit
+uninstall-program "Microsoft Visual C++*Redistributable*"
+uninstall-program "Microsoft Visual C++*Redistributable*" 
+
+
+rd "C:\Program Files\Microsoft SQL Server" -recurse -force
+rd "C:\Program Files (x86)\Microsoft SQL Server" -recurse -force
+rd "C:\Program Files (x86)\Microsoft Visual Studio 14.0" -recurse -force
