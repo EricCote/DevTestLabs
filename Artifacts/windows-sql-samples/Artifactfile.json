@@ -1,0 +1,35 @@
+﻿{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "SQL Samples",
+    "description": "Installs Sql Server Sample Databases.",
+    "publisher": "Eric Côté",
+    "tags": [
+        "Sample Databases",
+        "Northwind",
+        "Adventure Works",
+        "World Wide Importers"
+    ],
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
+    "parameters": {
+        "AdventureWorks2014": {
+            "type": "bool",
+            "displayName": "Adventur Works 2014",
+            "description": "Installs Adventure Works 2014."
+        },
+         "AdventureWorksDW2014": {
+            "type": "bool",
+            "displayName": "Adventur Works DW 2014",
+            "description": "Installs Adventure Works Data Warehouse 2014."
+        },
+         "WorldWideImports": {
+            "type": "bool",
+            "displayName": "WorldWide Imports",
+            "description": "Installs World Wide Importers."
+        }
+    },
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "[concat('echo aw: ' , parameters('AdventureWorks2014'), ' awdw: ', parameters('AdventureWorks2014'), ' wwi: ', parameters('WorldWideImports'))]"
+        //  "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Database.ps1"
+    }
+}
