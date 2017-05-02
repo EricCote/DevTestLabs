@@ -70,6 +70,18 @@
             "defaultValue": "c:\\dbSamples",
             "displayName": "Sample Path",
             "description": "specify the path to install the sample databases"
+        },
+        "downloadOnly": {
+            "type": "bool",
+            "defaultValue": false,
+            "displayName": "Download Only",
+            "description": "Will only download databases without setting them up. Useful when you want to create an image that will then be Syspreped."
+        },
+        "setupOnly": {
+            "type": "bool",
+            "defaultValue": false,
+            "displayName": "Setup Only",
+            "description": "Will only setup the databases that have previously been downloaded. Useful after a VM deployment where the databases files are part of the base image."
         }
     },
     "targetOsType": "Windows",
