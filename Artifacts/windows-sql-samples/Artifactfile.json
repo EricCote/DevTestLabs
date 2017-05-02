@@ -18,7 +18,7 @@
         },
          "adventureWorksDW2014": {
             "type": "bool",
-            "displayName": "Adventur Works DW 2014",
+            "displayName": "Adventure Works DW 2014",
             "description": "Installs Adventure Works Data Warehouse 2014."
         },
          "worldWideImports": {
