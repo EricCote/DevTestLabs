@@ -2,13 +2,28 @@
 #https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorksDW2016CTP3.bak
 #https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorks2016CTP3.bak
 
+param
+(
+  [string] $instanceName,
+  [bool] $adventureWorks2014,
+  [bool] $adventureWorksDW2014,
+  [bool] $worldWideImports,
+  [bool] $setupOnly,
+  [bool] $downloadOnly
+
+)
+
+
+Out-Default "These are the values: $AdventureWorks2014, $adventureWorksDW2014, $worldWideImports, $setuponly, $downloadonly...."
+
+        <#
+
 
 function detect-localdb 
 { 
-  if ((Get-childItem -ErrorAction Ignore -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server Local DB\Installed Versions\").Length -gt 0) 
-  {
-   return $true
-  } else { return $false }
+  if ((Get-childItem -ErrorAction Ignore  `
+       -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server Local DB\Installed Versions\").Length -gt 0) 
+  { return $true; } else { return $false; }
 }
 
 
@@ -16,12 +31,14 @@ function detect-localdb
 function Get-ServerName
 {
     $svr=""
-    if((Get-ItemProperty -ErrorAction Ignore "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL\" ).MSSQLSERVER.Length -gt  0)
-    { $svr="." }
-    elseif  ((Get-childItem -ErrorAction Ignore -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server Local DB\Installed Versions\").Length -gt 0) 
-    { $svr="(localdb)\MSSQLLocalDB" }
+    if((Get-ItemProperty -ErrorAction Ignore `
+        -path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL\").MSSQLSERVER.Length -gt  0)
+    { $svr="." ;}
+    elseif  ((Get-childItem -ErrorAction Ignore `
+        -Path "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server Local DB\Installed Versions\").Length -gt 0) 
+    { $svr="(localdb)\MSSQLLocalDB"; }
 
-    return $svr
+    return $svr;
 }
 
 
@@ -43,9 +60,9 @@ function Run-Sql
     if (test-path "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE")
     {$sqlcmd="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE";};
 
-    $svr=Get-ServerName
+    $svr=Get-ServerName;
 
-    return & $sqlcmd -S $svr -E -Q $SqlString
+    return & $sqlcmd -S $svr -E -Q $SqlString;
 }
 
 function Get-SqlEdition
@@ -121,7 +138,7 @@ if (Get-ServerName -neq '')
 
     ###-------------------------------------------------------------------------------
 
-    if($AwLt)
+    if($AwLt2012)
     {
         "Downloading AdventureWorks LT 2012..."
 
@@ -145,7 +162,7 @@ if (Get-ServerName -neq '')
     }
 
     ###------------------------------------------------------
-    if ($Aw)
+    if ($Aw2014)
     {
         "Downloading AdventureWorks 2014..."
         $FileNameAW2014=Join-path $dl  "Adventure Works 2014 Full Database Backup.zip"
@@ -175,7 +192,7 @@ if (Get-ServerName -neq '')
 
     ###----------------------------------------------------
 
-    If($AwDw)
+    If($AwDw2014)
     {
         "Downloading AdventureWorks DW 2014..."
         $FileNameAWDW2014=Join-path $dl  "Adventure Works DW 2014 Full Database Backup.zip"
@@ -208,16 +225,21 @@ if (Get-ServerName -neq '')
     }
 
 
+
+
+
+
+
     ###-------------------------------------------------------------------------------
     # Code to detect if we are using the full version of wwi (with in memory databases)
     # or the Standard version.
    
    
     $SqlFeature="Full"
-    if ((Get-ServerName) -eq '(localdb)\MSSQLLocalDB')
-    {
-        $SqlFeature="Standard"
-    }
+    #if ((Get-ServerName) -eq '(localdb)\MSSQLLocalDB')
+    #{
+    #    $SqlFeature="Standard"
+    #}
     #pre-sp1 version could only do in-memory databases with enterprise or dev edition
     # $SqlFeature="Standard"
     # if(("Enterprise","Developer") -contains (Get-SqlEdition))
@@ -311,3 +333,6 @@ if ($Uninstall)
     
     rd c:\aw -Recurse 
 }
+
+
+#>

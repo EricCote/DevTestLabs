@@ -11,17 +11,17 @@
     ],
     "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
     "parameters": {
-        "AdventureWorks2014": {
+        "adventureWorks2014": {
             "type": "bool",
-            "displayName": "Adventur Works 2014",
+            "displayName": "Adventure Works 2014",
             "description": "Installs Adventure Works 2014."
         },
-         "AdventureWorksDW2014": {
+         "adventureWorksDW2014": {
             "type": "bool",
             "displayName": "Adventur Works DW 2014",
             "description": "Installs Adventure Works Data Warehouse 2014."
         },
-         "WorldWideImports": {
+         "worldWideImports": {
             "type": "bool",
             "displayName": "WorldWide Imports",
             "description": "Installs World Wide Importers."
@@ -29,7 +29,7 @@
     },
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('echo aw: ' , parameters('AdventureWorks2014'), ' awdw: ', parameters('AdventureWorks2014'), ' wwi: ', parameters('WorldWideImports'))]"
+        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass -file install-samples  -adventureWorks2014 ' , parameters('adventureWorks2014'), ' -adventureWorksDW2014 ', parameters('adventureWorksDW2014'), ' -worldWideImports ', parameters('worldWideImports'))]"
         //  "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Database.ps1"
     }
 }
