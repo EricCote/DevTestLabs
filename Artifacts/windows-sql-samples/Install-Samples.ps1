@@ -435,7 +435,7 @@ if ($Uninstall)
       DROP DATABASE AdventureWorks2016CTP3;
       "
     
-    rd c:\aw -Recurse 
+    rd "C:\DbSamples" -Recurse 
 }
 
 
