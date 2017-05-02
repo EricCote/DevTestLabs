@@ -13,23 +13,26 @@
     "parameters": {
         "adventureWorks2014": {
             "type": "bool",
+            "defaultValue": true,
             "displayName": "Adventure Works 2014",
             "description": "Installs Adventure Works 2014."
         },
          "adventureWorksDW2014": {
             "type": "bool",
+            "defaultValue": false,
             "displayName": "Adventure Works DW 2014",
             "description": "Installs Adventure Works Data Warehouse 2014."
         },
          "worldWideImports": {
             "type": "bool",
+            "defaultValue": false,
             "displayName": "WorldWide Imports",
             "description": "Installs World Wide Importers."
         }
     },
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass -file install-samples.ps1  -adventureWorks2014 $' , parameters('adventureWorks2014'), ' -adventureWorksDW2014 $', parameters('adventureWorksDW2014'), ' -worldWideImports $', parameters('worldWideImports'))]"
+        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass & install-samples.ps1  -adventureWorks2014 $' , parameters('adventureWorks2014'), ' -adventureWorksDW2014 $', parameters('adventureWorksDW2014'), ' -worldWideImports $', parameters('worldWideImports'))]"
         //  "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Database.ps1"
     }
 }
