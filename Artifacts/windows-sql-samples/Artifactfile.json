@@ -44,7 +44,7 @@
          "wideWorldImporters": {
             "type": "bool",
             "defaultValue": false,
-            "displayName": "Wide World Imports",
+            "displayName": "Wide World Importers",
             "description": "Installs Wide World Importers V1.0."
         },
         "wideWorldImportersDW": {

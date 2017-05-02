@@ -159,7 +159,7 @@ New-Item -type directory -path $samplePath -InformationAction SilentlyContinue -
 $Acl = Get-Acl $samplePath
 $Ar = New-Object  system.security.accesscontrol.filesystemaccessrule("BUILTIN\Users","FullControl","ContainerInherit,ObjectInherit","None","Allow")
 $Acl.AddAccessRule($ar)
-Set-Acl "C:\aw" $Acl
+Set-Acl $samplePath $Acl
 
 add-type -AssemblyName System.IO.Compression.FileSystem
 
@@ -236,9 +236,7 @@ If($adventureWorksDW2014)
 
         Download-File "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=880664&FileTime=130511246406570000&Build=$codeplexVersion" $FileNameAWDW2014
 
-        add-type -AssemblyName System.IO.Compression.FileSystem
         [system.io.compression.zipFile]::ExtractToDirectory($FileNameAWDW2014,$samplePath)
-        
         del $FileNameAWDW2014 -ErrorAction SilentlyContinue
     }
 
