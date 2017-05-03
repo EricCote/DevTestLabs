@@ -334,16 +334,13 @@ If($adventureWorksDW2016)
    
 $SqlFeature=if ($wideWorldInMemory)  {"Full"} else {"Standard"}
 ###-------------------------------------------------------------------------------
-# Code to detect if we are using the full version of wwi (with in memory databases)
-# or the Standard version.  Not necessary with sp1
-#if ((Get-ServerName) -eq '(localdb)\MSSQLLocalDB')
-#{
-#    $SqlFeature="Standard"
-#}
-#pre-sp1 version could only do in-memory databases with enterprise or dev edition
-# $SqlFeature="Standard"
-# if(("Enterprise","Developer") -contains (Get-SqlEdition))
-# { $SqlFeature="Full" }
+# Code to detect if we are using LocalDB, in which case we want
+# to force the Standard version.  
+if ($sqlname -ieq '(localdb)\MSSQLLocalDB')
+{
+    $SqlFeature="Standard"
+}
+
    
 if ($wideWorldImporters)
 {
@@ -378,7 +375,6 @@ if ($wideWorldImporters)
 
         Run-Sql $sqlName $cmd
     }
-
 }
 
 ###-------------------------------------------------------------------------------
@@ -415,7 +411,6 @@ if($wideWorldImportersDW)
         GO
         ALTER AUTHORIZATION ON DATABASE::WideWorldImportersDW TO sa;
         "
-
         run-sql $sqlName $cmd
     }
         
