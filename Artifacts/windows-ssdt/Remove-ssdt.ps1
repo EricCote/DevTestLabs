@@ -36,10 +36,6 @@ function Uninstall-Program
 
 
 
-
-#$ssms= "$env:Temp\SSMS-setup-enu.exe"
-#& $ssms /uninstall /quiet | Out-Null
-
 #$ssdt= "$env:Temp\SSDTSetup.exe"
 #& $ssdt /uninstall /quiet | Out-Null
 
@@ -49,25 +45,44 @@ uninstall-program "*Data tools for*"  -list
 
 uninstall-program "*Data tools*" -list
 uninstall-program "*ssdt*"  -list
-uninstall-program "Microsoft Visual Studio 2015 Shell (Integrated)" -list
+uninstall-program "*clr*" -list
 
 #-----------------------------------------------------------------------------------
 
-uninstall-program "Microsoft SQL Server Management Studio*" 
+
+
+uninstall-program "Microsoft SQL Server Data Tools - Visual Studio 2015"
+uninstall-program "Microsoft SQL Server Data Tools - enu*"
+
+uninstall-program "Microsoft Visual Studio 2015 Shell (Integrated)" 
 uninstall-program "Microsoft Visual Studio 2015 Shell (Isolated)" 
 
+uninstall-program "SSDT" 
+uninstall-program "Prerequisites for SSDT*" 
+
+uninstall-program "Microsoft SQL Server 2016 Management Objects*" 
+uninstall-program "Microsoft SQL Server 2014 Management Objects*"
+
+
 uninstall-program "Microsoft Help Viewer 2.2"
-uninstall-program "Microsoft SQL Server 2014 Management Objects*" 
-uninstall-program "Microsoft System CLR Types for SQL Server 2014"
+
+uninstall-program "Microsoft System CLR Types for SQL Server *"
 Uninstall-Program "Active Directory Authentication Library for SQL Server"
+uninstall-program "Microsoft SQL Server 2016 T-SQL ScriptDom*"
+Uninstall-Program "Microsoft SQL Server 2016 LocalDB*"
+
+Uninstall-Program "IIS Express Application Compatibility Database for x64"
+Uninstall-Program "IIS Express Application Compatibility Database for x86"
+C:\Windows\system32\sdbinst.exe -u "C:\Windows\AppPatch\Custom\{ad846bae-d44b-4722-abad-f7420e08bcd9}.sdb" -q
+C:\Windows\system32\sdbinst.exe -u "C:\Windows\AppPatch\Custom\Custom64\{08274920-8908-45c2-9258-8ad67ff77b09}.sdb" -q
+
 
 uninstall-program "Microsoft Visual C++ 2013 Redistributable (x86)*"
 uninstall-program "Microsoft Visual C++ 2013 Redistributable (x64)*"
-#--------------------------------------------------------------------------
+
 uninstall-program "Microsoft Visual C++ 2015 Redistributable (x86)*"
 uninstall-program "Microsoft Visual C++ 2015 Redistributable (x64)*"
-uninstall-program "Microsoft Visual C++ 2010  x86 Redistributable*"
-uninstall-program "Microsoft Visual C++ 2010  x64 Redistributable*" 
+
 
 Uninstall-Program * -list
 

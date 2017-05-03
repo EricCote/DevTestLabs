@@ -41,26 +41,6 @@ function Uninstall-Program
                        /Features=SQL,AS,RS,IS,DQC,MDS,SQL_SHARED_MR,Tools `
                        /InstanceName=MSSQLSERVER | Out-default
 
-$ssms= "$env:Temp\SSMS-setup-enu.exe"
-& $ssms /uninstall /quiet | Out-Null
-
-$ssdt= "$env:Temp\SSDTSetup.exe"
-& $ssdt /uninstall /quiet | Out-Null
-
-uninstall-program * -list
-
-uninstall-program "*Data tools for*"  -list
-
-uninstall-program "*Data tools*" -list
-uninstall-program "*ssdt*"  -list
-
-uninstall-program "Microsoft SQL Server Management Studio*" -list
-
-uninstall-program "Microsoft Visual Studio 2015 Shell (Integrated)" -list
-uninstall-program "Microsoft Visual Studio 2015 Shell (Isolated)"   -list
-
-uninstall-program "*help viewer 2.2*" -list
-
 
 uninstall-program "Microsoft Visual Studio Tools for Applications 2015 Language Support"  
 uninstall-program "Microsoft Visual Studio Tools for Applications 2015" 

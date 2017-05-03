@@ -1,7 +1,7 @@
-﻿#ssms setup
-$source = "https://go.microsoft.com/fwlink/?linkid=847722"
-$destination = "$env:temp\ssms-setup-enu.exe"
+﻿#ssdt setup
+$source = "https://go.microsoft.com/fwlink/?linkid=846626"
+$destination = "$env:temp\ssdtsetup.exe"
 
 (New-Object System.Net.WebClient).DownloadFile($Source, $Destination)
 
-& $Destination /install /quiet | out-default
+& $Destination  /INSTALLALL=1 /quiet | out-default
