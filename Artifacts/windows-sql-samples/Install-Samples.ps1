@@ -64,17 +64,17 @@ function Get-ServerName
 
 function Get-SqlCmdPath
 {
-    $path=""
+    $cmdpath=""
     if (test-path "C:\Program Files\Microsoft SQL Server\110\Tools\Binn\sqlcmd.exe")
-    {$path="C:\Program Files\Microsoft SQL Server\110\Tools\Binn\sqlcmd.exe";}
+    {$cmdpath="C:\Program Files\Microsoft SQL Server\110\Tools\Binn\sqlcmd.exe";}
 
     if (test-path "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\SQLCMD.EXE")
-    {$path="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\SQLCMD.EXE";}
+    {$cmdpath="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\110\Tools\Binn\SQLCMD.EXE";}
 
     if (test-path "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE")
-    {$path="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE";}
+    {$cmdpath="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE";}
 
-    return $path;
+    return $cmdpath;
 }
 
 
@@ -92,9 +92,9 @@ function Run-Sql
 
 function Get-SqlEdition
 {   
-    $aString = Run-Sql $sqlName "SELECT SERVERPROPERTY ('edition') as x";
+    $editionString = Run-Sql $sqlName "SELECT SERVERPROPERTY ('edition') as x";
     
-    if  (($aString | Select-String '(\w+) Edition') -match  '(\w+) Edition' )
+    if  (($editionString | Select-String '(\w+) Edition') -match  '(\w+) Edition' )
     {return $Matches[1];}
 
 }
@@ -152,7 +152,7 @@ if ($sqlName -match "(localdb)")
 #get codeplex-Version
 $codeplexVersion= Get-CodeplexVersion
     
-if ($samplePath -eq "")
+if ([string]$samplePath -eq "")
 {
     $samplePath= "C:\aw"
 }
@@ -337,22 +337,21 @@ If($adventureWorksDW2016)
 }
 
    
-   
 $SqlFeature=if ($wideWorldInMemory)  {"Full"} else {"Standard"}
 ###-------------------------------------------------------------------------------
 # Code to detect if we are using LocalDB, in which case we want
 # to force the Standard version.  
-# if ($sqlname -ieq '(localdb)\MSSQLLocalDB')
-#{
-#    $SqlFeature="Standard"
-#}
+if ($sqlname -ieq '(localdb)\MSSQLLocalDB')
+{
+    $SqlFeature="Standard"
+}
 
    
 if ($wideWorldImporters)
 {
     if($downloadFiles){
         "Downloading Wide World Importers..."
-        Download-File ("https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-$SqlFeature.bak")    "$env:temp\WideWorldImporters-$SqlFeature.bak"
+        Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-$SqlFeature.bak"    "$env:temp\WideWorldImporters-$SqlFeature.bak"
 
         Copy-Item  -Path "$env:temp\WideWorldImporters-*.bak" -Destination $samplePath
 
@@ -437,8 +436,6 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
       DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
       "
-    
-    run-sql $sqlName "SELECT * FROM sys.sysfiles"
 
     rd "C:\DbSamples" -Recurse 
 }

@@ -93,7 +93,7 @@
     },
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ''.\\Install-Samples.ps1''\" -adventureWorksLT2012:$', parameters('adventureWorksLT2012'),  ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'),     ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -samplePath ''', parameters('samplePath'), '''',' -uninstall:$', parameters('uninstall') )]"
+        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ''.\\Install-Samples.ps1''\" -adventureWorksLT2012:$', parameters('adventureWorksLT2012'),  ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'),     ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -samplePath ''', parameters('samplePath'), '''',' -downloadOnly:$', parameters('downloadOnly') ,' -setupOnly:$', parameters('setupOnly') ,' -uninstall:$', parameters('uninstall') )]"
         //  "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Database.ps1"
     }
 }
