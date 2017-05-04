@@ -23,6 +23,8 @@ param
 $downloadFiles = if($setupOnly){$false} else {$true}
 $setupFiles= if($downloadOnly){$false} else {$true}
 
+   
+
 
 #not used
 function detect-localdb 
@@ -164,6 +166,16 @@ Set-Acl $samplePath $Acl
 add-type -AssemblyName System.IO.Compression.FileSystem
 
 
+ run-sql $sqlName "
+      DROP DATABASE WideWorldImportersDW;
+      DROP DATABASE WideWorldImporters;
+      DROP DATABASE AdventureWorksLT2012;
+      DROP DATABASE AdventureWorksDW2014;
+      DROP DATABASE AdventureWorks2014;
+      DROP DATABASE AdventureWorksDW2016CTP3;
+      DROP DATABASE AdventureWorks2016CTP3;
+      "
+
 ###-------------------------------------------------------------------------------
 
 if($adventureWorksLT2012)
@@ -180,6 +192,7 @@ if($adventureWorksLT2012)
     {
         "Installing AdventureWorks LT 2012..."
         $cmd="
+        DROP DATABASE IF EXISTS AdventureWorksLT2012;
         CREATE DATABASE AdventureWorksLT2012 ON 
         ( FILENAME = N'$samplePath\AdventureWorksLT2012_Data.mdf' )
             FOR ATTACH_REBUILD_LOG  ;
@@ -209,6 +222,7 @@ if ($adventureWorks2014)
     if($setupFiles){
         "Installing AdventureWorks 2014..."
         $cmd="
+        DROP DATABASE IF EXISTS AdventureWorks2014;
         RESTORE DATABASE AdventureWorks2014
             FROM DISK = '$samplePath\AdventureWorks2014.bak'
         WITH   
@@ -244,6 +258,7 @@ If($adventureWorksDW2014)
         "Installing AdventureWorks DW 2014..."
 
         $cmd="
+        DROP DATABASE IF EXISTS AdventureWorksDW2014;
         RESTORE DATABASE AdventureWorksDW2014
             FROM DISK = '$samplePath\AdventureWorksDW2014.bak'
         WITH   
@@ -277,6 +292,7 @@ if ($adventureWorks2016)
     if($setupFiles){
         "Installing AdventureWorks 2016 CTP3..."
         $cmd="
+        DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
         RESTORE DATABASE AdventureWorks2016CTP3
             FROM DISK = '$samplePath\AdventureWorks2016CTP3.bak'
         WITH   
@@ -294,7 +310,7 @@ if ($adventureWorks2016)
         run-sql $sqlName $cmd
     
     }
-}
+
 
     ###----------------------------------------------------
 
@@ -314,6 +330,7 @@ If($adventureWorksDW2016)
         "Installing AdventureWorks DW 2016..."
 
         $cmd="
+        DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
         RESTORE DATABASE AdventureWorksDW2016CTP3
             FROM DISK = '$samplePath\AdventureWorksDW2016CTP3.bak'
         WITH   
@@ -338,7 +355,7 @@ $SqlFeature=if ($wideWorldInMemory)  {"Full"} else {"Standard"}
 # to force the Standard version.  
 if ($sqlname -ieq '(localdb)\MSSQLLocalDB')
 {
-    $SqlFeature="Standard"
+    $SqlFeature="Full"
 }
 
    
@@ -356,12 +373,13 @@ if ($wideWorldImporters)
         "Installing Wide World Importers..."
         $part=""
         if ($SqlFeature -eq "Full") 
-        { $part = " MOVE 'WWI_InMemory_Data_1' TO '$samplePath\WideWorldImporters_InMemory_Data_1', " };
+        { $part = " MOVE 'WWI_InMemory_Data_1' TO '$samplePath\WWI_InMemory_Data_1', " };
 
         $cmd="
+        DROP DATABASE IF EXISTS WideWorldImporters;
         RESTORE DATABASE WideWorldImporters
             FROM DISK = '$samplePath\WideWorldImporters-$SqlFeature.bak'
-        WITH   
+        WITH REPLACE,  
             MOVE 'WWI_Primary' 
             TO '$samplePath\WideWorldImporters.mdf', 
             MOVE 'WWI_UserData' 
@@ -394,10 +412,11 @@ if($wideWorldImportersDW)
         "Installing Wide World Importers DW..."
         $part=""
         if ($SqlFeature -eq "Full") 
-        {  $part =  " MOVE 'WWIDW_InMemory_Data_1' TO '$samplePath\WideWorldImportersDW_InMemory_Data_1', "  };
+        {  $part =  " MOVE 'WWIDW_InMemory_Data_1' TO '$samplePath\WWIDW_InMemory_Data_1', "  };
 
 
         $cmd="
+        DROP DATABASE IF EXISTS WideWorldImportersDW;
         RESTORE DATABASE WideWorldImportersDW
             FROM DISK = '$samplePath\WideWorldImportersDW-$SqlFeature.bak'
         WITH   
@@ -421,15 +440,17 @@ if($wideWorldImportersDW)
 if ($Uninstall)
 {
     run-sql $sqlName "
-      DROP DATABASE WideWorldImportersDW;
-      DROP DATABASE WideWorldImporters;
-      DROP DATABASE AdventureWorksLT2012;
-      DROP DATABASE AdventureWorksDW2014;
-      DROP DATABASE AdventureWorks2014;
-      DROP DATABASE AdventureWorksDW2016CTP3;
-      DROP DATABASE AdventureWorks2016CTP3;
+      DROP DATABASE IF EXISTS WideWorldImportersDW;
+      DROP DATABASE IF EXISTS WideWorldImporters;
+      DROP DATABASE IF EXISTS AdventureWorksLT2012;
+      DROP DATABASE IF EXISTS AdventureWorksDW2014;
+      DROP DATABASE IF EXISTS AdventureWorks2014;
+      DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
+      DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
       "
     
+     run-sql $sqlName "SELECT name FROM sys.databases"
+
     rd "C:\DbSamples" -Recurse 
 }
 
