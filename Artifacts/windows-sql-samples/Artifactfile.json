@@ -83,7 +83,7 @@
             "displayName": "Setup Only",
             "description": "Will only setup the databases that have previously been downloaded. Useful after a VM deployment where the databases files are part of the base image."
         },
-        "Uninstall": {
+        "uninstall": {
             "type": "bool",
             "defaultValue": false,
             "displayName": "Uninstall samples",
@@ -93,7 +93,7 @@
     },
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ''.\\Install-Samples.ps1''\" -adventureWorksLT2012:$', parameters('adventureWorksLT2012'),  ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'),     ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -samplePath ''', parameters('samplePath'), '''' )]"
+        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ''.\\Install-Samples.ps1''\" -adventureWorksLT2012:$', parameters('adventureWorksLT2012'),  ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'),     ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -samplePath ''', parameters('samplePath'), '''',' -uninstall:$', parameters('uninstall') )]"
         //  "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Database.ps1"
     }
 }
