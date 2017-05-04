@@ -13,13 +13,14 @@ param
   [bool] $wideWorldImporters,
   [bool] $wideWorldImportersDW,
   [bool] $wideWorldInMemory, 
-  [bool] $setupOnly,
-  [bool] $downloadOnly,
   [string] $instanceName,
   [string] $backupPath,
   [string] $samplePath,
+  [bool] $downloadOnly,
+  [bool] $setupOnly,
   [bool] $Uninstall
 )
+
 
 $downloadFiles = if($setupOnly){$false} else {$true}
 $setupFiles= if($downloadOnly){$false} else {$true}
@@ -154,9 +155,16 @@ $codeplexVersion= Get-CodeplexVersion
     
 if ([string]$samplePath -eq "")
 {
-    $samplePath= "C:\aw"
+    $samplePath= "C:\dbSamples"
 }
 
+if ([string]$backupPath -eq "")
+{
+    $backupPath= "C:\dbBackup"
+}
+
+
+New-Item -type directory -path $backupPath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
 New-Item -type directory -path $samplePath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
 $Acl = Get-Acl $samplePath
 $Ar = New-Object  system.security.accesscontrol.filesystemaccessrule("BUILTIN\Users","FullControl","ContainerInherit,ObjectInherit","None","Allow")
@@ -173,13 +181,15 @@ if($adventureWorksLT2012)
     {
         "Downloading AdventureWorks LT 2012..."
         Download-File  "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=354847&FileTime=129764108568330000&Build=$codeplexVersion" "$env:temp\AdventureWorksLT2012_Data.mdf"
-        Copy-Item  -Path "$env:temp\AdventureWorksLT2012_Data.mdf" -Destination $samplePath
+        Copy-Item  -Path "$env:temp\AdventureWorksLT2012_Data.mdf" -Destination $backupPath
         del "$env:temp\AdventureWorksLT2012_Data.mdf" -ErrorAction SilentlyContinue
     }
 
     if ($setupFiles)
     {
         "Installing AdventureWorks LT 2012..."
+              Copy-Item  -Path "$backupPath\AdventureWorksLT2012_Data.mdf" -Destination $samplePath
+    
         $cmd="
         DROP DATABASE IF EXISTS AdventureWorksLT2012;
         CREATE DATABASE AdventureWorksLT2012 ON 
@@ -190,7 +200,6 @@ if($adventureWorksLT2012)
         "
         
         run-sql $sqlName $cmd
-
     }
 }
 
@@ -204,7 +213,7 @@ if ($adventureWorks2014)
         $FileNameAW2014="$env:temp\Adventure Works 2014 Full Database Backup.zip"
         Download-File "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=880661&FileTime=130507138100830000&Build=$codeplexVersion"  $FileNameAW2014
 
-        [system.io.compression.zipFile]::ExtractToDirectory($FileNameAW2014,$samplePath)
+        [system.io.compression.zipFile]::ExtractToDirectory($FileNameAW2014,$backupPath)
         del $FileNameAW2014 -ErrorAction SilentlyContinue
     }
 
@@ -213,7 +222,7 @@ if ($adventureWorks2014)
         $cmd="
         DROP DATABASE IF EXISTS AdventureWorks2014;
         RESTORE DATABASE AdventureWorks2014
-            FROM DISK = '$samplePath\AdventureWorks2014.bak'
+            FROM DISK = '$backupPath\AdventureWorks2014.bak'
         WITH   
             MOVE 'AdventureWorks2014_Data' 
             TO '$samplePath\AdventureWorks_data.mdf', 
@@ -239,7 +248,7 @@ If($adventureWorksDW2014)
 
         Download-File "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=880664&FileTime=130511246406570000&Build=$codeplexVersion" $FileNameAWDW2014
 
-        [system.io.compression.zipFile]::ExtractToDirectory($FileNameAWDW2014,$samplePath)
+        [system.io.compression.zipFile]::ExtractToDirectory($FileNameAWDW2014,$backupPath)
         del $FileNameAWDW2014 -ErrorAction SilentlyContinue
     }
 
@@ -249,7 +258,7 @@ If($adventureWorksDW2014)
         $cmd="
         DROP DATABASE IF EXISTS AdventureWorksDW2014;
         RESTORE DATABASE AdventureWorksDW2014
-            FROM DISK = '$samplePath\AdventureWorksDW2014.bak'
+            FROM DISK = '$backupPath\AdventureWorksDW2014.bak'
         WITH   
             MOVE 'AdventureWorksDW2014_Data' 
             TO '$samplePath\AdventureWorksDW_data.mdf', 
@@ -274,7 +283,7 @@ if ($adventureWorks2016)
       
         $FileNameAW2016="$env:temp\AdventureWorks2016CTP3.bak"
         Download-File "https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorks2016CTP3.bak"  $FileNameAW2016
-        copy $FileNameAW2016 $samplePath
+        copy $FileNameAW2016 $backupPath
         del $FileNameAW2016 -ErrorAction SilentlyContinue
     }
 
@@ -283,7 +292,7 @@ if ($adventureWorks2016)
         $cmd="
         DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
         RESTORE DATABASE AdventureWorks2016CTP3
-            FROM DISK = '$samplePath\AdventureWorks2016CTP3.bak'
+            FROM DISK = '$backupPath\AdventureWorks2016CTP3.bak'
         WITH   
             MOVE 'AdventureWorks2016CTP3_Data' 
             TO '$samplePath\AdventureWorks2016_data.mdf',
@@ -310,7 +319,7 @@ If($adventureWorksDW2016)
         $FileNameAWDW2016="$env:temp\AdventureWorksDW2016CTP3.bak"
 
         Download-File "https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorksDW2016CTP3.bak" $FileNameAWDW2016
-        copy $FileNameAWDW2016 $samplePath
+        copy $FileNameAWDW2016 $backupPath
         del $FileNameAWDW2016 -ErrorAction SilentlyContinue
     }
 
@@ -321,7 +330,7 @@ If($adventureWorksDW2016)
         $cmd="
         DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
         RESTORE DATABASE AdventureWorksDW2016CTP3
-            FROM DISK = '$samplePath\AdventureWorksDW2016CTP3.bak'
+            FROM DISK = '$backupPath\AdventureWorksDW2016CTP3.bak'
         WITH   
             MOVE 'AdventureWorksDW2014_Data' 
             TO '$samplePath\AdventureWorksDW2016_data.mdf', 
@@ -353,7 +362,7 @@ if ($wideWorldImporters)
         "Downloading Wide World Importers..."
         Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-$SqlFeature.bak"    "$env:temp\WideWorldImporters-$SqlFeature.bak"
 
-        Copy-Item  -Path "$env:temp\WideWorldImporters-*.bak" -Destination $samplePath
+        Copy-Item  -Path "$env:temp\WideWorldImporters-*.bak" -Destination $backupPath
 
         del "$env:temp\WideWorldImporters*.bak" -ErrorAction SilentlyContinue
     }
@@ -366,7 +375,7 @@ if ($wideWorldImporters)
         $cmd="
         DROP DATABASE IF EXISTS WideWorldImporters;
         RESTORE DATABASE WideWorldImporters
-            FROM DISK = '$samplePath\WideWorldImporters-$SqlFeature.bak'
+            FROM DISK = '$backupPath\WideWorldImporters-$SqlFeature.bak'
         WITH REPLACE,  
             MOVE 'WWI_Primary' 
             TO '$samplePath\WideWorldImporters.mdf', 
@@ -392,7 +401,7 @@ if($wideWorldImportersDW)
         "Downloading Wide World Importers DW..."
         Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImportersDW-$SqlFeature.bak" "$env:temp\WideWorldImportersDW-$SqlFeature.bak"
 
-        Copy-Item "$env:temp\WideWorldImportersDW-*.bak" -Destination $samplePath
+        Copy-Item "$env:temp\WideWorldImportersDW-*.bak" -Destination $backupPath
         del "$env:temp\WideWorldImportersDW-*.bak" -ErrorAction SilentlyContinue
 
     }
@@ -406,7 +415,7 @@ if($wideWorldImportersDW)
         $cmd="
         DROP DATABASE IF EXISTS WideWorldImportersDW;
         RESTORE DATABASE WideWorldImportersDW
-            FROM DISK = '$samplePath\WideWorldImportersDW-$SqlFeature.bak'
+            FROM DISK = '$backupPath\WideWorldImportersDW-$SqlFeature.bak'
         WITH   
             MOVE 'WWI_Primary' 
             TO '$samplePath\WideWorldImportersDW.mdf', 
@@ -436,8 +445,10 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
       DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
       "
+   run-sql $sqlName "SELECT Name FROM sys.databases"
 
-    rd "C:\DbSamples" -Recurse 
+   rd "C:\DbSamples" -Recurse 
 }
 
 
+ & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" stop

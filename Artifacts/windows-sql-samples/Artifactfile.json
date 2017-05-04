@@ -7,7 +7,7 @@
         "Sample Databases",
         "Northwind",
         "Adventure Works",
-        "World Wide Importers"
+        "Wide World Importers"
     ],
     "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
     "parameters": {
@@ -65,11 +65,17 @@
             "displayName": "Instance Name of the server",
             "description": "Put the instance name in the format: \"server\\instance\", \".\\instance\" or \"instance\". If you leave empty, will use the default instance, or (localdb) if there's no default instance.  "
         },
+        "backupPath": {
+            "type": "string",
+            "defaultValue": "c:\\dbBackup",
+            "displayName": "Backup Path",
+            "description": "Specify the download destination for the sample database backups"
+        },
         "samplePath": {
             "type": "string",
             "defaultValue": "c:\\dbSamples",
             "displayName": "Sample Path",
-            "description": "specify the path to install the sample databases"
+            "description": "The path to install the final sample databases"
         },
         "downloadOnly": {
             "type": "bool",
@@ -93,7 +99,7 @@
     },
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ''.\\Install-Samples.ps1''\" -adventureWorksLT2012:$', parameters('adventureWorksLT2012'),  ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'),     ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -samplePath ''', parameters('samplePath'), '''',' -downloadOnly:$', parameters('downloadOnly') ,' -setupOnly:$', parameters('setupOnly') ,' -uninstall:$', parameters('uninstall') )]"
+        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ''.\\Install-Samples.ps1''\" -adventureWorksLT2012:$', parameters('adventureWorksLT2012'),  ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'),     ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -backupPath ''', parameters('backupPath'), ''' -samplePath ''', parameters('samplePath'), '''',' -downloadOnly:$', parameters('downloadOnly') ,' -setupOnly:$', parameters('setupOnly') ,' -uninstall:$', parameters('uninstall') )]"
         //  "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Database.ps1"
     }
 }
