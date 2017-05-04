@@ -165,17 +165,6 @@ Set-Acl $samplePath $Acl
 
 add-type -AssemblyName System.IO.Compression.FileSystem
 
-
- run-sql $sqlName "
-      DROP DATABASE WideWorldImportersDW;
-      DROP DATABASE WideWorldImporters;
-      DROP DATABASE AdventureWorksLT2012;
-      DROP DATABASE AdventureWorksDW2014;
-      DROP DATABASE AdventureWorks2014;
-      DROP DATABASE AdventureWorksDW2016CTP3;
-      DROP DATABASE AdventureWorks2016CTP3;
-      "
-
 ###-------------------------------------------------------------------------------
 
 if($adventureWorksLT2012)
@@ -311,7 +300,7 @@ if ($adventureWorks2016)
     
     }
 
-
+}
     ###----------------------------------------------------
 
 If($adventureWorksDW2016)
