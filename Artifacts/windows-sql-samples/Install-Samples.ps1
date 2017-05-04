@@ -23,8 +23,6 @@ param
 $downloadFiles = if($setupOnly){$false} else {$true}
 $setupFiles= if($downloadOnly){$false} else {$true}
 
-   
-
 
 #not used
 function detect-localdb 
@@ -157,6 +155,7 @@ if ($samplePath -eq "")
 {
     $samplePath= "C:\aw"
 }
+
 New-Item -type directory -path $samplePath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
 $Acl = Get-Acl $samplePath
 $Ar = New-Object  system.security.accesscontrol.filesystemaccessrule("BUILTIN\Users","FullControl","ContainerInherit,ObjectInherit","None","Allow")
@@ -342,10 +341,10 @@ $SqlFeature=if ($wideWorldInMemory)  {"Full"} else {"Standard"}
 ###-------------------------------------------------------------------------------
 # Code to detect if we are using LocalDB, in which case we want
 # to force the Standard version.  
-if ($sqlname -ieq '(localdb)\MSSQLLocalDB')
-{
-    $SqlFeature="Full"
-}
+# if ($sqlname -ieq '(localdb)\MSSQLLocalDB')
+#{
+#    $SqlFeature="Standard"
+#}
 
    
 if ($wideWorldImporters)
