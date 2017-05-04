@@ -82,7 +82,14 @@
             "defaultValue": false,
             "displayName": "Setup Only",
             "description": "Will only setup the databases that have previously been downloaded. Useful after a VM deployment where the databases files are part of the base image."
+        },
+        "Uninstall": {
+            "type": "bool",
+            "defaultValue": false,
+            "displayName": "Uninstall samples",
+            "description": "Drops all sample databases and removes the samples folder."
         }
+
     },
     "targetOsType": "Windows",
     "runCommand": {

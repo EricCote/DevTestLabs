@@ -17,7 +17,8 @@ param
   [bool] $downloadOnly,
   [string] $instanceName,
   [string] $backupPath,
-  [string] $samplePath
+  [string] $samplePath,
+  [bool] $Uninstall
 )
 
 $downloadFiles = if($setupOnly){$false} else {$true}
@@ -437,7 +438,7 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
       "
     
-     run-sql $sqlName "SELECT name FROM sys.databases"
+    run-sql $sqlName "SELECT * FROM sys.sysfiles"
 
     rd "C:\DbSamples" -Recurse 
 }
