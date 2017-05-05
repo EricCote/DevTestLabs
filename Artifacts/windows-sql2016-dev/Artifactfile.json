@@ -99,7 +99,6 @@
             "type": "string",
             "displayName": "Product ID",
             "description": "If you want to register your eval version to a licensed version of SQL Server, you will need to end the Product ID Key (PID). The format is 00000-00000-00000-00000-00000.",
-            "defaultValue": false,
             "allowEmpty": true
         }
 
