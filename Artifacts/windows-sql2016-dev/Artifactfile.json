@@ -28,11 +28,24 @@
                 "normalInstall","prepareBeforeImage", "completeAfterDeploy"
             ]
         },
-         "components": {
+        "admins": {
+            "type": "string",
+            "displayName": "Admins",
+            "description": "Comma-separated list of admins for the Sql Server instance and Analysis Services. Use \"localMachine\\Account\" to use an account on the machine. (localMachine gets renamed to the proper computer name)",
+            "defaultValue": "\"localMachine\\<AccountName>\", \"NT AUTHORITY\\SYSTEM\"",
+            "allowEmpty": true
+        },
+        "components": {
             "type": "string",
             "displayName": "Components",
-            "description": "Put the same values as you would in FEATURES",
+            "description": "Put the same values as you would in FEATURES. The default is SQL (includes the SQL Server Database Engine, Replication, Fulltext, Data Quality Server and connectvity)",
             "defaultValue": "SQL"
+        },        
+        "instanceName": {
+            "type": "string",
+            "displayName": "Instance Name",
+            "description": "SQL Server Instance Name",
+            "defaultValue": "MSSQLERVER"
         },
         "reporting": {
             "type": "bool",
@@ -40,17 +53,62 @@
             "description": "Installs Reporting Services",
             "defaultValue": true
         },
-        "admins": {
+        "analysis": {
+            "type": "bool",
+            "displayName": "Analysis Services",
+            "description": "Installs Analysis Services",
+            "defaultValue": true
+        },
+        "tabular":{
+            "type": "bool",
+            "displayName": "Tabular Mode",
+            "description": "Installs Analysis Services in Tabular or Multidimensional mode",
+            "defaultValue": true
+        },
+        "integration":{
+            "type": "bool",
+            "displayName": "Integration",
+            "description": "Installs Integration Services",
+            "defaultValue": true
+        },
+        "dataQualityClient":{
+            "type": "bool",
+            "displayName": "Data Quality Client",
+            "description": "Installs Data Quality Client",
+            "defaultValue": false
+        },
+        "masterDataService":{
+            "type": "bool",
+            "displayName": "Master Data Services",
+            "description": "Installs Master Data Services",
+            "defaultValue": false
+        },
+        "RServices":{
+            "type": "bool",
+            "displayName": "R Services (In-Database)",
+            "description": "Installs R Services to the SQL Instance",
+            "defaultValue": false
+        },
+        "polyBase":{
+            "type": "bool",
+            "displayName": "PolyBase (JRE required)",
+            "description": "Installs PolyBase components. Java Runtime Environment (JRE) needs to be installed.",
+            "defaultValue": false
+        },
+        "pid":{
             "type": "string",
-            "displayName": "Admins",
-            "description": "Comma-separated list of admins for Sql Server and Analysis Services. Use \"localMachine\\Account\" to use an account on the machine. (localMachine gets renamed to the proper computer name)",
-            "defaultValue": "\"localMachine\\<AccountName>\", \"NT AUTHORITY\\SYSTEM\""
+            "displayName": "Product ID",
+            "description": "If you want to register your eval version to a licensed version of SQL Server, you will need to end the Product ID Key (PID). The format is 00000-00000-00000-00000-00000.",
+            "defaultValue": false,
+            "allowEmpty": true
         }
+
+
     },
     
     "targetOsType": "Windows",
     "runCommand": {
-        "commandToExecute": "[concat('echo ',parameters('sqlEdition'), ' ', parameters('installType'), '   ', parameters('admins'))]"
+        "commandToExecute": "[concat('powerShell.exe -ExectionPolicy bypass \"& ''install-sql.ps1''\" -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components \"',  parameters('components'), '\" -instanceName',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -reporting:$', parameters('reporting'), ' -analysis:$', parameters('analysis'),  ' -tabular:$', parameters('tabular'), ' -integration:$',  parameters('integration') , ' -dataQualityClient:$', parameters('dataQualityClient'), ' -masterDataService:$', parameters('masterDataService'), ' -RServices:$', parameters('RServices'),  ' -polyBase:$', parameters('polyBase'),   '-pid \"',  parameters('pid') ,'\"'   )]"
     }
 }
 
