@@ -41,10 +41,10 @@
             "defaultValue": true
         },
         "admins": {
-            "type": "array",
+            "type": "string",
             "displayName": "Admins",
             "description": "the list of admins",
-            "defaultValue": ["localmachine\\Users","NT AUTHORITY\\SYSTEM"]
+            "defaultValue": "\"localmachine\\Users\", \"NT AUTHORITY\\SYSTEM\""
         }
     },
     
