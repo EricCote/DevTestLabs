@@ -1,0 +1,58 @@
+﻿{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "SQL Server -- 2016 Developer",
+    "description": "Installs Sql Server 2016 Developer. If you plan on using Sysprep, you should instead install the \"Preparation\" and \"Completion\" steps.",
+    "publisher": "Eric Côté",
+    "tags": [
+        "SQL",
+        "Developer"
+    ],
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/sql.png",
+    
+    "parameters": {
+        "sqlEdition": {
+            "type": "string",
+            "displayName": "Sql Edition",
+            "description": "The possible values are: eval, dev, express",
+            "defaultValue": "dev",
+            "allowedValues": [
+                "eval","dev", "express"
+            ]
+        },
+        "installType": {
+            "type": "string",
+            "displayName": "Install Type",
+            "description": "The possible values are: normalInstall, prepareBeforeImage, completeAfterDeploy",
+            "defaultValue": "normalInstall",
+            "allowedValues": [
+                "normalInstall","prepareBeforeImage", "completeAfterDeploy"
+            ]
+        },
+         "components": {
+            "type": "string",
+            "displayName": "Components",
+            "description": "Put the same values as you would in FEATURES",
+            "defaultValue": "SQL"
+        },
+        "reporting": {
+            "type": "bool",
+            "displayName": "Reporting Services",
+            "description": "Installs Reporting Services",
+            "defaultValue": true
+        },
+        "admins": {
+            "type": "array",
+            "displayName": "Admins",
+            "description": "the list of admins",
+            "defaultValue": ["localmachine\\Users","NT AUTHORITY\\SYSTEM"]
+        }
+    },
+    
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "[concat('echo ',parameters('sqlEdition'), ' ', parameters('installType'), '   ', parameters('admins'))]"
+    }
+}
+
+
+//[concat('powershell.exe -ExecutionPolicy bypass -File vs2017ent.ps1 -key ', padLeft(parameters('Key'),1,'a'))]
