@@ -43,8 +43,8 @@
         "admins": {
             "type": "string",
             "displayName": "Admins",
-            "description": "the list of admins",
-            "defaultValue": "\"localmachine\\Users\", \"NT AUTHORITY\\SYSTEM\""
+            "description": "Comma-separated list of admins for Sql Server and Analysis Services. Use \"localMachine\\Account\" to use an account on the machine. (localMachine gets renamed to the proper computer name)",
+            "defaultValue": "\"localMachine\\<AccountName>\", \"NT AUTHORITY\\SYSTEM\""
         }
     },
     
