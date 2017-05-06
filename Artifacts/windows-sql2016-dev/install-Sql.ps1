@@ -17,7 +17,7 @@ Param
    [string] $components = "SQL",
    [string] $instanceName = "MSSQLSERVER",
    [array]  $admins= @("localmachine\Users","NT AUTHORITY\SYSTEM"),
-   [string] [AllowEmptyString()] $pid="",	
+   [string] [AllowEmptyString()] $prodid="",	
    [bool]   $reporting = $true,
    [bool]   $analysis = $true,
    [bool]   $tabular=$true,
@@ -107,7 +107,7 @@ if ($installType -ne "completeAfterDeploy" )
 
 if ($installType -eq "normalInstall") 
 {
-    $pidString = if ([string]$pid -ne ''){ "/PID=`"$pid`""} else {""}
+    $pidString = if ([string]$prodid -ne ''){ "/PID=`"$prodid`""} else {""}
 
     & $setupFile   /q `
                     /Action=install `
@@ -142,7 +142,7 @@ if ($installType -eq "completeAfterDeploy")
 {
     if ([string]$pid -ne '')
     { 
-        $pidString="/PID=`"$pid`""
+        $pidString="/PID=`"$prodid`""
     }
     elseif ($sqlEdition -eq 'dev')
     {
