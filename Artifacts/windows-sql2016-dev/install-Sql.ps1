@@ -24,8 +24,8 @@ Param
    [bool]   $dataQualityClient = $false,
    [bool]   $masterDataService = $false,
    [bool]   $RServices = $false,
-   [bool]   $polyBase = $false
-
+   [bool]   $polyBase = $false,
+   [string] [AllowEmptyString()] $pid
 )
 
 
@@ -47,7 +47,7 @@ function Remove-VC-Redist-2017
 
 
 #for each logon, replace Localmachine by the computername, add quotes around, and join them in a single string.
-$adminString= ($admins | ForEach-Object  {$_ -replace "localmachine\\", "$env:computername\" -replace "(.+)", '"$1"'} )  -join " "
+$adminString= ($admins | ForEach-Object  {$_ -replace "localmachine\\", "$env:computername\" -replace "([\s\S]+)", '"$1"'} )  -join " "
 
 return $adminString
 return "wow"
