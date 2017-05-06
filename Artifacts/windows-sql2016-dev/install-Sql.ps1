@@ -26,7 +26,6 @@ Param
    [bool]   $RServices = $false,
    [bool]   $polyBase = $false,
 
-   [string] $pid
 )
 
 
