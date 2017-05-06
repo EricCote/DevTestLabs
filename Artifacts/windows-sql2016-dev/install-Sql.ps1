@@ -24,7 +24,7 @@ Param
    [bool]   $dataQualityClient = $false,
    [bool]   $masterDataService = $false,
    [bool]   $RServices = $false,
-   [bool]   $polyBase = $false,
+   [bool]   $polyBase = $false
 
 )
 
