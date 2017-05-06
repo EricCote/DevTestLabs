@@ -50,8 +50,6 @@ function Remove-VC-Redist-2017
 $adminString= ($admins | ForEach-Object  {($_ -replace "localmachine\\", "$env:computername\") -replace "([\w\W]+)", '"$1"'} )  -join " "
 
 return $adminString
-return "wow"
-exit
 
 $arrayFeatures = @($components)
 if ($reporting)         {$arrayFeatures += "RS"} 
@@ -140,7 +138,7 @@ if ($installType -eq "prepareBeforeImage")
 
 if ($installType -eq "completeAfterDeploy") 
 {
-    if ([string]$pid -ne '')
+    if ([string]$prodid -ne '')
     { 
         $pidString="/PID=`"$prodid`""
     }
@@ -167,10 +165,7 @@ if ($installType -eq "completeAfterDeploy")
                        | Out-Default
  }
 
-"test 
- un
- deux
- "
+
 
 & $isoFileletter\setup.exe /q `
                        /Action=install `
