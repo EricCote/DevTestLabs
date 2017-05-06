@@ -49,7 +49,6 @@ function Remove-VC-Redist-2017
 #for each logon, replace Localmachine by the computername, add quotes around, and join them in a single string.
 $adminString= ($admins | ForEach-Object  {($_ -replace "localmachine\\", "$env:computername\") -replace "([\w\W]+)", '"$1"'} )  -join " "
 
-return $adminString
 
 $arrayFeatures = @($components)
 if ($reporting)         {$arrayFeatures += "RS"} 
