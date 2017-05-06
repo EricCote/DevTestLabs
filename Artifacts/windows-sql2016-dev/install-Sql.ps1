@@ -16,7 +16,8 @@ Param
    [string] $installType= "normalInstall",  #3 values possible: normalInstall, prepareBeforeImage, completeAfterDeploy
    [string] $components = "SQL",
    [string] $instanceName = "MSSQLSERVER",
-   [array]  $admins= @("localmachine\Users","NT AUTHORITY\SYSTEM"),	
+   [array]  $admins= @("localmachine\Users","NT AUTHORITY\SYSTEM"),
+   [string] [AllowEmptyString()] $pid="",	
    [bool]   $reporting = $true,
    [bool]   $analysis = $true,
    [bool]   $tabular=$true,
@@ -24,8 +25,7 @@ Param
    [bool]   $dataQualityClient = $false,
    [bool]   $masterDataService = $false,
    [bool]   $RServices = $false,
-   [bool]   $polyBase = $false,
-   [string] [AllowEmptyString()] $pid
+   [bool]   $polyBase = $false
 )
 
 
@@ -47,7 +47,7 @@ function Remove-VC-Redist-2017
 
 
 #for each logon, replace Localmachine by the computername, add quotes around, and join them in a single string.
-$adminString= ($admins | ForEach-Object  {$_ -replace "localmachine\\", "$env:computername\" -replace "([\s\S]+)", '"$1"'} )  -join " "
+$adminString= ($admins | ForEach-Object  {($_ -replace "localmachine\\", "$env:computername\") -replace "([\w\W]+)", '"$1"'} )  -join " "
 
 return $adminString
 return "wow"
