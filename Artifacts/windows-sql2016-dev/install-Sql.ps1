@@ -107,21 +107,25 @@ if ($installType -eq "normalInstall")
 {
     $pidString = if ([string]$prodid -ne ''){ "/PID=`"$prodid`""} else {""}
 
-    & $setupFile   /q `
-                    /Action=install `
-                    $features `
-                    /SuppressPrivacyStatementNotice `
-                    /IAcceptROpenLicenseTerms `
-                    /IAcceptSqlServerLicenseTerms `
-                    /SqlSvcInstantFileInit `
-                    /InstanceName="$instanceName" `
-                    /SqlSysAdminAccounts=$adminString  `
-                    /AsSysAdminAccounts=$adminString  `
-                    /AsServerMode="$ASMode" `
-                    /RsInstallMode="DefaultNativeMode" `
-                    $pidString `
-                    | Out-Default
+    $params= "/q " +
+                    " /Action=install " +
+                    $features + 
+                    " /SuppressPrivacyStatementNotice " +
+                    " /IAcceptROpenLicenseTerms" +
+                    " /IAcceptSqlServerLicenseTerms" +
+                    " /SqlSvcInstantFileInit" +
+                    " /InstanceName=`"$instanceName`"" +
+                    " /SqlSysAdminAccounts=$adminString" +
+                    " /AsSysAdminAccounts=$adminString" +
+                    " /AsServerMode=`"$ASMode`"" +
+                    " /RsInstallMode=`"DefaultNativeMode`"" +
+                    $pidString
+
+    &  "$setupFile"  $params   | Out-Default
 }
+
+
+
 if ($installType -eq "prepareBeforeImage") 
 {
     & $setupFile   /q `
