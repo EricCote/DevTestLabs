@@ -49,6 +49,7 @@ function Remove-VC-Redist-2017
 #for each logon, replace Localmachine by the computername, add quotes around, and join them in a single string.
 $adminString= ($admins | ForEach-Object  {($_ -replace "localmachine\\", "$env:computername\") -replace "([\w\W]+)", '"$1"'} )  -join " "
 
+"Liste: " + $adminString
 
 $arrayFeatures = @($components)
 if ($reporting)         {$arrayFeatures += "RS"} 
@@ -115,7 +116,7 @@ if ($installType -eq "normalInstall")
                     /SqlSvcInstantFileInit `
                     /InstanceName="$instanceName" `
                     /SqlSysAdminAccounts=$adminString  `
-                    /AsSysAdminAccounts=$adminString `
+                    /AsSysAdminAccounts=$adminString  `
                     /AsServerMode="$ASMode" `
                     /RsInstallMode="DefaultNativeMode" `
                     $pidString `
@@ -166,19 +167,19 @@ if ($installType -eq "completeAfterDeploy")
 
 
 
-& $isoFileletter\setup.exe /q `
-                       /Action=install `
-                       /Features=SQL,AS,RS,IS,DQC,MDS,ADVANCEDANALYTICS `
-                       /SuppressPrivacyStatementNotice `
-                       /IAcceptROpenLicenseTerms `
-                       /IAcceptSqlServerLicenseTerms `
-                       /InstanceName=MSSQLSERVER `
-                       /RsInstallMode="DefaultNativeMode" `
-                       /AsSysAdminAccounts="$env:computerName\afi" `
-                       /AsServerMode="TABULAR" `
-                       /SqlSvcInstantFileInit `
-                       /SqlSysAdminAccounts="$env:computerName\afi" "NT AUTHORITY\SYSTEM"  `
-                       | Out-Default
+#& $isoFileletter\setup.exe /q `
+#                       /Action=install `
+#                       /Features=SQL,AS,RS,IS,DQC,MDS,ADVANCEDANALYTICS `
+#                       /SuppressPrivacyStatementNotice `
+#                       /IAcceptROpenLicenseTerms `
+#                       /IAcceptSqlServerLicenseTerms `
+#                       /InstanceName=MSSQLSERVER `
+#                       /RsInstallMode="DefaultNativeMode" `
+#                       /AsSysAdminAccounts="$env:computerName\afi" `
+#                       /AsServerMode="TABULAR" `
+#                       /SqlSvcInstantFileInit `
+#                       /SqlSysAdminAccounts="$env:computerName\afi" "NT AUTHORITY\SYSTEM"  `
+#                       | Out-Default
 
 
 Dismount-DiskImage $isoFile
