@@ -16,7 +16,7 @@ Param
    [string] $installType= "normalInstall",  #3 values possible: normalInstall, prepareBeforeImage, completeAfterDeploy
    [string] $components = "SQL",
    [string] $instanceName = "MSSQLSERVER",
-   [array]  $admins= @("localmachine\Users","NT AUTHORITY\SYSTEM"),
+   [array]  $admins= @("localmachine\afi","NT AUTHORITY\SYSTEM"),
    [string] [AllowEmptyString()] $prodid="",	
    [bool]   $reporting = $true,
    [bool]   $analysis = $true,
@@ -45,9 +45,18 @@ function Remove-VC-Redist-2017
 }
 
 
+try
+{
+    $temp = (New-Object System.Security.Principal.NTAccount($admins[0] -replace "localmachine\\", "$env:computername\")).Translate([System.Security.Principal.SecurityIdentifier]).Value
+}
+catch
+{ 
+    $admins[0]="BUILTIN\Users"
+}
+
 
 #for each logon, replace Localmachine by the computername, add quotes around, and join them in a single string.
-$adminString= ($admins | ForEach-Object  {($_ -replace "localmachine\\", "$env:computername\") -replace "([\w\W]+)", '"$1"'} )  -join " "
+$adminString= ($admins | ForEach-Object  {($_ -replace "localmachine\\", "$env:computername\") -replace "(.+)", '"$1"'} )  -join " " -replace '^\"(.+)\"', '$1'
 
 "Liste: " + $adminString
 
@@ -103,28 +112,29 @@ if ($installType -ne "completeAfterDeploy" )
     }
 }
 
+$adminString2 = $adminString ;
+
 if ($installType -eq "normalInstall") 
 {
     $pidString = if ([string]$prodid -ne ''){ "/PID=`"$prodid`""} else {""}
 
-    $params= "/q " +
-                    " /Action=install " +
-                    $features + 
-                    " /SuppressPrivacyStatementNotice " +
-                    " /IAcceptROpenLicenseTerms" +
-                    " /IAcceptSqlServerLicenseTerms" +
-                    " /SqlSvcInstantFileInit" +
-                    " /InstanceName=`"$instanceName`"" +
-                    " /SqlSysAdminAccounts=$adminString" +
-                    " /AsSysAdminAccounts=$adminString" +
-                    " /AsServerMode=`"$ASMode`"" +
-                    " /RsInstallMode=`"DefaultNativeMode`"" +
-                    $pidString
 
-    &  "$setupFile"  $params   | Out-Default
+     &  "$setupFile" /q `
+                       /Action=install `
+                       $features `
+                       /SuppressPrivacyStatementNotice `
+                       /IAcceptROpenLicenseTerms `
+                       /IAcceptSqlServerLicenseTerms `
+                       /InstanceName=$instanceName `
+                       /RsInstallMode="DefaultNativeMode" `
+                       /SqlSysAdminAccounts= $adminString2 `
+                       /AsSysAdminAccounts= $adminString2 `
+                       /AsServerMode=$ASMode `
+                       /SqlSvcInstantFileInit `
+                       $pidString `
+                       | Out-Default
+
 }
-
-
 
 if ($installType -eq "prepareBeforeImage") 
 {
@@ -135,7 +145,7 @@ if ($installType -eq "prepareBeforeImage")
                     /IAcceptROpenLicenseTerms `
                     /IAcceptSqlServerLicenseTerms `
                     /SqlSvcInstantFileInit `
-                    /InstanceID="$instanceName" `
+                    /InstanceID=$instanceName `
                     | Out-Default
 }
 
@@ -158,12 +168,12 @@ if ($installType -eq "completeAfterDeploy")
                        /SuppressPrivacyStatementNotice `
                        /IAcceptROpenLicenseTerms `
                        /IAcceptSqlServerLicenseTerms `
-                       /InstanceName="$instanceName" `
-                       /InstanceID="$instanceName" `
+                       /InstanceName=$instanceName `
+                       /InstanceID=$instanceName `
                        /RsInstallMode="DefaultNativeMode" `
-                       /SqlSysAdminAccounts=$adminString `
-                       /AsSysAdminAccounts=$adminString `
-                       /AsServerMode="$ASMode" `
+                       /SqlSysAdminAccounts= $adminString `
+                       /AsSysAdminAccounts= $adminString `
+                       /AsServerMode=$ASMode `
                        /SqlSvcInstantFileInit `
                        $pidString `
                        | Out-Default
