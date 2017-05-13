@@ -1,7 +1,7 @@
 ﻿{
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Visual Studio 2017 Enterprise",
-    "description": "Installs Visual Studio 2017 Enterprise. If no key is provided, provides a 30 day trial. You can switch from trial to licensed at any time using your product key or by entering your VS account credentials.",
+    "title": "Visual Studio 2017",
+    "description": "Installs Visual Studio 2017. If Community edition, no need for a product key. If no key is provided, the product provides a 30 day trial.  You can switch from trial to licensed at any time using your product key or by entering your VS account credentials.",
     "publisher": "Eric Côté",
     "tags": [
         "Windows",
@@ -19,7 +19,6 @@
                 "Enterprise", "Professional", "Community"
             ], 
             "defaultValue": "Community"
-            
         },
          "preview": {
             "type": "bool",
@@ -61,7 +60,7 @@
             "type": "string",
             "displayName": "Languages",
             "description": "You can specify multiple languages using a comma-separated list (,). Available values are cs-CZ,de-DE,en-US,es-ES,fr-FR,it-IT,ja-JP,ko-KR,pl-PL,pt-BR,ru-RU,tr-TR,zh-CN,zh-TW.",
-            "defaultValue": true
+            "defaultValue": "en-US"
         },
 
         "key": {
