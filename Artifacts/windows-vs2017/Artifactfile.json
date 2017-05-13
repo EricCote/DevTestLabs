@@ -1,0 +1,79 @@
+﻿{
+    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+    "title": "Visual Studio 2017 Enterprise",
+    "description": "Installs Visual Studio 2017 Enterprise. If no key is provided, provides a 30 day trial. You can switch from trial to licensed at any time using your product key or by entering your VS account credentials.",
+    "publisher": "Eric Côté",
+    "tags": [
+        "Windows",
+        "Visual Studio",
+        "VS"
+    ],
+    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/vs2017.png",
+    
+    "parameters": {
+        "edition": {
+            "type": "string",
+            "displayName": "Edition",
+            "description": "Visual Studio Edition (Enterprise, Professional or Community)",
+            "allowedValues": [
+                "Enterprise", "Professional", "Community"
+            ], 
+            "defaultValue": "Community"
+            
+        },
+         "preview": {
+            "type": "bool",
+            "displayName": "Preview?",
+            "description": "Installs the Preview or the Released version of Visual Studio 2017.",
+            "defaultValue": false
+        },
+         "aspnet": {
+            "type": "bool",
+            "displayName": "ASP.NET and web development tools",
+            "description": "Tools for developing ASP.NET and Web applications including IIS Express, Web Deploy, and SQL Server LocalDB.",
+            "defaultValue": true
+        },
+         "netcore": {
+            "type": "bool",
+            "displayName": ".NET Core cross-platform development",
+            "description": "Build cross-platform applications using .NET Core, ASP.NET Core, HTML, JavaScript, and container development tools.",
+            "defaultValue": true
+        },
+         "desktop": {
+            "type": "bool",
+            "displayName": ".NET desktop development",
+            "description": "Build WPF, Windows Forms and console applications using the .NET Framework.",
+            "defaultValue": true
+        },
+        "azure": {
+            "type": "bool",
+            "displayName": "Azure development",
+            "description": "Azure SDK, tools, and projects for developing cloud apps and creating resources.",
+            "defaultValue": true
+        },
+        "data": {
+            "type": "bool",
+            "displayName": "Data storage and processing",
+            "description": "Connect, develop and test data solutions using SQL Server, Azure Data Lake, Hadoop or Azure ML.",
+            "defaultValue": true
+        },  
+        "languages": {
+            "type": "string",
+            "displayName": "Languages",
+            "description": "You can specify multiple languages using a comma-separated list (,). Available values are cs-CZ,de-DE,en-US,es-ES,fr-FR,it-IT,ja-JP,ko-KR,pl-PL,pt-BR,ru-RU,tr-TR,zh-CN,zh-TW.",
+            "defaultValue": true
+        },
+
+        "key": {
+            "type": "string",
+            "displayName": "Visual Studio key",
+            "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial.",
+            "allowEmpty": true
+        }
+    },
+    
+    "targetOsType": "Windows",
+    "runCommand": {
+        "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2017.ps1'' -edition ', parameters('edition'), ' -preview:$', parameters('preview'), ' -aspnet:$',  parameters('aspnet'), ' -netcore:$',  parameters('netcore'), ' -desktop:$',  parameters('desktop'), ' -azure:$', parameters('azure'), ' -data:$', parameters('data'), ' -languages ''' , parameters('languages')    ,'''  -key ''', parameters('key'), ''' \"'  )]"
+    }
+}
