@@ -86,7 +86,7 @@
           }, 
 
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo796', 'windows-vs2017')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-vs2017')]",
             "parameters": [
               {
                 "name": "edition",
@@ -127,7 +127,7 @@
             ]
           },
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo796', 'windows-sql-samples')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-sql-samples')]",
             "parameters": [
               {
                 "name": "adventureWorksLT2012",

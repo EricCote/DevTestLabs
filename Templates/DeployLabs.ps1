@@ -6,17 +6,20 @@
 #Install-Module AzureRM -AllowClobber -force
 
 #Update-Module AzureRM
-#Get-Module -ListAvailable Azure*
+#Get-Module -ListAvailable Azure*  
+#Get-Module -ListAvailable Azure* | uninstall-Module  -force
+
+
 
 ###########################
 # start of script
 
 $location=      "Canada East"
-$labName=       "Vs2019"
+$labName=       "Vs2017"
 
-$vmPrefix=          "Test"
+$vmPrefix=          "vs2017-1"
 $ExpiresInXDays=    7
-$numberOfInstances= 2
+$numberOfInstances= 8
 $imageDescription=  "Windows 10 with Visual Studio 2017 Enterprise and Office 2016"
 $language=          "en-US"
 
@@ -37,7 +40,7 @@ function Stuff-EnvironmentVariable
     } 
     $value = Read-Host "Enter the $description";
     [Environment]::SetEnvironmentVariable($name, $value, "User");
-    Write-Output "This is now saved in the environnement variable $name.";
+    #Write-Output "This is now saved in the environnement variable $name.";
     return $value;
 }
 
