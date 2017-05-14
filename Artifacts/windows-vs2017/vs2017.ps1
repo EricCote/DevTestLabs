@@ -36,9 +36,6 @@ foreach ($lang in $languages) {
     $languageParams += @("--addProductLang", $lang)
 }
 
-
-
-
 $channel="VisualStudio.15.Release"
 $workloads=@()
 
@@ -47,7 +44,6 @@ if ($Preview)
    $websource = $Websource.Replace("release","pre")
    $channel="VisualStudio.15.Preview"
 }
-
 
 if ($aspnet){
    $workloads += @("--add", "Microsoft.VisualStudio.Workload.NetWeb")
@@ -83,7 +79,9 @@ try
          --channelid $channel `
          --productid Microsoft.VisualStudio.Product.$edition `
          $workloads `
-         $languageParams `         $stringKey $keyNoDashes `         --includeRecommended --quiet --wait `
+         $languageParams `
+         $stringKey $keyNoDashes `
+         --includeRecommended --quiet --wait `
               | Out-Default;
 }
 catch
@@ -103,6 +101,3 @@ catch
 #{
 #   Write-Error 'Failed to activate VS2017';
 #}
-
-
-

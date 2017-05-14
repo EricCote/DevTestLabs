@@ -96,6 +96,25 @@ if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Blend 
           <start:DesktopApplicationTile Size="2x2" Column="4" Row="0" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Blend for Visual Studio 2017.lnk" />
 "@
 }
+
+if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017 Preview.lnk")
+{    $innerDev = $innerDev + @"
+
+          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017 Preview.lnk" />
+"@
+}
+
+#if (test-path "$env:AllUsersProfile\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017 Preview.lnk")
+#{    $innerDev = $innerDev + @"
+#
+#          <start:DesktopApplicationTile Size="2x2" Column="0" Row="2" DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2017 Preview.lnk" />
+#"@
+#}
+
+
+
+
+
 if ($innerDev -eq "")
 { $dev  = "" }
 else

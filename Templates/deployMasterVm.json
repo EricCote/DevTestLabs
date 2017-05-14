@@ -84,12 +84,106 @@
           {
             "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-restart-computer')]"
           }, 
+
           {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo1', 'windows-vs2017-ent')]",
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo796', 'windows-vs2017')]",
             "parameters": [
               {
-                "name": "Key",
-                "value": "[parameters('vskey')]"
+                "name": "edition",
+                "value": "Enterprise"
+              },
+              {
+                "name": "preview",
+                "value": "false"
+              },
+              {
+                "name": "aspnet",
+                "value": "true"
+              },
+              {
+                "name": "netcore",
+                "value": "true"
+              },
+              {
+                "name": "desktop",
+                "value": "true"
+              },
+              {
+                "name": "azure",
+                "value": "true"
+              },
+              {
+                "name": "data",
+                "value": "true"
+              },
+              {
+                "name": "languages",
+                "value": "en-US"
+              },
+              {
+                "name": "key",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', parameters('labName'), 'privaterepo796', 'windows-sql-samples')]",
+            "parameters": [
+              {
+                "name": "adventureWorksLT2012",
+                "value": "true"
+              },
+              {
+                "name": "adventureWorks2014",
+                "value": "true"
+              },
+              {
+                "name": "adventureWorksDW2014",
+                "value": "false"
+              },
+              {
+                "name": "adventureWorks2016",
+                "value": "false"
+              },
+              {
+                "name": "adventureWorksDW2016",
+                "value": "false"
+              },
+              {
+                "name": "wideWorldImporters",
+                "value": "true"
+              },
+              {
+                "name": "wideWorldImportersDW",
+                "value": "false"
+              },
+              {
+                "name": "wideWorldInMemory",
+                "value": "false"
+              },
+              {
+                "name": "instanceName",
+                "value": ""
+              },
+              {
+                "name": "backupPath",
+                "value": "c:\\dbBackup"
+              },
+              {
+                "name": "samplePath",
+                "value": "c:\\dbSamples"
+              },
+              {
+                "name": "downloadOnly",
+                "value": "true"
+              },
+              {
+                "name": "setupOnly",
+                "value": "false"
+              },
+              {
+                "name": "uninstall",
+                "value": "false"
               }
             ]
           },
