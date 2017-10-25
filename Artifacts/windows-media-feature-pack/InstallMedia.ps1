@@ -28,7 +28,13 @@ if (-NOT $isserver)
     #detect if windows media playback is not installed
     if ($mediaRpt -ne 'Enabled' -and $OsVersion -eq 10 )
     {
-        if ($BuildVersion -le 15063) #creator's edition (1703) 
+
+      if ($BuildVersion -le 16299) #fall creator's update (1709) 
+        {
+            $url="https://software-download.microsoft.com/pr/Windows_MediaFeaturePack_x64_1709.msu?t=0cb7899d-24b5-44d6-af31-ec8d1b1beb0e&e=1508992497&h=ec3e423b83d306d62ea778e22caa061d"
+        }    
+    
+        if ($BuildVersion -le 15063) #creator's update (1703) 
         {
             $url="http://download.microsoft.com/download/9/E/C/9EC0EC2C-8151-468A-95A3-2F2AD6A2AC13/Microsoft-Windows-MediaFeaturePack-OOB-Package.msu"
         }    
