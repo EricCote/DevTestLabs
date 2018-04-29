@@ -114,12 +114,12 @@ function Get-SqlYear
     }
 }
 
-function Get-codeplexVersion
-{
-   $response= Invoke-WebRequest -UseBasicParsing -uri "http://www.codeplex.com/";
-   if ($response.RawContent -match "<li>Version \d+\.\d+\.\d+\.(\d+)</li>")
-   {   return $Matches[1]; };
-}
+#function Get-codeplexVersion
+#{
+#   $response= Invoke-WebRequest -UseBasicParsing -uri "http://www.codeplex.com/";
+#   if ($response.RawContent -match "<li>Version \d+\.\d+\.\d+\.(\d+)</li>")
+#   {   return $Matches[1]; };
+#}
 
 function Download-File
 {
@@ -345,7 +345,44 @@ If($adventureWorksDW2016)
     }
 }
 
-   
+
+if ($adventureWorks2017)
+{
+    if($downloadFiles){
+
+        "Downloading AdventureWorks 2017..."
+      
+        $FileNameAW2017="$env:temp\AdventureWorks2017.bak"
+        Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2017.bak"  $FileNameAW2017
+        copy $FileNameAW2017 $backupPath
+        del $FileNameAW2017 -ErrorAction SilentlyContinue
+    }
+
+    if($setupFiles){
+        "Installing AdventureWorks 2017"
+        $cmd="
+        DROP DATABASE IF EXISTS AdventureWorks2017;
+        RESTORE DATABASE AdventureWorks2017
+            FROM DISK = '$backupPath\AdventureWorks2017.bak'
+        WITH   
+            MOVE 'AdventureWorks2017_Data' 
+            TO '$samplePath\AdventureWorks2017.mdf',
+            MOVE 'AdventureWorks2017_Log' 
+            TO '$samplePath\AdventureWorks2017.ldf';
+        GO
+    
+        ALTER AUTHORIZATION ON DATABASE::AdventureWorks2017 TO sa;
+        "
+
+        run-sql $sqlName $cmd
+    
+    }
+
+}
+
+
+
+
 $SqlFeature=if ($wideWorldInMemory)  {"Full"} else {"Standard"}
 ###-------------------------------------------------------------------------------
 # Code to detect if we are using LocalDB, in which case we want
@@ -444,6 +481,7 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorks2014;
       DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
       DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
+      DROP DATABASE IF EXISTS AdventureWorks2017;
       "
    run-sql $sqlName "SELECT Name FROM sys.databases"
 
