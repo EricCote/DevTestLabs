@@ -1,4 +1,4 @@
-﻿#https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/SQLServer2016CTP3Samples.zip
+#https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/SQLServer2016CTP3Samples.zip
 #https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorksDW2016CTP3.bak
 #https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorks2016CTP3.bak
 
@@ -10,6 +10,10 @@ param
   [bool] $adventureWorksDW2014,
   [bool] $adventureWorks2016,
   [bool] $adventureWorksDW2016,
+  [bool] $adventureWorks2016_EXT,
+  [bool] $adventureWorksDW2016_EXT,
+  [bool] $adventureWorks2017,
+  [bool] $adventureWorksDW2017,
   [bool] $wideWorldImporters,
   [bool] $wideWorldImportersDW,
   [bool] $wideWorldInMemory, 
@@ -114,12 +118,49 @@ function Get-SqlYear
     }
 }
 
-#function Get-codeplexVersion
-#{
-#   $response= Invoke-WebRequest -UseBasicParsing -uri "http://www.codeplex.com/";
-#   if ($response.RawContent -match "<li>Version \d+\.\d+\.\d+\.(\d+)</li>")
-#   {   return $Matches[1]; };
-#}
+
+
+function DownloadInstall-Database   
+{
+  Param([parameter(Position=1)]
+      [string] $db_name, 
+      [parameter(Position=2)]
+      [string] $url,
+      [parameter(Position=3)]
+      [string] $extrafileRestore
+    )
+     if($downloadFiles){
+        "Downloading $db_name..."
+         $DownloadedDest="$env:temp\$db_name.bak"
+         Download-File $url  $DownloadedDest
+         copy $DownloadedDest $backupPath
+         del $DownloadedDest -ErrorAction SilentlyContinue  
+     }
+      if($setupFiles){
+        $datafile= $db_name+"_data";
+        $logfile=$db_name+"_log"
+
+        "Installing $db_name..."
+        $cmd="
+
+        DROP DATABASE IF EXISTS $db_name;
+        RESTORE DATABASE $db_name
+            FROM DISK = '$backupPath\$db_name.bak'
+        WITH   
+            MOVE '$datafile' 
+            TO '$samplePath\$dataFile.mdf', 
+            $extrafileRestore
+            MOVE '$logfile' 
+            TO '$samplePath\$logfile.ldf';
+        GO
+    
+        ALTER AUTHORIZATION ON DATABASE::$db_name TO sa;
+        "
+
+        run-sql $sqlName $cmd
+
+        }
+}
 
 function Download-File
 {
@@ -129,6 +170,7 @@ function Download-File
       $Destination
     )
 
+    [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
     $wc = new-object System.Net.WebClient
     $wc.DownloadFile($Source,$Destination)
     $wc.Dispose()
@@ -136,6 +178,9 @@ function Download-File
 
 
 #----------------------------------------------------------
+
+
+
 
 
 $sqlcmd=Get-SqlCmdPath
@@ -150,8 +195,6 @@ if ($sqlName -match "(localdb)")
     # & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" info mssqllocaldb  
 }
 
-#get codeplex-Version
-$codeplexVersion= Get-CodeplexVersion
     
 if ([string]$samplePath -eq "")
 {
@@ -162,7 +205,6 @@ if ([string]$backupPath -eq "")
 {
     $backupPath= "C:\dbBackup"
 }
-
 
 New-Item -type directory -path $backupPath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
 New-Item -type directory -path $samplePath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
@@ -180,7 +222,7 @@ if($adventureWorksLT2012)
     if ($downloadFiles)
     {
         "Downloading AdventureWorks LT 2012..."
-        Download-File  "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=354847&FileTime=129764108568330000&Build=$codeplexVersion" "$env:temp\AdventureWorksLT2012_Data.mdf"
+        Download-File  "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks2012/adventure-works-2012-oltp-lt-data-file.mdf" "$env:temp\AdventureWorksLT2012_Data.mdf"
         Copy-Item  -Path "$env:temp\AdventureWorksLT2012_Data.mdf" -Destination $backupPath
         del "$env:temp\AdventureWorksLT2012_Data.mdf" -ErrorAction SilentlyContinue
     }
@@ -206,180 +248,69 @@ if($adventureWorksLT2012)
 ###------------------------------------------------------
 if ($adventureWorks2014)
 {
-    if($downloadFiles){
-
-        "Downloading AdventureWorks 2014..."
-      
-        $FileNameAW2014="$env:temp\Adventure Works 2014 Full Database Backup.zip"
-        Download-File "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=880661&FileTime=130507138100830000&Build=$codeplexVersion"  $FileNameAW2014
-
-        [system.io.compression.zipFile]::ExtractToDirectory($FileNameAW2014,$backupPath)
-        del $FileNameAW2014 -ErrorAction SilentlyContinue
-    }
-
-    if($setupFiles){
-        "Installing AdventureWorks 2014..."
-        $cmd="
-        DROP DATABASE IF EXISTS AdventureWorks2014;
-        RESTORE DATABASE AdventureWorks2014
-            FROM DISK = '$backupPath\AdventureWorks2014.bak'
-        WITH   
-            MOVE 'AdventureWorks2014_Data' 
-            TO '$samplePath\AdventureWorks_data.mdf', 
-            MOVE 'AdventureWorks2014_Log' 
-            TO '$samplePath\AdventureWorks_log.ldf';
-        GO
-    
-        ALTER AUTHORIZATION ON DATABASE::AdventureWorks2014 TO sa;
-        "
-
-        run-sql $sqlName $cmd
-    
-    }
+    DownloadInstall-Database "AdventureWorks2014" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2014.bak"   
 }
 
-    ###----------------------------------------------------
+###----------------------------------------------------
 
 If($adventureWorksDW2014)
 {
-    if($downloadFiles){
-        "Downloading AdventureWorks DW 2014..."
-        $FileNameAWDW2014="$env:temp\Adventure Works DW 2014 Full Database Backup.zip"
-
-        Download-File "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msftdbprodsamples&DownloadId=880664&FileTime=130511246406570000&Build=$codeplexVersion" $FileNameAWDW2014
-
-        [system.io.compression.zipFile]::ExtractToDirectory($FileNameAWDW2014,$backupPath)
-        del $FileNameAWDW2014 -ErrorAction SilentlyContinue
-    }
-
-    if($setupFiles){
-        "Installing AdventureWorks DW 2014..."
-
-        $cmd="
-        DROP DATABASE IF EXISTS AdventureWorksDW2014;
-        RESTORE DATABASE AdventureWorksDW2014
-            FROM DISK = '$backupPath\AdventureWorksDW2014.bak'
-        WITH   
-            MOVE 'AdventureWorksDW2014_Data' 
-            TO '$samplePath\AdventureWorksDW_data.mdf', 
-            MOVE 'AdventureWorksDW2014_Log' 
-            TO '$samplePath\AdventureWorksDW_log.ldf';
-        GO
+    DownloadInstall-Database "AdventureWorksDW2014" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2014.bak" 
     
-        ALTER AUTHORIZATION ON DATABASE::AdventureWorksDW2014 TO sa;
-        "
-        
-        run-sql $sqlName $cmd
-    }
 }
-
 
 ###------------------------------------------------------
 if ($adventureWorks2016)
 {
-    if($downloadFiles){
-
-        "Downloading AdventureWorks 2016 CTP3..."
-      
-        $FileNameAW2016="$env:temp\AdventureWorks2016CTP3.bak"
-        Download-File "https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorks2016CTP3.bak"  $FileNameAW2016
-        copy $FileNameAW2016 $backupPath
-        del $FileNameAW2016 -ErrorAction SilentlyContinue
-    }
-
-    if($setupFiles){
-        "Installing AdventureWorks 2016 CTP3..."
-        $cmd="
-        DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
-        RESTORE DATABASE AdventureWorks2016CTP3
-            FROM DISK = '$backupPath\AdventureWorks2016CTP3.bak'
-        WITH   
-            MOVE 'AdventureWorks2016CTP3_Data' 
-            TO '$samplePath\AdventureWorks2016_data.mdf',
-            MOVE 'AdventureWorks2016CTP3_mod'
-            TO '$samplePath\AdventureWorks2016_mod',
-            MOVE 'AdventureWorks2016CTP3_Log' 
-            TO '$samplePath\AdventureWorks2016_log.ldf';
-        GO
-    
-        ALTER AUTHORIZATION ON DATABASE::AdventureWorks2016CTP3 TO sa;
-        "
-
-        run-sql $sqlName $cmd
-    
-    }
-
+    DownloadInstall-Database "AdventureWorks2016" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2016.bak" 
 }
-    ###----------------------------------------------------
 
+###------------------------------------------------------
 If($adventureWorksDW2016)
 {
-    if($downloadFiles){
-        "Downloading AdventureWorks DW 2016..."
-        $FileNameAWDW2016="$env:temp\AdventureWorksDW2016CTP3.bak"
-
-        Download-File "https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorksDW2016CTP3.bak" $FileNameAWDW2016
-        copy $FileNameAWDW2016 $backupPath
-        del $FileNameAWDW2016 -ErrorAction SilentlyContinue
-    }
-
-
-    if($setupFiles){
-        "Installing AdventureWorks DW 2016..."
-
-        $cmd="
-        DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
-        RESTORE DATABASE AdventureWorksDW2016CTP3
-            FROM DISK = '$backupPath\AdventureWorksDW2016CTP3.bak'
-        WITH   
-            MOVE 'AdventureWorksDW2014_Data' 
-            TO '$samplePath\AdventureWorksDW2016_data.mdf', 
-            MOVE 'AdventureWorksDW2014_Log' 
-            TO '$samplePath\AdventureWorksDW2016_log.ldf';
-        GO
-    
-        ALTER AUTHORIZATION ON DATABASE::AdventureWorksDW2016CTP3 TO sa;
-        "
-        
-        run-sql $sqlName $cmd
-    }
+  DownloadInstall-Database "AdventureWorksDW2016" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2016.bak"  
 }
 
+
+
+
+###------------------------------------------------------
+if ($adventureWorks2016_EXT)
+{
+  DownloadInstall-Database "AdventureWorks2016_EXT" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2016_EXT.bak" `
+            " MOVE 'AdventureWorks2016_EXT_mod' TO '$samplePath\AdventureWorks2016_mod', "
+}
+###----------------------------------------------------
+
+If($adventureWorksDW2016_EXT)
+{
+  DownloadInstall-Database "AdventureWorksDW2016_EXT" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2016_EXT.bak" 
+}
+
+
+###----------------------------------------------------
 
 if ($adventureWorks2017)
 {
-    if($downloadFiles){
-
-        "Downloading AdventureWorks 2017..."
-      
-        $FileNameAW2017="$env:temp\AdventureWorks2017.bak"
-        Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2017.bak"  $FileNameAW2017
-        copy $FileNameAW2017 $backupPath
-        del $FileNameAW2017 -ErrorAction SilentlyContinue
-    }
-
-    if($setupFiles){
-        "Installing AdventureWorks 2017"
-        $cmd="
-        DROP DATABASE IF EXISTS AdventureWorks2017;
-        RESTORE DATABASE AdventureWorks2017
-            FROM DISK = '$backupPath\AdventureWorks2017.bak'
-        WITH   
-            MOVE 'AdventureWorks2017_Data' 
-            TO '$samplePath\AdventureWorks2017.mdf',
-            MOVE 'AdventureWorks2017_Log' 
-            TO '$samplePath\AdventureWorks2017.ldf';
-        GO
-    
-        ALTER AUTHORIZATION ON DATABASE::AdventureWorks2017 TO sa;
-        "
-
-        run-sql $sqlName $cmd
-    
-    }
-
+  DownloadInstall-Database "AdventureWorks2017" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2017.bak" 
 }
 
+
+###----------------------------------------------------
+
+
+If($adventureWorksDW2017)
+{
+  DownloadInstall-Database "AdventureWorksDW2017" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2017.bak"  
+}
 
 
 
@@ -479,8 +410,11 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorksLT2012;
       DROP DATABASE IF EXISTS AdventureWorksDW2014;
       DROP DATABASE IF EXISTS AdventureWorks2014;
-      DROP DATABASE IF EXISTS AdventureWorksDW2016CTP3;
-      DROP DATABASE IF EXISTS AdventureWorks2016CTP3;
+      DROP DATABASE IF EXISTS AdventureWorksDW2016;
+      DROP DATABASE IF EXISTS AdventureWorks2016;
+      DROP DATABASE IF EXISTS AdventureWorksDW2016_EXT;
+      DROP DATABASE IF EXISTS AdventureWorks2016_EXT;
+      DROP DATABASE IF EXISTS AdventureWorksDW2017;
       DROP DATABASE IF EXISTS AdventureWorks2017;
       "
    run-sql $sqlName "SELECT Name FROM sys.databases"
@@ -490,3 +424,4 @@ if ($Uninstall)
 
 
  & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" stop
+
