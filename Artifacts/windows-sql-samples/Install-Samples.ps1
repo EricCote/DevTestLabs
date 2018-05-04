@@ -422,6 +422,6 @@ if ($Uninstall)
    rd "C:\DbSamples" -Recurse 
 }
 
-
+if ($sqlName -match "(localdb)") {
  & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" stop
-
+}
