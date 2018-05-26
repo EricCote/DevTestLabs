@@ -161,18 +161,19 @@ if ($installType -eq "normalInstall")
                        /AsSysAdminAccounts= $adminString2 `
                        /AsServerMode=$ASMode `
                        /SqlSvcInstantFileInit `
+                       /tcpEnabled=1 `
                        $pidString `
                        | Out-Default
 
-             #            &  "$setupFile" /q `
-             #          /Action=uninstall `
-             #          $features `
-             #          /SuppressPrivacyStatementNotice `
-             #          /IAcceptROpenLicenseTerms `
-             #          /IAcceptSqlServerLicenseTerms `
-             #          /InstanceName=sqlexpress `
-             #          $pidString `
-             #          | Out-Default
+                   # &  "$setupFile" /q `
+                   #    /Action=uninstall `
+                   #    $features `
+                   #    /InstanceName=$instanceName `
+                   #    /SuppressPrivacyStatementNotice `
+                   #    /IAcceptROpenLicenseTerms `
+                   #    /IAcceptSqlServerLicenseTerms `
+                   #    $pidString `
+                   #    | Out-Default
 
 }
 
