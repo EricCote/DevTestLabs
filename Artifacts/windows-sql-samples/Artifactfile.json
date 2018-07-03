@@ -1,4 +1,4 @@
-{
+﻿{
     "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
     "title": "SQL Samples",
     "description": "Installs Sql Server Sample Databases.",
@@ -16,6 +16,24 @@
             "defaultValue": true,
             "displayName": "Adventure Works LT 2012",
             "description": "Installs Adventure Works LT 2012."
+        },
+        "adventureWorksLT2014": {
+            "type": "bool",
+            "defaultValue": true,
+            "displayName": "Adventure Works LT 2014",
+            "description": "Installs Adventure Works LT 2014."
+        },
+        "adventureWorksLT2016": {
+            "type": "bool",
+            "defaultValue": true,
+            "displayName": "Adventure Works LT 2016",
+            "description": "Installs Adventure Works LT 2016."
+        }, 
+        "adventureWorksLT2017": {
+            "type": "bool",
+            "defaultValue": true,
+            "displayName": "Adventure Works LT 2017",
+            "description": "Installs Adventure Works LT 2017."
         },
         "adventureWorks2014": {
             "type": "bool",

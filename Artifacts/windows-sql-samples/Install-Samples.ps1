@@ -6,6 +6,9 @@
 param
 (
   [bool] $adventureWorksLT2012,
+  [bool] $adventureWorksLT2014,
+  [bool] $adventureWorksLT2016,
+  [bool] $adventureWorksLT2017,
   [bool] $adventureWorks2014,
   [bool] $adventureWorksDW2014,
   [bool] $adventureWorks2016,
@@ -139,6 +142,16 @@ function DownloadInstall-Database
       if($setupFiles){
         $datafile= $db_name+"_data";
         $logfile=$db_name+"_log"
+   
+       
+        if ($datafile -like "AdventureWorksLT201[67]*") {
+            $datafile="AdventureWorksLT2012_Data"
+            $logfile="AdventureWorksLT2012_Log"
+        }
+        elseif ($datafile -like "AdventureWorksLT201[24]*") {
+            $datafile="AdventureWorksLT2008_Data"
+            $logfile="AdventureWorksLT2008_Log"
+        }
 
         "Installing $db_name..."
         $cmd="
@@ -217,7 +230,7 @@ add-type -AssemblyName System.IO.Compression.FileSystem
 
 ###-------------------------------------------------------------------------------
 
-if($adventureWorksLT2012)
+if($adventureWorksLT2011) #originallly 2012
 {
     if ($downloadFiles)
     {
@@ -244,6 +257,41 @@ if($adventureWorksLT2012)
         run-sql $sqlName $cmd
     }
 }
+
+###------------------------------------------------------
+if ($adventureWorksLT2012)
+{
+    DownloadInstall-Database "AdventureWorksLT2012" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2012.bak"   
+}
+
+###----------------------------------------------------
+
+If($adventureWorksLT2014)
+{   
+     DownloadInstall-Database "AdventureWorksLT2014" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2014.bak"   
+    
+}
+
+###------------------------------------------------------
+if ($adventureWorksLT2016)
+{
+    DownloadInstall-Database "AdventureWorksLT2016" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2016.bak"   
+}
+
+###----------------------------------------------------
+
+If($adventureWorksLT2017)
+{
+     DownloadInstall-Database "AdventureWorksLT2017" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2017.bak"   
+    
+}
+
+
+
 
 ###------------------------------------------------------
 if ($adventureWorks2014)
@@ -408,6 +456,9 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS WideWorldImportersDW;
       DROP DATABASE IF EXISTS WideWorldImporters;
       DROP DATABASE IF EXISTS AdventureWorksLT2012;
+      DROP DATABASE IF EXISTS AdventureWorksLT2014;
+      DROP DATABASE IF EXISTS AdventureWorksLT2016;
+      DROP DATABASE IF EXISTS AdventureWorksLT2017;
       DROP DATABASE IF EXISTS AdventureWorksDW2014;
       DROP DATABASE IF EXISTS AdventureWorks2014;
       DROP DATABASE IF EXISTS AdventureWorksDW2016;
