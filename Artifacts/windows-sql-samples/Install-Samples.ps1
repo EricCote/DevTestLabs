@@ -82,9 +82,15 @@ function Get-SqlCmdPath
     if (test-path "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE")
     {$cmdpath="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\SQLCMD.EXE";}
 
+    if (test-path "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\SQLCMD.EXE")
+    {$cmdpath="C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\SQLCMD.EXE";}
+
+    if ($cmdpath -eq "") {
+        $cmdpath=(Get-Command sqlcmd).Source;
+    }
+
     return $cmdpath;
 }
-
 
 
 function Run-Sql
