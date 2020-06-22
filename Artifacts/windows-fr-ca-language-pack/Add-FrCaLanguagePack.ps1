@@ -8,7 +8,18 @@ $isServer= (Gwmi  Win32_OperatingSystem).productType -gt 1
 $LanguagePackSource=""
 
 if (-NOT $isserver -and $OsVersion -eq 10 )  #Windows 10 
-{        
+{   
+
+  if ($BuildVersion -le 17134) #1803 
+  {
+    $LanguagePackSource = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2018/04/lp_fc01872ba8ba1a65ac5d67bad4940e7a4514ed72.cab"
+  }
+
+  if ($BuildVersion -le 16299) #1709 Fall Creator's update
+  {
+    $LanguagePackSource = "http://download.windowsupdate.com/d/msdownload/update/software/updt/2017/10/lp_f8ff8608dc2014b6a2ec44459b01a81f04d928a9.cab"
+  }
+
   if ($BuildVersion -le 15063) #1703 Creator's update
   {
     $LanguagePackSource = "http://download.windowsupdate.com/c/msdownload/update/software/updt/2017/03/lp_8cbb51723015e2557115f1471d696451abae68e1.cab"
