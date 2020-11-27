@@ -34,9 +34,10 @@ function Uninstall-Program
 
 #-----------------------------------------------------------------------------------
 
-Uninstall-Program "Microsoft SQL Server 2016 LocalDB "
-Uninstall-Program "Microsoft Command Line Utilities 13 for SQL Server" 
-Uninstall-Program "Microsoft ODBC Driver 13 for SQL Server"
+Uninstall-Program "Microsoft SQL Server 2019 LocalDB "
+Uninstall-Program "Microsoft Command Line Utilities 15 for SQL Server" 
+Uninstall-Program "Microsoft ODBC Driver 17 for SQL Server"
+Uninstall-Program "Microsoft Visual C++ 2015-2019 Redistributable (x64)"
 
 
 rd "C:\Program Files\Microsoft SQL Server" -recurse -force
