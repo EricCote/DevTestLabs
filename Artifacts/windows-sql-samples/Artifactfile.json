@@ -3,12 +3,7 @@
   "title": "SQL Samples",
   "description": "Installs Sql Server Sample Databases.",
   "publisher": "Eric Côté",
-  "tags": [
-    "Sample Databases",
-    "Northwind",
-    "Adventure Works",
-    "Wide World Importers"
-  ],
+  "tags": ["Sample"],
   "parameters": {
     "adventureWorksLT2017": {
       "type": "bool",
