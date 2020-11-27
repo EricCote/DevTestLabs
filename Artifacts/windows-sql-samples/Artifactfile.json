@@ -9,7 +9,6 @@
     "Adventure Works",
     "Wide World Importers"
   ],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
   "parameters": {
     "adventureWorksLT2017": {
       "type": "bool",
