@@ -1,164 +1,163 @@
 ﻿{
-    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "SQL Samples",
-    "description": "Installs Sql Server Sample Databases.",
-    "publisher": "Eric Côté",
-    "tags": [
-        "Sample Databases",
-        "Northwind",
-        "Adventure Works",
-        "Wide World Importers"
-    ],
-    "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
-    "parameters": {
-        "adventureWorksLT2012": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works LT 2012",
-            "description": "Installs Adventure Works LT 2012."
-        },
-        "adventureWorksLT2014": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works LT 2014",
-            "description": "Installs Adventure Works LT 2014."
-        },
-        "adventureWorksLT2016": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works LT 2016",
-            "description": "Installs Adventure Works LT 2016."
-        }, 
-        "adventureWorksLT2017": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works LT 2017",
-            "description": "Installs Adventure Works LT 2017."
-        },
-         "adventureWorksLT2019": {
-            "type": "bool",
-            "defaultValue": true,
-            "displayName": "Adventure Works LT 2019",
-            "description": "Installs Adventure Works LT 2019."
-        },
-        "adventureWorks2014": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works 2014",
-            "description": "Installs Adventure Works 2014."
-        },
-         "adventureWorksDW2014": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works DW 2014",
-            "description": "Installs Adventure Works Data Warehouse 2014."
-        },
-         "adventureWorks2016": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works 2016",
-            "description": "Installs Adventure Works 2016."
-        },
-         "adventureWorksDW2016": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works DW 2016",
-            "description": "Installs Adventure Works Data Warehouse 2016."
-        },
-        "adventureWorks2016_EXT": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works 2016 Ext",
-            "description": "Installs Adventure Works 2016 with in-memory tables."
-        },
-         "adventureWorksDW2016_EXT": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works DW 2016 EXT",
-            "description": "Installs Adventure Works Data Warehouse 2016 with very big tables."
-        },
-        "adventureWorks2017": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works 2017",
-            "description": "Installs Adventure Works 2017."
-        },
-         "adventureWorksDW2017": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works DW 2017",
-            "description": "Installs Adventure Works Data Warehouse 2017."
-        },
-        "adventureWorks2019": {
-            "type": "bool",
-            "defaultValue": true,
-            "displayName": "Adventure Works 2019",
-            "description": "Installs Adventure Works 2019."
-        },
-         "adventureWorksDW2019": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Adventure Works DW 2019",
-            "description": "Installs Adventure Works Data Warehouse 2019."
-        },
-         "wideWorldImporters": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Wide World Importers",
-            "description": "Installs Wide World Importers V1.0."
-        },
-        "wideWorldImportersDW": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Wide World Importers DW",
-            "description": "Installs Wide World Importers Data Warehouse V1.0."
-        },
-        "wideWorldInMemory":{
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Wide World Importers with Memory tables",
-            "description": "Installs Wide World Importers with Memory tables."
-        },
-        "instanceName": {
-            "type": "string",
-            "allowEmpty": true,
-            "displayName": "Instance Name of the server",
-            "description": "Put the instance name in the format: \"server\\instance\", \".\\instance\" or \"instance\". If you leave empty, will use the default instance, or (localdb) if there's no default instance.  "
-        },
-        "backupPath": {
-            "type": "string",
-            "defaultValue": "c:\\dbBackup",
-            "displayName": "Backup Path",
-            "description": "Specify the download destination for the sample database backups"
-        },
-        "samplePath": {
-            "type": "string",
-            "defaultValue": "c:\\dbSamples",
-            "displayName": "Sample Path",
-            "description": "The path to install the final sample databases"
-        },
-        "downloadOnly": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Download Only",
-            "description": "Will only download databases without setting them up. Useful when you want to create an image that will then be Syspreped."
-        },
-        "setupOnly": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Setup Only",
-            "description": "Will only setup the databases that have previously been downloaded. Useful after a VM deployment where the databases files are part of the base image."
-        },
-        "uninstall": {
-            "type": "bool",
-            "defaultValue": false,
-            "displayName": "Uninstall samples",
-            "description": "Drops all sample databases and removes the samples folder."
-        }
-
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "SQL Samples",
+  "description": "Installs Sql Server Sample Databases.",
+  "publisher": "Eric Côté",
+  "tags": [
+    "Sample Databases",
+    "Northwind",
+    "Adventure Works",
+    "Wide World Importers"
+  ],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
+  "parameters": {
+    "adventureWorksLT2012": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works LT 2012",
+      "description": "Installs Adventure Works LT 2012."
     },
-    "targetOsType": "Windows",
-    "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ./Install-Samples.ps1 -adventureWorksLT2012:$', parameters('adventureWorksLT2012'), ' -adventureWorksLT2014:$', parameters('adventureWorksLT2014'), ' -adventureWorksLT2016:$', parameters('adventureWorksLT2016'), ' -adventureWorksLT2017:$', parameters('adventureWorksLT2017'), ' -adventureWorksLT2019:$', parameters('adventureWorksLT2019'),   ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'), ' -adventureWorks2016_EXT:$' , parameters('adventureWorks2016_EXT'), ' -adventureWorksDW2016_EXT:$', parameters('adventureWorksDW2016_EXT'),  ' -adventureWorks2017:$' , parameters('adventureWorks2017'), ' -adventureWorksDW2017:$', parameters('adventureWorksDW2017'),  ' -adventureWorks2019:$' , parameters('adventureWorks2019'), ' -adventureWorksDW2019:$', parameters('adventureWorksDW2019'),   ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -backupPath ''', parameters('backupPath'), ''' -samplePath ''', parameters('samplePath'), '''',' -downloadOnly:$', parameters('downloadOnly') ,' -setupOnly:$', parameters('setupOnly') ,' -uninstall:$', parameters('uninstall'), ' \"' )]"
+    "adventureWorksLT2014": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works LT 2014",
+      "description": "Installs Adventure Works LT 2014."
+    },
+    "adventureWorksLT2016": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works LT 2016",
+      "description": "Installs Adventure Works LT 2016."
+    },
+    "adventureWorksLT2017": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works LT 2017",
+      "description": "Installs Adventure Works LT 2017."
+    },
+    "adventureWorksLT2019": {
+      "type": "bool",
+      "defaultValue": true,
+      "displayName": "Adventure Works LT 2019",
+      "description": "Installs Adventure Works LT 2019."
+    },
+    "adventureWorks2014": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works 2014",
+      "description": "Installs Adventure Works 2014."
+    },
+    "adventureWorksDW2014": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works DW 2014",
+      "description": "Installs Adventure Works Data Warehouse 2014."
+    },
+    "adventureWorks2016": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works 2016",
+      "description": "Installs Adventure Works 2016."
+    },
+    "adventureWorksDW2016": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works DW 2016",
+      "description": "Installs Adventure Works Data Warehouse 2016."
+    },
+    "adventureWorks2016_EXT": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works 2016 Ext",
+      "description": "Installs Adventure Works 2016 with in-memory tables."
+    },
+    "adventureWorksDW2016_EXT": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works DW 2016 EXT",
+      "description": "Installs Adventure Works Data Warehouse 2016 with very big tables."
+    },
+    "adventureWorks2017": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works 2017",
+      "description": "Installs Adventure Works 2017."
+    },
+    "adventureWorksDW2017": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works DW 2017",
+      "description": "Installs Adventure Works Data Warehouse 2017."
+    },
+    "adventureWorks2019": {
+      "type": "bool",
+      "defaultValue": true,
+      "displayName": "Adventure Works 2019",
+      "description": "Installs Adventure Works 2019."
+    },
+    "adventureWorksDW2019": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Adventure Works DW 2019",
+      "description": "Installs Adventure Works Data Warehouse 2019."
+    },
+    "wideWorldImporters": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Wide World Importers",
+      "description": "Installs Wide World Importers V1.0."
+    },
+    "wideWorldImportersDW": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Wide World Importers DW",
+      "description": "Installs Wide World Importers Data Warehouse V1.0."
+    },
+    "wideWorldInMemory": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Wide World Importers with Memory tables",
+      "description": "Installs Wide World Importers with Memory tables."
+    },
+    "instanceName": {
+      "type": "string",
+      "allowEmpty": true,
+      "displayName": "Instance Name of the server",
+      "description": "Put the instance name in the format: \"server\\instance\", \".\\instance\" or \"instance\". If you leave empty, will use the default instance, or (localdb) if there's no default instance.  "
+    },
+    "backupPath": {
+      "type": "string",
+      "defaultValue": "c:\\dbBackup",
+      "displayName": "Backup Path",
+      "description": "Specify the download destination for the sample database backups"
+    },
+    "samplePath": {
+      "type": "string",
+      "defaultValue": "c:\\dbSamples",
+      "displayName": "Sample Path",
+      "description": "The path to install the final sample databases"
+    },
+    "downloadOnly": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Download Only",
+      "description": "Will only download databases without setting them up. Useful when you want to create an image that will then be Syspreped."
+    },
+    "setupOnly": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Setup Only",
+      "description": "Will only setup the databases that have previously been downloaded. Useful after a VM deployment where the databases files are part of the base image."
+    },
+    "uninstall": {
+      "type": "bool",
+      "defaultValue": false,
+      "displayName": "Uninstall samples",
+      "description": "Drops all sample databases and removes the samples folder."
     }
+  },
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "[concat('powershell.exe -executionPolicy bypass \"& ./Install-Samples.ps1 -adventureWorksLT2012:$', parameters('adventureWorksLT2012'), ' -adventureWorksLT2014:$', parameters('adventureWorksLT2014'), ' -adventureWorksLT2016:$', parameters('adventureWorksLT2016'), ' -adventureWorksLT2017:$', parameters('adventureWorksLT2017'), ' -adventureWorksLT2019:$', parameters('adventureWorksLT2019'),   ' -adventureWorks2014:$' , parameters('adventureWorks2014'), ' -adventureWorksDW2014:$', parameters('adventureWorksDW2014'),  ' -adventureWorks2016:$' , parameters('adventureWorks2016'), ' -adventureWorksDW2016:$', parameters('adventureWorksDW2016'), ' -adventureWorks2016_EXT:$' , parameters('adventureWorks2016_EXT'), ' -adventureWorksDW2016_EXT:$', parameters('adventureWorksDW2016_EXT'),  ' -adventureWorks2017:$' , parameters('adventureWorks2017'), ' -adventureWorksDW2017:$', parameters('adventureWorksDW2017'),  ' -adventureWorks2019:$' , parameters('adventureWorks2019'), ' -adventureWorksDW2019:$', parameters('adventureWorksDW2019'),   ' -wideWorldImporters:$', parameters('wideWorldImporters'),' -wideWorldImportersDW:$', parameters('wideWorldImportersDW'),' -instanceName ''', parameters('instancename'), ''' -backupPath ''', parameters('backupPath'), ''' -samplePath ''', parameters('samplePath'), '''',' -downloadOnly:$', parameters('downloadOnly') ,' -setupOnly:$', parameters('setupOnly') ,' -uninstall:$', parameters('uninstall'), ' \"' )]"
+  }
 }
