@@ -1,7 +1,3 @@
-#https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/SQLServer2016CTP3Samples.zip
-#https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorksDW2016CTP3.bak
-#https://download.microsoft.com/download/F/6/4/F6444AC3-ACF7-4024-BD31-3CACA2DA62DC/AdventureWorks2016CTP3.bak
-
 
 param
 (
@@ -9,6 +5,7 @@ param
   [bool] $adventureWorksLT2014,
   [bool] $adventureWorksLT2016,
   [bool] $adventureWorksLT2017,
+  [bool] $adventureWorksLT2019,
   [bool] $adventureWorks2014,
   [bool] $adventureWorksDW2014,
   [bool] $adventureWorks2016,
@@ -17,6 +14,8 @@ param
   [bool] $adventureWorksDW2016_EXT,
   [bool] $adventureWorks2017,
   [bool] $adventureWorksDW2017,
+  [bool] $adventureWorks2019,
+  [bool] $adventureWorksDW2019,
   [bool] $wideWorldImporters,
   [bool] $wideWorldImportersDW,
   [bool] $wideWorldInMemory, 
@@ -150,13 +149,24 @@ function DownloadInstall-Database
         $logfile=$db_name+"_log"
    
        
-        if ($datafile -like "AdventureWorksLT201[67]*") {
+        if ($datafile -like "AdventureWorksLT201[679]*") {
             $datafile="AdventureWorksLT2012_Data"
             $logfile="AdventureWorksLT2012_Log"
         }
         elseif ($datafile -like "AdventureWorksLT201[24]*") {
             $datafile="AdventureWorksLT2008_Data"
             $logfile="AdventureWorksLT2008_Log"
+        }
+
+        $datafilename=$datafile;
+        $logfilename=$logfile;
+        if  ($datafile -like "AdventureWorks201[79]*") {
+          $datafilename="AdventureWorks2017"
+          $logfilename="AdventureWorks2017_log"
+        }
+        if  ($datafile -like "AdventureWorksDW201[79]*") {
+          $datafilename="AdventureWorksDW2017"
+          $logfilename="AdventureWorksDW2017_log"
         }
 
         "Installing $db_name..."
@@ -166,10 +176,10 @@ function DownloadInstall-Database
         RESTORE DATABASE $db_name
             FROM DISK = '$backupPath\$db_name.bak'
         WITH   
-            MOVE '$datafile' 
+            MOVE '$datafilename' 
             TO '$samplePath\$dataFile.mdf', 
             $extrafileRestore
-            MOVE '$logfile' 
+            MOVE '$logfilename' 
             TO '$samplePath\$logfile.ldf';
         GO
     
@@ -210,8 +220,8 @@ if ($sqlName -eq "")
 
 if ($sqlName -match "(localdb)")
 {
-    & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" start 
-    # & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" info mssqllocaldb  
+    & "C:\Program Files\Microsoft SQL Server\150\Tools\Binn\SqlLocalDB.exe" start 
+    # & "C:\Program Files\Microsoft SQL Server\150\Tools\Binn\SqlLocalDB.exe" info mssqllocaldb  
 }
 
     
@@ -296,6 +306,13 @@ If($adventureWorksLT2017)
     
 }
 
+If($adventureWorksLT2019)
+{
+     DownloadInstall-Database "AdventureWorksLT2019" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2019.bak"   
+    
+}
+
 
 
 
@@ -365,6 +382,23 @@ If($adventureWorksDW2017)
   DownloadInstall-Database "AdventureWorksDW2017" `
            "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2017.bak"  
 }
+
+if ($adventureWorks2019)
+{
+  DownloadInstall-Database "AdventureWorks2019" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2019.bak" 
+}
+
+
+###----------------------------------------------------
+
+
+If($adventureWorksDW2019)
+{
+  DownloadInstall-Database "AdventureWorksDW2019" `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2019.bak"  
+}
+
 
 
 
@@ -465,6 +499,7 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorksLT2014;
       DROP DATABASE IF EXISTS AdventureWorksLT2016;
       DROP DATABASE IF EXISTS AdventureWorksLT2017;
+      DROP DATABASE IF EXISTS AdventureWorksLT2019;
       DROP DATABASE IF EXISTS AdventureWorksDW2014;
       DROP DATABASE IF EXISTS AdventureWorks2014;
       DROP DATABASE IF EXISTS AdventureWorksDW2016;
@@ -473,6 +508,8 @@ if ($Uninstall)
       DROP DATABASE IF EXISTS AdventureWorks2016_EXT;
       DROP DATABASE IF EXISTS AdventureWorksDW2017;
       DROP DATABASE IF EXISTS AdventureWorks2017;
+      DROP DATABASE IF EXISTS AdventureWorksDW2019;
+      DROP DATABASE IF EXISTS AdventureWorks2019;
       "
    run-sql $sqlName "SELECT Name FROM sys.databases"
 
