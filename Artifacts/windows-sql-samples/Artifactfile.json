@@ -11,24 +11,6 @@
   ],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/db-samples.png",
   "parameters": {
-    "adventureWorksLT2012": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works LT 2012",
-      "description": "Installs Adventure Works LT 2012."
-    },
-    "adventureWorksLT2014": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works LT 2014",
-      "description": "Installs Adventure Works LT 2014."
-    },
-    "adventureWorksLT2016": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works LT 2016",
-      "description": "Installs Adventure Works LT 2016."
-    },
     "adventureWorksLT2017": {
       "type": "bool",
       "defaultValue": false,
@@ -40,42 +22,6 @@
       "defaultValue": true,
       "displayName": "Adventure Works LT 2019",
       "description": "Installs Adventure Works LT 2019."
-    },
-    "adventureWorks2014": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works 2014",
-      "description": "Installs Adventure Works 2014."
-    },
-    "adventureWorksDW2014": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works DW 2014",
-      "description": "Installs Adventure Works Data Warehouse 2014."
-    },
-    "adventureWorks2016": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works 2016",
-      "description": "Installs Adventure Works 2016."
-    },
-    "adventureWorksDW2016": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works DW 2016",
-      "description": "Installs Adventure Works Data Warehouse 2016."
-    },
-    "adventureWorks2016_EXT": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works 2016 Ext",
-      "description": "Installs Adventure Works 2016 with in-memory tables."
-    },
-    "adventureWorksDW2016_EXT": {
-      "type": "bool",
-      "defaultValue": false,
-      "displayName": "Adventure Works DW 2016 EXT",
-      "description": "Installs Adventure Works Data Warehouse 2016 with very big tables."
     },
     "adventureWorks2017": {
       "type": "bool",
