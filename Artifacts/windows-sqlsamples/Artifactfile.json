@@ -4,6 +4,7 @@
   "description": "Installs Sql Server Sample Databases.",
   "publisher": "Eric Côté",
   "tags": ["Sample"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows.png",
   "parameters": {
     "adventureWorksLT2017": {
       "type": "bool",
