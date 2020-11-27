@@ -1,4 +1,4 @@
-﻿#ssdt setup
+#ssdt setup
 $source = "https://go.microsoft.com/fwlink/?linkid=846626"
 $destination = "$env:temp\ssdtsetup.exe"
 

@@ -1,4 +1,4 @@
-﻿
+
 function Uninstall-Program
 {
     Param([parameter(Position=1)]

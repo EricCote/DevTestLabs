@@ -1,15 +1,9 @@
-﻿{
+{
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
   "title": "Office 2016 ProPlus",
   "description": "Installs Office 2016 Professionnal Plus Click-to-Run. Has a five days grace period to enter your product key or your credentials.",
   "publisher": "Eric Côté",
-  "tags": [
-    "Windows",
-    "Office",
-    "Word",
-    "Excel",
-    "Powerpoint"
-  ],
+  "tags": ["Windows", "Office", "Word", "Excel", "Powerpoint"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/office.png",
   "targetOsType": "Windows",
   "runCommand": {
