@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
   "title": "Western Time Zone",
-  "description": "Sets the Time Zone to Western Standard Time",
+  "description": "Sets the Time Zone to Western Standard Time!!!",
   "publisher": "Eric Côté",
   "tags": ["time", "time zone", "Western", "PST"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows.png",
