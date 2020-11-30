@@ -103,11 +103,11 @@ if ($installType -ne "completeAfterDeploy" )
         $SSEIFile="$env:temp\sql2019.exe"
 
 
-        mkdir "$env:temp\cu"
+        mkdir "c:\cu"
 
         $wc = new-object System.Net.WebClient
         $wc.DownloadFile($Source,$SSEIFile)
-        $wc.DownloadFile("https://download.microsoft.com/download/6/e/7/6e72dddf-dfa4-4889-bc3d-e5d3a0fd11ce/SQLServer2019-KB4577194-x64.exe", "$env:temp\cu\SQLServer2019-KB4577194-x64.exe")
+        $wc.DownloadFile("https://download.microsoft.com/download/6/e/7/6e72dddf-dfa4-4889-bc3d-e5d3a0fd11ce/SQLServer2019-KB4577194-x64.exe", "c:\cu\SQLServer2019-KB4577194-x64.exe")
         $wc.Dispose()
 
 
@@ -165,7 +165,7 @@ if ($installType -eq "normalInstall")
                        /SqlSvcInstantFileInit `
                        /tcpEnabled=1 `
                        /UpdateEnabled=true `
-                       /UpdateSource="$env:temp\cu\" `
+                       /UpdateSource="c:\cu" `
                        $pidString `
                        | Out-Default
 
