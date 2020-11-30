@@ -144,6 +144,7 @@ if ($installType -eq "normalInstall")
                        /AsServerMode=$ASMode `
                        /SqlSvcInstantFileInit `
                        /tcpEnabled=1 `
+                       /UpdateEnabled=true `
                        $pidString `
                        | Out-Default
 
