@@ -38,6 +38,22 @@ Param
 )
 
 
+#   [string] $sqlEdition = "dev";         #3 values possible: eval, dev, express
+#    [string] $installType= "normalInstall";  #3 values possible: normalInstall, prepareBeforeImage, completeAfterDeploy
+#    [string] $components = "SQL";
+#    [string] $instanceName = "MSSQLSERVER";
+#    [array]  $admins= @("localmachine\afi","NT AUTHORITY\SYSTEM");
+#    [string] [AllowEmptyString()] $prodid="";	
+#    [bool]   $reporting = $true;
+#    [bool]   $analysis = $true;
+#    [bool]   $tabular=$true;
+#    [bool]   $integration = $true;
+#    [bool]   $dataQualityClient = $true;
+#    [bool]   $masterDataService = $true;
+#    [bool]   $RServices = $true;
+#    [bool]   $polyBase = $false;
+
+
 try
 {
     $temp = (New-Object System.Security.Principal.NTAccount($admins[0] -replace "localmachine\\", "$env:computername\")).Translate([System.Security.Principal.SecurityIdentifier]).Value
@@ -86,12 +102,16 @@ if ($installType -ne "completeAfterDeploy" )
 
         $SSEIFile="$env:temp\sql2019.exe"
 
+
+        mkdir "$env:temp\cu"
+
         $wc = new-object System.Net.WebClient
         $wc.DownloadFile($Source,$SSEIFile)
+        $wc.DownloadFile("https://download.microsoft.com/download/6/e/7/6e72dddf-dfa4-4889-bc3d-e5d3a0fd11ce/SQLServer2019-KB4577194-x64.exe", "$env:temp\cu\SQLServer2019-KB4577194-x64.exe")
         $wc.Dispose()
 
 
-        & $SSEIFile /action=download /mediapath=c:\sqlISO /mediatype=ISO language=en-US /Quiet | Out-Default
+         & $SSEIFile /action=download /mediapath=c:\sqlISO /mediatype=ISO language=en-US /Quiet | Out-Default
          
       
         $isoFile2 = "c:\sqlISO\$isoFile";
@@ -145,6 +165,7 @@ if ($installType -eq "normalInstall")
                        /SqlSvcInstantFileInit `
                        /tcpEnabled=1 `
                        /UpdateEnabled=true `
+                       /UpdateSource="$env:temp\cu\" `
                        $pidString `
                        | Out-Default
 
