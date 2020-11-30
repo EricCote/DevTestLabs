@@ -28,6 +28,9 @@ param
 )
 
 
+# $adventureWorksLT2019=$true;
+# $adventureWorks2019=$true;
+
 $downloadFiles = if($setupOnly){$false} else {$true}
 $setupFiles= if($downloadOnly){$false} else {$true}
 
