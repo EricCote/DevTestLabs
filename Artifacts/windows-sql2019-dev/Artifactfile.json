@@ -42,7 +42,7 @@
       "type": "string",
       "displayName": "Instance Name",
       "description": "SQL Server Instance Name",
-      "defaultValue": "MSSQLERVER"
+      "defaultValue": "MSSQLSERVER"
     },
     "reporting": {
       "type": "bool",
