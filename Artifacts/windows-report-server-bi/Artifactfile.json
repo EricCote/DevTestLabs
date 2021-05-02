@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Power BI Report Server",
+  "description": "Installs the report server for Power BI",
+  "publisher": "Eric Côté",
+  "tags": ["Sample"],
+  "iconUri": "https://raw.githubusercontent.com/EricCote/DevTestLabs/master/Images/db-samples.png",
+  "parameters": {},
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -executionPolicy bypass \"& ./Install-ReportServer.ps1\""
+  }
+}
