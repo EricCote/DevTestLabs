@@ -102,7 +102,7 @@ if ($installType -ne "completeAfterDeploy" )
 
         $SSEIFile="$env:temp\sql2019.exe"
 
-        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=100809").RawContent
+        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=100809"  -UseBasicParsing).RawContent
         $page -match '{url:\"(.*?)\"'
         $cuSource = $matches[1]
 
