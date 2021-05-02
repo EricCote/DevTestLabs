@@ -102,16 +102,18 @@ if ($installType -ne "completeAfterDeploy" )
 
         $SSEIFile="$env:temp\sql2019.exe"
 
+        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=100809").RawContent
+        $page -match '{url:\"(.*?)\"'
+        $cuSource = $matches[1]
 
         mkdir "c:\cu"
 
         $wc = new-object System.Net.WebClient
         $wc.DownloadFile($Source,$SSEIFile)
-        $wc.DownloadFile("https://download.microsoft.com/download/6/e/7/6e72dddf-dfa4-4889-bc3d-e5d3a0fd11ce/SQLServer2019-KB4577194-x64.exe", "c:\cu\SQLServer2019-KB4577194-x64.exe")
+        $wc.DownloadFile($cuSource, "c:\cu\SQLServer2019-cu-x64.exe")
         $wc.Dispose()
 
-
-         & $SSEIFile /action=download /mediapath=c:\sqlISO /mediatype=ISO language=en-US /Quiet | Out-Default
+        & $SSEIFile /action=download /mediapath=c:\sqlISO /mediatype=ISO language=en-US /Quiet | Out-Default
          
       
         $isoFile2 = "c:\sqlISO\$isoFile";

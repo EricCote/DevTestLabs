@@ -103,10 +103,6 @@ function Run-Sql
         ,[parameter(position=2,mandatory=$true)] $sqlString
     )   
 
-     $svr | Out-File -FilePath "c:\dbSamples\svr.txt"
-
-    $sqlString | Out-File -FilePath "c:\dbSamples\string.txt"
-
 
     return & $sqlcmd -S $svr -E -Q $SqlString;
 }
