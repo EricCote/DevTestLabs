@@ -24,12 +24,15 @@ $afiCredentials = New-Object System.Management.Automation.PSCredential ("afi", $
 
 Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208  -force;
 Install-Module -Name ReportingServicesTools -Force;
+Install-Module -Name SqlServer -Force;
 
 "install-module" | Out-File  -FilePath $out -append
 
 Connect-RsReportServer -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"
 "Connect-RsReportServer" | Out-File  -FilePath $out -append
-Set-RsDatabase -DatabaseServerName "localhost" -DatabaseCredentialType "windows" -DatabaseCredential $afiCredentials  -name "ReportServer"  -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"   -confirm:$false
+
+# -DatabaseCredential $afiCredentials
+Set-RsDatabase -DatabaseServerName "localhost" -DatabaseCredentialType "ServiceAccount"   -name "ReportServer"  -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"   -confirm:$false
 "Set-RsDatabase" | Out-File  -FilePath $out -append
 Set-PbiRsUrlReservation   -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"
 "Set-PbiRsUrlReservation " | Out-File  -FilePath $out -append
