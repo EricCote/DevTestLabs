@@ -21,14 +21,14 @@ $pwd1 = ConvertTo-SecureString 'afi123123123!' -AsPlainText -Force
 $afiCredentials = New-Object System.Management.Automation.PSCredential ("afi", $pwd1)
 
 
-
-Install-Module -Name ReportingServicesTools -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208  -force;
+Install-Module -Name ReportingServicesTools -Force;
 
 "install-module" | Out-File  -FilePath $out -append
 
 Connect-RsReportServer -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"
 "Connect-RsReportServer" | Out-File  -FilePath $out -append
-Set-RsDatabase -DatabaseServerName "localhost" -DatabaseCredentialType "Windows" -DatabaseCredential $afiCredentials -name "ReportServer"  -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"   -confirm:$false
+Set-RsDatabase -DatabaseServerName "localhost" -DatabaseCredentialType "Service account"  -name "ReportServer"  -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"   -confirm:$false
 "Set-RsDatabase" | Out-File  -FilePath $out -append
 Set-PbiRsUrlReservation   -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"
 "Set-PbiRsUrlReservation " | Out-File  -FilePath $out -append
@@ -48,3 +48,5 @@ Initialize-Rs -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportSe
 & msiexec /i  "$path\ReportBuilder.msi" /quiet   | out-default
 
 "All installed" | Out-File  -FilePath $out -append
+
+
