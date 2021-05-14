@@ -2,7 +2,7 @@ https://web.archive.org/web/20190908172512/http://download.microsoft.com/downloa
 https://web.archive.org/web/20190908172512/http://download.microsoft.com/download/8/2/6/8263CDB7-1D2B-4EB1-9A9C-97063D3C3AF0/10990C-ENU-Allfiles.exe
 $wc = new-object System.Net.WebClient
  
-$wc.DownloadFile("https://web.archive.org/web/20190908172512/http://download.microsoft.com/download/8/2/6/8263CDB7-1D2B-4EB1-9A9C-97063D3C3AF0/10990C-ENU-Allfiles.exe", "c:\dbBackup\10990C-ENU-Allfiles.exe")
+$wc.DownloadFile("http://download.microsoft.com/download/8/2/6/8263CDB7-1D2B-4EB1-9A9C-97063D3C3AF0/10990C-ENU-Allfiles.exe", "c:\dbBackup\10990C-ENU-Allfiles.exe")
 $wc.Dispose()
 
 & "c:\dbBackup\10990C-ENU-Allfiles.exe"  -s -dc:\Labs
