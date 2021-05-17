@@ -1,7 +1,20 @@
-#ssdt setup
-$source = "https://go.microsoft.com/fwlink/?linkid=846626"
-$destination = "$env:temp\ssdtsetup.exe"
+#------------old ssdt 2015 setup
+#------------start
 
-(New-Object System.Net.WebClient).DownloadFile($Source, $Destination)
+# $source = "https://go.microsoft.com/fwlink/?linkid=846626"
+# $destination = "$env:temp\ssdtsetup.exe"
 
-& $Destination INSTALLALL=1 /quiet | out-default
+# (New-Object System.Net.WebClient).DownloadFile($Source, $Destination)
+
+# & $Destination INSTALLALL=1 /quiet | out-default
+
+#------------end
+
+#SSDT 2019
+
+
+& .\install-vsix   -PackageName "ProBITools.MicrosoftAnalysisServicesModelingProjects"
+
+& .\install-vsix   -PackageName "SSIS.SqlServerIntegrationServicesProjects"
+
+& .\install-vsix   -PackageName "ProBITools.MicrosoftReportProjectsforVisualStudio"
