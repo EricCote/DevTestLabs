@@ -17,15 +17,13 @@ Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicPar
 #install edge
 msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1;
 
-#hide first run popups
-New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
-    
 
-#Stop nagging default browser  
+
 mkdir HKLM:\Software\Policies\Microsoft\Edge 
+
+#hide first run popups
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
+#Stop nagging default browser  
 New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0
 
 
-#stop nagging Browser for chrome 
-mkdir "HKLM:\SOFTWARE\Policies\Google\Chrome" -Force
-New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "DefaultBrowserSettingEnabled" -Value 0
