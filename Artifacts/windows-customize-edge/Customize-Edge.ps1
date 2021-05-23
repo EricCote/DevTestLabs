@@ -1,24 +1,31 @@
-﻿
-$script=@"
-do {
-     Start-Sleep -Milliseconds 2000;
-} While (!(Test-Path -path "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe"));
- 
-new-item "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FirstRun"  -Force  | out-null;
-new-item "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main" -Force   | out-null;
-
-new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\FirstRun" -Name "LastFirstRunVersionDelivered" -Value 1 -Type DWORD -Force | out-null ;
-new-itemproperty "HKCU:\SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppContainer\Storage\microsoft.microsoftedge_8wekyb3d8bbwe\MicrosoftEdge\Main" -Name IE10TourShown -Value 1 -Type DWORD -Force | out-null;
-
-"@ ;
-
-new-item "c:\programdata\scripts" -type directory -force | Out-Null;
-set-content  "c:\programdata\scripts\EdgeWelcome.ps1"  $script -encoding UTF8;
+﻿$edgeEnterpriseMSIUri = 'https://edgeupdates.microsoft.com/api/products?view=enterprise'
 
 
-New-Item -Path   "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}"  -Value "EdgeWelcome" -force | Out-Null;
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Version" -Value "1,0,0,0" -PropertyType String -Force | Out-Null ;
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "StubPath" -Value "powershell.exe -NoProfile  -ExecutionPolicy ByPass -WindowStyle Hidden -File `"$env:ProgramData\scripts\EdgeWelcome.ps1`"" -PropertyType String -Force | Out-Null;
-new-itemproperty "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{EdgeWelcome}" -Name "Enabled" -Value 1 -PropertyType dword -Force | Out-Null;
+$response = Invoke-WebRequest -Uri $edgeEnterpriseMSIUri -Method Get -ContentType "application/json" -UseBasicParsing -ErrorVariable InvokeWebRequestError
+$jsonObj = ConvertFrom-Json $([String]::new($response.Content))
+
+$selectedIndex = [array]::indexof($jsonObj.Product, "Stable")
+
+$LatestEdgeUrl = ($jsonObj[$selectedIndex].Releases |
+            Where-Object { $_.Architecture -eq "x64" -and $_.Platform -eq "Windows"}  |
+        Sort-Object $_.ReleaseId -Descending)[0].Artifacts[0].Location
 
 
+#download edge
+Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicParsing
+
+#install edge
+msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1
+
+#hide first run popups
+New-ItemProperty -path "HKLM:\Software\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
+    
+
+#Stop nagging default browser  
+mkdir HKLM:\Software\Policies\Microsoft\Edge 
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0
+
+
+#stop nagging Browser for chrome 
+mkdir "HKLM:\SOFTWARE\Policies\Google\Chrome" -Force
+New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "DefaultBrowserSettingEnabled" -Value 0

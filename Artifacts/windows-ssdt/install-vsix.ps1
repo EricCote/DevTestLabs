@@ -1,7 +1,7 @@
 # from https://gist.github.com/ScottHutchinson/
 # Based on http://nuts4.net/post/automated-download-and-installation-of-visual-studio-extensions-via-powershell
 
-param([String] $PackageName)
+param([String] $PackageName, [switch] $IsExe)
  
 $ErrorActionPreference = "Stop"
  
@@ -10,6 +10,10 @@ $baseHostName = "marketplace.visualstudio.com"
  
 $Uri = "$($baseProtocol)//$($baseHostName)/items?itemName=$($PackageName)"
 $VsixLocation = "$($env:Temp)\$([guid]::NewGuid()).vsix"
+if ($IsExe) 
+{
+    $VsixLocation = "$($env:Temp)\$([guid]::NewGuid()).exe"
+}
  
 $VSInstallDir = "C:\Program Files (x86)\Microsoft Visual Studio\Installer\resources\app\ServiceHub\Services\Microsoft.VisualStudio.Setup.Service"
  
@@ -39,12 +43,20 @@ if (-Not (Test-Path $VsixLocation)) {
   Write-Error "Downloaded VSIX file could not be located"
   Exit 1
 }
-Write-Host "VSInstallDir is $($VSInstallDir)"
-Write-Host "VsixLocation is $($VsixLocation)"
-Write-Host "Installing $($PackageName)..."
-Start-Process -Filepath "$($VSInstallDir)\VSIXInstaller" -ArgumentList "/q /a $($VsixLocation)" -Wait
- 
+
+if ($IsExe)
+{
+    Start-Process -Filepath "$($VsixLocation)" -ArgumentList "/quiet" -Wait
+}
+else
+{
+    Write-Host "VSInstallDir is $($VSInstallDir)"
+    Write-Host "VsixLocation is $($VsixLocation)"
+    Write-Host "Installing $($PackageName)..."
+    Start-Process -Filepath "$($VSInstallDir)\VSIXInstaller" -ArgumentList "/q /a $($VsixLocation)" -Wait
+}
+
 Write-Host "Cleanup..."
-rm $VsixLocation
+#rm $VsixLocation
  
 Write-Host "Installation of $($PackageName) complete!"

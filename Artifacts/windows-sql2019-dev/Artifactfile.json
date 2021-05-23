@@ -105,5 +105,3 @@
     "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\install-sql.ps1'' -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components ''',  parameters('components'), ''' -instanceName ',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -reporting:$', parameters('reporting'), ' -analysis:$', parameters('analysis'),  ' -tabular:$', parameters('tabular'), ' -integration:$',  parameters('integration') , ' -dataQualityClient:$', parameters('dataQualityClient'), ' -masterDataService:$', parameters('masterDataService'), ' -RServices:$', parameters('RServices'),  ' -polyBase:$', parameters('polyBase'),   ' -prodid ''',  parameters('prodid') , ''' \"'  )]"
   }
 }
-
-//[concat('powershell.exe -ExecutionPolicy bypass -File vs2017ent.ps1 -key ', padLeft(parameters('Key'),1,'a'))]
