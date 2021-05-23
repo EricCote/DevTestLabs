@@ -61,4 +61,4 @@ Set-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanc
 
 
 
-Create-ActiveSetup  "Test1"  $activeScript
+Add-ActiveSetupScript  "Test1"  $activeScript
