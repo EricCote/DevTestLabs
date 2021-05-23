@@ -1,5 +1,3 @@
-#Show file extensions
-Set-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced HideFileExt 0
 
 #Set eastern time zone
 tzutil /s "Eastern Standard Time"
@@ -31,3 +29,36 @@ New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "
 
 #disable server manager at login
 Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask
+
+
+function Add-ActiveSetupScript {
+
+    param ( 
+        [Parameter(Position=0)]
+        $ScriptName,
+        [Parameter(Position=1)]
+        $Contents    
+    )
+
+    $null= mkdir C:\ProgramData\active -force
+    $Contents | Out-File C:\ProgramData\active\$ScriptName.ps1  -Encoding utf8
+
+  
+    $activePath = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\$ScriptName"
+    $null = mkdir $activePath -force
+
+    Set-ItemProperty $activePath -name "(Default)"  -Value "$ScriptName"
+    Set-ItemProperty $activePath -Name IsInstalled -Value 1
+    Set-ItemProperty $activePath -Name StubPath -Value "start /min "" powershell C:\ProgramData\active\$ScriptName.ps1"
+    Set-ItemProperty $activePath -Name Version -Value "1,0,0,0"
+}
+
+
+$activeScript = @"
+#Show file extensions
+Set-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced HideFileExt 0
+"@;
+
+
+
+Create-ActiveSetup  "Test1"  $activeScript
