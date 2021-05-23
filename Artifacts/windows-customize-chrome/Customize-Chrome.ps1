@@ -21,7 +21,7 @@
 }
 '@
 
-Set-Content "c:\program files (x86)\Google\Chrome\Application\master_preferences" $master_prefs -Encoding Utf8
+Set-Content "c:\program files\Google\Chrome\Application\master_preferences" $master_prefs -Encoding Utf8
 
 
 #these do nothing under "distribution" object.  they were removed:
