@@ -2,7 +2,6 @@
 
 "{}" | Out-File  "$env:userprofile\AppData\Local\Google\Chrome\User Data\Default\Preferences" -force -Encoding utf8
 
-
 mkdir "HKLM:\SOFTWARE\Policies\Google\Chrome" -Force
 
 #stop nagging default Browser for chrome 
