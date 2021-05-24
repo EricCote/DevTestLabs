@@ -1,5 +1,4 @@
 
-
 #https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=X86&language=en-us&version=O16GA&source=O16OLSO365
 #https://c2rsetup.officeapps.live.com/c2r/download.aspx?TaxRegion=IR&version=O16GA&language=fr-FR&Source=O16HUP&platform=x86&ProductreleaseID=ProPlusRetail
 #https://c2rsetup.officeapps.live.com/c2r/download.aspx?language=en-US&Source=O16HUP&ProductreleaseID=ProPlusRetail&platform=x86&act=1&TaxRegion=SG&version=O16GA&token=PYMX3-N8CKJ-222J7-RFTKY-HT9X7
@@ -21,14 +20,14 @@ $wc.Dispose();
 
 $xml= @"
 <Configuration>
-  <Add OfficeClientEdition="64" Channel="Current">
-    <Product ID="ProPlusRetail">
+  <Add OfficeClientEdition="64" Channel="PerpetualVL2019">
+    <Product ID="ProPlus2019Volume" PIDKEY="NMMKJ-6RK4F-KMJVX-8D9MJ-6MWKP">
       <Language ID="en-us" />
       <Language ID="fr-fr" />
     </Product>
   </Add>
 
-  <Updates Enabled="TRUE" Channel="Current" />
+  <Updates Enabled="TRUE" Channel="PerpetualVL2019" />
   <Display Level="None" AcceptEULA="TRUE" /> 
   <!--  <Property Name="AUTOACTIVATE" Value="1" />  -->
 
@@ -43,7 +42,6 @@ Set-Content $conf $xml ;
 
 "Installing Office 2019.  Might take a while."
 & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-null ;
-
 
 ##################################
 #hide first run dialog 
@@ -76,6 +74,7 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Reg
 & REG UNLOAD HKU\Default | out-null
 Remove-PSDrive HKU
 
+exit
 
 ########################
 # Manage Volume License
