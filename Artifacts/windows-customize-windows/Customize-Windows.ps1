@@ -46,10 +46,9 @@ function Add-ActiveSetupScript {
   
     $activePath = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\$ScriptName"
     $null = mkdir $activePath -force
-
     Set-ItemProperty $activePath -name "(Default)"  -Value "$ScriptName"
     Set-ItemProperty $activePath -Name IsInstalled -Value 1
-    Set-ItemProperty $activePath -Name StubPath -Value "start /min """" powershell C:\ProgramData\Active\$ScriptName.ps1 ^>c:\ProgramData\Active\out.txt"
+    Set-ItemProperty $activePath -Name StubPath -Value "cmd.exe /c `"start /min `"Script`" powershell C:\ProgramData\Active\$ScriptName.ps1 ^>c:\ProgramData\Active\out.txt`""
     Set-ItemProperty $activePath -Name Version -Value "1,0,0,0"
 }
 
