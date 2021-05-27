@@ -37,12 +37,12 @@ function Add-ActiveSetupScript {
         [Parameter(Position=0)]
         $ScriptName,
         [Parameter(Position=1)]
-        $Contents    
+        $ScriptPath    
     )
 
     $null= mkdir C:\ProgramData\Active -force
-    $Contents | Out-File C:\ProgramData\Active\$ScriptName.ps1  -Encoding utf8
 
+    Copy-Item -Path $ScriptPath -Destination "C:\ProgramData\Active\$ScriptName.ps1"
   
     $activePath = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\$ScriptName"
     $null = mkdir $activePath -force
@@ -54,14 +54,4 @@ function Add-ActiveSetupScript {
 }
 
 
-$activeScript = @"
-#Show file extensions
-Set-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced HideFileExt 0
-Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced HideFileExt | out-File c:\ProgramData\Active\out2.txt;
-Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced HideFileExt
-
-"@;
-
-
-
-Add-ActiveSetupScript  "Test1"  $activeScript
+Add-ActiveSetupScript  "ShellScript"  ".\Modify-Shell.ps1"
