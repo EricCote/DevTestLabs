@@ -50,6 +50,17 @@ New-PSDrive HKU Registry HKEY_USERS | out-null
 & REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT | out-null
 
 #Create Registry key 
+        New-Item "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common" `
+                 -force | out-null
+
+#Create Registry value
+New-ItemProperty -Path "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common" `
+                 -Name "PrivacyNoticeShown" `
+                 -Value 2 -PropertyType dword `
+                 -Force | out-null
+
+
+#Create Registry key 
         New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
                  -force | out-null
 
