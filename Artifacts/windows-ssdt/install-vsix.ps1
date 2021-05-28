@@ -37,7 +37,7 @@ if (-Not $anchor) {
 Write-Host "Anchor is $($anchor)"
 $href = "$($baseProtocol)//$($baseHostName)$($anchor)"
 Write-Host "Href is $($href)"
-Invoke-WebRequest $href -OutFile $VsixLocation -WebSession $session
+Invoke-WebRequest $href -OutFile $VsixLocation -UseBasicParsing -WebSession $session
  
 if (-Not (Test-Path $VsixLocation)) {
   Write-Error "Downloaded VSIX file could not be located"

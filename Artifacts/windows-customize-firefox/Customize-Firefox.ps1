@@ -13,7 +13,7 @@ pref("browser.startup.homepage_override.mstone", "ignore");  //removes the promp
 pref("browser.aboutHomeSnippets.updateUrl", "");   //removes the ads at the bottom of start page
 pref("browser.usedOnWindows10",true);      //Removes the windows 10 tutorial
 pref("browser.disableResetPrompt", true);  //To remove the prompt of: "previous install detected, click here to refresh and remove addon from your profile"
-pref("browser.tabs.remote.force-enable", true);  //to force usage of Electrolysis (e10s) 
+//pref("browser.tabs.remote.force-enable", true);  //to force usage of Electrolysis (e10s) 
 //defaultPref("browser.startup.homepage", "data:text/plain,browser.startup.homepage=http://www.afiexpertise.com/fr/");
 //defaultPref("general.useragent.locale", "fr");  //forces the language of the browser
 pref("intl.locale.matchOS", true);         //syncs the browser language with the OS language
@@ -54,9 +54,14 @@ if(!(Test-Path "c:\program files\mozilla firefox\browser\defaults\preferences"))
 Set-Content "c:\program files\mozilla firefox\browser\defaults\preferences\all-afi.js" $prefs -Encoding Utf8
 Set-Content "c:\program files\mozilla firefox\browser\override.ini" $override
 
+
+
 if(!(Test-Path "c:\program files\mozilla firefox\distribution\extensions")){
   mkdir "c:\program files\mozilla firefox\distribution\extensions"
 }
+
+
+
 
 $fr="https://addons.mozilla.org/firefox/downloads/latest/417178/addon-417178-latest.xpi"
 $en="https://addons.mozilla.org/firefox/downloads/latest/407142/addon-407142-latest.xpi"
