@@ -2,7 +2,7 @@
 Install-WindowsFeature -Name Hyper-V, Containers -IncludeAllSubFeature -IncludeManagementTools -restart
 
 
-# Install-WindowsFeature -name Microsoft-Windows-Subsystem-Linux
+# Install-WindowsFeature -name Microsoft-Windows-Subsystem-Linux -restart
 #c:\tools\psexec -sid powershell
 
 #Invoke-WebRequest -uri "https://aka.ms/wslubuntu2004" -UseBasicParsing -OutFile "$env:TEMP\Ubuntu.appx"
