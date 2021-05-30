@@ -1,5 +1,5 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "newLabName": {
@@ -7,134 +7,375 @@
       "metadata": {
         "description": "The name of the new lab instance to be created"
       }
-    },
-    "timeZone":  {
-      "type": "string",
-      "defaultValue": "Eastern Standard Time",
-      "metadata": {
-        "description": "The name of the time zone"
-      }
-    },
-    "reclamationTime": {
-      "type": "string",
-      "defaultValue": "1800",
-      "metadata": {
-        "description": "The time when a machine will be reclaimed to unclaimed status"
-      }
-    },
-    "shutdownTime": {
-      "type": "string",
-      "defaultValue": "1715",
-      "metadata": {
-        "description": "The time when a machine will be shutdown"
-      }
-    },
-    "startupTime": {
-      "type": "string",
-      "defaultValue": "0745",
-      "metadata": {
-        "description": "The time when a machine will be started up"
-      }
-    
-    },
-    
+    }
   },
   "variables": {
     "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]"
   },
   "resources": [
     {
-      "apiVersion": "2016-05-15",
+      "apiVersion": "2018-09-15",
       "type": "Microsoft.DevTestLab/labs",
       "name": "[parameters('newLabName')]",
       "location": "[resourceGroup().location]",
 
-      "properties": {
-          "labStorageType":"Standard"
-      },
       "resources": [
         {
-          "apiVersion": "2016-05-15",
+          "apiVersion": "2018-09-15",
           "name": "[variables('labVirtualNetworkName')]",
           "type": "virtualNetworks",
+          "properties": {},
           "dependsOn": [
             "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
           ]
-        },
-  //      {          
-  //          "type": "microsoft.devtestlab/labs/artifactsources",
-  //          "name": "[concat(parameters('newLabName'),'/privaterepo')]",
-  //          "apiVersion": "2016-05-15",
-  //          "properties": {
-  //              "displayName": "Private Repo",
-  //              "uri": "https://github.com/EricCote/DevTestLabs.git",
-  //              "sourceType": "GitHub",
-  //              "folderPath": "/Artifacts",
-  //              "branchRef": "master",
-  //              "status": "Enabled",
-  //              "securityToken": "33f57ea3fd055b91705ce92adb1626a388e49202"
-  //          },
-  //          "dependsOn": [
-  //              "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
-  //          ]
-  //      },
-            {
-            "type": "microsoft.devtestlab/labs/schedules",
-            "name": "[concat(parameters('newLabName'),'/LabVmsShutdown')]",
-            "apiVersion": "2016-05-15",
-            "properties": {
-                "status": "Enabled",
-                "taskType": "LabVmsShutdownTask",
-                "dailyRecurrence": {
-                    "time": "[parameters('shutdownTime')]"
-                },
-                "timeZoneId": "[parameters('timeZone')]"
-            },
-            "dependsOn": [
-                "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
-            ]
-        },
-        {
-            "type": "microsoft.devtestlab/labs/schedules",
-            "name": "[concat(parameters('newLabName'),'/labvmreclamation')]",
-            "apiVersion": "2016-05-15",
-            "properties": {
-                "status": "Enabled",
-                "taskType": "LabVmReclamationTask",
-                "dailyRecurrence": {
-                    "time": "[parameters('reclamationTime')]"
-                },
-                "timeZoneId": "[parameters('timeZone')]"
-            },
-            "dependsOn": [
-                "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
-            ]
-        },
-        {
-            "type": "microsoft.devtestlab/labs/schedules",
-            "name": "[concat(parameters('newLabName'),'/labvmautostart')]",
-            "apiVersion": "2016-05-15",
-            "properties": {
-                "status": "Enabled",
-                "taskType": "LabVmsStartupTask",
-                "weeklyRecurrence": {
-                    "weekdays": [
-                        "Monday",
-                        "Tuesday",
-                        "Wednesday",
-                        "Thursday",
-                        "Friday"
-                    ],
-                    "time": "[parameters('startupTime')]"
-                },
-                "timeZoneId": "[parameters('timeZone')]"
-            },
-            "dependsOn": [
-                "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
-            ]
         }
+      ],
+
+      "properties": {
+        "labStorageType": "Premium"
+      }
+    },
+
+    {
+      "type": "microsoft.devtestlab/labs/artifactsources",
+      "name": "[concat(parameters('newLabName'),'/myrepo')]",
+      "apiVersion": "2018-09-15",
+      "properties": {
+        "displayName": "my repo",
+        "uri": "https://github.com/EricCote/DevTestLabs.git",
+        "sourceType": "GitHub",
+        "folderPath": "/Artifacts",
+        "armTemplateFolderPath": "/Templates",
+        "branchRef": "master",
+        "status": "Enabled",
+        "securityToken": "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"
+      },
+      "dependsOn": [
+        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
       ]
+    },
+
+    {
+      "type": "microsoft.devtestlab/labs/artifactsources",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(parameters('newLabName'), '/public repo')]",
+      "dependsOn": [
+        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+      ],
+      "properties": {
+        "displayName": "Public Artifact Repo",
+        "uri": "https://github.com/Azure/azure-devtestlab.git",
+        "sourceType": "GitHub",
+        "folderPath": "/Artifacts",
+        "branchRef": "master",
+        "status": "Enabled"
+      }
+    },
+
+    {
+      "type": "microsoft.devtestlab/labs/schedules",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(parameters('newLabName'), '/labvmsshutdown')]",
+      "location": "eastus",
+      "dependsOn": [
+        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+      ],
+      "properties": {
+        "status": "Enabled",
+        "taskType": "LabVmsShutdownTask",
+        "dailyRecurrence": {
+          "time": "1715"
+        },
+        "timeZoneId": "Eastern Standard Time",
+        "notificationSettings": {
+          "status": "Disabled",
+          "timeInMinutes": 30
+        }
+      }
+    },
+    {
+      "type": "microsoft.devtestlab/labs/formulas",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(parameters('newLabName'), '/reportingsql')]",
+      "dependsOn": [
+        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+      ],
+      "properties": {
+        "description": "SQL Server Reporting Services",
+        "osType": "Windows",
+        "formulaContent": {
+          "properties": {
+            "size": "Standard_D4s_v4",
+            "userName": "afi",
+            "password": "afi123123123!",
+            "isAuthenticationWithSshKey": false,
+            "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
+            "labVirtualNetworkId": "[concat('/virtualnetworks/',variables('labVirtualNetworkName'))]",
+            "disallowPublicIpAddress": false,
+            "artifacts": [
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-windows",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-git",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-office2016-pro-plus",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-ssms",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-sql2019-dev",
+                "parameters": [
+                  {
+                    "name": "sqlEdition",
+                    "value": "dev"
+                  },
+                  {
+                    "name": "installType",
+                    "value": "normalInstall"
+                  },
+                  {
+                    "name": "admins",
+                    "value": "'localMachine\\afi', 'NT AUTHORITY\\SYSTEM'"
+                  },
+                  {
+                    "name": "components",
+                    "value": "SQL"
+                  },
+                  {
+                    "name": "instanceName",
+                    "value": "MSSQLSERVER"
+                  },
+                  {
+                    "name": "reporting",
+                    "value": "true"
+                  },
+                  {
+                    "name": "analysis",
+                    "value": "true"
+                  },
+                  {
+                    "name": "tabular",
+                    "value": "true"
+                  },
+                  {
+                    "name": "integration",
+                    "value": "true"
+                  },
+                  {
+                    "name": "dataQualityClient",
+                    "value": "false"
+                  },
+                  {
+                    "name": "masterDataService",
+                    "value": "false"
+                  },
+                  {
+                    "name": "RServices",
+                    "value": "false"
+                  },
+                  {
+                    "name": "polyBase",
+                    "value": "false"
+                  },
+                  {
+                    "name": "prodid"
+                  }
+                ]
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-sql-samples",
+                "parameters": [
+                  {
+                    "name": "adventureWorksLT2012",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksLT2014",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksLT2016",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksLT2017",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksLT2019",
+                    "value": "true"
+                  },
+                  {
+                    "name": "adventureWorks2014",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksDW2014",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorks2016",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksDW2016",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorks2016_EXT",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksDW2016_EXT",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorks2017",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksDW2017",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorks2019",
+                    "value": "true"
+                  },
+                  {
+                    "name": "adventureWorksDW2019",
+                    "value": "true"
+                  },
+                  {
+                    "name": "wideWorldImporters",
+                    "value": "false"
+                  },
+                  {
+                    "name": "wideWorldImportersDW",
+                    "value": "false"
+                  },
+                  {
+                    "name": "wideWorldInMemory",
+                    "value": "false"
+                  },
+                  {
+                    "name": "instanceName"
+                  },
+                  {
+                    "name": "backupPath",
+                    "value": "c:\\dbBackup"
+                  },
+                  {
+                    "name": "samplePath",
+                    "value": "c:\\dbSamples"
+                  },
+                  {
+                    "name": "downloadOnly",
+                    "value": "false"
+                  },
+                  {
+                    "name": "setupOnly",
+                    "value": "false"
+                  },
+                  {
+                    "name": "uninstall",
+                    "value": "false"
+                  }
+                ]
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-report-server-bi",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-sql-10990",
+                "parameters": []
+              }
+            ],
+            "galleryImageReference": {
+              "offer": "WindowsServer",
+              "publisher": "MicrosoftWindowsServer",
+              "sku": "2019-Datacenter",
+              "osType": "Windows",
+              "version": "latest"
+            },
+            "allowClaim": false,
+            "storageType": "Premium"
+          }
+        }
+      }
     }
+    // {
+    //   "type": "microsoft.devtestlab/labs/schedules",
+    //   "name": "[concat(parameters('newLabName'),'/LabVmsShutdown')]",
+    //   "apiVersion": "2016-05-15",
+    //   "properties": {
+    //     "status": "Enabled",
+    //     "taskType": "LabVmsShutdownTask",
+    //     "dailyRecurrence": {
+    //       "time": "[parameters('shutdownTime')]"
+    //     },
+    //     "timeZoneId": "[parameters('timeZone')]"
+    //   },
+    //   "dependsOn": [
+    //     "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+    //   ]
+    // },
+    // {
+    //   "type": "microsoft.devtestlab/labs/schedules",
+    //   "name": "[concat(parameters('newLabName'),'/labvmreclamation')]",
+    //   "apiVersion": "2016-05-15",
+    //   "properties": {
+    //     "status": "Enabled",
+    //     "taskType": "LabVmReclamationTask",
+    //     "dailyRecurrence": {
+    //       "time": "[parameters('reclamationTime')]"
+    //     },
+    //     "timeZoneId": "[parameters('timeZone')]"
+    //   },
+    //   "dependsOn": [
+    //     "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+    //   ]
+    // },
+    // {
+    //   "type": "microsoft.devtestlab/labs/schedules",
+    //   "name": "[concat(parameters('newLabName'),'/labvmautostart')]",
+    //   "apiVersion": "2016-05-15",
+    //   "properties": {
+    //     "status": "Enabled",
+    //     "taskType": "LabVmsStartupTask",
+    //     "weeklyRecurrence": {
+    //       "weekdays": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    //       "time": "[parameters('startupTime')]"
+    //     },
+    //     "timeZoneId": "[parameters('timeZone')]"
+    //   },
+    //   "dependsOn": [
+    //     "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+    //   ]
+    // }
   ],
   "outputs": {
     "labId": {

@@ -4,9 +4,9 @@ mkdir $path
 $out="$path\out.txt"
 
 $wc = new-object System.Net.WebClient
-$wc.DownloadFile("https://download.microsoft.com/download/7/0/A/70AD68EF-5085-4DF2-A3AB-D091244DDDBF/PowerBIReportServer.exe", "$path\PowerBIReportServer.exe")
+$wc.DownloadFile("https://download.microsoft.com/download/0/6/A/06A6213D-0128-4D24-B9E7-179B5CA36CBF/PowerBIReportServer.exe", "$path\PowerBIReportServer.exe")
 
-$wc.DownloadFile("https://download.microsoft.com/download/7/0/A/70AD68EF-5085-4DF2-A3AB-D091244DDDBF/PBIDesktopRS_x64.msi", "$path\PBIDesktopRS_x64.msi")
+$wc.DownloadFile("https://download.microsoft.com/download/0/6/A/06A6213D-0128-4D24-B9E7-179B5CA36CBF/PBIDesktopRS_x64.msi", "$path\PBIDesktopRS_x64.msi")
 $wc.DownloadFile("https://download.microsoft.com/download/F/F/9/FF945E45-7D61-49DD-B982-C5D93D3FB0CF/PowerBiReportBuilder.en-US.msi", "$path\PowerBiReportBuilder.en-US.msi")
 $wc.DownloadFile("https://download.microsoft.com/download/7/3/8/73806360-39F4-4EFA-8369-27F4488C764C/SSRS.MobileReportPublisher.Installer.msi", "$path\SSRS.MobileReportPublisher.Installer.msi")
 $wc.DownloadFile("https://download.microsoft.com/download/5/E/B/5EB40744-DC0A-47C0-8B0A-1830E74D3C23/ReportBuilder.msi", "$path\ReportBuilder.msi")
