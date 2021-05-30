@@ -14,15 +14,10 @@ $wc.Dispose()
 
 & "$path\PowerBIReportServer.exe" /quiet /IAcceptLicenseTerms /Edition=Eval | out-default
 
-
 #  & "C:\Program Files\Microsoft Power BI Report Server\Shared Tools\RSConfig.exe" -c -s localhost -d reportserver -a Windows 
 #  & "C:\Program Files\Microsoft Power BI Report Server\Shared Tools\rskeymgmt.exe" -l -i PBIRS
 
-$pwd1 = ConvertTo-SecureString 'afi123123123!' -AsPlainText -Force
-$afiCredentials = New-Object System.Management.Automation.PSCredential ("afi", $pwd1)
-
-
-Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.208  -force;
+Install-PackageProvider -Name NuGet   -force;
 Install-Module -Name ReportingServicesTools -Force;
 Install-Module -Name SqlServer -Force;
 

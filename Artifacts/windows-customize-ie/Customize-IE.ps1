@@ -9,11 +9,15 @@ New-ItemProperty -Path $main -Name "DisableFirstRunCustomize"  -Value 1 -Propert
 New-ItemProperty -Path "hklm:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Ext" `
                 -Name "ListBox_Support_CLSID"  -Value 1 -PropertyType Dword 
 
-#allows extension "Lync Browser Helper, Skype for Business Browser Helper"
+
 $clsid = "hklm:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Ext\CLSID"
 New-Item -Path $clsid -Force
-New-ItemProperty -Path $clsid -Name "{31D09BA0-12F5-4CCE-BE8A-2923E76605DA}"  -Value "1"
 
+#allows extension "Lync Browser Helper, Skype for Business Browser Helper"
+New-ItemProperty -Path $clsid -Name "{31D09BA0-12F5-4CCE-BE8A-2923E76605DA}"  -Value 1
+
+#allows extension "IEToEdge BHO (redirects modern sites to Edge)"
+New-ItemProperty -Path $clsid -Name "{1FD49718-1D00-4B19-AF5F-070AF6D5D54C}"  -value 1
 
 #1208: ActiveX controls and plug-ins: Allow previously unused ActiveX controls to run without prompt
 
