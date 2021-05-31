@@ -3,40 +3,50 @@
 tzutil /s "Eastern Standard Time"
 
 
-#enable sound
-Set-Service audiosrv -startuptype automatic
-start-service audiosrv
-
-
 #disable new network popup.  All new networks are now considered "public"
 new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff
 
 
-#Disable IE protection
+
 function Disable-IEESC{
     $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
     $UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
     Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0
     Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0
 }
-Disable-IEESC;
+
+$isServer=$isServer= (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
+if($isServer){
+    #enable sound
+    Set-Service audiosrv -startuptype automatic
+    start-service audiosrv
+
+    #Disable IE protection
+    Disable-IEESC;
+    #disable server manager at login
+    Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask
+}
 
 #disable ie fist run popups
 mkdir 'HKLM:\Software\Microsoft\Internet Explorer'
 mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main'
 New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "DisableFirstRunCustomize" -value 1;
 
+# disable "Choose Privacy Settings for your device"
+Set-ItemProperty -path "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" `
+                 -name "PrivacyConsentStatus" `
+                 -value 1
 
-#disable server manager at login
-Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask
+
+
 
 ##################################
-# Show file extensions
+# work with default user registry
 ##################################
 New-PSDrive HKU Registry HKEY_USERS | out-null
 & REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT | out-null
 
-#Create Registry Item 
+# Show file extensions
         New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
                          -name HideFileExt `
                          -Value 0 -PropertyType dword `
