@@ -122,15 +122,19 @@
                 "parameters": []
               },
               {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-chrome",
+                "parameters": []
+              },
+              {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
                 "parameters": []
               },
               {
-                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
+                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
                 "parameters": []
               },
               {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
                 "parameters": []
               },
               {
@@ -310,10 +314,56 @@
                 "parameters": []
               },
               {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-vs2019",
+                "parameters": [
+                  {
+                    "name": "edition",
+                    "value": "Enterprise"
+                  },
+                  {
+                    "name": "preview",
+                    "value": "false"
+                  },
+                  {
+                    "name": "aspnet",
+                    "value": "false"
+                  },
+                  {
+                    "name": "netcore",
+                    "value": "false"
+                  },
+                  {
+                    "name": "desktop",
+                    "value": "false"
+                  },
+                  {
+                    "name": "azure",
+                    "value": "false"
+                  },
+                  {
+                    "name": "data",
+                    "value": "true"
+                  },
+                  {
+                    "name": "languages",
+                    "value": "en-US"
+                  },
+                  {
+                    "name": "key",
+                    "value": "BF8Y8-GN2QH-T84XB-QVY3B-RC4DF"
+                  }
+                ]
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-ssdt",
+                "parameters": []
+              },
+              {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-sql-10990",
                 "parameters": []
               }
             ],
+
             "galleryImageReference": {
               "offer": "WindowsServer",
               "publisher": "MicrosoftWindowsServer",

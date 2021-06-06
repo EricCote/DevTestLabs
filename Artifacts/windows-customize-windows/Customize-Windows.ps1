@@ -27,9 +27,12 @@ if($isServer){
     Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask
 }
 
+#Disable OneDrive Sync
+mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OneDrive' -Force
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\OneDrive" -name "DisableFileSyncNGSC" -value 1;
+
 #disable ie fist run popups
-mkdir 'HKLM:\Software\Microsoft\Internet Explorer'
-mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main'
+mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main' -Force
 New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "DisableFirstRunCustomize" -value 1;
 
 # disable "Choose Privacy Settings for your device"
