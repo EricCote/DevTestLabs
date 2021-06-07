@@ -45,6 +45,13 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
                  -name "DisablePrivacyExperience" `
                  -value 1
 
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
+                 -name "SkipUserOOBE" `
+                 -value 1
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
+                 -name "SkipMachineOOBE" `
+                 -value 1
+
 # set taskbar
 mkdir c:\programData\script -Force
 Copy-Item ./taskbar.xml c:\programData\script\taskbar.xml

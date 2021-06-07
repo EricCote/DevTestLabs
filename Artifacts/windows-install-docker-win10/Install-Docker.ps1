@@ -28,6 +28,7 @@ Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Des
 
 $Part2 = @"  
  & "$env:TEMP\installDocker.exe" install --quiet
+ & ping 127.0.0.1 -n 15 | out-null
  & net localgroup docker-users afi /add *>&1 | out-file "c:\programdata\script\result.txt"
  & schtasks.exe /change  /tn DockerTask /disable
 "@
