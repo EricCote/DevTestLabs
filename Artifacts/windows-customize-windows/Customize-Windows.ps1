@@ -40,7 +40,7 @@ New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "
 #                  -name "PrivacyConsentStatus" `
 #                  -value 1
 
-mkdir 'HKLM:\Software\Microsoft\Windows\Explorer' -Force
+mkdir 'HKLM:\Software\Microsoft\Windows\' -Force
 mkdir 'HKLM:\Software\Microsoft\Windows\OOBE' -Force
 # disable "Choose Privacy Settings for your device"
 Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
