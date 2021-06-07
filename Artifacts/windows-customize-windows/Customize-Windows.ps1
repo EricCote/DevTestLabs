@@ -36,10 +36,14 @@ mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main' -Force
 New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "DisableFirstRunCustomize" -value 1;
 
 # disable "Choose Privacy Settings for your device"
-Set-ItemProperty -path "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" `
-                 -name "PrivacyConsentStatus" `
-                 -value 1
+# Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE" `
+#                  -name "PrivacyConsentStatus" `
+#                  -value 1
 
+# disable "Choose Privacy Settings for your device"
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
+                 -name "DisablePrivacyExperience" `
+                 -value 1
 
 
 
