@@ -40,22 +40,24 @@ New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "
 #                  -name "PrivacyConsentStatus" `
 #                  -value 1
 
+mkdir 'HKLM:\Software\Microsoft\Windows\OOBE' -Force
 # disable "Choose Privacy Settings for your device"
 Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
                  -name "DisablePrivacyExperience" `
                  -value 1
 
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
-                 -name "SkipUserOOBE" `
-                 -value 1
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
-                 -name "SkipMachineOOBE" `
-                 -value 1
+# Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
+#                  -name "SkipUserOOBE" `
+#                  -value 1
+# Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
+#                  -name "SkipMachineOOBE" `
+#                  -value 1
 
 # set taskbar
 mkdir c:\programData\script -Force
 Copy-Item ./taskbar.xml c:\programData\script\taskbar.xml
 
+mkdir 'HKLM:\Software\Microsoft\Windows\Explorer' -Force
 Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -name "LockedStartLayout" `
                  -value 1
