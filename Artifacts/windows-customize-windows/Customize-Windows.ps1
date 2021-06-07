@@ -45,6 +45,20 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
                  -name "DisablePrivacyExperience" `
                  -value 1
 
+# set taskbar
+mkdir c:\programData\script -Force
+Copy-Item ./taskbar.xml c:\programData\script\taskbar.xml
+
+Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
+                 -name "LockedStartLayout" `
+                 -value 1
+
+Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
+                 -name "StartLayoutFile" `
+                 -value "C:\ProgramData\script\taskbar.xml"
+
+
+
 
 
 ##################################
