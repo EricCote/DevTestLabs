@@ -28,12 +28,22 @@ Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Des
 
 $Part2 = @"  
  & "$env:TEMP\installDocker.exe" install --quiet
- & ping 127.0.0.1 -n 15 | out-null
- & net localgroup docker-users afi /add *>&1 | out-file "c:\programdata\script\result.txt"
+ 
+
+
+
+ while ((net localgroup) -inotcontains "*docker-users")
+  {
+      & ping 127.0.0.1 -n 10 
+      out-file  "c:\programdata\script\result.txt" "Wait 10 "  -Append
+
+  }
+ & net localgroup docker-users afi /add *>&1 | out-file "c:\programdata\script\result.txt" -Append
  & schtasks.exe /change  /tn DockerTask /disable
 "@
 
 
+   
 
 mkdir -path C:\ProgramData\script -Force
 $part2 | Out-File "C:\ProgramData\script\Docker.ps1"
