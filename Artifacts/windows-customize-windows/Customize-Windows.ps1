@@ -4,7 +4,7 @@ tzutil /s "Eastern Standard Time"
 
 
 #disable new network popup.  All new networks are now considered "public"
-new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff
+new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force
 
 
 
@@ -40,6 +40,7 @@ New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "
 #                  -name "PrivacyConsentStatus" `
 #                  -value 1
 
+mkdir 'HKLM:\Software\Microsoft\Windows\Explorer' -Force
 mkdir 'HKLM:\Software\Microsoft\Windows\OOBE' -Force
 # disable "Choose Privacy Settings for your device"
 Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
