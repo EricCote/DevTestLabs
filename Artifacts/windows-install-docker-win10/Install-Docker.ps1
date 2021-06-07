@@ -26,7 +26,7 @@ Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Des
 
 
 
- $Part2 = @"  
+$Part2 = @"  
  & "$env:TEMP\installDocker.exe" install --quiet
  & net localgroup docker-users afi /add
  & schtasks.exe /change  /tn DockerTask /disable
@@ -47,10 +47,10 @@ restart-computer
 #install
 
 
-refreshenv
-Start-Service docker 
+# refreshenv
+# Start-Service docker 
 
-docker image pull alpine
+# docker image pull alpine
 
 
 
