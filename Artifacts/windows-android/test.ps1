@@ -1,13 +1,7 @@
 $source = 'https://dl.google.com/android/repository/commandlinetools-win-7302050_latest.zip'
-
-
 $temp = "$env:temp"
 
-$wc = new-object System.Net.WebClient
-
-$wc.DownloadFile($Source, "$temp\commandlinetools.zip")
-$wc.Dispose()
-
+Invoke-WebRequest -UseBasicParsing -Uri $Source -OutFile "$temp\commandlinetools.zip" 
 Expand-Archive -Path "$temp\commandlinetools.zip" -DestinationPath "c:\android\cmdline-tools"
 
 choco install jre8 -y --force
