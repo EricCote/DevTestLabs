@@ -37,9 +37,9 @@ sdkmanager  "platform-tools"
 sdkmanager  "skiaparser;1"  
 sdkmanager  "system-images;android-30;google_apis_playstore;x86_64"
 
-# C:\android\extras\intel\Hardware_Accelerated_Execution_Manager\silent_install.bat
-#sc query intelhaxm
-#sc config intelhaxm start= disabled
+#C:\android\extras\intel\Hardware_Accelerated_Execution_Manager\silent_install.bat
+#.\sc query intelhaxm
+#.\sc config intelhaxm start= disabled
 
 "n" |  avdmanager --verbose create avd --force --name "generic_12" --package "system-images;android-30;google_apis_playstore;x86_64" 
 
