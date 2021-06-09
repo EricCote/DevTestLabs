@@ -1,9 +1,9 @@
-
+$ProgressPreference = 'SilentlyContinue'
 
 $setupexe = "$PSScriptRoot\setup.exe" 
 
 $url = 'https://update.code.visualstudio.com/latest/win32-x64-user/stable' 
-$setupUrl = Get-RedirectedUrl -URL $url 
-Invoke-WebRequest -Uri $setupUrl -OutFile $SetupExe -UseBasicParsing
+
+Invoke-WebRequest -Uri $url -OutFile $SetupExe -UseBasicParsing
 
 & "$setupExe" /123 /SP- /SUPPRESSMSGBOXES /VERYSILENT /NORESTART /MERGETASKS="!runcode"
