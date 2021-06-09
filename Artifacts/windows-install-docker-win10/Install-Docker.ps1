@@ -18,7 +18,7 @@
 # $imp_Token.Groups | Where-Object {$_.Sid.Name -match "TrustedInstaller"}
 
 
-
+$ProgressPreference = 'SilentlyContinue'
 
 #install
 Enable-WindowsOptionalFeature -FeatureName VirtualMachinePlatform -online -norestart

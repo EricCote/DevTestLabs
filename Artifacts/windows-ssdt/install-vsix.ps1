@@ -4,6 +4,7 @@
 param([String] $PackageName, [switch] $IsExe)
  
 $ErrorActionPreference = "Stop"
+$ProgressPreference = 'SilentlyContinue'
  
 $baseProtocol = "https:"
 $baseHostName = "marketplace.visualstudio.com"

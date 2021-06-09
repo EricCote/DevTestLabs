@@ -54,6 +54,8 @@ Param
 #    [bool]   $polyBase = $false;
 
 
+$ProgressPreference = 'SilentlyContinue'
+
 try
 {
     $temp = (New-Object System.Security.Principal.NTAccount($admins[0] -replace "localmachine\\", "$env:computername\")).Translate([System.Security.Principal.SecurityIdentifier]).Value

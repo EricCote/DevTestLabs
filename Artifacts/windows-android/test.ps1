@@ -1,3 +1,4 @@
+$ProgressPreference = 'SilentlyContinue'
 $source = 'https://dl.google.com/android/repository/commandlinetools-win-7302050_latest.zip'
 $temp = "$env:temp"
 

@@ -1,4 +1,6 @@
 #install
+$ProgressPreference = 'SilentlyContinue'
+
 Install-WindowsFeature -Name Hyper-V, Containers -IncludeAllSubFeature -IncludeManagementTools -restart
 
 
