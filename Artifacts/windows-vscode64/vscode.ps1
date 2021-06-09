@@ -1,6 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 
-$setupexe = "$PSScriptRoot\setup.exe" 
+
+$setupExe = "$env:temp\VsCodeSetup.exe" 
 
 $url = 'https://update.code.visualstudio.com/latest/win32-x64/stable' 
 
