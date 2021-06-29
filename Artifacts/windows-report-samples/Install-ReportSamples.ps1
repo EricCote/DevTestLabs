@@ -1,7 +1,7 @@
-Set-Location c:\  | Out-File C:\wow\out.txt
+Set-Location c:\  
 
-git clone https://github.com/EricCote/SSRS_Samples.git  | Out-File C:\wow\out.txt -append
+git clone https://github.com/EricCote/SSRS_Samples.git 
 
-Set-Location c:\SSRS_Samples | Out-File C:\wow\out.txt -append
+Set-Location c:\SSRS_Samples 
 
-& .\install-reports.ps1 | Out-File C:\wow\out.txt -append
+& .\install-reports.ps1 

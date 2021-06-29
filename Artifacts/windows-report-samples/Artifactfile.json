@@ -8,6 +8,6 @@
   "parameters": {},
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "powershell.exe -executionPolicy bypass \"& ./Install-Samples.ps1\""
+    "commandToExecute": "powershell.exe -executionPolicy bypass \"& ./Install-ReportSamples.ps1\""
   }
 }
