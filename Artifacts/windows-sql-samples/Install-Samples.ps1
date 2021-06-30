@@ -424,7 +424,7 @@ if ($wideWorldImporters)
 
         Copy-Item  -Path "$env:temp\WideWorldImporters-*.bak" -Destination $backupPath
 
-        del "$env:temp\WideWorldImporters*.bak" -ErrorAction SilentlyContinue
+        Remove-Item "$env:temp\WideWorldImporters*.bak" -ErrorAction SilentlyContinue
     }
     if($setupFiles){
         "Installing Wide World Importers..."
@@ -517,7 +517,7 @@ if ($Uninstall)
       "
    run-sql $sqlName "SELECT Name FROM sys.databases"
 
-   rd "C:\DbSamples" -Recurse 
+   Remove-Item "C:\DbSamples" -Recurse 
 }
 
 if ($sqlName -match "(localdb)") {

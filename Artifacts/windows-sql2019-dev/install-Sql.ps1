@@ -168,6 +168,7 @@ if ($installType -eq "normalInstall")
                        /AsServerMode=$ASMode `
                        /SqlSvcInstantFileInit `
                        /tcpEnabled=1 `
+                       /AgtSvcStartupType=automatic `
                        /UpdateEnabled=true `
                        /UpdateSource="c:\cu" `
                        $pidString `
@@ -223,6 +224,7 @@ if ($installType -eq "completeAfterDeploy")
                        /SqlSysAdminAccounts= $adminString `
                        /AsSysAdminAccounts= $adminString `
                        /AsServerMode=$ASMode `
+                       /AgtSvcStartupType=automatic `
                        /SqlSvcInstantFileInit `
                        $pidString `
                        | Out-Default
