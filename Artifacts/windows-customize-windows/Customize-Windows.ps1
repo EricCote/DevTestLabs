@@ -59,9 +59,9 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -name "StartLayoutFile" `
                  -value "C:\ProgramData\script\taskbar.xml" `
                  -force
-# Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
-#                  -name "LockedStartLayout" `
-#                  -value 1 -Force
+Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
+                 -name "LockedStartLayout" `
+                 -value 1 -Force
 
 
 ##################################

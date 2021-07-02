@@ -23,10 +23,9 @@ mkdir HKLM:\Software\Policies\Microsoft\Edge
 #Stop nagging default browser  
 New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0
 
-
-
 #hide first run popups
 New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
+New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePageOnOSUpgradeEnabled" -value 0
 
 ########################################################
 #Remove chrome "first run" page:
