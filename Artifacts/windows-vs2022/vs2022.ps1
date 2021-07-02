@@ -16,11 +16,11 @@ $keyNoDashes=$key.ToUpper().Replace("-","");
 # the param "--productKey" is only sent when there is a $key
 $stringKey= if ($key) {"--productKey"} else {""};
 
-#The web source always points to the latest release of Visual Studio 2019 Enterprise. 
+#The web source always points to the latest release of Visual Studio 2022 Enterprise. 
 
-$WebSourceEnt = "https://aka.ms/vs/17/preview/bootstrapper/vs_enterprise.exe";
-$WebSourcePro = "https://aka.ms/vs/17/preview/bootstrapper/vs_professional.exe";
-$WebSourceCom = "https://aka.ms/vs/17/preview/bootstrapper/vs_Community.exe";
+$WebSourceEnt = "https://aka.ms/vs/17/release/vs_enterprise.exe";
+$WebSourcePro = "https://aka.ms/vs/17/release/vs_professional.exe";
+$WebSourceCom = "https://aka.ms/vs/17/release/vs_community.exe";
 
 switch ($edition.Substring(0,3)) 
 { 
