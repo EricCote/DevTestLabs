@@ -7,14 +7,6 @@ tzutil /s "Eastern Standard Time"
 new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force
 
 
-
-function Disable-IEESC{
-    $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
-    $UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
-    Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0
-    Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0
-}
-
 $isServer=$isServer= (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
 if($isServer){
     #enable sound
@@ -22,7 +14,11 @@ if($isServer){
     start-service audiosrv
 
     #Disable IE protection
-    Disable-IEESC;
+    $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
+    $UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
+    Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0
+    Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0
+
     #disable server manager at login
     Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask
 }
@@ -69,9 +65,6 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -force
 
 
-
-
-
 ##################################
 # work with default user registry
 ##################################
@@ -79,14 +72,16 @@ New-PSDrive HKU Registry HKEY_USERS | out-null
 & REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT | out-null
 
 # Show file extensions
-        New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                         -name HideFileExt `
-                         -Value 0 -PropertyType dword `
-                         -Force | out-null
+$result = New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+                    -name HideFileExt `
+                    -Value 0 -PropertyType dword `
+                    -Force 
 
+#for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
+$result.Handle.Close()
 [gc]::Collect()
-
 & REG UNLOAD HKU\Default | out-null
+
 Remove-PSDrive HKU
 
 
