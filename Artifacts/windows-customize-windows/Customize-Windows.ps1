@@ -7,7 +7,7 @@ tzutil /s "Eastern Standard Time"
 new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force
 
 
-$isServer=$isServer= (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
+$isServer= (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
 if($isServer){
     #enable sound
     Set-Service audiosrv -startuptype automatic
@@ -56,13 +56,12 @@ Copy-Item ./taskbar.xml c:\programData\script\taskbar.xml
 
 mkdir 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Force
 Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
-                 -name "LockedStartLayout" `
-                 -value 1 -Force
-
-Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -name "StartLayoutFile" `
                  -value "C:\ProgramData\script\taskbar.xml" `
                  -force
+# Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
+#                  -name "LockedStartLayout" `
+#                  -value 1 -Force
 
 
 ##################################
@@ -83,11 +82,3 @@ $result.Handle.Close()
 & REG UNLOAD HKU\Default | out-null
 
 Remove-PSDrive HKU
-
-
-
-
-
-
-
-
