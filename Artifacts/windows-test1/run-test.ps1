@@ -18,7 +18,7 @@ $license = Get-ChildItem -Path "$env:temp\terminal\*" -Include "*license*.xml" -
 
 
 Add-AppxProvisionedPackage -Online -PackagePath "$env:temp\terminal\$msix" `
-     -LicensePath "$env:temp\terminal\$license"  | out-null
+     -LicensePath "$env:temp\terminal\$license" -Regions all  | out-null
 
 "wow"     
 
