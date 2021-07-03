@@ -5,15 +5,15 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
 Invoke-WebRequest -UseBasicParsing -Uri "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" -OutFile "$env:temp\wsl_update_x64.msi"  
 Invoke-WebRequest -uri "https://aka.ms/wslubuntu2004" -UseBasicParsing -OutFile "$env:TEMP\Ubuntu.appx"
-Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu.appx"
+Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu.appx"  -Regions all 
+
 
 
 ##################################
 # Load default user registry
 ##################################
-New-PSDrive HKU Registry HKEY_USERS | out-null
-& REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT | out-null
-
+New-PSDrive HKU Registry HKEY_USERS 
+& REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT 
 
 # set default version to 2
 $result1 = New-Item -path "HKU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Force
@@ -23,10 +23,8 @@ $result2 = New-ItemProperty -path "HKU:\SOFTWARE\Microsoft\Windows\CurrentVersio
                     -Force 
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
-$result1.Handle.Close()
-$result2.Handle.Close()
 [gc]::Collect()
-& REG UNLOAD HKU\Default | out-null
+& REG UNLOAD HKU\Default 
 
 Remove-PSDrive HKU
 
