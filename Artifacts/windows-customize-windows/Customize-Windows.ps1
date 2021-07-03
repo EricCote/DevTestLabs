@@ -64,6 +64,14 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -value 1 -Force | out-null
 
 
+# Allow sideload of apps
+mkdir 'HKLM:\Software\Policies\Microsoft\Windows\Appx' -Force | out-null
+Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
+                 -name "AllowAllTrustedApps" `
+                 -value 1 `
+                 -force | out-null
+
+
 ##################################
 # work with default user registry
 ##################################
