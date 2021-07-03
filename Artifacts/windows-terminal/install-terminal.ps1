@@ -1,4 +1,5 @@
 ##install latest version of terminal
+$ProgressPreference = 'SilentlyContinue'
 
 $response = Invoke-RestMethod -Uri https://api.github.com/repos/microsoft/terminal/releases/latest
 $url = ($response.assets | Where-Object {$_.content_type -eq "application/x-zip-compressed"}).browser_download_url
