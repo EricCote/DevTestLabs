@@ -18,9 +18,11 @@ $license = Get-ChildItem -Path "$env:temp\terminal\*" -Include "*license*.xml" -
 
 
 Add-AppxProvisionedPackage -Online -PackagePath "$env:temp\terminal\$msix" `
-     -LicensePath "$env:temp\terminal\$license"  
+     -LicensePath "$env:temp\terminal\$license"  | out-null
 
-Get-AppxProvisionedPackage -online
+"wow"     
+
+Get-AppxProvisionedPackage -Online
 
 
  #Install-Module PendingReboot  
