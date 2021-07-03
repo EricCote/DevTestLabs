@@ -2,7 +2,7 @@ $ProgressPreference = 'SilentlyContinue'
 #Invoke-WebRequest -uri "https://aka.ms/wsl-ubuntu-1604" -UseBasicParsing -OutFile "$env:TEMP\Ubuntu16.appx"
 #Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu16.appx"
 
-Get-AppxProvisionedPackage -online | ? displayname -li *3d* | Remove-AppxProvisionedPackage -online
+Get-AppxProvisionedPackage -online | Where-Object displayname -li *3d* | Remove-AppxProvisionedPackage -online
 
 
 $response = Invoke-RestMethod -Uri https://api.github.com/repos/microsoft/terminal/releases/latest
