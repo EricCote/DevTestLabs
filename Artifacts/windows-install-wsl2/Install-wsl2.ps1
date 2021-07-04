@@ -16,8 +16,8 @@ New-PSDrive HKU Registry HKEY_USERS
 & REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT 
 
 # set default version to 2
-$result1 = New-Item -path "HKU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Force
-$result2 = New-ItemProperty -path "HKU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" `
+New-Item -path "HKU:\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Force
+New-ItemProperty -path "HKU:\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" `
                     -name DefaultVersion `
                     -Value 2 -PropertyType dword `
                     -Force 
@@ -25,9 +25,7 @@ $result2 = New-ItemProperty -path "HKU:\SOFTWARE\Microsoft\Windows\CurrentVersio
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 [gc]::Collect()
 & REG UNLOAD HKU\Default 
-
 Remove-PSDrive HKU
-
 
 $Part2 = @"
  & msiexec /i "c:\windows\temp\wsl_update_x64.msi" /quiet ;
