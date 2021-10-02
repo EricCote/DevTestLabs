@@ -8,8 +8,8 @@ Version="1">
     <CustomTaskbarLayoutCollection PinListPlacement="Replace">
         <defaultlayout:TaskbarLayout>
             <taskbar:TaskbarPinList>
-                <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" />
-                <taskbar:DesktopApp DesktopApplicationLinkPath="%APPDATA%\Microsoft\Windows\Start Menu\Programs\System Tools\File Explorer.lnk" />
+                <taskbar:UWA AppUserModelID="MSEdge"/>
+                <taskbar:UWA AppUserModelID="Microsoft.Windows.Explorer"/>
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022 Preview.lnk" />

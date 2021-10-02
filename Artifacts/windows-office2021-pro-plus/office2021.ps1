@@ -1,8 +1,10 @@
+$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117"  -UseBasicParsing).RawContent;
+$page -match '{url:\"(.*?)\"';
+$OdtSource = $matches[1];
 
 $tempFolder= ${env:Temp};
 
 $OdtFolder = $tempFolder;
-$OdtSource = "https://download.microsoft.com/download/2/7/A/27AF1BE6-DD20-4CB4-B154-EBAB8A7D4A7E/officedeploymenttool_14326-20404.exe";
 $fileDest= ("$tempFolder\OdtOffice.exe");
 
 $wc = new-object System.Net.WebClient ;
@@ -14,7 +16,7 @@ $xml= @"
   <Add OfficeClientEdition="64" Channel="PerpetualVL2021">
     <Product ID="ProPlus2021Volume" PIDKEY="FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH">
       <Language ID="en-us" />
-      <Language ID="fr-fr" />
+      <Language ID="fr-ca" />
     </Product>
   </Add>
 
@@ -88,4 +90,4 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
 & REG UNLOAD HKU\Default | out-null
 Remove-PSDrive HKU
 
-exit
+

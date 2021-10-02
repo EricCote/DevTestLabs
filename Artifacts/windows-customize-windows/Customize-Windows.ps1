@@ -69,7 +69,7 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -force | out-null
 Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
                  -name "LockedStartLayout" `
-                 -value 1 -Force | out-null
+                 -value 0 -Force | out-null
 
 
 # Allow sideload of apps
