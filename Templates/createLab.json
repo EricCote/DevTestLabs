@@ -48,7 +48,7 @@
         "armTemplateFolderPath": "/Templates",
         "branchRef": "master",
         "status": "Enabled",
-        "securityToken": "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"
+        "securityToken": "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"
       },
       "dependsOn": [
         "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
@@ -107,7 +107,7 @@
           "properties": {
             "size": "Standard_D4s_v4",
             "userName": "afi",
-            "password": "afi123123123!",
+            "password": "af123123123!",
             "isAuthenticationWithSshKey": false,
             "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
             "labVirtualNetworkId": "[concat('/virtualnetworks/',variables('labVirtualNetworkName'))]",
@@ -376,7 +376,45 @@
           }
         }
       }
+    },
+    {
+      "type": "microsoft.devtestlab/labs/formulas",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(parameters('newLabName'), '/win11basic')]",
+      "dependsOn": [
+        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+      ],
+      "properties": {
+        "osType": "Windows",
+        "formulaContent": {
+          "properties": {
+            "size": "Standard_NV4as_v4",
+            "userName": "afi",
+            "password": "af123123123!",
+            "isAuthenticationWithSshKey": false,
+            "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
+            "labVirtualNetworkId": "[concat('/virtualnetworks/',variables('labVirtualNetworkName'))]",
+            "disallowPublicIpAddress": false,
+            "artifacts": [
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-windows",
+                "parameters": []
+              }
+            ],
+            "galleryImageReference": {
+              "offer": "windows11preview",
+              "publisher": "microsoftwindowsdesktop",
+              "sku": "win11-21h2-ent",
+              "osType": "Windows",
+              "version": "latest"
+            },
+            "allowClaim": false,
+            "storageType": "Premium"
+          }
+        }
+      }
     }
+
     // {
     //   "type": "microsoft.devtestlab/labs/schedules",
     //   "name": "[concat(parameters('newLabName'),'/LabVmsShutdown')]",

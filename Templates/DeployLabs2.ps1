@@ -1,9 +1,9 @@
 ﻿
 
-$location=      "EastUS"
-$labName=       "MyLab"
+$location=      "WestUS3"
+$labName=       "Win11"
 
-$vmPrefix=          "testEric"
+$vmPrefix=          "win11a"
 $ExpiresInXDays=    7
 $numberOfInstances= 3
 $imageDescription=  "Ceci est une description de l'image"
@@ -42,13 +42,13 @@ az account set --subscription sub2
 
 #Get-AzureRmStorageAccount | Get-AzureStorageContainer | Get-AzureStorageBlob
 
-$createLab=          "C:\demo\DevTestLabs\templates\createLab.json"
-$addPrivateRepo=     "C:\demo\DevTestLabs\templates\addPrivateRepo.json"
-$createMasterImage=  "C:\demo\DevTestLabs\templates\CreateMasterImage.json"
-$addFormula=         "C:\demo\DevTestLabs\templates\AddFormula.json"
-$deployMasterVm=     "C:\demo\DevTestLabs\templates\deployMasterVm.json"
-$deployVm=           "C:\demo\DevTestLabs\templates\deployvm.json"
-$deployCustomVm=     "C:\demo\DevTestLabs\templates\deployCustomVm.json"
+$createLab=          "C:\gat\DevTestLabs\templates\createLab.json"
+$addPrivateRepo=     "C:\gat\DevTestLabs\templates\addPrivateRepo.json"
+$createMasterImage=  "C:\gat\DevTestLabs\templates\CreateMasterImage.json"
+$addFormula=         "C:\gat\DevTestLabs\templates\AddFormula.json"
+$deployMasterVm=     "C:\gat\DevTestLabs\templates\deployMasterVm.json"
+$deployVm=           "C:\gat\DevTestLabs\templates\deployvm.json"
+$deployCustomVm=     "C:\gat\DevTestLabs\templates\deployCustomVm.json"
 
 
 $groupName=       "Cours$labName"
@@ -71,22 +71,8 @@ az group create --resource-group $GroupName --location $location
       az deployment group create --resource-group $GroupName --name "MyLab" `
           --template-file $createLab --parameters newLabName="LabEric"
 
-New-AzureRmResourceGroupDeployment -name "CreateLab" `
-                                   -ResourceGroupName $groupName `
-                                   -TemplateFile $createLab `
-                                   -newLabName $LabName 
-                               
-#step 1c: create the private repo
-New-AzureRmResourceGroupDeployment -name "CreatePrivateRepo" `
-                                   -ResourceGroupName $groupName `
-                                   -TemplateFile $addPrivateRepo `
-                                   -existingLabName $LabName `
-                                   -repoName "privaterepo1" `
-                                   -displayName "Private Repo 1" `
-                                   -uri "https://github.com/EricCote/DevTestLabs.git" `
-                                   -securityToken $gitHubToken
 
-
+  
 #step 2: create the Master VM, a machine with everyting in it.                          
 New-AzureRmResourceGroupDeployment -name "CreateGoldVm" `
                                    -ResourceGroupName $groupName `
