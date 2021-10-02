@@ -41,8 +41,9 @@ New-PSDrive HKU Registry HKEY_USERS | out-null
 & REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT | out-null
 
 #Create Registry key 
-        New-Item "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
+New-Item "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
                  -force | out-null
+
 
 #Create Registry value
 New-ItemProperty -Path "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
@@ -52,7 +53,7 @@ New-ItemProperty -Path "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
 
 
 #Create Registry key 
-        New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
+New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
                  -force | out-null
 
 #Create Registry value
@@ -62,12 +63,23 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Com
                  -Force | out-null
 
 #Create Registry key 
-        New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
+New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
                  -force | out-null
 
 #Create Registry value
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
                  -Name "AcceptAllEulas" `
+                 -Value 1 -PropertyType dword `
+                 -Force | out-null
+
+
+#Create Registry key 
+New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
+                 -force | out-null
+
+#Create Registry value
+New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
+                 -Name "PreventFirstLaunchAfterInstall" `
                  -Value 1 -PropertyType dword `
                  -Force | out-null
 
