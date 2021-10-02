@@ -69,7 +69,9 @@ az group create --resource-group $GroupName --location $location
 
 #step 1b:  Create the lab
       az deployment group create --resource-group $GroupName --name "MyLab" `
-          --template-file $createLab --parameters newLabName="LabEric"
+          --template-file $createLab `
+          --parameters newLabName="LabWin11" gitHubToken=$gitHubToken
+
 
 
   

@@ -7,6 +7,12 @@
       "metadata": {
         "description": "The name of the new lab instance to be created"
       }
+    },
+    "gitHubToken": {
+      "type": "string",
+      "metadata": {
+        "description": "Github Token to have access to the dtl repo"
+      }
     }
   },
   "variables": {
@@ -48,7 +54,7 @@
         "armTemplateFolderPath": "/Templates",
         "branchRef": "master",
         "status": "Enabled",
-        "securityToken": "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"
+        "securityToken": "[parameters('gitHubToken')]"
       },
       "dependsOn": [
         "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
