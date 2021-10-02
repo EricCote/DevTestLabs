@@ -31,10 +31,12 @@ New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\OneDrive" -nam
 mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main' -Force | out-null
 New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "DisableFirstRunCustomize" -value 1 | out-null
 
-#Disable Edge first run
-mkdir 'HKLM:\Software\Microsoft\Edge' -Force | out-null
-New-ItemProperty -path "HKLM:\Software\Microsoft\Edge" -name "HideFirstRunExperience" -value 1 | out-null
+#Stop nagging default browser  
+mkdir 'HKLM:\Software\Policies\Microsoft\Edge' -Force | out-null
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0
 
+#hide first run popups
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
 
 
 # disable "Choose Privacy Settings for your device"
