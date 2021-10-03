@@ -60,17 +60,20 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 
 # set taskbar
 mkdir c:\programData\script -Force | out-null
-Copy-Item ./taskbar.xml c:\programData\script\taskbar.xml | out-null
+Copy-Item ./taskbar.xml c:\ProgramData\script\taskbar.xml | out-null
 
-mkdir 'HKLM:\Software\Policies\Microsoft\Windows\Explorer' -Force | out-null
-Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
+mkdir 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | out-null
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
                  -name "StartLayoutFile" `
                  -value "C:\ProgramData\script\taskbar.xml" `
-                 -force | out-null
-Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Explorer" `
+                 -force | out-null;
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
                  -name "LockedStartLayout" `
-                 -value 0 -Force | out-null
-
+                 -value 1 -Force | out-null;
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
+                 -name "ReapplyStartLayoutEveryLogon" `
+                 -value 1 -Force | out-null;
+                 
 
 # Allow sideload of apps
 mkdir 'HKLM:\Software\Policies\Microsoft\Windows\Appx' -Force | out-null
