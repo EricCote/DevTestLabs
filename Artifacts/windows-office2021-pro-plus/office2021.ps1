@@ -5,7 +5,7 @@ $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmatio
 $page -match '{url:\"(.*?)\"';
 $OdtSource = $matches[1];
 
-$tempFolder= ${env:Temp};
+$tempFolder= $env:Temp;
 
 $OdtFolder = $tempFolder;
 $fileDest= ("$tempFolder\OdtOffice.exe");
