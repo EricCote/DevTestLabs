@@ -19,7 +19,7 @@ Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicPar
 msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 
 
-mkdir HKLM:\Software\Policies\Microsoft\Edge  -Force
+mkdir HKLM:\Software\Policies\Microsoft\Edge  -Force | out-null
 #Stop nagging default browser  
 New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
 
@@ -32,9 +32,9 @@ New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePa
 #you need to create two files in profile to get rid of it.  
 
 #Create empty file
-New-Item  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\First Run" -ItemType File -Force
+New-Item  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\First Run" -ItemType File -Force  | out-null
 
 #create nearly empty file
-mkdir "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default" -Force
+mkdir "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default" -Force | out-null
 "{}" | Out-File  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default\Preferences" -Force -Encoding utf8
        
