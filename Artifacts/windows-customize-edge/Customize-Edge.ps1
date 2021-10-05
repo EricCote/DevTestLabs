@@ -16,7 +16,7 @@ $LatestEdgeUrl = ($jsonObj[$selectedIndex].Releases | `
 Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicParsing;
 
 #install edge
-msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1;
+msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 
 
 mkdir HKLM:\Software\Policies\Microsoft\Edge  -Force
