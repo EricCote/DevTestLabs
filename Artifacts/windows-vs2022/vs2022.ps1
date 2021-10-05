@@ -7,6 +7,7 @@ Param (
 [bool]  $desktop = $true,
 [bool]  $azure = $true,
 [bool]  $data = $true,
+[bool]  $node = $true,
 [string] $languages =  "en-US", 
 [string] $key = ""  )
 
@@ -60,6 +61,9 @@ if ($azure){
 }
 if ($data){
    $workloads += @("--add", "Microsoft.VisualStudio.Workload.Data")
+}
+if ($node){
+   $workloads += @("--add", "Microsoft.VisualStudio.Workload.Node")
 }
 
 $dest = ( "${env:Temp}\vs_setup.exe");

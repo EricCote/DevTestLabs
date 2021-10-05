@@ -50,6 +50,12 @@
       "description": "Connect, develop and test data solutions using SQL Server, Azure Data Lake, Hadoop or Azure ML.",
       "defaultValue": true
     },
+    "node": {
+      "type": "bool",
+      "displayName": "Node.js development",
+      "description": "Build scalable network applications using Node.js, an asynchronous event-driven JavaScript runtime.",
+      "defaultValue": true
+    },
     "languages": {
       "type": "string",
       "displayName": "Languages",
@@ -67,6 +73,6 @@
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2022.ps1'' -edition ', parameters('edition'), ' -preview:$', parameters('preview'), ' -aspnet:$',  parameters('aspnet'), ' -netcore:$',  parameters('netcore'), ' -desktop:$',  parameters('desktop'), ' -azure:$', parameters('azure'), ' -data:$', parameters('data'), ' -languages ''' , parameters('languages')    ,'''  -key ''', parameters('key'), ''' \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2022.ps1'' -edition ', parameters('edition'), ' -preview:$', parameters('preview'), ' -aspnet:$',  parameters('aspnet'), ' -netcore:$',  parameters('netcore'), ' -desktop:$',  parameters('desktop'), ' -azure:$', parameters('azure'), ' -data:$', parameters('data'), ' -node:$', parameters('node'),  ' -languages ''' , parameters('languages')    ,'''  -key ''', parameters('key'), ''' \"'  )]"
   }
 }
