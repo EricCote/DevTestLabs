@@ -1,3 +1,6 @@
+$ProgressPreference = 'SilentlyContinue'
+
+
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117"  -UseBasicParsing).RawContent;
 $page -match '{url:\"(.*?)\"';
 $OdtSource = $matches[1];
@@ -7,9 +10,7 @@ $tempFolder= ${env:Temp};
 $OdtFolder = $tempFolder;
 $fileDest= ("$tempFolder\OdtOffice.exe");
 
-$wc = new-object System.Net.WebClient ;
-$wc.DownloadFile($OdtSource, $fileDest) ; 
-$wc.Dispose();    
+Invoke-WebRequest -UseBasicParsing -Uri $OdtSource -OutFile $fileDest
 
 $xml= @"
 <Configuration>
@@ -31,7 +32,7 @@ $xml= @"
 & $fileDest  /extract:"$OdtFolder" /quiet | out-null ; 
 
 $conf=(Join-Path $OdtFolder "configuration.xml") ;
-Set-Content $conf $xml ;
+$xml | Out-File  -FilePath $conf -Encoding utf8;
 
 "Installing Office 2021.  Might take a while."
 & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-null ;

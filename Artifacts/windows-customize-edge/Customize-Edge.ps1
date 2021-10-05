@@ -19,22 +19,22 @@ Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicPar
 msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1;
 
 
-mkdir HKLM:\Software\Policies\Microsoft\Edge 
+mkdir HKLM:\Software\Policies\Microsoft\Edge  -Force
 #Stop nagging default browser  
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
 
 #hide first run popups
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1
-New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePageOnOSUpgradeEnabled" -value 0
+New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1 -Force | Out-Null
+New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePageOnOSUpgradeEnabled" -value 0 -Force | Out-Null
 
 ########################################################
 #Remove chrome "first run" page:
 #you need to create two files in profile to get rid of it.  
 
 #Create empty file
-New-Item  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\First Run" -ItemType File -force
+New-Item  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\First Run" -ItemType File -Force
 
 #create nearly empty file
-mkdir "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default"
-"{}" | Out-File  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default\Preferences" -force -Encoding utf8
+mkdir "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default" -Force
+"{}" | Out-File  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default\Preferences" -Force -Encoding utf8
        
