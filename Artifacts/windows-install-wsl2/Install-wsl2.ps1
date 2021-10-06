@@ -1,2 +1,2 @@
-wls --install
+wsl --install
 #restart-computer

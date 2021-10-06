@@ -7,7 +7,7 @@ $ProgressPreference = 'SilentlyContinue'
 #install
 Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe" -UseBasicParsing -OutFile "$env:TEMP\installDocker.exe"
  
-& "$env:TEMP\installDocker.exe" install --quiet
+& "$env:TEMP\installDocker.exe" install --quiet  | out-null
  
 
 while ((net localgroup) -inotcontains "*docker-users")
