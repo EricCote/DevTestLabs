@@ -65,3 +65,16 @@ restart-computer
 # $imp_Token.Groups | Where-Object {$_.Sid.Name -match "TrustedInstaller"}
 
 
+$file = (Get-ChildItem C:\windows\SystemTemp\ubunt*)[0]
+
+$zip = "$env:TEMP\Ubuntu.zip"
+
+
+ copy-Item $file.FullName $zip -force
+
+ Expand-Archive  $zip  "$env:temp\Ubuntu" -force
+
+ $file = (Get-ChildItem "$env:TEMP\Ubuntu\ubuntu*.exe")[0]
+
+
+ & $file.FullName install --root

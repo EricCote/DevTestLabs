@@ -34,7 +34,7 @@ while ((net localgroup) -inotcontains "*docker-users")
 
 
 # refreshenv
-# Start-Service docker 
+# Start-Service com.docker.service 
 
 # docker image pull alpine
 
