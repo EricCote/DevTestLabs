@@ -1,10 +1,10 @@
 ﻿
 
-$location=      "WestUS3"
-$labName=       "Win11"
+$location=      "canadacentral"
+$labName=       "Vs2022"
 
-$vmPrefix=          "win11a"
-$ExpiresInXDays=    7
+$vmPrefix=          "CoursMVC"
+$ExpiresInXDays=    10
 $numberOfInstances= 3
 $imageDescription=  "Ceci est une description de l'image"
 $language=          "en-US"
@@ -34,7 +34,7 @@ $gitHubToken=Stuff-EnvironmentVariable -Name "gitHubToken" -Description "persona
 $VsEntKey=   Stuff-EnvironmentVariable -Name "vsEnterpriseKey" -Description "Visual Studio Enterprise ProductKey"
 $VsProKey=   Stuff-EnvironmentVariable -Name "vsProfessionalKey" -Description "Visual Studio Professional ProductKey"
 
-az account set --subscription sub2
+az account set --subscription sub3
 
 # View your current Azure PowerShell session context
 # This session state is only applicable to the current session and will not affect other sessions
@@ -51,7 +51,7 @@ $deployVm=           "C:\gat\DevTestLabs\templates\deployvm.json"
 $deployCustomVm=     "C:\gat\DevTestLabs\templates\deployCustomVm.json"
 
 
-$groupName=       "Cours$labName"
+$groupName=       "$labName-group"
 $goldVmName=      "$labName-Master"
 $imageName=       "$labName-Image"
 $vmUsername=      "afi"
@@ -70,7 +70,7 @@ az group create --resource-group $GroupName --location $location
 #step 1b:  Create the lab
       az deployment group create --resource-group $GroupName --name "MyLab" `
           --template-file $createLab `
-          --parameters newLabName="LabWin11" gitHubToken=$gitHubToken
+          --parameters newLabName="vs2022" gitHubToken=$gitHubToken
 
 
 

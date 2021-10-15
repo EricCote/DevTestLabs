@@ -16,35 +16,88 @@
     }
   },
   "variables": {
-    "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]"
+    "labVirtualNetworkName": "[concat('Dtl', parameters('newLabName'))]",
+    "labName": "[concat(parameters('newLabName'), '-lab')]"
   },
   "resources": [
     {
+      "type": "Microsoft.Network/virtualNetworks",
+      "apiVersion": "2020-11-01",
+      "name": "[variables('labVirtualNetworkName')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": ["10.0.0.0/20"]
+        },
+        "subnets": [
+          {
+            "name": "MainSubnet",
+            "properties": {
+              "addressPrefix": "10.0.0.0/24"
+            }
+          },
+          {
+            "name": "AzureBastionSubnet",
+            "properties": {
+              "addressPrefix": "10.0.1.0/24"
+            }
+          }
+        ]
+      }
+    },
+    {
       "apiVersion": "2018-09-15",
       "type": "Microsoft.DevTestLab/labs",
-      "name": "[parameters('newLabName')]",
+      "name": "[variables('labName')]",
       "location": "[resourceGroup().location]",
 
       "resources": [
         {
           "apiVersion": "2018-09-15",
           "name": "[variables('labVirtualNetworkName')]",
-          "type": "virtualNetworks",
-          "properties": {},
+          "type": "virtualnetworks",
+          "properties": {
+            "externalProviderResourceId": "[resourceId('Microsoft.Network/virtualNetworks', variables('labVirtualNetworkName'))]",
+
+            "subnetOverrides": [
+              {
+                "labSubNetName": "MainSubnet",
+                "resourceId": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('labVirtualNetworkName'), 'MainSubnet')]",
+                "useInVmCreationPermission": "Allow",
+                "usePublicIpAddressPermission": "Allow",
+                "sharedPublicIpAddressConfiguration": {
+                  "allowedPorts": [
+                    {
+                      "transportProtocol": "Tcp",
+                      "backendPort": 3389
+                    },
+                    {
+                      "transportProtocol": "Tcp",
+                      "backendPort": 22
+                    }
+                  ]
+                }
+              }
+            ]
+          },
           "dependsOn": [
-            "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
+            "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
           ]
         }
       ],
 
       "properties": {
-        "labStorageType": "Premium"
-      }
+        "labStorageType": "Premium",
+        "browserConnect": "Enabled"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', variables('labVirtualNetworkName'))]"
+      ]
     },
 
     {
-      "type": "microsoft.devtestlab/labs/artifactsources",
-      "name": "[concat(parameters('newLabName'),'/myrepo')]",
+      "type": "Microsoft.DevTestLab/labs/artifactsources",
+      "name": "[concat(variables('labName'),'/myrepo')]",
       "apiVersion": "2018-09-15",
       "properties": {
         "displayName": "my repo",
@@ -57,16 +110,16 @@
         "securityToken": "[parameters('gitHubToken')]"
       },
       "dependsOn": [
-        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ]
     },
 
     {
-      "type": "microsoft.devtestlab/labs/artifactsources",
+      "type": "Microsoft.DevTestLab/labs/artifactsources",
       "apiVersion": "2018-09-15",
-      "name": "[concat(parameters('newLabName'), '/public repo')]",
+      "name": "[concat(variables('labName'), '/public repo')]",
       "dependsOn": [
-        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ],
       "properties": {
         "displayName": "Public Artifact Repo",
@@ -79,12 +132,11 @@
     },
 
     {
-      "type": "microsoft.devtestlab/labs/schedules",
+      "type": "Microsoft.DevTestLab/labs/schedules",
       "apiVersion": "2018-09-15",
-      "name": "[concat(parameters('newLabName'), '/labvmsshutdown')]",
-      "location": "eastus",
+      "name": "[concat(variables('labName'), '/labvmsshutdown')]",
       "dependsOn": [
-        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ],
       "properties": {
         "status": "Enabled",
@@ -100,11 +152,11 @@
       }
     },
     {
-      "type": "microsoft.devtestlab/labs/formulas",
+      "type": "Microsoft.DevTestLab/labs/formulas",
       "apiVersion": "2018-09-15",
-      "name": "[concat(parameters('newLabName'), '/reportingsql')]",
+      "name": "[concat(variables('labName'), '/reportingsql')]",
       "dependsOn": [
-        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ],
       "properties": {
         "description": "SQL Server Reporting Services",
@@ -115,8 +167,8 @@
             "userName": "afi",
             "password": "af123123123!",
             "isAuthenticationWithSshKey": false,
-            "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
-            "labVirtualNetworkId": "[concat('/virtualnetworks/',variables('labVirtualNetworkName'))]",
+            "labSubnetName": "MainSubnet",
+            "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
             "disallowPublicIpAddress": false,
             "artifacts": [
               {
@@ -136,7 +188,7 @@
                 "parameters": []
               },
               {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode",
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-vscode64",
                 "parameters": []
               },
               {
@@ -148,7 +200,7 @@
                 "parameters": []
               },
               {
-                "artifactId": "/artifactsources/myrepo/artifacts/windows-office2016-pro-plus",
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-office2021-pro-plus",
                 "parameters": []
               },
               {
@@ -384,11 +436,11 @@
       }
     },
     {
-      "type": "microsoft.devtestlab/labs/formulas",
+      "type": "Microsoft.DevTestLab/labs/formulas",
       "apiVersion": "2018-09-15",
-      "name": "[concat(parameters('newLabName'), '/win11basic')]",
+      "name": "[concat(variables('labName'), '/win11basic')]",
       "dependsOn": [
-        "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ],
       "properties": {
         "osType": "Windows",
@@ -398,8 +450,8 @@
             "userName": "afi",
             "password": "af123123123!",
             "isAuthenticationWithSshKey": false,
-            "labSubnetName": "[concat(variables('labVirtualNetworkName'), 'Subnet')]",
-            "labVirtualNetworkId": "[concat('/virtualnetworks/',variables('labVirtualNetworkName'))]",
+            "labSubnetName": "MainSubnet",
+            "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
             "disallowPublicIpAddress": false,
             "artifacts": [
               {
@@ -419,11 +471,383 @@
           }
         }
       }
+    },
+    {
+      "type": "Microsoft.DevTestLab/labs/formulas",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(variables('labName'), '/VS2022')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
+      ],
+      "properties": {
+        "osType": "Windows",
+        "formulaContent": {
+          "properties": {
+            "size": "Standard_D4s_v4",
+            "userName": "afi",
+            "password": "af123123123!",
+            "isAuthenticationWithSshKey": false,
+            "labSubnetName": "MainSubnet",
+            "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
+            "disallowPublicIpAddress": false,
+            "artifacts": [
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-windows",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-vscode64",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-git",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-office2021-pro-plus",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-ssms",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-nvm-node",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-vs2019",
+                "parameters": [
+                  {
+                    "name": "edition",
+                    "value": "Enterprise"
+                  },
+                  {
+                    "name": "preview",
+                    "value": "false"
+                  },
+                  {
+                    "name": "aspnet",
+                    "value": "true"
+                  },
+                  {
+                    "name": "netcore",
+                    "value": "true"
+                  },
+                  {
+                    "name": "desktop",
+                    "value": "true"
+                  },
+                  {
+                    "name": "azure",
+                    "value": "true"
+                  },
+                  {
+                    "name": "data",
+                    "value": "true"
+                  },
+                  {
+                    "name": "node",
+                    "value": "true"
+                  },
+                  {
+                    "name": "languages",
+                    "value": "en-US"
+                  },
+                  {
+                    "name": "key",
+                    "value": "BF8Y8-GN2QH-T84XB-QVY3B-RC4DF"
+                  }
+                ]
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-vs2022",
+                "parameters": [
+                  {
+                    "name": "edition",
+                    "value": "Enterprise"
+                  },
+                  {
+                    "name": "preview",
+                    "value": "false"
+                  },
+                  {
+                    "name": "aspnet",
+                    "value": "true"
+                  },
+                  {
+                    "name": "netcore",
+                    "value": "true"
+                  },
+                  {
+                    "name": "desktop",
+                    "value": "true"
+                  },
+                  {
+                    "name": "azure",
+                    "value": "true"
+                  },
+                  {
+                    "name": "data",
+                    "value": "true"
+                  },
+                  {
+                    "name": "node",
+                    "value": "true"
+                  },
+                  {
+                    "name": "languages",
+                    "value": "en-US"
+                  },
+                  {
+                    "name": "key",
+                    "value": ""
+                  }
+                ]
+              }
+            ],
+            "galleryImageReference": {
+              "offer": "windows11preview",
+              "publisher": "microsoftwindowsdesktop",
+              "sku": "win11-21h2-ent",
+              "osType": "Windows",
+              "version": "latest"
+            },
+            "allowClaim": false,
+            "storageType": "Premium"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DevTestLab/labs/virtualmachines",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(variables('labName'),'/VsMVC-', copyIndex())]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]",
+        "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
+        "[resourceId('Microsoft.DevTestLab/labs/artifactsources', variables('labName'), 'myrepo')]"
+      ],
+      "copy": {
+        "name": "CoursWin",
+        "count": 3
+      },
+      "properties": {
+        "userName": "afi",
+        "password": "af123123123!",
+        "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
+        "labSubnetName": "MainSubnet",
+        "size": "Standard_D4s_v4",
+        "disallowPublicIpAddress": false,
+        "storageType": "Premium",
+        "allowClaim": false,
+        "galleryImageReference": {
+          "offer": "windows11preview",
+          "publisher": "microsoftwindowsdesktop",
+          "sku": "win11-21h2-ent",
+          "osType": "Windows",
+          "version": "latest"
+        },
+        "artifacts": [
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-windows')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-chrome')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-chrome')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-edge')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-ie')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-vscode64')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-git')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-office2021-pro-plus')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-ssms')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-nvm-node')]",
+            "parameters": []
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-vs2019')]",
+            "parameters": [
+              {
+                "name": "edition",
+                "value": "Enterprise"
+              },
+              {
+                "name": "preview",
+                "value": "false"
+              },
+              {
+                "name": "aspnet",
+                "value": "true"
+              },
+              {
+                "name": "netcore",
+                "value": "true"
+              },
+              {
+                "name": "desktop",
+                "value": "true"
+              },
+              {
+                "name": "azure",
+                "value": "true"
+              },
+              {
+                "name": "data",
+                "value": "true"
+              },
+              {
+                "name": "node",
+                "value": "true"
+              },
+              {
+                "name": "languages",
+                "value": "en-US"
+              },
+              {
+                "name": "key",
+                "value": "BF8Y8-GN2QH-T84XB-QVY3B-RC4DF"
+              }
+            ]
+          },
+          {
+            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-vs2022')]",
+            "parameters": [
+              {
+                "name": "edition",
+                "value": "Enterprise"
+              },
+              {
+                "name": "preview",
+                "value": "false"
+              },
+              {
+                "name": "aspnet",
+                "value": "true"
+              },
+              {
+                "name": "netcore",
+                "value": "true"
+              },
+              {
+                "name": "desktop",
+                "value": "true"
+              },
+              {
+                "name": "azure",
+                "value": "true"
+              },
+              {
+                "name": "data",
+                "value": "true"
+              },
+              {
+                "name": "node",
+                "value": "true"
+              },
+              {
+                "name": "languages",
+                "value": "en-US"
+              },
+              {
+                "name": "key",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+
+    {
+      "type": "Microsoft.Network/publicIPAddresses",
+      "apiVersion": "2020-11-01",
+      "location": "[resourceGroup().location]",
+      "name": "EricBastion-ip",
+      "sku": {
+        "name": "Standard",
+        "tier": "Regional"
+      },
+      "properties": {
+        "publicIPAllocationMethod": "Static"
+      }
+    },
+
+    {
+      "type": "Microsoft.Network/bastionHosts",
+      "apiVersion": "2020-11-01",
+      "name": "EricBastion",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/virtualNetworks', variables('labVirtualNetworkName'))]",
+        "[resourceId('Microsoft.Network/publicIPAddresses', 'EricBastion-ip')]"
+      ],
+      "sku": {
+        "name": "Standard"
+      },
+      "properties": {
+        "dnsName": "EricBastion.bastion.azure.com",
+        "ipConfigurations": [
+          {
+            "name": "IpConf",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', 'EricBastion-ip')]"
+              },
+              "subnet": {
+                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('labVirtualNetworkName'), 'AzureBastionSubnet')]"
+              }
+            }
+          }
+        ]
+      }
     }
 
     // {
     //   "type": "microsoft.devtestlab/labs/schedules",
-    //   "name": "[concat(parameters('newLabName'),'/LabVmsShutdown')]",
+    //   "name": "[concat(variables('labName'),'/LabVmsShutdown')]",
     //   "apiVersion": "2016-05-15",
     //   "properties": {
     //     "status": "Enabled",
@@ -434,12 +858,12 @@
     //     "timeZoneId": "[parameters('timeZone')]"
     //   },
     //   "dependsOn": [
-    //     "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+    //     "[resourceId('microsoft.devtestlab/labs', variables('labName'))]"
     //   ]
     // },
     // {
     //   "type": "microsoft.devtestlab/labs/schedules",
-    //   "name": "[concat(parameters('newLabName'),'/labvmreclamation')]",
+    //   "name": "[concat(variables('labName'),'/labvmreclamation')]",
     //   "apiVersion": "2016-05-15",
     //   "properties": {
     //     "status": "Enabled",
@@ -450,12 +874,12 @@
     //     "timeZoneId": "[parameters('timeZone')]"
     //   },
     //   "dependsOn": [
-    //     "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+    //     "[resourceId('microsoft.devtestlab/labs', variables('labName'))]"
     //   ]
     // },
     // {
     //   "type": "microsoft.devtestlab/labs/schedules",
-    //   "name": "[concat(parameters('newLabName'),'/labvmautostart')]",
+    //   "name": "[concat(variables('labName'),'/labvmautostart')]",
     //   "apiVersion": "2016-05-15",
     //   "properties": {
     //     "status": "Enabled",
@@ -467,14 +891,14 @@
     //     "timeZoneId": "[parameters('timeZone')]"
     //   },
     //   "dependsOn": [
-    //     "[resourceId('microsoft.devtestlab/labs', parameters('newLabName'))]"
+    //     "[resourceId('microsoft.devtestlab/labs', variables('labName'))]"
     //   ]
     // }
   ],
   "outputs": {
     "labId": {
       "type": "string",
-      "value": "[resourceId('Microsoft.DevTestLab/labs', parameters('newLabName'))]"
+      "value": "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
     }
   }
 }

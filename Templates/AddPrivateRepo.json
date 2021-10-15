@@ -11,60 +11,58 @@
     "repoName": {
       "type": "string",
       "metadata": {
-          "description": "resource name of the private repo"
-      }  
+        "description": "resource name of the private repo"
+      }
     },
     "displayName": {
       "type": "string",
       "metadata": {
-          "description": "display name of the private repo"
-      }  
+        "description": "display name of the private repo"
+      }
     },
     "uri": {
       "type": "string",
       "metadata": {
-          "description": "uri of the private repo"
-      }  
+        "description": "uri of the private repo"
+      }
     },
     "folderPath": {
       "type": "string",
       "defaultValue": "/Artifacts",
       "metadata": {
-          "description": "artifacts folder path"
-      }  
+        "description": "artifacts folder path"
+      }
     },
     "branchName": {
       "type": "string",
       "defaultValue": "master",
       "metadata": {
-          "description": "Branch Name (defaults to master)"
-      }  
+        "description": "Branch Name (defaults to master)"
+      }
     },
     "securityToken": {
       "type": "string",
       "metadata": {
-          "description": "Security token of github repo"
-      }  
+        "description": "Security token of github repo"
+      }
     }
   },
-  "variables": {
-  },
+  "variables": {},
   "resources": [
-        {          
-            "type": "Microsoft.DevTestLab/labs/artifactsources",
-            "name": "[concat(parameters('existingLabName'),'/', parameters('repoName'))]",
-            "apiVersion": "2016-05-15",
-            "properties": {
-                "displayName": "[parameters('displayname')]",
-                "uri": "[parameters('uri')]",
-                "sourceType": "GitHub",
-                "folderPath": "[parameters('folderPath')]",
-                "branchRef": "[parameters('branchName')]",
-                "status": "Enabled",
-                "securityToken": "[parameters('securityToken')]"
-            }
-        }
-   
+    {
+      "type": "Microsoft.DevTestLab/labs/artifactsources",
+      "name": "[concat(parameters('existingLabName'),'/', parameters('repoName'))]",
+      "apiVersion": "2018-09-15",
+      "properties": {
+        "displayName": "[parameters('displayname')]",
+        "uri": "[parameters('uri')]",
+        "sourceType": "GitHub",
+        "folderPath": "[parameters('folderPath')]",
+        "branchRef": "[parameters('branchName')]",
+        "status": "Enabled",
+        "securityToken": "[parameters('securityToken')]"
+      }
+    }
   ],
   "outputs": {
     "labId": {

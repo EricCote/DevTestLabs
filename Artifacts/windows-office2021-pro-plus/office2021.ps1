@@ -56,7 +56,7 @@ New-ItemProperty -Path "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
 
 
 #Create Registry key 
-New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
+New-Item "HKU:\Default\Software\Policies\Microsoft\Office\16.0\Common\General" `
                  -force | out-null
 
 #Create Registry value
