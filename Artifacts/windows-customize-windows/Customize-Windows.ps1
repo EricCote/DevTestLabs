@@ -86,7 +86,7 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
 # work with default user registry
 ##################################
 New-PSDrive HKU Registry HKEY_USERS | out-null
-& REG LOAD HKU\Default C:\Users\Default\NTUSER.DAT  | out-null
+& REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  | out-null
 
 # Show file extensions
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
@@ -96,6 +96,6 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 [gc]::Collect()
-& REG UNLOAD HKU\Default | out-null
+& REG UNLOAD "HKU\Default" | out-default
 
 Remove-PSDrive HKU 
