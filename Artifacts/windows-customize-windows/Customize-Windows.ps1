@@ -81,6 +81,21 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
                  -value 1 `
                  -force | out-null
 
+#Enable Dev Mode
+mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" force | Out-Null
+Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" `
+                 -name "AllowDevelopmentWithoutDevLicense" `
+                 -value 1 `
+                 -force | out-null
+
+#enable UAC on Administrator account
+                
+mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" force | Out-Null
+Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
+                 -name "FilterAdministratorToken" `
+                 -value 1 `
+                 -force | out-null
+
 
 ##################################
 # work with default user registry

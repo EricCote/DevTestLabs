@@ -18,6 +18,7 @@ $xml= @"
     <Product ID="ProPlus2021Volume" PIDKEY="FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH">
       <Language ID="en-us" />
       <Language ID="fr-ca" />
+      <!--  <ExcludeApp ID="Teams" />  -->
     </Product>
   </Add>
 
@@ -85,6 +86,11 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
                  -Name "PreventFirstLaunchAfterInstall" `
                  -Value 1 -PropertyType dword `
                  -Force | out-null
+
+
+
+
+
 
 [gc]::Collect()
 

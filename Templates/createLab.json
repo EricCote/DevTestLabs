@@ -460,7 +460,7 @@
               }
             ],
             "galleryImageReference": {
-              "offer": "windows11preview",
+              "offer": "windows-11",
               "publisher": "microsoftwindowsdesktop",
               "sku": "win11-21h2-ent",
               "osType": "Windows",
@@ -623,7 +623,7 @@
               }
             ],
             "galleryImageReference": {
-              "offer": "windows11preview",
+              "offer": "windows-11",
               "publisher": "microsoftwindowsdesktop",
               "sku": "win11-21h2-ent",
               "osType": "Windows",
@@ -659,7 +659,7 @@
         "storageType": "Premium",
         "allowClaim": false,
         "galleryImageReference": {
-          "offer": "windows11preview",
+          "offer": "windows-11",
           "publisher": "microsoftwindowsdesktop",
           "sku": "win11-21h2-ent",
           "osType": "Windows",
