@@ -2,7 +2,6 @@
 #Set eastern time zone
 tzutil /s "Eastern Standard Time"
 
-
 #disable new network popup.  All new networks are now considered "public"
 new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force | out-null
 
@@ -82,7 +81,7 @@ Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
                  -force | out-null
 
 #Enable Dev Mode
-mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" force | Out-Null
+mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -force | Out-Null
 Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" `
                  -name "AllowDevelopmentWithoutDevLicense" `
                  -value 1 `
@@ -90,7 +89,7 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel
 
 #enable UAC on Administrator account
                 
-mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" force | Out-Null
+mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force | Out-Null
 Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
                  -name "FilterAdministratorToken" `
                  -value 1 `
