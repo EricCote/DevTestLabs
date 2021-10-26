@@ -10,7 +10,7 @@ Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu.a
 #install
 Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe" -UseBasicParsing -OutFile "$env:TEMP\installDocker.exe"
  
-& "$env:TEMP\installDocker.exe" install --quiet  | out-null
+& "$env:TEMP\installDocker.exe" install --quiet  | out-default
  
 while ((net localgroup) -inotcontains "*docker-users")
   {
