@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "Install WSL2 on Windows 10",
-  "description": "Will install WSL2 on Windows 10.",
+  "title": "Install WSL2 on Windows Client",
+  "description": "Will install WSL2 on Windows Client.",
   "publisher": "Eric Côté",
   "tags": ["Wsl"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ie.png",
