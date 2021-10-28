@@ -1,11 +1,11 @@
 ﻿
 
 $location=      "canadacentral"
-$labName=       "Vs2022"
+$labName=       "DevLab"
 
-$vmPrefix=          "CoursMVC"
+$vmPrefix=          "CoursLab"
 $ExpiresInXDays=    10
-$numberOfInstances= 3
+$numberOfInstances= 2
 $imageDescription=  "Ceci est une description de l'image"
 $language=          "en-US"
 
@@ -34,7 +34,7 @@ $gitHubToken=Stuff-EnvironmentVariable -Name "gitHubToken" -Description "persona
 $VsEntKey=   Stuff-EnvironmentVariable -Name "vsEnterpriseKey" -Description "Visual Studio Enterprise ProductKey"
 $VsProKey=   Stuff-EnvironmentVariable -Name "vsProfessionalKey" -Description "Visual Studio Professional ProductKey"
 
-az account set --subscription sub3
+az account set --subscription sub2
 
 # View your current Azure PowerShell session context
 # This session state is only applicable to the current session and will not affect other sessions

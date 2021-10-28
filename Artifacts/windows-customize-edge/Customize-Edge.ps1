@@ -25,16 +25,18 @@ New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultB
 
 #hide first run popups
 New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1 -Force | Out-Null
-New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePageOnOSUpgradeEnabled" -value 0 -Force | Out-Null
+#New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePageOnOSUpgradeEnabled" -value 0 -Force | Out-Null
 
 ########################################################
-#Remove chrome "first run" page:
+#Remove edge what's new page:
 #you need to create two files in profile to get rid of it.  
 
-#Create empty file
-New-Item  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\First Run" -ItemType File -Force  | out-null
-
-#create nearly empty file
-mkdir "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default" -Force | out-null
-"{}" | Out-File  "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default\Preferences" -Force -Encoding utf8
+$content = @"
+{ 
+    browser: {
+        "browser_version_of_last_seen_whats_new":"200"
+    }
+}
+"@   
        
+$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default\Local State" -Force -Encoding utf8
