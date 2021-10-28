@@ -5,4 +5,3 @@ Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu.a
 
 wsl --install
 restart-computer
-

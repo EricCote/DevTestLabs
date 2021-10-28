@@ -127,15 +127,16 @@ function install-Docker
 
 "@
 
-    $content | Out-File "$env:temp\dock.ps1"
+
+
+    $content | Out-File "c:\ProgramData\DockInstall\dock.ps1"
 
     
 
     $oldPolicyValue = Set-LocalAccountTokenFilterPolicy
     try
     {
-        Invoke-Command -ComputerName $env:COMPUTERNAME -Credential $credential -FilePath "$env:temp\dock.ps1"  | Out-Default
-
+        Invoke-Command -ComputerName $env:COMPUTERNAME -Credential $credential -FilePath "c:\ProgramData\DockInstall\dock.ps1"  | Out-Default
     }
     finally
     {
@@ -170,7 +171,9 @@ function install-Docker
     $Password = 'Allo12345678!'
     Add-LocalAdminUser -UserName $UserName -Password $password 
 
-    $filename="$env:TEMP\installDocker.exe"
+    New-Item -Path "c:\ProgramData" -Name "DockInstall" -ItemType Directory 
+
+    $filename="c:\ProgramData\DockInstall\installDocker.exe"
 
     Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe" -UseBasicParsing -OutFile $filename
  
@@ -179,7 +182,7 @@ function install-Docker
     Install-Docker -UserName $UserName -Password $Password -Filename $filename
 
     $dockerGroup = ([ADSI]"WinNT://$env:ComputerName/docker-users,group")
-
+ 
     if ($dockerGroup)
     {
         # grant local users to docker-desktop
@@ -187,6 +190,8 @@ function install-Docker
     }
 
     Remove-LocalAdminUser -UserName $UserName
+
+    Remove-Item -Path "c:\ProgramData\DockInstall" -Force
 
 
 

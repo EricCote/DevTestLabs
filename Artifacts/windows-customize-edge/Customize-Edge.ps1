@@ -31,10 +31,12 @@ New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirst
 #Remove edge what's new page:
 #you need to create two files in profile to get rid of it.  
 
+New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data" -Name "Default" -ItemType "directory" -Force
+
 $content = @"
 { 
-    browser: {
-        "browser_version_of_last_seen_whats_new":"200"
+    "browser": {
+        "browser_version_of_last_seen_whats_new": "200"
     }
 }
 "@   
