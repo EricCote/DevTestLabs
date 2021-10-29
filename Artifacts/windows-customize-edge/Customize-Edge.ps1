@@ -19,29 +19,36 @@ Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicPar
 msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 
 
-mkdir HKLM:\Software\Policies\Microsoft\Edge  -Force | out-null
+$PolPath = "HKLM:\Software\Policies\Microsoft\Edge"
+
+mkdir $PolPath  -Force | out-null
 #Stop nagging default browser  
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
+New-ItemProperty -path $PolPath -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
 
 #hide first run popups
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1 -Force | Out-Null
-#New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -name "WelcomePageOnOSUpgradeEnabled" -value 0 -Force | Out-Null
+New-ItemProperty -path $PolPath -name "HideFirstRunExperience" -value 1 -Force | Out-Null
+
+#Search engine
+New-ItemProperty -path $PolPath -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
+New-ItemProperty -path $PolPath -name "DefaultSearchProviderSearchURL" -value "{google:baseURL}search?q=%s&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:iOSSearchLanguage}{google:searchClient}{google:sourceId}{google:contextualSearchVersion}ie={inputEncoding}" -Force | Out-Null
+New-ItemProperty -path $PolPath -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
+New-ItemProperty -path $PolPath -name "DefaultSearchProviderSuggestURL" -value "{google:baseURL}complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
 
 ########################################################
 #Remove edge what's new page:
-#you need to create two files in profile to get rid of it.  
+#  
 
-# New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
+New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
 
-# $content = @"
-# { 
-#     "browser": {
-#         "browser_version_of_last_seen_whats_new": "200"
-#     }
-# }
-# "@   
+$content = @"
+{ 
+    "browser": {
+        "browser_version_of_last_seen_whats_new": "200"
+    }
+}
+"@   
        
-# $content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
+$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
 
 
 
@@ -49,13 +56,6 @@ $content = @"
 {
   "bookmark_bar": {
     "show_only_on_ntp": false
-  },
-  "default_search_provider": {
-    "enabled": true,
-    "search_url": "www.google.com"
-  },
-  "browser": {
-    "browser_version_of_last_seen_whats_new": "200"
   }
 }
 "@
