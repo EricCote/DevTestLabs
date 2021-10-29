@@ -31,7 +31,7 @@ New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirst
 #Remove edge what's new page:
 #you need to create two files in profile to get rid of it.  
 
-New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data" -Name "Default" -ItemType "directory" -Force
+New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
 
 $content = @"
 { 
@@ -41,4 +41,4 @@ $content = @"
 }
 "@   
        
-$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Default\Local State" -Force -Encoding utf8
+$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
