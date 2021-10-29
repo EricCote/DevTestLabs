@@ -83,6 +83,7 @@ function Remove-LocalAdminUser
         {
             # Ignore any errors, specially with locked folders/files. It will get cleaned up at a later time, when another artifact is installed.
         }
+        "woooooow!"
     }
 }
 
@@ -191,7 +192,7 @@ function install-Docker
 
     Remove-LocalAdminUser -UserName $UserName
 
-    Remove-Item -Path "c:\ProgramData\DockInstall" -Force
+    Remove-Item -Path "c:\ProgramData\DockInstall" -Force -Recurse
 
 
 
