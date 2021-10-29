@@ -166,8 +166,7 @@ function install-Docker
 
     Invoke-WebRequest -uri "https://desktop.docker.com/win/stable/amd64/Docker%20Desktop%20Installer.exe" -UseBasicParsing -OutFile $filename
  
-   
-    # use the GA version of docker for windows and disable checksum checks (checksum is always outdated in the nuget package)
+
     Install-Docker -UserName $UserName -Password $Password -Filename $filename
 
     $dockerGroup = ([ADSI]"WinNT://$env:ComputerName/docker-users,group")

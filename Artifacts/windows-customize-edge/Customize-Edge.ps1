@@ -28,16 +28,15 @@ New-ItemProperty -path $PolPath -name  "DefaultBrowserSettingEnabled" -Value 0 -
 #hide first run popups
 New-ItemProperty -path $PolPath -name "HideFirstRunExperience" -value 1 -Force | Out-Null
 
-#Search engine
-New-ItemProperty -path $PolPath -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
-New-ItemProperty -path $PolPath -name "DefaultSearchProviderSearchURL" -value "{google:baseURL}search?q=%s&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:iOSSearchLanguage}{google:searchClient}{google:sourceId}{google:contextualSearchVersion}ie={inputEncoding}" -Force | Out-Null
-New-ItemProperty -path $PolPath -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
-New-ItemProperty -path $PolPath -name "DefaultSearchProviderSuggestURL" -value "{google:baseURL}complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
+#specify search engine
+New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
+New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderSearchURL" -value "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
+New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
+New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderSuggestURL" -value "{google:baseURL}complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
 
 ########################################################
 #Remove edge what's new page:
 #  
-
 New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
 
 $content = @"
@@ -51,7 +50,7 @@ $content = @"
 $content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
 
 
-
+# hide favorite bar, even on the new tab page. 
 $content = @"
 {
   "bookmark_bar": {
@@ -62,3 +61,22 @@ $content = @"
 
 $content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"  -Force -Encoding utf8
 
+$content = @"
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Enrollments\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF] 
+"EnrollmentState"=dword:00000001 
+"EnrollmentType"=dword:00000000 
+"IsFederated"=dword:00000000
+ 
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Provisioning\OMADM\Accounts\FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF]
+"Flags"=dword:00d6fb7f
+"AcctUId"="0x000000000000000000000000000000000000000000000000000000000000000000000000"
+"RoamingCount"=dword:00000000
+"SslClientCertReference"="MY;User;0000000000000000000000000000000000000000"
+"ProtoVer"="1.2"
+"@
+
+$content | Out-File "$env:temp\fake-mdm.reg"  -Force -Encoding utf8
+
+& reg import "$env:temp\fake-mdm.reg" | out-null
