@@ -31,14 +31,34 @@ New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirst
 #Remove edge what's new page:
 #you need to create two files in profile to get rid of it.  
 
-New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
+# New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
+
+# $content = @"
+# { 
+#     "browser": {
+#         "browser_version_of_last_seen_whats_new": "200"
+#     }
+# }
+# "@   
+       
+# $content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
+
+
 
 $content = @"
-{ 
-    "browser": {
-        "browser_version_of_last_seen_whats_new": "200"
-    }
+{
+  "bookmark_bar": {
+    "show_only_on_ntp": false
+  },
+  "default_search_provider": {
+    "enabled": true,
+    "search_url": "www.google.com"
+  },
+  "browser": {
+    "browser_version_of_last_seen_whats_new": "200"
+  }
 }
-"@   
-       
-$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
+"@
+
+$content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"  -Force -Encoding utf8
+

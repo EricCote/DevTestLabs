@@ -150,22 +150,10 @@ function install-Docker
 # Main execution block.
 #
 
-
-    # Validate-Params       #if password or username is specified, BOTH must be specified
-    # Validate-Environment  #validate windows 10 version number
-
-   # Ensure-PowerShell -Version $PSVersionRequired  #ensure version of powershell 3 or more
-
- #   Install-PackageProvider -Name NuGet -Force -ErrorAction SilentlyContinue | Out-Null  #add Nuget to use the next 2 lines
-  #  Install-Module -Name DockerMsftProvider -Repository PSGallery -Force -ErrorAction SilentlyContinue | Out-Null
-   # Install-Package -Name docker -ProviderName DockerMsftProvider -Force -ErrorAction SilentlyContinue | Out-Null
-
-
     Enable-WindowsOptionalFeature -Online -FeatureName containers -All -NoRestart
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
 
     Enable-PSRemoting -Force -SkipNetworkProfileCheck
-
 
     $ProgressPreference = "SilentlyContinue"
     $UserName = 'artifactInstaller'
