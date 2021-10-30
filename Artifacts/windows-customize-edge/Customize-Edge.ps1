@@ -7,10 +7,13 @@ $jsonObj = ConvertFrom-Json $([String]::new($response.Content));
 
 $selectedIndex = [array]::indexof($jsonObj.Product, "Stable");
 
-$LatestEdgeUrl = ($jsonObj[$selectedIndex].Releases | `
+$LatestEdge = ($jsonObj[$selectedIndex].Releases | `
             Where-Object { $_.Architecture -eq "x64" -and $_.Platform -eq "Windows"}  | `
-        Sort-Object $_.ReleaseId -Descending)[0].Artifacts[0].Location;
-
+            Sort-Object {$_.ReleaseId} -Descending )[0];
+        
+$LatestEdgeVersion=($LatestEdge.ProductVersion  -split '\.')[0];
+        
+$LatestEdgeUrl = $LatestEdge.Artifacts[0].Location;
 
 #download edge
 Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicParsing;
@@ -21,7 +24,7 @@ msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 
 $PolPath = "HKLM:\Software\Policies\Microsoft\Edge"
 
-mkdir $PolPath  -Force | out-null
+mkdir "$PolPath\Recommended"  -Force | out-null
 #Stop nagging default browser  
 New-ItemProperty -path $PolPath -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
 
@@ -29,10 +32,10 @@ New-ItemProperty -path $PolPath -name  "DefaultBrowserSettingEnabled" -Value 0 -
 New-ItemProperty -path $PolPath -name "HideFirstRunExperience" -value 1 -Force | Out-Null
 
 #specify search engine
-New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
-New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderSearchURL" -value "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
-New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
-New-ItemProperty -path "$PolPath/Recommended" -name "DefaultSearchProviderSuggestURL" -value "{google:baseURL}complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "{google:baseURL}complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
 
 ########################################################
 #Remove edge what's new page:
@@ -42,7 +45,7 @@ New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data
 $content = @"
 { 
     "browser": {
-        "browser_version_of_last_seen_whats_new": "200"
+        "browser_version_of_last_seen_whats_new": "$LatestEdgeVersion"
     }
 }
 "@   
