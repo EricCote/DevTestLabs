@@ -78,8 +78,9 @@ Windows Registry Editor Version 5.00
 "RoamingCount"=dword:00000000
 "SslClientCertReference"="MY;User;0000000000000000000000000000000000000000"
 "ProtoVer"="1.2"
+
 "@
 
-$content | Out-File "$env:temp\fake-mdm.reg"  -Force -Encoding utf8
+$content -replace '\n',"`r`n" | Out-File "$env:temp\fake-mdm.reg"  -Force -Encoding unicode 
 
 & reg import "$env:temp\fake-mdm.reg" | out-null
