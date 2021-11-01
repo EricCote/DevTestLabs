@@ -1,8 +1,4 @@
 
-
-######################################################################
-
-
 $ErrorActionPreference = "Stop"
 
 # Hide any progress bars, due to downloads and installs of remote components.
@@ -81,9 +77,10 @@ function Remove-LocalAdminUser
         }
         catch
         {
+            "Errors removing user..."
             # Ignore any errors, specially with locked folders/files. It will get cleaned up at a later time, when another artifact is installed.
         }
-        "woooooow!"
+        "User removed!"
     }
 }
 
@@ -125,14 +122,9 @@ function install-Docker
     $credential = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$($UserName)", $secPassword)
     $content = @"
         & $filename install --quiet | out-default
-
 "@
 
-
-
     $content | Out-File "c:\ProgramData\DockInstall\dock.ps1"
-
-    
 
     $oldPolicyValue = Set-LocalAccountTokenFilterPolicy
     try

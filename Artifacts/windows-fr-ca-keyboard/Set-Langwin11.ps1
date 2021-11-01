@@ -35,26 +35,31 @@ $linkArray = @(
 )
 
 $lang = @(
-"Language.Basic~~~fr-CA~0.0.1.0",
-"Language.Basic~~~fr-FR~0.0.1.0",
-"Language.Handwriting~~~fr-FR~0.0.1.0",
-"Language.OCR~~~fr-CA~0.0.1.0",
-"Language.Speech~~~fr-CA~0.0.1.0",
-"Language.TextToSpeech~~~fr-CA~0.0.1.0"
+    "Language.Basic~~~fr-CA~0.0.1.0",
+    "Language.Basic~~~fr-FR~0.0.1.0",
+    "Language.Handwriting~~~fr-FR~0.0.1.0",
+    "Language.OCR~~~fr-CA~0.0.1.0",
+    "Language.Speech~~~fr-CA~0.0.1.0",
+    "Language.TextToSpeech~~~fr-CA~0.0.1.0"
 );
 
 
 
 $array = $linkArray  | ForEach-Object { @{url=$_ ; filename=[regex]::Match($_ , "fr-ca\/(.+)\?").captures.groups[1].value }  }
+get-date -Format "T"
 
-$array | ForEach-Object  {  Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
+$array | ForEach-Object  { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
+get-date -Format "T"
 
 $lang | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
+get-date -Format "T"
 
-$array | ForEach-Object {   &  Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
+
+$array | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
+get-date -Format "T"
 
 restart-computer
-
+get-date -Format "T"
 
 # set in canada
 # set-WinHomeLocation -geoid 39
