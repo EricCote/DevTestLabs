@@ -13,13 +13,17 @@ Version="1">
                 <taskbar:DesktopApp DesktopApplicationID="MSEdge" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
-                <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio Code\Visual Studio Code.lnk" />
+                <taskbar:DesktopApp DesktopApplicationID="Microsoft.VisualStudioCode" />               
                 <taskbar:UWA AppUserModelID="Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" />
                 <taskbar:DesktopApp DesktopApplicationID="Microsoft.Office.WINWORD.EXE.15" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2019.lnk" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022 Preview.lnk" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022 RC.lnk" />
-                <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Microsoft SQL Server Tools 18\Microsoft SQL Server Management Studio 18.lnk" />  
+                <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022.lnk" />
+                <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Microsoft SQL Server Tools 18\Microsoft SQL Server Management Studio 18.lnk" />
+                <taskbar:DesktopApp DesktopApplicationID="Microsoft.azuredatastudio" />
+                <taskbar:DesktopApp DesktopApplicationID="Docker.DockerForWindows.Settings" />
+                <taskbar:UWA AppUserModelID="CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc!ubuntu2004" />
             </taskbar:TaskbarPinList>
         </defaultlayout:TaskbarLayout>
     </CustomTaskbarLayoutCollection>
