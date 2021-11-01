@@ -1,3 +1,4 @@
+$ProgressPreference = 'SilentlyContinue'
 
 
 # Language codes
@@ -44,22 +45,26 @@ $lang = @(
 
 
 
-$array = $linkArray  | % { @{url=$_ ; filename=[regex]::Match($_ , "fr-ca\/(.+)\?").captures.groups[1].value }  }
+$array = $linkArray  | ForEach-Object { @{url=$_ ; filename=[regex]::Match($_ , "fr-ca\/(.+)\?").captures.groups[1].value }  }
 
-$array | % {  Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
+$array | ForEach-Object  {  Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
 
-$lang | % { Add-WindowsCapability -Online -Name $_  }
+$lang | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
 
-$array | % {   &  Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
+$array | ForEach-Object {   &  Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
 
 
 # set in canada
-set-WinHomeLocation -geoid 39
-set-culture -CultureInfo fr-CA
-Set-WinSystemLocale -SystemLocale fr-CA
-Set-WinUILanguageOverride -Language fr-CA
+# set-WinHomeLocation -geoid 39
+# set-culture -CultureInfo fr-CA
+# Set-WinSystemLocale -SystemLocale fr-CA
+
+# $UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+# $UserLanguageList.Add("en-US")
+
+# Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
 
-
+#Set-WinUILanguageOverride -Language fr-CA
 
 
