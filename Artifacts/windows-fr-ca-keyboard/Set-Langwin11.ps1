@@ -53,6 +53,8 @@ $lang | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
 
 $array | ForEach-Object {   &  Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
 
+restart-computer
+
 
 # set in canada
 # set-WinHomeLocation -geoid 39
