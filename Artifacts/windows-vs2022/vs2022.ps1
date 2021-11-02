@@ -30,6 +30,9 @@ switch ($edition.Substring(0,3))
   default {$WebSource=$WebSourceCom}
 }
 
+
+$languages="en-US, fr-CA, es-ES"
+
 $languages=$languages.Split(",").Trim()
 
 $languageParams=@();
@@ -78,6 +81,8 @@ catch
 }
 
 
+"& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $workloads $languageParams $stringKey $keyNoDashes --includeRecommended --quiet --wait "
+
 try
 {
      & $dest `
@@ -96,7 +101,7 @@ catch
 
 #let's print the key.
 #"This is the key: " + $key;
-
+convertto-json $languageParams
 #Other activation method.
 #try
 #{
