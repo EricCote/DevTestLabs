@@ -178,15 +178,15 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\International]
 "AcceptLanguage"="$browserlist"
 
-;[HKEY_CURRENT_USER\Control Panel\Desktop]
-;"PreferredUILanguages"=$langlist
-;"PreferredUILanguagesPending"=$langlist
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"PreferredUILanguages"=$langlist
+"PreferredUILanguagesPending"=$langlist
 
-;[HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached]
-;"MachinePreferredUILanguages"=$langlist
+[HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached]
+"MachinePreferredUILanguages"=$langlist
 
-;[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\MUI\Settings]
-;"PreferredUILanguages"=$langlist
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\MUI\Settings]
+"PreferredUILanguages"=$langlist
 
 "@
 
