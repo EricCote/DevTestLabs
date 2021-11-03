@@ -94,6 +94,7 @@ Windows Registry Editor Version 5.00
 
 [HKEY_CURRENT_USER\Control Panel\International\Geo]
 "Nation"="39"
+"Name"="CA"
 
 [HKEY_CURRENT_USER\Control Panel\International\User Profile]
 "Languages"=$langlist
@@ -101,7 +102,7 @@ Windows Registry Editor Version 5.00
 "ShowTextPrediction"=dword:00000001
 "ShowCasing"=dword:00000001
 "ShowShiftLock"=dword:00000001
-"InputMethodOverride"="0c0c:00001009"
+;"InputMethodOverride"="0c0c:00001009"
 
 [-HKEY_CURRENT_USER\Control Panel\International\User Profile\en-US]
 
