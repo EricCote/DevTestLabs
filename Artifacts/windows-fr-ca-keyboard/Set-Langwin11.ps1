@@ -179,8 +179,8 @@ Windows Registry Editor Version 5.00
 "AcceptLanguage"="$browserlist"
 
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"PreferredUILanguages"="hex(7):66,00,72,00,2d,00,43,00,41,00,00,00"
-"PreferredUILanguagesPending"="hex(7):66,00,72,00,2d,00,43,00,41,00,00,00"
+"PreferredUILanguages"=hex(7):66,00,72,00,2d,00,43,00,41,00,00,00
+"PreferredUILanguagesPending"=hex(7):66,00,72,00,2d,00,43,00,41,00,00,00
 
 
 [HKEY_CURRENT_USER\Software\Microsoft\CTF\Assemblies\0x00000c0c\{34745C63-B2F0-4784-8B67-5E12C8701A31}]
