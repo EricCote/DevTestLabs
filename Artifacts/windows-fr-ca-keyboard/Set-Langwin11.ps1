@@ -179,14 +179,48 @@ Windows Registry Editor Version 5.00
 "AcceptLanguage"="$browserlist"
 
 [HKEY_CURRENT_USER\Control Panel\Desktop]
-"PreferredUILanguages"=$langlist
-"PreferredUILanguagesPending"=$langlist
+"PreferredUILanguages"="hex(7):66,00,72,00,2d,00,43,00,41,00,00,00"
+"PreferredUILanguagesPending"="hex(7):66,00,72,00,2d,00,43,00,41,00,00,00"
 
-[HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached]
-"MachinePreferredUILanguages"=$langlist
 
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\MUI\Settings]
-"PreferredUILanguages"=$langlist
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\Assemblies\0x00000c0c\{34745C63-B2F0-4784-8B67-5E12C8701A31}]
+"Default"="{00000000-0000-0000-0000-000000000000}"
+"Profile"="{00000000-0000-0000-0000-000000000000}"
+"KeyboardLayout"=dword:10090c0c
+
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\SortOrder\AssemblyItem\0x00000409\{34745C63-B2F0-4784-8B67-5E12C8701A31}\00000000]
+"CLSID"="{00000000-0000-0000-0000-000000000000}"
+"KeyboardLayout"=dword:04090409
+"Profile"="{00000000-0000-0000-0000-000000000000}"
+
+
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\SortOrder\AssemblyItem\0x00000c0c\{34745C63-B2F0-4784-8B67-5E12C8701A31}\00000000]
+"CLSID"="{00000000-0000-0000-0000-000000000000}"
+"KeyboardLayout"=dword:10090c0c
+"Profile"="{00000000-0000-0000-0000-000000000000}"
+
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\SortOrder\Language]
+"00000000"="00000c0c"
+"00000001"="00000409"
+
+[HKEY_CURRENT_USER\Software\Microsoft\CTF\TIP\{8613E14C-D0C0-4161-AC0F-1DD2563286BC}\LanguageProfile\0x0000ffff\{B37D4237-8D1A-412E-9026-538FE16DF216}]
+"Enable"=dword:00000001
+
+[HKEY_CURRENT_USER\Software\Microsoft\Spelling\Spellers\Disabled]
+"fr-CA"=dword:00000000
+"en-US"=dword:00000000
+
+
+[HKEY_CURRENT_USER\Software\Microsoft\TabletTip\1.7\PagePreference]
+"fr"=hex:01
+"en"=hex:01
+
+
+;[HKEY_CURRENT_USER\Control Panel\Desktop\MuiCached]
+;"MachinePreferredUILanguages"=$langlist
+
+;[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\MUI\Settings]
+;"PreferredUILanguages"=$langlist
 
 "@
 
