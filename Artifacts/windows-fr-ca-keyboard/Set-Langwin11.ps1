@@ -38,23 +38,22 @@ $lang = @(
 
 $url="https://azureshelleric.blob.core.windows.net/win11/fr-ca/Microsoft-Windows-Client-Language-Pack_x64_fr-ca.cab?sp=r&st=2021-10-31T17:40:45Z&se=2023-11-01T01:40:45Z&spr=https&sv=2020-08-04&sr=b&sig=5xD%2BdyQwdlOSbqg%2FSW7IGHREGcdEJ%2Bc%2BMYNl5G6%2B6m4%3D"
 
+
 Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$env:temp\lang.cab"
+"lang installed" | out-file  "$env:temp\wow1.txt"
 Add-WindowsPackage -online -PackagePath  "$env:temp\lang.cab"
-"lang installed"
-get-date -Format "T"
-" "
+"lang installed" | out-file  "$env:temp\wow2.txt"
+
 
 
 $lang | ForEach-Object  { Remove-WindowsCapability -Online -Name $_  }
-"loop for language done"
-get-date -Format "T"
-" "
+"Removed capabilities" | out-file "$env:temp\wow3.txt"
+
 
 
 $lang | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
-"loop for language done"
-get-date -Format "T"
-" "
+"Added capabilities"  | out-file "$env:temp\wow4.txt"
+
 
 # $array = $linkArray  | ForEach-Object { @{url=$_ ; filename=[regex]::Match($_ , "fr-ca\/(.+)\?").captures.groups[1].value }  }
 # "Loop for array"
@@ -73,6 +72,7 @@ get-date -Format "T"
 
 
 restart-computer
+"Restarted"  | out-file "$env:temp\wow5.txt"
 
 
 # set in canada
