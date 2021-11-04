@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "fr-CA Keyboard",
+  "title": "[obsolete] fr-CA Keyboard",
   "description": "Sets the country and keyboards to French Canadian",
   "publisher": "Eric Côté",
   "tags": ["Français", "Francais", "French", "Canada", "Regional Settings"],

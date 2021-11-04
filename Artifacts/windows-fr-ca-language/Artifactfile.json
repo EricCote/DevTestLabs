@@ -3,7 +3,14 @@
   "title": "Display fr-CA Language",
   "description": "Sets the display language to French Canadian.  Only works with Windows 11 for now.",
   "publisher": "Eric Côté",
-  "tags": ["Français", "Francais", "French", "Canada", "Regional Settings"],
+  "tags": [
+    "Français",
+    "Francais",
+    "French",
+    "Canada",
+    "Regional Settings",
+    "Language"
+  ],
   "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
   "targetOsType": "Windows",
   "runCommand": {

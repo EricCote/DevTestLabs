@@ -1,32 +1,30 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Language Configuration",
-    "description": "Sets the UI Language, regional settings, country and keyboard. Sets the UI Language to en-US or fr-CA.",
-    "publisher": "Eric Côté",
-    "tags": [
-        "Français",
-        "Francais",
-        "French",
-        "Canada",
-        "English",
-        "Anglais",
-        "Regional Settings"
-    ],
-    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
-     "parameters": {
-        "language": {
-            "type": "string",
-            "displayName": "Language",
-            "description": "Language in the typical format (en-US, fr-CA). Leave empty for en-US.",
-            "defaultValue": "en-US",
-            "allowedValues": [
-                "en-US", "fr-CA"
-            ]
-        }
-    },
-   
-    "targetOsType": "Windows",
-    "runCommand": {
-        "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Language.ps1 -language ',parameters('language'))]"
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "[obsolete] Language Configuration",
+  "description": "Sets the UI Language, regional settings, country and keyboard. Sets the UI Language to en-US or fr-CA.",
+  "publisher": "Eric Côté",
+  "tags": [
+    "Français",
+    "Francais",
+    "French",
+    "Canada",
+    "English",
+    "Anglais",
+    "Regional Settings"
+  ],
+  "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+  "parameters": {
+    "language": {
+      "type": "string",
+      "displayName": "Language",
+      "description": "Language in the typical format (en-US, fr-CA). Leave empty for en-US.",
+      "defaultValue": "en-US",
+      "allowedValues": ["en-US", "fr-CA"]
     }
+  },
+
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Language.ps1 -language ',parameters('language'))]"
+  }
 }
