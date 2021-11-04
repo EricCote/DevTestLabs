@@ -260,17 +260,17 @@ $UserLanguageList.Add("en-US")
 Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
 Add-Type -AssemblyName PresentationFramework
-[System.Windows.MessageBox]::Show("Il faut redémmarrer le poste pour le mettre en français. Cliquez sur OK pour redémmarer.", "Français")
+[System.Windows.MessageBox]::Show("Il faut redémarrer le poste pour le mettre en français. Cliquez sur OK pour redémarrer.", "Français")
 restart-computer
 
 '@
 
-New-Item -Path c:\programdata\script\ -ItemType Directory -Force
+New-Item  c:\programdata\script\ -ItemType Directory -Force
 
-$script | Out-File -Path c:\programdata\script\frca.ps1 -Force
+$script | Out-File  "c:\programdata\script\frca.ps1" -Force
 
 
-new-itemproperty "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name setToFrCA -Value "powershell -ExecutionPolicy bypass -File c:\programdata\script\frca.ps1"  -Force | out-null;
+new-itemproperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name setToFrCA -Value "powershell -ExecutionPolicy bypass -WindowStyle hidden -File c:\programdata\script\frca.ps1"  -Force | out-null;
 
 
 restart-computer
