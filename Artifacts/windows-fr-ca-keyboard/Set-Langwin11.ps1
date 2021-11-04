@@ -254,10 +254,23 @@ ModifyRegistry  -Regini $regini -profilename "def"
 &reg unload hku\def
 
 
+$script=@'
+$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+$UserLanguageList.Add("en-US")
+Set-WinUserLanguageList -LanguageList $UserLanguageList -force
+
+Add-Type -AssemblyName PresentationFramework
+[System.Windows.MessageBox]::Show("Il faut redémmarrer le poste pour le mettre en français. Cliquez sur OK pour redémmarer.", "Français")
+restart-computer
+
+'@
+
+New-Item -Path c:\programdata\script\ -ItemType Directory -Force
+
+$script | Out-File -Path c:\programdata\script\frca.ps1 -Force
 
 
-
-
+new-itemproperty "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name setToFrCA -Value "powershell -ExecutionPolicy bypass -File c:\programdata\script\frca.ps1"  -Force | out-null;
 
 
 restart-computer
