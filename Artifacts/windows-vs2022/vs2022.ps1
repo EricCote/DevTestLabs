@@ -30,9 +30,9 @@ switch ($edition.Substring(0,3))
   default {$WebSource=$WebSourceCom}
 }
 
-#$languages="en-US, fr-FR, es-ES"
+#$languages="en-US,fr-FR,es-ES"
 
-$languages=$languages.Split(",").Trim()
+$languages=$languages.Split(',').Trim()
 
 $languageParams=@();
 
