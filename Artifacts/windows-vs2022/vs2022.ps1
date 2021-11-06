@@ -42,6 +42,8 @@ foreach ($lang in $languages) {
 
 $languageParams
 
+convertto-json $languageParams
+
 $channel="VisualStudio.17.Release"
 $workloads=@()
 
@@ -91,7 +93,7 @@ try
          $languageParams `
          $stringKey $keyNoDashes `
          --includeRecommended --quiet --wait `
-              | Out-Default;
+              | Out-Null;
 }
 catch
 {
