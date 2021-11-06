@@ -30,8 +30,7 @@ switch ($edition.Substring(0,3))
   default {$WebSource=$WebSourceCom}
 }
 
-
-$languages="en-US, fr-CA, es-ES"
+#$languages="en-US, fr-FR, es-ES"
 
 $languages=$languages.Split(",").Trim()
 
@@ -40,6 +39,8 @@ $languageParams=@();
 foreach ($lang in $languages) {
     $languageParams += @("--addProductLang", $lang)
 }
+
+$languageParams
 
 $channel="VisualStudio.17.Release"
 $workloads=@()
@@ -81,8 +82,6 @@ catch
 }
 
 
-"& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $workloads $languageParams $stringKey $keyNoDashes --includeRecommended --quiet --wait "
-
 try
 {
      & $dest `
@@ -99,9 +98,13 @@ catch
     Write-Error 'Failed to install VS2022';
 }
 
+
+"& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $workloads $($languageParams) $stringKey $keyNoDashes --includeRecommended --quiet --wait "
+
+convertto-json $languageParams
+
 #let's print the key.
 #"This is the key: " + $key;
-convertto-json $languageParams
 #Other activation method.
 #try
 #{
