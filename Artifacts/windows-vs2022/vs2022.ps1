@@ -30,7 +30,6 @@ switch ($edition.Substring(0,3))
   default {$WebSource=$WebSourceCom}
 }
 
-$languages="en-US,fr-FR,es-ES"
 
 $langs=$languages.Split(',').Trim()
 
