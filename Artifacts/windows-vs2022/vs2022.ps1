@@ -30,13 +30,15 @@ switch ($edition.Substring(0,3))
   default {$WebSource=$WebSourceCom}
 }
 
-#$languages="en-US,fr-FR,es-ES"
+$languages="en-US,fr-FR,es-ES"
 
-$languages=$languages.Split(',').Trim()
+$langs=$languages.Split(',').Trim()
+
+$langs
 
 $languageParams=@();
 
-foreach ($lang in $languages) {
+foreach ($lang in $langs) {
     $languageParams += @("--addProductLang", $lang)
 }
 
