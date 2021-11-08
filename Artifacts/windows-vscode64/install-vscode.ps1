@@ -103,17 +103,18 @@ try
 
     #     Here is the full list of tasks available in VSCode (*=default):
     #     desktopicon -- Creates a desktop icon
-    #     quicklaunchicon -- Creates a quick launch shortcut on Windows XP only
+    #     quicklaunchicon -- Creates a quick launch shortcut (Windows XP only)
     #     addcontextmenufiles -- Right click open menu for files in explorer.exe
     #     addcontextmenufolders -- Right click open menu for folders in explorer.exe
     #     *associatewithfiles -- Associates hundreds of file extensions to VsCode.exe
     #     *addtopath -- Adds the vscode folder in the path environment variable
     #     *runcode -- Runs the vscode after interactive setup. Ignored when install is silent
     
-    $tasks= if 
+    $desk = if ($DesktopIcon) {'desktopicon,'} else {''};
+    $tasks= $desk + "addcontextmenufiles,addcontextmenufolders";
 
     Write-Host "Installing Visual Studio Code ($Architecture)."
-    & "$setupExe" /SP- /SUPPRESSMSGBOXES /VERYSILENT /NORESTART /LOG="$setupLog"  /MERGETASKS="addcontextmenufiles,addcontextmenufolders" | Out-Default
+    & "$setupExe" /SP- /SUPPRESSMSGBOXES /VERYSILENT /NORESTART /LOG="$setupLog" /MERGETASKS="$tasks" | Out-Default
 
     Write-Host "`nThe artifact was applied successfully.`n"
 }
