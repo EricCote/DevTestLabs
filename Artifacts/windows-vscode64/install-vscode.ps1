@@ -65,6 +65,8 @@ function Get-VSCodeSetup
         [string] $Architecture
     )
 
+    $url=''
+
     switch ($Architecture)
     {
         '32-bit' { $url = 'https://update.code.visualstudio.com/latest/win32/stable' }
@@ -83,14 +85,15 @@ function Get-VSCodeSetup
 Write-Host "Preparing to install the latest version of Visual Studio Code ($Architecture)."
 $setupExe = Join-Path $PSScriptRoot 'vscodesetup.exe'
 $setupLog = Join-Path $PSScriptRoot 'vscodesetup.log'
-
+$setupExe = Join-Path $env:temp 'vscodesetup.exe'
+$setupLog = Join-Path $env:temp 'vscodesetup.log'
 
 try
 {
     Push-Location $PSScriptRoot
 
     Write-Host "Downloading Visual Studio Code ($Architecture) installer."
-    Get-VSCodeSetup $SetupExe
+    Get-VSCodeSetup -SetupExe  $SetupExe -Architecture $Architecture
     
 
     # Switches documentation: (https://jrsoftware.org/ishelp/)
