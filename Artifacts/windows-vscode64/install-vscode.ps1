@@ -90,7 +90,7 @@ try
     Push-Location $PSScriptRoot
 
     Write-Host "Downloading Visual Studio Code ($Architecture) installer."
-    Get-VSCodeSetup -SetupExe
+    Get-VSCodeSetup $SetupExe
     
 
     # Switches documentation: (https://jrsoftware.org/ishelp/)
