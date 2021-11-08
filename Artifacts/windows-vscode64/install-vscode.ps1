@@ -97,10 +97,12 @@ try
     
 
     # Switches documentation: (https://jrsoftware.org/ishelp/)
-    # /SP-: Disables the 'This will install VS Code. Do you wish to continue?' prompt at the beginning of Setup.
-    # /SUPPRESSMSGBOXES: Instructs Setup to suppress message boxes.
+    # /SP-: Disables the 'This will install VS Code. Do you wish to continue?' prompt 
+    #       at the beginning of Setup.
+    # /SUPPRESSMSGBOXES: Suppress message boxes, use defaults. (Folder location, 
+    #                    language, tasks, etc.)
     # /VERYSILENT: Progress window is not displayed.
-    # /NORESTART: Prevents Setup from restarting the system following a successful installation
+    # /NORESTART: Prevents Setup from restarting the system, after a successful installation
     # /LOG: Creates a log file
     # /MERGETASKS: Specifies a comma-separated list of tasks and merges it with the default
 
