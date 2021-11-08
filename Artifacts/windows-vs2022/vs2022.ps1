@@ -30,10 +30,7 @@ switch ($edition.Substring(0,3))
   default {$WebSource=$WebSourceCom}
 }
 
-
 $langs=$languages.Split(',').Trim()
-
-$langs
 
 $languageParams=@();
 
@@ -41,9 +38,6 @@ foreach ($lang in $langs) {
     $languageParams += @("--addProductLang", $lang)
 }
 
-$languageParams
-
-convertto-json $languageParams
 
 $channel="VisualStudio.17.Release"
 $workloads=@()
@@ -104,7 +98,6 @@ catch
 
 "& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $workloads $($languageParams) $stringKey $keyNoDashes --includeRecommended --quiet --wait "
 
-convertto-json $languageParams
 
 #let's print the key.
 #"This is the key: " + $key;
