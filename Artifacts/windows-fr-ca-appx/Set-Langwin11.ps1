@@ -267,7 +267,7 @@ Expand-Archive -Path "$env:TEMP\licenses.zip" -DestinationPath "$env:TEMP\appx"
 
 
 
-foreach ($app in (Get-ChildItem $env:TEMP\appx\*.appxbundle )) {
+foreach ($app in (Get-ChildItem $env:TEMP\appx\*.*xbundle )) {
    
    # $lic = "$($app.DirectoryName)\$($app.BaseName).lic"
    Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -SkipLicense
