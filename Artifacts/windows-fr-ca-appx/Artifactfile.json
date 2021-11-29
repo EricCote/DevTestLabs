@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Display fr-CA appx",
+  "description": "Sets the Windows Store Apps (appx) to French Canadian.",
+  "publisher": "Eric Côté",
+  "tags": [
+    "Français",
+    "Francais",
+    "French",
+    "Canada",
+    "Regional Settings",
+    "Language"
+  ],
+  "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
+  }
+}
