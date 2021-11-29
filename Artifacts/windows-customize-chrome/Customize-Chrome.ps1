@@ -16,7 +16,23 @@ mkdir "HKLM:\SOFTWARE\Policies\Google\Chrome" -Force | Out-Null
 
 #stop nagging default Browser for chrome 
 New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "DefaultBrowserSettingEnabled" -Value 0 | Out-Null
-#hide first run popups
-New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name "WelcomePageOnOSUpgradeEnabled" -value 0 | Out-Null
 
 
+#get chrome version
+$chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" | 
+  Select-Object -First 1 BaseName | % { ([version]$_.BaseName).major }
+
+
+
+#hide the "what's new" page until the next update
+New-Item -Path "C:\Users\Default\AppData\Local\Google\Chrome\" -Name "User Data" -ItemType "directory" -Force
+
+$content = @"
+{ 
+    "browser": {
+        "last_whats_new_version": $chromeVersion
+    },
+}
+"@   
+       
+$content | Out-File "C:\Users\Default\AppData\Local\Google\Chrome\User Data\Local State" -Force -Encoding utf8
