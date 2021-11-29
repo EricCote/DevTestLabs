@@ -25,8 +25,6 @@ $chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" |
 
 
 #hide the "what's new" page until the next update
-New-Item -Path "C:\Users\Default\AppData\Local\Google\Chrome\" -Name "User Data" -ItemType "directory" -Force
-
 $content = @"
 { 
     "browser": {
