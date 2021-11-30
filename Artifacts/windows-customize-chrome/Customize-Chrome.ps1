@@ -26,10 +26,10 @@ $chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" |
 
 #hide the "what's new" page until the next update
 $content = @"
-{ 
-    "browser": {
-        "last_whats_new_version": $chromeVersion
-    },
+{
+  "browser": {
+    "last_whats_new_version":$chromeVersion
+  }
 }
 "@   
        

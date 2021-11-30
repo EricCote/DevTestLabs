@@ -14,6 +14,6 @@
   "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-appx.ps1"
   }
 }

@@ -1,4 +1,4 @@
-$ProgressPreference = 'SilentlyContinue'
+﻿$ProgressPreference = 'SilentlyContinue'
 
 
 
@@ -267,7 +267,7 @@ restart-computer
 
 New-Item  c:\programdata\script\ -ItemType Directory -Force
 
-$script | Out-File  "c:\programdata\script\frca.ps1" -Force
+$script | Out-File  "c:\programdata\script\frca.ps1" -Force -Encoding utf8
 
 
 new-itemproperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name setToFrCA -Value "powershell -ExecutionPolicy bypass -WindowStyle hidden -File c:\programdata\script\frca.ps1"  -Force | out-null;
