@@ -18,7 +18,7 @@ $linkArray = @(
 )
 
 
-$lang = @(
+$FOD = @(
     "Language.Basic~~~fr-CA~0.0.1.0",
     "Language.Basic~~~fr-FR~0.0.1.0",
     "Language.Handwriting~~~fr-FR~0.0.1.0",
@@ -39,30 +39,30 @@ $url="https://azureshelleric.blob.core.windows.net/win11/fr-ca/Microsoft-Windows
 
 
 Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$env:temp\lang.cab"
-"lang installed" | out-file  "$env:temp\wow1.txt" -append
+"Lang Downloaded" | out-file  "$env:temp\wow1.txt" -append
 Add-WindowsPackage -online -PackagePath  "$env:temp\lang.cab"
-"lang installed" | out-file  "$env:temp\wow1.txt" -append
+"Lang Installed" | out-file  "$env:temp\wow1.txt" -append
 
 
 
-# $lang | ForEach-Object  { if ($_ -notmatch "Language\.")  {  Remove-WindowsCapability -Online -Name $_  }}
+# $FOD | ForEach-Object  { if ($_ -notmatch "Language\.")  {  Remove-WindowsCapability -Online -Name $_  }}
 # "Removed capabilities" | out-file "$env:temp\wow3.txt"
 
 
 
-$lang | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
-"Added capabilities"  | out-file "$env:temp\wow1.txt" -append
+$FOD | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
+"Added FOD capabilities"  | out-file "$env:temp\wow1.txt" -append
 
 
-$array = $linkArray  | ForEach-Object { @{url=$_ ; filename=[regex]::Match($_ , "fr-ca\/(.+)\?").captures.groups[1].value }  }
-"Loop for array" | out-file "$env:temp\wow1.txt" -append
+$packages = $linkArray | ForEach-Object { @{url=$_ ; filename=[regex]::Match($_ , "fr-ca\/(.+)\?").captures.groups[1].value }  }
+"generate a list of package names and url" | out-file "$env:temp\wow1.txt" -append
 
 
-$array | ForEach-Object  { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
+$packages | ForEach-Object  { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
 "loop for download" | out-file "$env:temp\wow1.txt" -append
 
 
-$array | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
+$packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
 "loop for integrating windows package"  | out-file "$env:temp\wow1.txt" -append
 
 
@@ -242,21 +242,21 @@ function  ModifyRegistry($Regini, $profileName)
     &cmd $params
 }
 
-ModifyRegistry  -Regini $regini -profilename ".DEFAULT"
-ModifyRegistry  -Regini $regini -profilename "S-1-5-19"
-ModifyRegistry  -Regini $regini -profilename "S-1-5-20"
-ModifyRegistry  -Regini $regini -profilename "HKEY_CURRENT_USER"
+# ModifyRegistry  -Regini $regini -profilename ".DEFAULT"
+# ModifyRegistry  -Regini $regini -profilename "S-1-5-19"
+# ModifyRegistry  -Regini $regini -profilename "S-1-5-20"
+# ModifyRegistry  -Regini $regini -profilename "HKEY_CURRENT_USER"
 
 
 
-&reg load hku\def "C:\users\default user\NTUSER.DAT"
-ModifyRegistry  -Regini $regini -profilename "def"
-&reg unload hku\def
+# &reg load hku\def "C:\users\default user\NTUSER.DAT"
+# ModifyRegistry  -Regini $regini -profilename "def"
+# &reg unload hku\def
 
 
 $script=@'
-$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
-$UserLanguageList.Add("en-US")
+$UserLanguageList = New-WinUserLanguageList -Language "en-US"
+$UserLanguageList.Add("fr-CA")
 Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
 Add-Type -AssemblyName PresentationFramework
