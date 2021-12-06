@@ -207,12 +207,12 @@ $jsonIgnored = @"
 New-Item $env:TEMP\appx -ItemType Directory -Force
 
 $list = ConvertFrom-Json $jsonRetail
-$list | Select-Object   |   % {
+$list | Select-Object -First 3  |   % {
 
     $body = @{
         type = 'PackageFamilyName'
         url  = $_.name
-        ring = 'Retail'
+        ring = 'RP'
         lang = 'en-US'
     }
 

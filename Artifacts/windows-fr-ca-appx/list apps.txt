@@ -1,0 +1,118 @@
+
+Microsoft.549981C3F5F10_3.2110.13603.0    CortanaApp.View_3.2110.13603.0  rp+retail    (oct 2021)
+
+Microsoft.BingNews_4.31.12124.0  News_4.31.12124.0
+Microsoft.BingNews_4.5.29001.0   News_4.39.21501.0
+Microsoft.BingNews_4.6.3001.0    News_4.40.21551.0
+Microsoft.BingNews_4.6.8003.0    News_4.41.21603.0
+Microsoft.BingNews_4.6.24001.0   News_4.42.21761.0
+Microsoft.BingNews_4.7.10001.0   News_4.43.21921.0
+Microsoft.BingNews_4.7.16001.0   News_4.44.21981.0
+Microsoft.BingNews_4.7.22002.0   News_4.44.22042.0
+Microsoft.BingNews_4.7.23003.0   News_4.45.22053.0
+Microsoft.BingNews_4.8.5001.0    News_4.47.22181.0
+Microsoft.BingNews_4.8.6001.0    News_4.47.22191.0
+Microsoft.BingNews_4.8.6002.0    News_4.47.22192.0
+Microsoft.BingNews_4.8.13010.0   News_4.47.22260.0
+Microsoft.BingNews_4.8.14004.0   News_4.49.22274.0
+Microsoft.BingNews_4.8.17006.0   News_4.50.22306.0
+Microsoft.BingNews_4.8.23001.0   News_4.51.22361.0
+Microsoft.BingNews_4.9.31001.0   News_4.51.22441.0
+Microsoft.BingNews_4.9.10001.0   News_4.53.22541.0
+Microsoft.BingNews_4.9.30001.0   News_4.54.22741.0   rp+retail  (oct 2021)
+
+
+Microsoft.BingWeather_4.3.3001.0    Weather_4.46.30621.0              (mar 2021)
+Microsoft.BingWeather_4.4.22001.0   Weather_4.46.31121.0              (apr 2021)
+Microsoft.BingWeather_4.7.20002.0   Weather_4.46.32012.0  rp+retail   (aug 2021)
+
+Microsoft.DesktopAppInstaller_2021.1026.721.0   1.16.12986.0   rp+Retail  (oct 2021)
+
+Microsoft.GamingApp_2111.1001.3.0   XboxPcApp_2111.1001.3.0  Retail      (oct 2021)
+Microsoft.GamingApp_2112.1001.9.0   XboxPcApp_2112.1001.9.0  rp          (dec 2021)
+
+Microsoft.GetHelp_10.2108.42428.0   GetHelpApp_10.2108.42428.0            (aug 2021)
+Microsoft.GetHelp_10.2109.42921.0   GetHelpApp_10.2109.42921.0 rp+retail  (oct 2021)
+
+Microsoft.Getstarted_2021.2110.6.0  GetStarted_10.2110.6.0    rp+detail  (oct 2021)
+
+Microsoft.HEIFImageExtension_1.0.42621.0    1.0.42621.0   Retail     (sep 2021)
+Microsoft.HEIFImageExtension_1.0.43012.0    1.0.43012.0   rp         (oct 2021)      
+
+
+Microsoft.MicrosoftOfficeHub_18.2104.12721.0   MyOffice_18.2104.12721.0                (apr 2021)
+Microsoft.MicrosoftOfficeHub_18.2106.12410.0   OfficeApp_18.2106.12410.0   rp+retail   (jun 2021)
+
+Microsoft.MicrosoftSolitaireCollection_4.10.10270.0  Solitaire_4.10.10270.0  rp+retail  (oct 2021)
+
+Microsoft.MicrosoftStickyNotes_4.1.6.0   App_4.1.6.0  rp+retail  (jun 2021) 
+Microsoft.MicrosoftStickyNotes_4.1.9.0   App_4.1.9.0  rp         (jun 2021)
+
+Microsoft.Paint_10.2103.1.0    Paint_10.2103.1.0  rp          (mar 2021)
+Microsoft.Paint_11.2110.0.0    Paint_11.2110.0.0  rp+retail   (sep 2021)
+
+Microsoft.People_2021.2105.4.0   App_10.2105.4.0   rp+retail    (May 2021)
+
+Microsoft.PowerAutomateDesktop_10.0.2290.0  PowerAutomateDesktop-10.0.2290.0  rp+retail   (nov 2021)
+
+Microsoft.ScreenSketch_2021.2109.37.0  ScreenSketch_11.2109.37.0  rp+retail  (sep 2021)
+
+Microsoft.SecHealthUI_8wekyb3d8bbw    NONE!!!
+
+Microsoft.StorePurchaseApp_12109.1001.10.0  PurchaseApp_12109.1001.10.0  rp+retail  (oct 2021)
+
+Microsoft.Todos_2.57.43142.0   Todos_2.57.43142.0  rp+retail  (nov 2021)
+
+Microsoft.UI.Xaml.2.4_2.42007.9001.0    2.42007.9001.0   rp+retail  (jul 2020)
+
+Microsoft.VCLibs.140.00_14.0.30704.0    14.0.30704.0    rp+retail  (oct 2021)
+
+Microsoft.VP9VideoExtensions_1.0.42791.0   1.0.42791.0  rp+retail (oct 2021)
+
+Microsoft.WebMediaExtensions_1.0.42192.0  Microsoft.WebMediaExtensions_1.0.42192.0   rp+retail (aug 2021)
+
+Microsoft.WebpImageExtension_1.0.42351.0  1.0.42351.0  rp+retail  (aug 2021)
+
+
+Microsoft.Windows.Photos_2021.21090.29009.0  AppStubCS.Windows_2021.21090.29009.0  rp     (sep 2021)
+Microsoft.Windows.Photos_2021.21110.8005.0   AppStubCS.Windows_2021.21110.8005.0   retail  (nov2021)
+
+Microsoft.WindowsAlarms_2022.2109.1.0   TimeUniversal_11.2109.1.0   rp+retail  (sep 2021)
+
+Microsoft.WindowsCalculator_2021.2109.9.0  Calculator_11.2109.9.0   rp+retail  (sep 2021)
+
+Microsoft.WindowsCamera_2022.2110.0.0   CameraApp_2022.2110.0.0     rp+retail   (sep 2021)
+
+microsoft.windowscommunicationsapps_16005.14326.20544.0    16005.14326.20544.0         rp+retail (oct 2021)
+
+Microsoft.WindowsFeedbackHub_2021.1114.122.0  FeedbackHub_1.2111.3171.0  rp+retail  (nov 2021)
+
+Microsoft.WindowsMaps_2021.2104.2.0   App_10.2104.2.0    rp+retail   (may 2021)
+
+Microsoft.WindowsNotepad_10.2103.6.0   NotepadApp_10.2103.6.0   retail  (mar 2021)
+Microsoft.WindowsNotepad_10.2103.12.0  NotepadApp_10.2103.12.0  rp      (oct 2021)
+
+Microsoft.WindowsSoundRecorder_2021.2103.28.0   SoundRecorder_10.2103.28.0  rp+retail (mar 2021)
+
+Microsoft.WindowsStore_22110.1401.17.0  StorePackage_22110.1401.17.0  retail  (nov 2021)
+Microsoft.WindowsStore_22111.1401.1.0   StorePackage_22111.1401.1.0   rp      (dec 2021)
+
+Microsoft.WindowsTerminal_2021.1019.2143.0   CascadiaPackage_1.11.2921.0  rp+retail  (oct 2021)
+
+Microsoft.Xbox.TCUI_1.24.10001.0   TCUI-App_1.24.10001.0  rp+retail  (2018)
+
+Microsoft.XboxGameOverlay_1.54.4001.0   GameBar_1.54.4001.0   rp+retail  (2020)
+
+Microsoft.XboxGamingOverlay_5.721.10202.0  GameBar_5.721.10202.0  retail     (oct 2021)
+Microsoft.XboxGamingOverlay_5.721.12013.0  GameBar_5.721.12013.0  rp         (dec 2021)
+
+Microsoft.XboxIdentityProvider_12.83.12001.0  XboxIdp_12.83.12001.0  rp+retail  (nov 2021)
+
+Microsoft.XboxSpeechToTextOverlay_1.21.13002.0   SpeechToTextOverlay_1.21.13002.0   rp+retail  (2017)
+
+Microsoft.YourPhone_2021.1118.1110.0   YourPhone.Package_1.21111.115.0   rp (nov 2021)
+Microsoft.YourPhone_2021.1129.2002.0   YourPhone.Package_1.21111.120.0   retail (dec 2021)
+
+Microsoft.ZuneMusic_2019.21102.11411.0   2019.21102.11411.0   rp+retail   (nov 2021)
+
+Microsoft.ZuneVideo_2019.21092.10731.0   2019.21092.10731.0   rp+retail   (oct 2021)

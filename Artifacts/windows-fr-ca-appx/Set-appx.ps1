@@ -1,195 +1,317 @@
 $ProgressPreference = 'SilentlyContinue'
 
+$apiUrl = "https://store.rg-adguard.net/api/GetFiles"
+
+
+# Get-AppxProvisionedPackage -Online |  
+# select-object @{label="name";expression={"$($_.DisplayName)_$($_.PublisherId)"}} , Version  |
+# ConvertTo-Json 
+
+
+
 $jsonRetail = @"
 [
     {
-        "Name":  "Microsoft.BingWeather_8wekyb3d8bbwe",
+        "name":  "Microsoft.549981C3F5F10_8wekyb3d8bbwe",
+        "Version":  "3.2110.13603.0"
+    },
+    {
+        "name":  "Microsoft.BingNews_8wekyb3d8bbwe",
+        "Version":  "4.9.30001.0"
+    },
+    {
+        "name":  "Microsoft.BingWeather_8wekyb3d8bbwe",
         "Version":  "4.7.20002.0"
     },
     {
-        "Name":  "Microsoft.DesktopAppInstaller_8wekyb3d8bbwe",
+        "name":  "Microsoft.DesktopAppInstaller_8wekyb3d8bbwe",
         "Version":  "2021.1026.721.0"
     },
     {
-        "Name":  "Microsoft.GetHelp_8wekyb3d8bbwe",
+        "name":  "Microsoft.GamingApp_8wekyb3d8bbwe",
+        "Version":  "2111.1001.3.0"
+    },
+    {
+        "name":  "Microsoft.GetHelp_8wekyb3d8bbwe",
         "Version":  "10.2109.42921.0"
     },
     {
-        "Name":  "Microsoft.Getstarted_8wekyb3d8bbwe",
-        "Version":  "10.7.42522.0"
+        "name":  "Microsoft.Getstarted_8wekyb3d8bbwe",
+        "Version":  "2021.2110.6.0"
     },
     {
-        "Name":  "Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe",
+        "name":  "Microsoft.HEIFImageExtension_8wekyb3d8bbwe",
+        "Version":  "1.0.42621.0"
+    },
+    {
+        "name":  "Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe",
         "Version":  "18.2106.12410.0"
     },
     {
-        "Name":  "Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe",
+        "name":  "Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe",
         "Version":  "4.10.10270.0"
     },
     {
-        "Name":  "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe",
+        "name":  "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe",
         "Version":  "4.1.6.0"
     },
     {
-        "Name":  "Microsoft.Paint_8wekyb3d8bbwe",
+        "name":  "Microsoft.Paint_8wekyb3d8bbwe",
         "Version":  "11.2110.0.0"
     },
     {
-        "Name":  "Microsoft.People_8wekyb3d8bbwe",
+        "name":  "Microsoft.People_8wekyb3d8bbwe",
         "Version":  "2021.2105.4.0"
     },
     {
-        "Name":  "Microsoft.PowerAutomateDesktop_8wekyb3d8bbwe",
+        "name":  "Microsoft.PowerAutomateDesktop_8wekyb3d8bbwe",
         "Version":  "10.0.2290.0"
     },
     {
-        "Name":  "Microsoft.ScreenSketch_8wekyb3d8bbwe",
+        "name":  "Microsoft.ScreenSketch_8wekyb3d8bbwe",
         "Version":  "2021.2109.37.0"
     },
     {
-        "Name":  "Microsoft.StorePurchaseApp_8wekyb3d8bbwe",
+        "name":  "Microsoft.StorePurchaseApp_8wekyb3d8bbwe",
         "Version":  "12109.1001.10.0"
     },
     {
-        "Name":  "Microsoft.Todos_8wekyb3d8bbwe",
+        "name":  "Microsoft.Todos_8wekyb3d8bbwe",
         "Version":  "2.57.43142.0"
     },
     {
-        "Name":  "Microsoft.UI.Xaml.x64.2.4",
+        "name":  "Microsoft.UI.Xaml.2.4_8wekyb3d8bbwe",
         "Version":  "2.42007.9001.0"
     },
-
     {
-        "Name":  "Microsoft.VP9VideoExtensions_8wekyb3d8bbwe.x64",
+        "name":  "Microsoft.VCLibs.140.00_8wekyb3d8bbwe",
+        "Version":  "14.0.30704.0"
+    },
+    {
+        "name":  "Microsoft.VP9VideoExtensions_8wekyb3d8bbwe",
         "Version":  "1.0.42791.0"
     },
     {
-        "Name":  "Microsoft.WebMediaExtensions_8wekyb3d8bbwe",
+        "name":  "Microsoft.WebMediaExtensions_8wekyb3d8bbwe",
         "Version":  "1.0.42192.0"
     },
     {
-        "Name":  "Microsoft.WebpImageExtension_8wekyb3d8bbwe.x64",
+        "name":  "Microsoft.WebpImageExtension_8wekyb3d8bbwe",
         "Version":  "1.0.42351.0"
     },
     {
-        "Name":  "Microsoft.Windows.Photos_8wekyb3d8bbwe",
+        "name":  "Microsoft.Windows.Photos_8wekyb3d8bbwe",
         "Version":  "2021.21110.8005.0"
     },
     {
-        "Name":  "Microsoft.WindowsAlarms_8wekyb3d8bbwe",
-        "Version":  "2021.2101.28.0"
+        "name":  "Microsoft.WindowsAlarms_8wekyb3d8bbwe",
+        "Version":  "2022.2109.1.0"
     },
     {
-        "Name":  "Microsoft.WindowsCalculator_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsCalculator_8wekyb3d8bbwe",
         "Version":  "2021.2109.9.0"
     },
     {
-        "Name":  "Microsoft.WindowsCamera_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsCamera_8wekyb3d8bbwe",
         "Version":  "2022.2110.0.0"
     },
     {
-        "Name":  "microsoft.windowscommunicationsapps_8wekyb3d8bbwe",
+        "name":  "microsoft.windowscommunicationsapps_8wekyb3d8bbwe",
         "Version":  "16005.14326.20544.0"
     },
     {
-        "Name":  "Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe",
         "Version":  "2021.1114.122.0"
     },
     {
-        "Name":  "Microsoft.WindowsMaps_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsMaps_8wekyb3d8bbwe",
         "Version":  "2021.2104.2.0"
     },
     {
-        "Name":  "Microsoft.WindowsNotepad_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsNotepad_8wekyb3d8bbwe",
         "Version":  "10.2103.6.0"
     },
     {
-        "Name":  "Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe",
         "Version":  "2021.2103.28.0"
     },
     {
-        "Name":  "Microsoft.WindowsStore_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsStore_8wekyb3d8bbwe",
         "Version":  "22110.1401.17.0"
     },
     {
-        "Name":  "Microsoft.WindowsTerminal_8wekyb3d8bbwe",
+        "name":  "Microsoft.WindowsTerminal_8wekyb3d8bbwe",
         "Version":  "2021.1019.2143.0"
     },
     {
-        "Name":  "Microsoft.Xbox.TCUI_8wekyb3d8bbwe",
+        "name":  "Microsoft.Xbox.TCUI_8wekyb3d8bbwe",
         "Version":  "1.24.10001.0"
     },
     {
-        "Name":  "Microsoft.XboxGameOverlay_8wekyb3d8bbwe",
+        "name":  "Microsoft.XboxGameOverlay_8wekyb3d8bbwe",
         "Version":  "1.54.4001.0"
     },
     {
-        "Name":  "Microsoft.XboxGamingOverlay_8wekyb3d8bbwe",
+        "name":  "Microsoft.XboxGamingOverlay_8wekyb3d8bbwe",
         "Version":  "5.721.10202.0"
     },
     {
-        "Name":  "Microsoft.XboxIdentityProvider_8wekyb3d8bbwe",
+        "name":  "Microsoft.XboxIdentityProvider_8wekyb3d8bbwe",
         "Version":  "12.83.12001.0"
     },
     {
-        "Name":  "Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe",
+        "name":  "Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe",
         "Version":  "1.21.13002.0"
     },
     {
-        "Name":  "Microsoft.YourPhone_8wekyb3d8bbwe",
-        "Version":  "2021.1111.2011.0"
+        "name":  "Microsoft.YourPhone_8wekyb3d8bbwe",
+        "Version":  "2021.1129.2002.0 "
     },
     {
-        "Name":  "Microsoft.ZuneMusic_8wekyb3d8bbwe",
+        "name":  "Microsoft.ZuneMusic_8wekyb3d8bbwe",
         "Version":  "2019.21102.11411.0"
     },
     {
-        "Name":  "Microsoft.ZuneVideo_8wekyb3d8bbwe",
+        "name":  "Microsoft.ZuneVideo_8wekyb3d8bbwe",
         "Version":  "2019.21092.10731.0"
     },
     {
-        "Name":  "Microsoft.BingNews_8wekyb3d8bbwe",
-        "Version":  "4.7.28001.0"
+        "name":  "MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy",
+        "Version":  "421.20045.455.0"
+    }
+] 
+"@
+
+
+
+$jsonIgnored = @"
+[   
+  
+    {
+        "Name":  "Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe",
+        "Version":  "96.0.1054.34"
     },
     {
-        "Name":  "Microsoft.GamingApp_8wekyb3d8bbwe",
-        "Version":  "2021.427.138.0"
+        "name":  "Microsoft.SecHealthUI_8wekyb3d8bbwe",
+        "Version":  "1000.22000.1.0"
+    },
+ 
+    {
+        "Name":  "MicrosoftTeams_cw5n1h2txyewy",
+        "Version":  "21302.202.1065.6968"
     }
 ]
 "@
 
 
 
-$jsonRP = @"
-[
-    {
-        "Name":  "Microsoft.549981C3F5F10_8wekyb3d8bbwe",
-        "Version":  "3.2110.13603.0"
-    },
-]
-"@
+
+function Invoke-AppxLink { 
+    param ([string]$appx)
+    $body = @{
+        type = 'PackageFamilyName'
+        url  = $appx
+        ring = 'Retail'
+        lang = 'en-US'
+    }
+
+    $theName = $appx.Split("_")[0];
+
+    $count = 0;
+    $matches = $null;
+
+    do {
+        $count += 1;
+        $raw = Invoke-RestMethod -Method Post -Uri $apiUrl -ContentType 'application/x-www-form-urlencoded' -Body $body
+    
+        $matches = $raw | 
+        Select-String '<tr style.*<a href=\"(?<url>.*)"\s.*>(?<text>.*)<\/a>' -AllMatches | 
+        % { $_.Matches } ;
+    }
+    while ($matches.count -eq 0 -and $count -le 5);
+
+    if ($matches.count -eq 0) { throw "Cannot find $appx" }
+
+    $matches | % { 
+        $url = $_.Groups[1].Value
+        $text = $_.Groups[2].Value
+        $parts = $text.split("_")
+        $subparts = ([string]$parts[4]).split(".")
+            
+        [PSCustomObject]@{
+            Name         = $parts[0];
+            Version      = [version]$parts[1];
+            Architecture = $parts[2];
+            Lang         = $parts[3];
+            PublisherID  = $subparts[0];
+            Ext          = $subparts[1];
+            Url          = $url;
+        }
+    } |
+    sort  -property Version | 
+    where Name -Match $theName  |
+    Where Ext -NotMatch '^(e|B)' |
+    Where Architecture -Match '(neutral|x64)'
+}
 
 
-Invoke-WebRequest -UseBasicParsing "https://azureshelleric.blob.core.windows.net/win11/inbox-apps/inbox.iso?sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D" -OutFile $env:TEMP\inbox.iso
 
-
-$disk = Mount-DiskImage -ImagePath $env:TEMP\inbox.iso 
-Start-Sleep -Seconds 2
-$drive=  ($disk | get-volume).DriveLetter
-
-
-$appxPath = "$drive`:\amd64fre"
+New-Item $env:TEMP\appx -ItemType Directory -Force | out-null
 
 $list = ConvertFrom-Json $jsonRetail
-$list | Select-Object *  |   % {
-    $n=$_.Name
-    $p =  dir "$appxPath\$n.*xbundle"
-    if (!$p) {$p = dir "$appxPath\$n.appx" }
-    $lic = "$($p.DirectoryName)\$($p.BaseName).lic"
-    if (Test-Path -Path $lic) {
-        Add-AppxProvisionedPackage -Online -PackagePath $p.fullname -LicensePath $lic
-    } else {
-        Add-AppxProvisionedPackage -Online -PackagePath $p.fullname -SkipLicense
+$items = $list | Select-Object   | % {
+    $theVersion=$_.version;
+    Invoke-AppxLink -appx $_.name |
+    Where version -GE $theVersion   |
+    Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url
+}  
+
+$items | where current -EQ '*' | % { Invoke-WebRequest -UseBasicParsing -Uri $_.url  -out "$env:TEMP\appx\$($_.name)_$($_.version).$($_.ext)"  }
+
+
+Invoke-WebRequest -UseBasicParsing "https://azureshelleric.blob.core.windows.net/win11/inbox-apps/licenses.zip?sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D" -OutFile $env:TEMP\licenses.zip
+
+Expand-Archive -Path "$env:TEMP\licenses.zip" -DestinationPath "$env:TEMP\appx" -force
+
+
+$appxPath="$env:TEMP\appx"
+
+get-childitem $appxPath  -exclude *.xml |   % { 
+        $n=$_.Name.split("_")[0];
+
+        $lic = get-childitem "$($_.DirectoryName)\$n*.xml"
+        if ($lic.count -gt 0) {
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName
+        } else {
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense
+        }
+        
     }
+
+
+
+
+
+# Invoke-WebRequest -UseBasicParsing "https://azureshelleric.blob.core.windows.net/win11/inbox-apps/inbox.iso?sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D" -OutFile $env:TEMP\inbox.iso
+
+
+# $disk = Mount-DiskImage -ImagePath $env:TEMP\inbox.iso 
+# Start-Sleep -Seconds 2
+# $drive=  ($disk | get-volume).DriveLetter
+
+
+# $appxPath = "$drive`:\amd64fre"
+
+# $list = ConvertFrom-Json $jsonRetail
+# $list | Select-Object *  |   % {
+#     $n=$_.Name
+#     $p =  dir "$appxPath\$n.*xbundle"
+#     if (!$p) {$p = dir "$appxPath\$n.appx" }
+#     $lic = "$($p.DirectoryName)\$($p.BaseName).lic"
+#     if (Test-Path -Path $lic) {
+#         Add-AppxProvisionedPackage -Online -PackagePath $p.fullname -LicensePath $lic
+#     } else {
+#         Add-AppxProvisionedPackage -Online -PackagePath $p.fullname -SkipLicense
+#     }
     
-}
+# }
