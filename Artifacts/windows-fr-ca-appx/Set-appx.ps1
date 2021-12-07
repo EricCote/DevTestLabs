@@ -29,7 +29,7 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.GamingApp_8wekyb3d8bbwe",
-        "Version":  "2111.1001.3.0"
+        "Version":  "2112.1001.9.0"
     },
     {
         "name":  "Microsoft.GetHelp_8wekyb3d8bbwe",
