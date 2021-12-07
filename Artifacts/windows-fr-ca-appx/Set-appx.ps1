@@ -178,8 +178,34 @@ $jsonRetail = @"
     {
         "name":  "MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy",
         "Version":  "421.20045.455.0"
+    },
+    {
+        "name":  "Microsoft.UI.Xaml.2.7_8wekyb3d8bbwe",
+        "Version":  "7.2109.13004.0"
+    },
+    {
+        "name":  "Microsoft.VCLibs.140.00.UWPDesktop_8wekyb3d8bbwe",
+        "Version":  "14.0.30704.0"
+    },
+    {
+        "name":  "Microsoft.NET.Native.Runtime.2.2_8wekyb3d8bbwe",
+        "Version":  "2.2.28604.0"
+    },
+    {
+        "name":  "Microsoft.NET.Native.Framework.2.2_8wekyb3d8bbwe",
+        "Version":  "2.2.29512.0"
+    },
+    {
+        "name":  "Microsoft.Advertising.Xaml_8wekyb3d8bbwe",
+        "Version":  "10.1811.1.0"
     }
+    
 ] 
+"@
+
+$jsonAdditional=
+@" 
+
 "@
 
 
@@ -266,7 +292,7 @@ $items = $list | Select-Object   | % {
     Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url
 }  
 
-$items | where current -EQ '*' | % { Invoke-WebRequest -UseBasicParsing -Uri $_.url  -out "$env:TEMP\appx\$($_.name)_$($_.version).$($_.ext)"  }
+$items | where current -EQ '*' | % { Invoke-WebRequest -UseBasicParsing -Uri $_.url  -out "$env:TEMP\appx\$($_.name)_$($_.PublisherID).$($_.ext)"  }
 
 
 Invoke-WebRequest -UseBasicParsing "https://azureshelleric.blob.core.windows.net/win11/inbox-apps/licenses.zip?sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D" -OutFile $env:TEMP\licenses.zip
@@ -276,7 +302,20 @@ Expand-Archive -Path "$env:TEMP\licenses.zip" -DestinationPath "$env:TEMP\appx" 
 
 $appxPath="$env:TEMP\appx"
 
-get-childitem $appxPath  -exclude *.xml |   % { 
+
+get-childitem $appxPath  -include *.appx |   % { 
+    $n=$_.Name.split("_")[0];
+
+    $lic = get-childitem "$($_.DirectoryName)\$n*.xml"
+    if ($lic.count -gt 0) {
+        Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName
+    } else {
+        Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense
+    }
+    
+}
+
+get-childitem $appxPath  -exclude *.xml,*.appx |   % { 
         $n=$_.Name.split("_")[0];
 
         $lic = get-childitem "$($_.DirectoryName)\$n*.xml"

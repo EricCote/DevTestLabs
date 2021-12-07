@@ -265,7 +265,7 @@ restart-computer
 
 '@
 
-New-Item  c:\programdata\script\ -ItemType Directory -Force
+New-Item  c:\programdata\script\ -ItemType Directory -Force  | Out-Null
 
 $script | Out-File  "c:\programdata\script\frca.ps1" -Force -Encoding utf8
 
