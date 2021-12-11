@@ -7,6 +7,7 @@ $apiUrl = "https://store.rg-adguard.net/api/GetFiles"
 # select-object @{label="name";expression={"$($_.DisplayName)_$($_.PublisherId)"}} , Version  |
 # ConvertTo-Json 
 
+#$list | select-object @{label = "name"; expression = { $_.name.split("_")[0] }} | where {$_.name -notin $items.name}     
 
 
 $jsonRetail = @"
@@ -17,11 +18,13 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.BingNews_8wekyb3d8bbwe",
-        "Version":  "4.9.30001.0"
+        "Version":  "4.9.30001.0",
+        "exclude": ["4.9.31001.0", "4.31.12124.0", "2016.408.1840.2841"]
     },
     {
         "name":  "Microsoft.BingWeather_8wekyb3d8bbwe",
-        "Version":  "4.7.20002.0"
+        "Version":  "4.7.20002.0",
+        "exclude": ["4.31.11905.0", "2016.1014.23.3280"]
     },
     {
         "name":  "Microsoft.DesktopAppInstaller_8wekyb3d8bbwe",
@@ -29,7 +32,7 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.GamingApp_8wekyb3d8bbwe",
-        "Version":  "2112.1001.9.0"
+        "Version":  "2112.1001.10.0"
     },
     {
         "name":  "Microsoft.GetHelp_8wekyb3d8bbwe",
@@ -45,11 +48,11 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe",
-        "Version":  "18.2106.12410.0"
+        "Version":  "18.2110.13110.0"
     },
     {
         "name":  "Microsoft.MicrosoftSolitaireCollection_8wekyb3d8bbwe",
-        "Version":  "4.10.10270.0"
+        "Version":  "4.11.12030.0"
     },
     {
         "name":  "Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe",
@@ -117,7 +120,8 @@ $jsonRetail = @"
     },
     {
         "name":  "microsoft.windowscommunicationsapps_8wekyb3d8bbwe",
-        "Version":  "16005.14326.20544.0"
+        "Version":  "16005.14326.20544.0",
+        "exclude": ["16006.11001.20116.0"]
     },
     {
         "name":  "Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe",
@@ -137,7 +141,7 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.WindowsStore_8wekyb3d8bbwe",
-        "Version":  "22110.1401.17.0"
+        "Version":  "22111.1401.1.0"
     },
     {
         "name":  "Microsoft.WindowsTerminal_8wekyb3d8bbwe",
@@ -153,11 +157,12 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.XboxGamingOverlay_8wekyb3d8bbwe",
-        "Version":  "5.721.10202.0"
+        "Version":  "5.721.12013.0"
     },
     {
         "name":  "Microsoft.XboxIdentityProvider_8wekyb3d8bbwe",
-        "Version":  "12.83.12001.0"
+        "Version":  "12.83.12001.0",
+        "exclude": ["2017.523.613.1000"]
     },
     {
         "name":  "Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe",
@@ -165,7 +170,7 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.YourPhone_8wekyb3d8bbwe",
-        "Version":  "2021.1129.2002.0 "
+        "Version":  "2021.1208.104.0"
     },
     {
         "name":  "Microsoft.ZuneMusic_8wekyb3d8bbwe",
@@ -173,11 +178,11 @@ $jsonRetail = @"
     },
     {
         "name":  "Microsoft.ZuneVideo_8wekyb3d8bbwe",
-        "Version":  "2019.21092.10731.0"
+        "Version":  "2019.21111.10511.0"
     },
     {
         "name":  "MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy",
-        "Version":  "421.20045.455.0"
+        "Version":  "421.20050.505.0"
     },
     {
         "name":  "Microsoft.UI.Xaml.2.7_8wekyb3d8bbwe",
@@ -205,7 +210,12 @@ $jsonRetail = @"
 
 $jsonAdditional=
 @" 
-
+[
+{
+    "name":  "Microsoft.HEIFImageExtension_8wekyb3d8bbwe",
+    "Version":  "1.0.42621.0"
+}
+]
 "@
 
 
@@ -286,9 +296,11 @@ New-Item $env:TEMP\appx -ItemType Directory -Force | out-null
 
 $list = ConvertFrom-Json $jsonRetail
 $items = $list | Select-Object   | % {
+    $exclude = if ($_.exclude -ne $null) {$_.exclude} else {@("1.1.1")};
     $theVersion=$_.version;
     Invoke-AppxLink -appx $_.name |
     Where version -GE $theVersion   |
+    where version -NotIn $exclude  |
     Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url
 }  
 
