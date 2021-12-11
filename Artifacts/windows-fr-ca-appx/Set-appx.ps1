@@ -83,14 +83,6 @@ $jsonRetail = @"
         "Version":  "2.57.43142.0"
     },
     {
-        "name":  "Microsoft.UI.Xaml.2.4_8wekyb3d8bbwe",
-        "Version":  "2.42007.9001.0"
-    },
-    {
-        "name":  "Microsoft.VCLibs.140.00_8wekyb3d8bbwe",
-        "Version":  "14.0.30704.0"
-    },
-    {
         "name":  "Microsoft.VP9VideoExtensions_8wekyb3d8bbwe",
         "Version":  "1.0.42791.0"
     },
@@ -184,6 +176,13 @@ $jsonRetail = @"
         "name":  "MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy",
         "Version":  "421.20050.505.0"
     },
+   
+] 
+"@
+
+$jsonDeps=
+@" 
+[
     {
         "name":  "Microsoft.UI.Xaml.2.1_8wekyb3d8bbwe",
         "Version":  "2.11906.6001.0"
@@ -201,6 +200,10 @@ $jsonRetail = @"
         "Version":  "7.2109.13004.0"
     },
     {
+        "name":  "Microsoft.VCLibs.140.00_8wekyb3d8bbwe",
+        "Version":  "14.0.30704.0"
+    },
+    {
         "name":  "Microsoft.VCLibs.140.00.UWPDesktop_8wekyb3d8bbwe",
         "Version":  "14.0.30704.0"
     },
@@ -216,17 +219,6 @@ $jsonRetail = @"
         "name":  "Microsoft.Advertising.Xaml_8wekyb3d8bbwe",
         "Version":  "10.1811.1.0"
     }
-    
-] 
-"@
-
-$jsonAdditional=
-@" 
-[
-{
-    "name":  "Microsoft.HEIFImageExtension_8wekyb3d8bbwe",
-    "Version":  "1.0.42621.0"
-}
 ]
 "@
 
@@ -299,15 +291,27 @@ function Invoke-AppxLink {
     sort  -property Version | 
     where Name -Match $theName  |
     Where Ext -NotMatch '^(e|B)' |
-    Where Architecture -Match '(neutral|x64)'
+    Where Architecture -Match '(neutral|x64|x86)'
 }
 
 
 
 New-Item $env:TEMP\appx -ItemType Directory -Force | out-null
 
-$list = ConvertFrom-Json $jsonRetail
-$items = $list | Select-Object   | % {
+
+$listDeps = ConvertFrom-Json $jsonDeps
+$deps = $listApps | Select-Object   | % {
+    $exclude = if ($_.exclude -ne $null) {$_.exclude} else {@("1.1.1")};
+    $theVersion=$_.version;
+    Invoke-AppxLink -appx $_.name |
+    Where version -GE $theVersion   |
+    where version -NotIn $exclude  |
+    Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url, Architecture
+}  
+
+
+$listApps = ConvertFrom-Json $jsonRetail
+$items = $listApps | Select-Object   | % {
     $exclude = if ($_.exclude -ne $null) {$_.exclude} else {@("1.1.1")};
     $theVersion=$_.version;
     Invoke-AppxLink -appx $_.name |
@@ -315,6 +319,8 @@ $items = $list | Select-Object   | % {
     where version -NotIn $exclude  |
     Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url
 }  
+
+$deps | where current -EQ '*' | % { Invoke-WebRequest -UseBasicParsing -Uri $_.url  -out "$env:TEMP\appx\$($_.name)_$($_.Architecture)_$($_.PublisherID).$($_.ext)"  }
 
 $items | where current -EQ '*' | % { Invoke-WebRequest -UseBasicParsing -Uri $_.url  -out "$env:TEMP\appx\$($_.name)_$($_.PublisherID).$($_.ext)"  }
 
@@ -348,10 +354,13 @@ get-childitem $appxPath  -exclude *.xml,*.appx |   % {
 
         if ($lic.count -gt 0) {
             "lic $n" 
-            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName -StubPackageOption InstallStub
+        } elseif ($n -eq "Microsoft.549981C3F5F10") {
+            "lic $n"
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $appxPath\Microsoft.CortanaApp -StubPackageOption InstallStub
         } else {
             "no lic $n" 
-            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption 
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption InstallStub
         }
         
     }
