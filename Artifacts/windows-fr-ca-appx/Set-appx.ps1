@@ -185,6 +185,18 @@ $jsonRetail = @"
         "Version":  "421.20050.505.0"
     },
     {
+        "name":  "Microsoft.UI.Xaml.2.1_8wekyb3d8bbwe",
+        "Version":  "2.11906.6001.0"
+    },
+    {
+        "name":  "Microsoft.UI.Xaml.2.4_8wekyb3d8bbwe",
+        "Version":  "2.42007.9001.0"
+    },
+    {
+        "name":  "Microsoft.UI.Xaml.2.6_8wekyb3d8bbwe",
+        "Version":  "2.62112.3002.0"
+    },
+    {
         "name":  "Microsoft.UI.Xaml.2.7_8wekyb3d8bbwe",
         "Version":  "7.2109.13004.0"
     },
@@ -312,29 +324,34 @@ Invoke-WebRequest -UseBasicParsing "https://azureshelleric.blob.core.windows.net
 Expand-Archive -Path "$env:TEMP\licenses.zip" -DestinationPath "$env:TEMP\appx" -force
 
 
-$appxPath="$env:TEMP\appx"
+$appxPath="$env:TEMP\appx";
 
+$files=get-childitem "$($appxPath)\*"  -include "*.appx" ;
 
-get-childitem $appxPath  -include *.appx |   % { 
+$files |   % { 
     $n=$_.Name.split("_")[0];
+    $lic =  get-childitem -path $($_.DirectoryName) -include $n*.xml;
 
-    $lic = get-childitem "$($_.DirectoryName)\$n*.xml"
     if ($lic.count -gt 0) {
+       "licence $n"; 
         Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName
     } else {
+        "no lic $n $($_.fullname)"; 
         Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense
     }
-    
 }
 
 get-childitem $appxPath  -exclude *.xml,*.appx |   % { 
         $n=$_.Name.split("_")[0];
 
-        $lic = get-childitem "$($_.DirectoryName)\$n*.xml"
+        $lic =  get-childitem -path "$appxPath\*" -include "$n*.xml";
+
         if ($lic.count -gt 0) {
+            "lic $n" 
             Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName
         } else {
-            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense
+            "no lic $n" 
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption 
         }
         
     }
