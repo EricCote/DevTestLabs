@@ -376,7 +376,39 @@ get-childitem $appxPath  -exclude *.xml,*.appx |   % {
 
 
 
+<#
+I've done some additional research. Here are additional findings.
 
+Annotated list of stubbed Apps on Windows 11
+
+Microsoft.BingNews
+Microsoft.BingWeather
+Microsoft.GamingApp
+Microsoft.GetHelp     (1)
+Microsoft.GetStarted  (1)
+Microsoft.MicrosoftSolitaireCollection (2)
+Microsoft.MicrosoftStickyNotes
+Microsoft.MinecraftEducationEdition (3)
+Microsoft.PowerAutomateDesktop
+Microsoft.Todos   
+Microsoft.WindowsAlarms  (4)
+Microsoft.WindowsMaps
+Microsoft.WindowsSoundRecorder    
+
+1. Both "Get Help" and "Tips" are stubbable, but Today, Windows Setup fully installs these apps. One could force to install the stubbed version by de-provisioning these apps and re-provisioning them with: Add-AppxProvisionedPackage -StubPackageOption InstallStub ...  (Aside:  "Tips" is the name of Microsoft.GetStarted on the Start Menu. This is different from the "Get Started" app in the start menu, which really is a System App, not a Store App.)
+2. The "Microsoft Solitaire Collection" included on the Windows 11 setup has no stub. But the latest Solitaire from the Microsoft Store now includes a stub. Will a future version of Windows setup use this stub?
+3. "Minecraft Education Edition" is exclusive to Windows for Education.
+4. "Alarms & Clock" has a minor bug. The stub includes an unecessary large file (Windows.Foundation.UniversalApiContract.winmd) in its dependencies. Because of that, the full stub size is 7Mb instead of 1Mb. (This is still smaller than the full alarm app, which is around 20-25Mb.)
+
+Also my previous message said that once the full app is installed, the stub is removed. This is wrong.
+
+After further research, I've discovered the stub is simply renamed with a "handoff" in its name. ex: the stub "Microsoft.Apps.Stubs.winmd" is renamed to "Microsoft.Apps.Stubs.Handoff.winmd".
+
+The more you know...
+
+
+
+#>
 
 # Invoke-WebRequest -UseBasicParsing "https://azureshelleric.blob.core.windows.net/win11/inbox-apps/inbox.iso?sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D" -OutFile $env:TEMP\inbox.iso
 
