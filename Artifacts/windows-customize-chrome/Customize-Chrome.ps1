@@ -37,4 +37,4 @@ $content | Out-File "C:\Users\Default\AppData\Local\Google\Chrome\User Data\Loca
 
 
 #delete Desktop icon
-Remove-Item 'C:\Users\Public\Desktop\Google Chrome.lnk'
+Remove-Item 'C:\Users\Public\Desktop\Google Chrome.lnk' -Force

@@ -175,7 +175,7 @@ $jsonRetail = @"
     {
         "name":  "MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy",
         "Version":  "421.20050.505.0"
-    },
+    }
    
 ] 
 "@
