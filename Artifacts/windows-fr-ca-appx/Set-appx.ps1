@@ -354,15 +354,24 @@ get-childitem $appxPath  -exclude *.xml,*.appx |   % {
 
         if ($lic.count -gt 0) {
             "lic $n" 
-            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName -StubPackageOption InstallStub
-        } elseif ($n -eq "Microsoft.549981C3F5F10") {
+            try {
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName
+            }
+            catch {
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName -StubPackageOption InstallStub
+            }
+         } elseif ($n -eq "Microsoft.549981C3F5F10") {
             "lic $n"
-            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $appxPath\Microsoft.CortanaApp -StubPackageOption InstallStub
+            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $appxPath\Microsoft.CortanaApp 
         } else {
             "no lic $n" 
-            Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption InstallStub
+            try {
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense
+            }
+            catch {
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption InstallStub
+            }
         }
-        
     }
 
 
