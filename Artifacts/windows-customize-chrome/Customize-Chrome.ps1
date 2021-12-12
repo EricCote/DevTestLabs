@@ -34,3 +34,7 @@ $content = @"
 "@   
        
 $content | Out-File "C:\Users\Default\AppData\Local\Google\Chrome\User Data\Local State" -Force -Encoding utf8
+
+
+#delete Desktop icon
+Remove-Item 'C:\Users\Public\Desktop\Google Chrome.lnk'
