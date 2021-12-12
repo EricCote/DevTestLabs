@@ -291,7 +291,7 @@ function Invoke-AppxLink {
     sort  -property Version | 
     where Name -Match $theName  |
     Where Ext -NotMatch '^(e|B)' |
-    Where Architecture -Match '(neutral|x64|x86)'
+    Where Architecture -Match '(neutral|x64)'
 }
 
 
@@ -317,7 +317,7 @@ $items = $listApps | Select-Object   | % {
     Invoke-AppxLink -appx $_.name |
     Where version -GE $theVersion   |
     where version -NotIn $exclude  |
-    Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url
+    Select-Object name, version, @{label = "current"; expression = { if ($_.version -eq $theVersion) { '*' } else { ' ' } } }, ext, url, architecture
 }  
 
 $deps | where current -EQ '*' | % { Invoke-WebRequest -UseBasicParsing -Uri $_.url  -out "$env:TEMP\appx\$($_.name)_$($_.Architecture)_$($_.PublisherID).$($_.ext)"  }
