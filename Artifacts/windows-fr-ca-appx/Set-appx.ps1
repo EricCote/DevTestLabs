@@ -355,10 +355,10 @@ get-childitem $appxPath  -exclude *.xml,*.appx |   % {
         if ($lic.count -gt 0) {
             "lic $n" 
             try {
-                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName -force
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName 
             }
             catch {
-                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName -StubPackageOption InstallStub -force
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -LicensePath $lic.FullName -StubPackageOption InstallStub 
             }
          } elseif ($n -eq "Microsoft.549981C3F5F10") {
             "lic $n"
@@ -366,10 +366,10 @@ get-childitem $appxPath  -exclude *.xml,*.appx |   % {
         } else {
             "no lic $n" 
             try {
-                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -force
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense 
             }
             catch {
-                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption InstallStub -force
+                Add-AppxProvisionedPackage -Online -PackagePath $_.fullname -SkipLicense -StubPackageOption InstallStub 
             }
         }
     }
