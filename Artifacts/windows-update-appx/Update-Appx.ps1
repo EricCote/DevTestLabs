@@ -1,5 +1,5 @@
-$UserLanguageList = New-WinUserLanguageList -Language "en-US"
-$UserLanguageList.Add("fr-CA")
+$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+$UserLanguageList.Add("en-US")
 Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
 

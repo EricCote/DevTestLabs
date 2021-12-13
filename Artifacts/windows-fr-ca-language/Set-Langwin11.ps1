@@ -255,13 +255,14 @@ function  ModifyRegistry($Regini, $profileName)
 
 
 $script=@'
-$UserLanguageList = New-WinUserLanguageList -Language "en-US"
-$UserLanguageList.Add("fr-CA")
+$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+$UserLanguageList.Add("en-US")
 Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
 Add-Type -AssemblyName PresentationFramework
 [System.Windows.MessageBox]::Show("Il faut redémarrer le poste pour le mettre en français. Cliquez sur OK pour redémarrer.", "Français")
-restart-computer
+# restart-computer
+& schtasks /run /tn \Microsoft\Windows\InstallService\ScanForUpdates
 
 '@
 
