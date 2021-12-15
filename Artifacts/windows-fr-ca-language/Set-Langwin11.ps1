@@ -72,11 +72,16 @@ $packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path 
 $lang="fr-CA";
 $tempFolder="$env:temp"
 
+$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+$UserLanguageList.Add("en-US")
 
-$content = Get-Content "C:\windows\panther\Unattend.xml"
+Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
-$content = $content.Replace('<settings pass="oobeSystem" wasPassProcessed="true">',
 
+
+$unattend = Get-Content "C:\windows\panther\Unattend.xml"
+
+$unattend = $unattend.Replace('<settings pass="oobeSystem" wasPassProcessed="true">',
 @"
 <settings pass="oobeSystem" wasPassProcessed="true">
   <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -90,7 +95,30 @@ $content = $content.Replace('<settings pass="oobeSystem" wasPassProcessed="true"
 )
 
 
-$content | Set-Content "C:\windows\panther\Unattend.xml"
+
+$unattend | Set-Content "C:\windows\panther\Unattend.xml"
+
+$oobe = @"
+<FirstExperience>
+  <oobe>
+    <defaults>
+      <language>3084</language>
+      <location>39</location>
+      <keyboard>0809:00000809</keyboard>
+      <timezone>Eastern Standard Time</timezone>
+      <adjustForDST>true</adjustForDST>
+    </defaults>
+  </oobe>
+</FirstExperience>
+"@
+
+New-Item -Path "C:\windows\System32\msoobe" -Name "info" -ItemType "directory"
+
+$oobe | Set-Content "C:\windows\System32\msoobe\info\oobe.xml"
+
+
+
+
 
 
 & C:\Windows\System32\oobe\oobeldr.exe /system
