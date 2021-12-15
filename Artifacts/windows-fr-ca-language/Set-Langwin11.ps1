@@ -66,8 +66,35 @@ $packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path 
 "loop for integrating windows package"  | out-file "$env:temp\wow1.txt" -append
 
 
+
+
+
 $lang="fr-CA";
 $tempFolder="$env:temp"
+
+
+$content = Get-Content "C:\windows\panther\Unattend.xml"
+
+$content = $content.Replace('<settings pass="oobeSystem" wasPassProcessed="true">',
+
+@"
+<settings pass="oobeSystem" wasPassProcessed="true">
+  <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <InputLocale>040c:0000040c;0809:00000809</InputLocale>
+    <SystemLocale>fr-CA</SystemLocale>
+    <UILanguage>fr-CA</UILanguage>
+    <UserLocale>fr-CA</UserLocale>
+    <UILanguageFallback>en-US</UILanguageFallback>
+  </component>
+"@
+)
+
+
+$content | Set-Content "C:\windows\panther\Unattend.xml"
+
+
+& C:\Windows\System32\oobe\oobeldr.exe /system
+
 
 
 #Order the list accordingly 
@@ -253,29 +280,32 @@ function  ModifyRegistry($Regini, $profileName)
 # ModifyRegistry  -Regini $regini -profilename "def"
 # &reg unload hku\def
 
+#----------------------------------------------------------------------------
+# $script=@'
+# $UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+# $UserLanguageList.Add("en-US")
+# Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
-$script=@'
-$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
-$UserLanguageList.Add("en-US")
-Set-WinUserLanguageList -LanguageList $UserLanguageList -force
+# Add-Type -AssemblyName PresentationFramework
+# [System.Windows.MessageBox]::Show("Il faut redémarrer le poste pour le mettre en français. Cliquez sur OK pour redémarrer.", "Français")
+# # restart-computer
+# & schtasks /run /tn \Microsoft\Windows\InstallService\ScanForUpdates
 
-Add-Type -AssemblyName PresentationFramework
-[System.Windows.MessageBox]::Show("Il faut redémarrer le poste pour le mettre en français. Cliquez sur OK pour redémarrer.", "Français")
+# '@
+
+# New-Item  c:\programdata\script\ -ItemType Directory -Force  | Out-Null
+
+# $script | Out-File  "c:\programdata\script\frca.ps1" -Force -Encoding utf8
+
+
+# new-itemproperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name setToFrCA -Value "powershell -ExecutionPolicy bypass -WindowStyle hidden -File c:\programdata\script\frca.ps1"  -Force | out-null;
+
+
 # restart-computer
-& schtasks /run /tn \Microsoft\Windows\InstallService\ScanForUpdates
+# "Restarted"   | out-file "$env:temp\wow1.txt" -append
 
-'@
+#----------------------------------------------------------------
 
-New-Item  c:\programdata\script\ -ItemType Directory -Force  | Out-Null
-
-$script | Out-File  "c:\programdata\script\frca.ps1" -Force -Encoding utf8
-
-
-new-itemproperty "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name setToFrCA -Value "powershell -ExecutionPolicy bypass -WindowStyle hidden -File c:\programdata\script\frca.ps1"  -Force | out-null;
-
-
-restart-computer
-"Restarted"   | out-file "$env:temp\wow1.txt" -append
 
 # set in canada
 # set-WinHomeLocation -geoid 39

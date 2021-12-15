@@ -1,0 +1,40 @@
+<FirstExperience>
+  <oobe>
+    <defaults>
+      <language>3084</language>
+      <location>39</location>
+      <keyboard>0809:00000809</keyboard>
+      <timezone>Eastern Standard Time</timezone>
+      <adjustForDST>true</adjustForDST>
+    </defaults>
+  </oobe>
+</FirstExperience>
+
+<!-- 
+
+    <defaults>
+      <language>1033</language>
+      <location>244</location>
+      <keyboard>0409:00000409</keyboard>
+      <timezone>Central Europe Daylight Time</timezone>
+      <adjustForDST>true</adjustForDST>
+    </defaults> 
+    Language: 
+    1033 (en-US)
+    3084 (fr-CA)
+    1036 (fr-fr)
+    Location
+    244 (US)
+    39 (Canada)
+    84 (france)
+    Keyboard
+
+    Fr-CA
+    fr-CA: Canadian Multilingual Standard (0c0c:00011009)	
+    en-CA: Canadian Multilingual Standard (1009:00011009)
+    fr-FR
+    fr-FR: French (040c:0000040c)
+    en-US
+    en-US: United States - English (0409:00000409)
+
+    -->
