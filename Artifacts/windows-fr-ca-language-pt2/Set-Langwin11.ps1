@@ -43,6 +43,12 @@ New-Item -Path "C:\windows\System32\oobe" -Name "info" -ItemType "directory"
 
 $oobe | Set-Content "C:\windows\System32\oobe\info\oobe.xml"
 
+#---------------------------------------------------------------
+
+New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\ImageServicingData" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
+New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
+
+
 #--------------------------------------------------------------
 
 & C:\Windows\System32\oobe\oobeldr.exe /system
