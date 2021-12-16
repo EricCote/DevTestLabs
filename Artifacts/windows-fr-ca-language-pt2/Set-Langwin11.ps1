@@ -28,6 +28,11 @@ if ($Count) {
 
 $unattend= $unattend -replace "(?ms)<UserAccounts>.*?</UserAccounts>", ""
 
+
+$unattend= $unattend -replace 'wasPassProcessed="true"', ""
+
+
+
 $unattend | Set-Content "C:\windows\panther\Unattend.xml"
 
 #--------------------------------------------------------------
