@@ -11,10 +11,10 @@ $unattend = Get-Content "C:\windows\panther\Unattend.xml" -raw
 #add intl section, (if it doesn't exist)
 $Count = [regex]::matches($unattend,"Microsoft-Windows-International-Core").count
 
-if ($Count) {
+if ($Count -eq 0) {
   $unattend = $unattend.Replace('<settings pass="oobeSystem" wasPassProcessed="true">',
   @"
-  <settings pass="oobeSystem" wasPassProcessed="true">
+  <settings pass="oobeSystem">
     <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <InputLocale>040c:0000040c;0809:00000809</InputLocale>
       <SystemLocale>fr-CA</SystemLocale>
@@ -27,11 +27,6 @@ if ($Count) {
 }
 
 $unattend= $unattend -replace "(?ms)<UserAccounts>.*?</UserAccounts>", ""
-
-
-$unattend= $unattend -replace 'wasPassProcessed="true"', ""
-
-
 
 $unattend | Set-Content "C:\windows\panther\Unattend.xml"
 
