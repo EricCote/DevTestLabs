@@ -1,15 +1,12 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Wait half a minute",
-    "description": "This is going to wait half a minute. This needs to run before the sysprep artefact when it runs right after a reboot.",
-    "publisher": "Eric Côté",
-    "tags": [  
-        "wait",
-        "sleep" 
-    ],
-    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
-    "targetOsType": "Windows",
-    "runCommand": {
-        "commandToExecute": "ping 127.0.0.1 -n 30 >nul"
-    }
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Wait half a minute",
+  "description": "This is going to wait half a minute. This needs to run before the sysprep artefact when it runs right after a reboot.",
+  "publisher": "Eric Côté",
+  "tags": ["wait", "sleep"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "ping 127.0.0.1 -n 30 >nul"
+  }
 }

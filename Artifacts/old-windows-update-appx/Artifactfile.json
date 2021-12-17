@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "Update Store Appx",
+  "title": "[obsolete] Update Store Appx",
   "description": "Update the Windows Store Apps (appx) to latest version.",
   "publisher": "Eric Côté",
   "tags": [
@@ -11,7 +11,7 @@
     "Regional Settings",
     "Language"
   ],
-  "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Update-Appx.ps1"

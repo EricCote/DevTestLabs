@@ -4,7 +4,7 @@
   "description": "Will install WSL2 on Windows Client.",
   "publisher": "Eric Côté",
   "tags": ["Wsl"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ie.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-wsl2/wsl.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-wsl2.ps1"

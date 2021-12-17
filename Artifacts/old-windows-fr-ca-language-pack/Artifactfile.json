@@ -4,7 +4,7 @@
   "description": "Downloads and installs the French-Canada LanguagePack. Allows the UI to display in French-Canada. You will need to set the UI manually, or execute the French-Canadidian Artifact.",
   "publisher": "Eric Côté",
   "tags": ["Français", "Francais", "French", "Language Pack"],
-  "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Add-FrCaLanguagePack.ps1"

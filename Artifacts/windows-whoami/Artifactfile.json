@@ -4,7 +4,7 @@
   "description": "This will run 'who am I'",
   "publisher": "Eric Côté",
   "tags": ["Who", "sleep"],
-  "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "whoami /all >c:\\dbSamples\\result.txt"

@@ -4,7 +4,7 @@
   "description": "Installs the GPU drivers for AMD Machines (NV-v4 family)",
   "publisher": "Eric Côté",
   "tags": ["AMD", "GPU", "Driver"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/chrome.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-amd-gpu-driver/amd.svg",
   "targetOsType": "Windows",
   "runAzureVMExtension": {
     "publisher": "Microsoft.HpcCompute",

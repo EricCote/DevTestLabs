@@ -4,7 +4,7 @@
   "description": "Sets the country and keyboards to French Canadian",
   "publisher": "Eric Côté",
   "tags": ["Français", "Francais", "French", "Canada", "Regional Settings"],
-  "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"

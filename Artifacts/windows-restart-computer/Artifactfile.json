@@ -1,21 +1,18 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Restart Computer",
-    "description": "Reboots the compter",
-    "publisher": "Eric Côté",
-    "tags": [  
-        "Reboot",
-        "Restart" 
-    ],
-    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
-    "targetOsType": "Windows",
-    "runCommand": {
-        "commandToExecute": "ver >nul"
-    },
-   "postDeployActions": [ 
-       {
-            "delayStart": 5,
-            "action": "restart"
-        }
-    ]
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Restart Computer",
+  "description": "Reboots the compter",
+  "publisher": "Eric Côté",
+  "tags": ["Reboot", "Restart"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "ver >nul"
+  },
+  "postDeployActions": [
+    {
+      "delayStart": 5,
+      "action": "restart"
+    }
+  ]
 }
