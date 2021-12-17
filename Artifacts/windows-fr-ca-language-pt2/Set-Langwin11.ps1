@@ -1,8 +1,8 @@
 ﻿
-$UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
-$UserLanguageList.Add("en-US")
+# $UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+# $UserLanguageList.Add("en-US")
 
-Set-WinUserLanguageList -LanguageList $UserLanguageList -force
+# Set-WinUserLanguageList -LanguageList $UserLanguageList -force
 
 #-------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ if ($Count -eq 0) {
   @"
   <settings pass="oobeSystem">
     <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <InputLocale>040c:0000040c;0809:00000809</InputLocale>
+      <InputLocale>0c0c:00011009;1009:00011009</InputLocale>
       <SystemLocale>fr-CA</SystemLocale>
       <UILanguage>fr-CA</UILanguage>
       <UserLocale>fr-CA</UserLocale>
@@ -52,8 +52,8 @@ $unattend | Set-Content "C:\windows\panther\Unattend.xml"
 
 #---------------------------------------------------------------
 
-New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\ImageServicingData" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
-New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
+# New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\ImageServicingData" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
+# New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
 New-ItemProperty -path "HKLM:\SYSTEM\Setup\Status\UnattendPasses" -name "oobeSystem" -value 0  -Force | Out-Null
 
 
