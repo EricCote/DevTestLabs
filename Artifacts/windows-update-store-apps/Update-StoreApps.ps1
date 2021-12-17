@@ -1,7 +1,12 @@
 ﻿function Update-MicrosoftStoreApps{
     Write-Host "Updating Microsoft Store applications."
-    (Get-WmiObject -Namespace "root\cimv2\mdm\dmmap" -Class "MDM_EnterpriseModernAppManagement_AppManagement01").UpdateScanMethod() | Out-Null
+    (Get-WmiObject `
+          -Namespace "root\cimv2\mdm\dmmap" `
+          -Class "MDM_EnterpriseModernAppManagement_AppManagement01" `
+    ).UpdateScanMethod() | Out-Null
 }
+
+Update-MicrosoftStoreApps
 
 
 

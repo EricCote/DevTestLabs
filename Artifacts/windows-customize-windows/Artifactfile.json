@@ -4,8 +4,7 @@
   "description": "Does abunch of stuff",
   "publisher": "Eric Côté",
   "tags": ["Windows"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ssdt.png",
-
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Customize-Windows.ps1"

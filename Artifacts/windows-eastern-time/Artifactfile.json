@@ -1,17 +1,12 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Eastern Time Zone",
-    "description": "Sets the Time Zone to Eastern Standard Time",
-    "publisher": "Eric Côté",
-    "tags": [
-        "time",
-        "time zone",
-        "Eastern",
-        "EST"
-    ],
-    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
-    "targetOsType": "Windows",
-    "runCommand": {
-        "commandToExecute": "tzutil /s \"Eastern Standard Time\""
-    }
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Eastern Time Zone",
+  "description": "Sets the Time Zone to Eastern Standard Time",
+  "publisher": "Eric Côté",
+  "tags": ["time", "time zone", "Eastern", "EST"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "tzutil /s \"Eastern Standard Time\""
+  }
 }
