@@ -4,7 +4,7 @@
   "description": "Will install Docker on Windows 10.",
   "publisher": "Eric Côté",
   "tags": ["Docker"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ie.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-docker-win10/docker.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Docker.ps1"
