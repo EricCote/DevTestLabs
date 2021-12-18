@@ -87,10 +87,7 @@ function Invoke-Update
     $credential = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$($UserName)", $secPassword)
     $content = @"
     whoami | Out-File -FilePath "c:\ProgramData\temp\out.txt";
-    (Get-WmiObject `
-       -Namespace "root\cimv2\mdm\dmmap" `
-       -Class "MDM_EnterpriseModernAppManagement_AppManagement01" `
-    ).UpdateScanMethod() | Out-File -FilePath "c:\ProgramData\temp\out.txt" -append;
+    (Get-WmiObject -Namespace "root\cimv2\mdm\dmmap" -Class "MDM_EnterpriseModernAppManagement_AppManagement01").UpdateScanMethod() | Out-File -FilePath "c:\ProgramData\temp\out.txt" -append;
     Start-Sleep -s 240;
     "Waited 4 minutes" |  Out-File -FilePath "c:\ProgramData\temp\out.txt" -append;
 "@
