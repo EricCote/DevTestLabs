@@ -86,13 +86,15 @@ function Invoke-Update
     $secPassword = ConvertTo-SecureString -String $Password -AsPlainText -Force
     $credential = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$($UserName)", $secPassword)
     $content = @"
+    whoami | Out-File -FilePath "c:\ProgramData\temp\out.txt";
     (Get-WmiObject `
        -Namespace "root\cimv2\mdm\dmmap" `
        -Class "MDM_EnterpriseModernAppManagement_AppManagement01" `
-    ).UpdateScanMethod() | Out-Default
+    ).UpdateScanMethod() | Out-File -FilePath "c:\ProgramData\temp\out.txt" -append
 "@
 
-    $content | Out-File "c:\ProgramData\temp\update.ps1"
+
+    $content | Out-File "c:\ProgramData\temp\update.ps1" 
 
     $oldPolicyValue = Set-LocalAccountTokenFilterPolicy
     try
@@ -114,13 +116,12 @@ function Invoke-Update
     Enable-PSRemoting -Force -SkipNetworkProfileCheck
 
     $ProgressPreference = "SilentlyContinue"
-    $UserName = 'artifactInstaller'
+    $UserName = 'SpecialEricUser'
     $Password = 'Allo12345678!'
     Add-LocalAdminUser -UserName $UserName -Password $password 
 
     New-Item -Path "c:\ProgramData" -Name "temp" -ItemType Directory 
 
-    
 
 
     Invoke-Update -UserName $UserName -Password $Password
