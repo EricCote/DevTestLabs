@@ -27,13 +27,43 @@
       "description": "Comma separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>reference</a>  <br />
       <br />
       <dl>
-      <dt>HTML</dt>  
-      <dd>is a markup language</dd>  
-      <dt>HTML</dt>  
-      <dd>is a markup language</dd>  
+      <dt>CoreEditor</dt>  
+      <dd>Visual Studio core editor (mandatory)</dd>  
+      <dt>NetWeb</dt>  
+      <dd>ASP.NET and web development</dd>  
+      <dt>Azure</dt>  
+      <dd>Azure development</dd>  
+      <dt>Data</dt>  
+      <dd>Data storage and processing</dd>  
+      <dt>DataScience</dt>  
+      <dd>Data science and analytical applications</dd>  
+      <dt>ManagedDesktop</dt>  
+      <dd>.NET desktop development</dd>  
+      <dt>ManagedGame</dt>  
+      <dd>Game development with Unity</dd>  
+      <dt>NativeCrossPlat</dt>  
+      <dd>Linux development with C++</dd>  
+      <dt>NativeDesktop</dt>  
+      <dd>Desktop development with C++</dd>  
+      <dt>NativeGame</dt>  
+      <dd>Game development with C++</dd>  
+      <dt>NativeMobile</dt>  
+      <dd>Mobile development with C++</dd>  
+      <dt>NetCrossPlat</dt>  
+      <dd>Mobile development with .NET</dd>  
+      <dt>Node</dt>  
+      <dd>Node.js development</dd>  
+      <dt>Office</dt>  
+      <dd>Office/SharePoint development</dd>  
+      <dt>Python</dt>  
+      <dd>Python development</dd>  
+      <dt>Universal</dt>  
+      <dd>Universal Windows Platform development</dd>  
+      <dt>VisualStudioExtension</dt>  
+      <dd>Visual Studio extension development</dd>  
       </dl>
       ",
-      "allowedValues": ["Enterprise", "Professional", "Community"],
+
       "defaultValue": "Community"
     },
     "aspnet": {
