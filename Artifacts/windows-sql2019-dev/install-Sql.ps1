@@ -98,7 +98,7 @@ if ($installType -ne "completeAfterDeploy" )
        if ($sqlEdition -eq "dev") 
                 {$isofile="SQLServer2019-x64-ENU-Dev.iso";
                  $source="https://go.microsoft.com/fwlink/?linkid=866662"} 
-                else 
+        else  # "eval" 
                 {$isofile="SQLServer2019-x64-ENU.iso";
                  $source="https://go.microsoft.com/fwlink/?linkid=866664"}
 

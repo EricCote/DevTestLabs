@@ -1,16 +1,43 @@
+$ProgressPreference = 'SilentlyContinue'
+
 
 $path="C:\bi"
 mkdir $path
 $out="$path\out.txt"
 
-$wc = new-object System.Net.WebClient
-$wc.DownloadFile("https://download.microsoft.com/download/7/0/9/709CBE7F-2005-4A83-B405-CA37A9AB8DC8/PowerBIReportServer.exe", "$path\PowerBIReportServer.exe")
 
-$wc.DownloadFile("https://download.microsoft.com/download/7/0/9/709CBE7F-2005-4A83-B405-CA37A9AB8DC8/PBIDesktopRS_x64.msi", "$path\PBIDesktopRS_x64.msi")
-$wc.DownloadFile("https://download.microsoft.com/download/F/F/9/FF945E45-7D61-49DD-B982-C5D93D3FB0CF/PowerBiReportBuilder.en-US.msi", "$path\PowerBiReportBuilder.en-US.msi")
-$wc.DownloadFile("https://download.microsoft.com/download/7/3/8/73806360-39F4-4EFA-8369-27F4488C764C/SSRS.MobileReportPublisher.Installer.msi", "$path\SSRS.MobileReportPublisher.Installer.msi")
-$wc.DownloadFile("https://download.microsoft.com/download/5/E/B/5EB40744-DC0A-47C0-8B0A-1830E74D3C23/ReportBuilder.msi", "$path\ReportBuilder.msi")
-$wc.Dispose()
+$link1="https://aka.ms/pbireportserver"
+$result= Invoke-WebRequest -Uri $link1 -UseBasicParsing -MaximumRedirection 0 -ErrorAction ignore
+$result.Headers.Location -match "=(.*)"
+$num = $matches[1]
+
+$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=$num"  -UseBasicParsing).RawContent
+$myMatches = [regex]::Matches($page,'{url:\"(.*?)\"')
+$links = $myMatches | % { $_.Groups[1].value}
+$links | % {  Invoke-WebRequest -Uri $_  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $_  -Leaf))    }
+
+
+$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=58158"  -UseBasicParsing).RawContent
+$page -match '{url:\"(.*?)\"'
+$reportBuilderSrc = $matches[1]
+Invoke-WebRequest -Uri $reportBuilderSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $reportBuilderSrc  -Leaf))
+
+
+$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=50400"  -UseBasicParsing).RawContent
+$page -match '{url:\"(.*?)\"'
+$reportMobileSrc = $matches[1]
+Invoke-WebRequest -Uri $reportMobileSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $reportMobileSrc -Leaf))
+
+
+
+$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=53613"  -UseBasicParsing).RawContent
+$page -match '{url:\"(.*?)\"'
+$reportBuilderSrc = $matches[1]
+Invoke-WebRequest -Uri $reportBuilderSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $reportBuilderSrc -Leaf))
+
+
+$path = $env:temp
+
 
 & "$path\PowerBIReportServer.exe" /quiet /IAcceptLicenseTerms /Edition=Eval | out-default
 

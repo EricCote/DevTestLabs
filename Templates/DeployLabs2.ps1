@@ -34,7 +34,7 @@ $gitHubToken=Stuff-EnvironmentVariable -Name "gitHubToken" -Description "persona
 $VsEntKey=   Stuff-EnvironmentVariable -Name "vsEnterpriseKey" -Description "Visual Studio Enterprise ProductKey"
 $VsProKey=   Stuff-EnvironmentVariable -Name "vsProfessionalKey" -Description "Visual Studio Professional ProductKey"
 
-az account set --subscription sub3
+az account set --subscription sub2
 
 # View your current Azure PowerShell session context
 # This session state is only applicable to the current session and will not affect other sessions
