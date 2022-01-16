@@ -1,15 +1,11 @@
 [CmdletBinding()]
 Param ( 
 [string] $edition = "enterprise",
+[string] $vsVersion = "2017",
 [bool]  $preview = $true,
-[bool]  $aspnet = $true,
-[bool]  $netcore = $true,
-[bool]  $desktop = $true,
-[bool]  $azure = $true,
-[bool]  $data = $true,
-[bool]  $node = $true,
-[string] $workloads= "CoreEditor,Azure,Data,ManagedDesktop,NetWeb,Node",
-[string] $languages =  "en-US", 
+
+[string] $workloads= "",
+[string] $languages =  "en-US, fr-FR, es-ES ", 
 [string] $key = ""  )
 
 
@@ -18,59 +14,23 @@ $keyNoDashes=$key.ToUpper().Replace("-","");
 # the param "--productKey" is only sent when there is a $key
 $stringKey= if ($key) {"--productKey"} else {""};
 
-#The web source always points to the latest release of Visual Studio 2022 Enterprise. 
 
-$WebSourceEnt = "https://aka.ms/vs/17/release/vs_enterprise.exe";
-$WebSourcePro = "https://aka.ms/vs/17/release/vs_professional.exe";
-$WebSourceCom = "https://aka.ms/vs/17/release/vs_community.exe";
+#Version number. 2017=15, 2019=16, 2022=17
+$ver=if ($vsVersion -eq "2017") {"15"} elseif ($vsVersion -eq "2019") {"16"} else {"17"}
 
-switch ($edition.Substring(0,3)) 
-{ 
-  "ent" {$WebSource=$WebSourceEnt} 
-  "pro" {$WebSource=$WebSourcePro} 
-  default {$WebSource=$WebSourceCom}
-}
-
-$langs=$languages.Split(',').Trim()
-
-$languageParams=@();
-
-foreach ($lang in $langs) {
-    $languageParams += @("--addProductLang", $lang)
-}
+$prev =if($preview ) {"pre"} else {"release"}
 
 
-$channel="VisualStudio.17.Release"
-$workloads=@()
+$source = "https://aka.ms/vs/$ver/$prev/vs_$($edition.ToLower()).exe";
 
+$languageParams=$languages.Split(',') | % { "--addProductLang $($_.Trim())" }
 
+$prev =if($preview ) {"Preview"} else {"Release"}
 
+$channel="VisualStudio.$ver.$prev"
 
+$loads = ($workloads -replace "\+", ";includeRecommended" -replace "\*",";includeOptional").split(",") | % { "--add  Microsoft.VisualStudio.Workload.$($_.trim())"}
 
-if ($Preview)
-{
-   $websource = $Websource.Replace("release","pre")
-   $channel="VisualStudio.17.Preview"
-}
-
-if ($aspnet){
-   $workloads += @("--add", "Microsoft.VisualStudio.Workload.NetWeb")
-}
-if ($netcore){
-   $workloads += @("--add", "Microsoft.VisualStudio.Workload.NetCoreTools")
-}
-if ($desktop){
-   $workloads += @("--add", "Microsoft.VisualStudio.Workload.ManagedDesktop")
-}
-if ($azure){
-   $workloads += @("--add", "Microsoft.VisualStudio.Workload.Azure")
-}
-if ($data){
-   $workloads += @("--add", "Microsoft.VisualStudio.Workload.Data")
-}
-if ($node){
-   $workloads += @("--add", "Microsoft.VisualStudio.Workload.Node")
-}
 
 $dest = ( "${env:Temp}\vs_setup.exe");
 
@@ -85,11 +45,11 @@ catch
 
 
 try
-{
-     & $dest `
+{      
+      & $dest `
          --channelid $channel `
          --productid Microsoft.VisualStudio.Product.$edition `
-         $workloads `
+         $loads `
          $languageParams `
          $stringKey $keyNoDashes `
          --includeRecommended --quiet --wait `
@@ -97,11 +57,11 @@ try
 }
 catch
 {
-    Write-Error 'Failed to install VS2022';
+    Write-Error 'Failed to install Visual studio';
 }
 
 
-"& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $workloads $($languageParams) $stringKey $keyNoDashes --includeRecommended --quiet --wait "
+"& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $loads $languageParams $stringKey $keyNoDashes --includeRecommended --quiet --wait "
 
 
 #let's print the key.

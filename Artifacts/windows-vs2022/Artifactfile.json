@@ -14,21 +14,32 @@
       "allowedValues": ["Enterprise", "Professional", "Community"],
       "defaultValue": "Community"
     },
+    "vsVersion": {
+      "type": "string",
+      "displayName": "Version",
+      "description": "Visual Studio version (2017, 2019, 2022)",
+      "allowedValues": ["2017", "2019", "2022"],
+      "defaultValue": "2022"
+    },
     "preview": {
       "type": "bool",
       "displayName": "Preview?",
-      "description": "Installs the Preview or the Released version of <a href='https://www.visualstudio.com'>Visual</a> Studio <br />2022",
-
+      "description": "Install latest Preview version. (false: latest released version)",
       "defaultValue": false
     },
     "workloads": {
       "type": "string",
       "displayName": "Workloads",
-      "description": "Comma separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>reference</a>  <br />
-      <br />
+      "description": "Comma separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>Reference</a>  <br />
+      <br />Use symbols to include additional components:
+      <br /> 
+      [+] include recommended, [*] include optional, [+*] include all components 
+      <br />  <br />
+      ex: Azure+,NetWeb*,Data+*
+      <br />  <br />
       <dl>
       <dt>CoreEditor</dt>  
-      <dd>Visual Studio core editor (mandatory)</dd>  
+      <dd>Visual Studio core editor (implicit)</dd>  
       <dt>NetWeb</dt>  
       <dd>ASP.NET and web development</dd>  
       <dt>Azure</dt>  
@@ -48,7 +59,9 @@
       <dt>NativeGame</dt>  
       <dd>Game development with C++</dd>  
       <dt>NativeMobile</dt>  
-      <dd>Mobile development with C++</dd>  
+      <dd>Mobile development with C++</dd> 
+      <dt>NetCoreTools</dt>  
+      <dd>.NET cross-platform development (2017 and 2019 only)</dd> 
       <dt>NetCrossPlat</dt>  
       <dd>Mobile development with .NET</dd>  
       <dt>Node</dt>  
@@ -61,51 +74,17 @@
       <dd>Universal Windows Platform development</dd>  
       <dt>VisualStudioExtension</dt>  
       <dd>Visual Studio extension development</dd>  
+      <dt>WebCrossPlat</dt>  
+      <dd>Mobile development with JavaScript (Vs2017 only)</dd>  
       </dl>
       ",
 
       "defaultValue": "Community"
     },
-    "aspnet": {
-      "type": "bool",
-      "displayName": "ASP.NET and web development tools",
-      "description": "Tools for developing ASP.NET and Web applications including IIS Express, Web Deploy, and SQL Server LocalDB.",
-      "defaultValue": true
-    },
-    "netcore": {
-      "type": "bool",
-      "displayName": ".NET Core cross-platform development",
-      "description": "Build cross-platform applications using .NET Core, ASP.NET Core, HTML, JavaScript, and container development tools.",
-      "defaultValue": true
-    },
-    "desktop": {
-      "type": "bool",
-      "displayName": ".NET desktop development",
-      "description": "Build WPF, Windows Forms and console applications using the .NET Framework.",
-      "defaultValue": true
-    },
-    "azure": {
-      "type": "bool",
-      "displayName": "Azure development",
-      "description": "Azure SDK, tools, and projects for developing cloud apps and creating resources.",
-      "defaultValue": true
-    },
-    "data": {
-      "type": "bool",
-      "displayName": "Data storage and processing",
-      "description": "Connect, develop and test data solutions using SQL Server, Azure Data Lake, Hadoop or Azure ML.",
-      "defaultValue": true
-    },
-    "node": {
-      "type": "bool",
-      "displayName": "Node.js development",
-      "description": "Build scalable network applications using Node.js, an asynchronous event-driven JavaScript runtime.",
-      "defaultValue": true
-    },
-    "languages": {
+     "languages": {
       "type": "string",
       "displayName": "Languages",
-      "description": "You can specify multiple languages using a comma-separated list (,). Available values are cs-CZ,de-DE,en-US,es-ES,fr-FR,it-IT,ja-JP,ko-KR,pl-PL,pt-BR,ru-RU,tr-TR,zh-CN,zh-TW.",
+      "description": "You can specify multiple languages using a comma-separated list (,). Available values are <a href='https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2022#list-of-language-locales'>here</a>",
       "defaultValue": "en-US"
     },
 
