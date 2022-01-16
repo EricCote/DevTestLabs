@@ -8,6 +8,7 @@ Param (
 [bool]  $azure = $true,
 [bool]  $data = $true,
 [bool]  $node = $true,
+[string] $workloads= "CoreEditor,Azure,Data,ManagedDesktop,NetWeb,Node",
 [string] $languages =  "en-US", 
 [string] $key = ""  )
 
@@ -41,6 +42,10 @@ foreach ($lang in $langs) {
 
 $channel="VisualStudio.17.Release"
 $workloads=@()
+
+
+
+
 
 if ($Preview)
 {

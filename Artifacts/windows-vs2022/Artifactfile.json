@@ -21,6 +21,21 @@
 
       "defaultValue": false
     },
+    "workloads": {
+      "type": "string",
+      "displayName": "Workloads",
+      "description": "Comma separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>reference</a>  <br />
+      <br />
+      <dl>
+      <dt>HTML</dt>  
+      <dd>is a markup language</dd>  
+      <dt>HTML</dt>  
+      <dd>is a markup language</dd>  
+      </dl>
+      ",
+      "allowedValues": ["Enterprise", "Professional", "Community"],
+      "defaultValue": "Community"
+    },
     "aspnet": {
       "type": "bool",
       "displayName": "ASP.NET and web development tools",
