@@ -17,7 +17,8 @@
     "preview": {
       "type": "bool",
       "displayName": "Preview?",
-      "description": "Installs the Preview or the Released version of Visual Studio 2017.",
+      "description": "Installs the Preview or the Released version of <a href='https://www.visualstudio.com'>Visual</a> Studio <br />2022",
+
       "defaultValue": false
     },
     "aspnet": {
