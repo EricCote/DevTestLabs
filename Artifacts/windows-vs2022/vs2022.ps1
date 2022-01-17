@@ -22,7 +22,6 @@ $prev =if($preview -eq 'Preview') {"pre"} else {"release"}
 
 $source = "https://aka.ms/vs/$ver/$prev/vs_$Edition.exe";
 
-$source
 
 $languageParams=$languages.Split(',') | % { "--addProductLang $($_.Trim())" }
 
@@ -37,7 +36,7 @@ $dest = ( "${env:Temp}\vs_setup.exe");
 
 try
 {
-    (New-Object System.Net.WebClient).DownloadFile($WebSource, $dest);
+    (New-Object System.Net.WebClient).DownloadFile($source, $dest);
 }
 catch
 {
