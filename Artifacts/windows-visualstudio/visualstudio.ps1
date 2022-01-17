@@ -41,11 +41,12 @@ catch
 }
 
 $myParams =  " --productid Microsoft.VisualStudio.Product.$edition $loads $languageParams $stringKey $keyNoDashes --quiet  --wait  "
+$myParams2 = $myParams.Split(" ");
 
 
 try
 {      
-      & $dest $myParams | Out-Default;
+      & $dest $myParams2 | Out-Default;
 }
 catch
 {
