@@ -3,7 +3,7 @@ Param (
 [string] $edition = "enterprise",
 [string] $vsVersion = "2022",
 [string]  $preview = "Release",
-[string] $workloads= "",
+[string] $workloads= "data,netweb",
 [string] $languages =  "en-US", 
 [string] $key = ""  )
 
@@ -40,17 +40,12 @@ catch
     Write-Error "Failed to download vs2022 installer";
 }
 
+$myParams =  " --productid Microsoft.VisualStudio.Product.$edition $loads $languageParams $stringKey $keyNoDashes --quiet  --wait  "
+
 
 try
 {      
-      & $dest `
-         --channelid $channel `
-         --productid Microsoft.VisualStudio.Product.$edition `
-         $loads `
-         $languageParams `
-         $stringKey $keyNoDashes `
-         --quiet  --wait `
-              | Out-Default;
+      & $dest $myParams | Out-Default;
 }
 catch
 {
@@ -58,17 +53,6 @@ catch
 }
 
 
-"& $dest --channelid $channel --productid Microsoft.VisualStudio.Product.$edition $loads $languageParams $stringKey $keyNoDashes --includeRecommended --quiet --wait "
+"& $dest $myParams"
 
 
-#let's print the key.
-#"This is the key: " + $key;
-#Other activation method.
-#try
-#{
-#  & "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\StorePID.exe" NJVYC-BMHX2-G77MM-4XJMR-6Q8QF 8860 | Out-Null;
-#}
-#catch
-#{
-#   Write-Error 'Failed to activate VS2019';
-#}
