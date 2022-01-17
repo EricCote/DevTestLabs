@@ -39,8 +39,6 @@
       ex: Azure+,NetWeb*,Data+*
       <br />  <br />
       <dl>
-      <dt>CoreEditor</dt>  
-        <dd>Visual Studio core editor (implicit)</dd>  
       <dt>NetWeb</dt>  
         <dd>ASP.NET and web development</dd>  
       <dt>Azure</dt>  
