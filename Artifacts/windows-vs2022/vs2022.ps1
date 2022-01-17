@@ -20,13 +20,13 @@ $prev =if($preview -eq 'Preview') {"pre"} else {"release"}
 $source = "https://aka.ms/vs/$ver/$prev/vs_$Edition.exe";
 
 
-$languageParams=$languages.Split(',') | % { "--addProductLang $($_.Trim())" }
+$languageParams=$languages.Split(',') | where {$_ -ne "en-US"} | % { "--addProductLang $($_.Trim())" } 
 
 $prev =if($preview ) {"Preview"} else {"Release"}
 
 $channel="VisualStudio.$ver.$preview"
 
-$loads = ($workloads -replace "\+", ";includeRecommended" -replace "\*",";includeOptional").split(",") | % { "--add  Microsoft.VisualStudio.Workload.$($_.trim())"}
+$loads = ($workloads -replace "\+", ";includeRecommended" -replace "\*",";includeOptional").split(",") | ? -Property Length -GT 0 | % { "--add  Microsoft.VisualStudio.Workload.$($_.trim())"}
 
 
 $dest = ( "${env:Temp}\vs_setup.exe");
@@ -49,7 +49,7 @@ try
          $loads `
          $languageParams `
          $stringKey $keyNoDashes `
-         --includeRecommended --quiet --norestart --wait `
+         --quiet --norestart --wait `
               | Out-Default;
 }
 catch

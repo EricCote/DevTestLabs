@@ -78,7 +78,8 @@
       </dl>
       ",
 
-      "defaultValue": "NetWeb,Azure,Data"
+      "defaultValue": "NetWeb,Azure,Data",
+      "allowEmpty": true
     },
     "Languages": {
       "type": "string",
