@@ -16,10 +16,7 @@ $stringKey= if ($key) {"--productKey"} else {""};
 
 #Version number. 2017=15, 2019=16, 2022=17
 $ver=if ($vsVersion -eq "2017") {"15"} elseif ($vsVersion -eq "2019") {"16"} else {"17"}
-
 $prev =if($preview -eq 'Preview') {"pre"} else {"release"}
-
-
 $source = "https://aka.ms/vs/$ver/$prev/vs_$Edition.exe";
 
 
@@ -52,8 +49,8 @@ try
          $loads `
          $languageParams `
          $stringKey $keyNoDashes `
-         --includeRecommended --quiet --wait `
-              | Out-Null;
+         --includeRecommended --quiet --norestart --wait `
+              | Out-Default;
 }
 catch
 {
