@@ -91,7 +91,7 @@
 
     "Key": {
       "type": "string",
-      "displayName": "Visual Studio key",
+      "displayName": "Visual Studio key (optional)",
       "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial.",
       "allowEmpty": true,
       "defaultValue": "VHF9H-NXBBB-638P6-6JHCY-88JWH"

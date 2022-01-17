@@ -20,7 +20,9 @@ $ver=if ($vsVersion -eq "2017") {"15"} elseif ($vsVersion -eq "2019") {"16"} els
 $prev =if($preview -eq 'Preview') {"pre"} else {"release"}
 
 
-$source = "https://aka.ms/vs/$ver/$prev/vs_$($edition.ToLower()).exe";
+$source = "https://aka.ms/vs/$ver/$prev/vs_$Edition.exe";
+
+$source
 
 $languageParams=$languages.Split(',') | % { "--addProductLang $($_.Trim())" }
 
