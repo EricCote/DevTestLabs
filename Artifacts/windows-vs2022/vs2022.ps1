@@ -2,7 +2,7 @@
 Param ( 
 [string] $edition = "enterprise",
 [string] $vsVersion = "2017",
-[bool]  $preview = $true,
+[string]  $preview = "Release",
 [string] $workloads= "",
 [string] $languages =  "en-US", 
 [string] $key = ""  )

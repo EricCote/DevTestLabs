@@ -26,7 +26,7 @@
       "displayName": "Release or Preview?",
       "description": "Install latest release or preview version",
       "allowedValues": ["Release", "Preview"],
-      "defaultValue": false
+      "defaultValue": "Release"
     },
     "workloads": {
       "type": "string",
