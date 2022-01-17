@@ -7,28 +7,28 @@
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/vs2017.png",
 
   "parameters": {
-    "edition": {
+    "Edition": {
       "type": "string",
       "displayName": "Edition",
       "description": "Visual Studio Edition (Enterprise, Professional or Community)",
       "allowedValues": ["Enterprise", "Professional", "Community"],
       "defaultValue": "Community"
     },
-    "vsVersion": {
+    "VsVersion": {
       "type": "string",
       "displayName": "Version",
       "description": "Visual Studio version (2017, 2019, 2022)",
       "allowedValues": ["2017", "2019", "2022"],
       "defaultValue": "2022"
     },
-    "preview": {
+    "Preview": {
       "type": "string",
       "displayName": "Release or Preview?",
       "description": "Install latest release or preview version",
       "allowedValues": ["Release", "Preview"],
       "defaultValue": "Release"
     },
-    "workloads": {
+    "Workloads": {
       "type": "string",
       "displayName": "Workloads",
       "description": "Comma separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>Reference</a>  <br />
@@ -82,14 +82,14 @@
 
       "defaultValue": "NetWeb,Azure,Data"
     },
-     "languages": {
+    "Languages": {
       "type": "string",
       "displayName": "Languages",
       "description": "You can specify multiple languages using a comma-separated list (,). Available values are <a href='https://docs.microsoft.com/en-us/visualstudio/install/use-command-line-parameters-to-install-visual-studio?view=vs-2022#list-of-language-locales'>here</a>",
       "defaultValue": "en-US"
     },
 
-    "key": {
+    "Key": {
       "type": "string",
       "displayName": "Visual Studio key",
       "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial.",
@@ -100,6 +100,6 @@
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2022.ps1'' -edition ', parameters('edition'), ' -vsVersion ', parameters('vsVersion'), ' -preview:$', parameters('preview'),    ' -languages ''' , parameters('languages')    ,'''  -key ''', parameters('key'), ''' \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2022.ps1'' -Edition ', parameters('Edition'), ' -VsVersion ', parameters('VsVersion'), ' -Preview ', parameters('Preview'),     ' -Workloads ''' , parameters('Workloads')  , ''' -Languages ''' , parameters('Languages')  , '''  -Key ''', parameters('Key'), ''' \"'  )]"
   }
 }
