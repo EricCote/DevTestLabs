@@ -22,9 +22,10 @@
       "defaultValue": "2022"
     },
     "preview": {
-      "type": "bool",
-      "displayName": "Preview?",
-      "description": "Install latest Preview version. (false: latest released version)",
+      "type": "string",
+      "displayName": "Release or Preview?",
+      "description": "Install latest release or preview version",
+      "allowedValues": ["Release", "Preview"],
       "defaultValue": false
     },
     "workloads": {
@@ -39,47 +40,47 @@
       <br />  <br />
       <dl>
       <dt>CoreEditor</dt>  
-      <dd>Visual Studio core editor (implicit)</dd>  
+        <dd>Visual Studio core editor (implicit)</dd>  
       <dt>NetWeb</dt>  
-      <dd>ASP.NET and web development</dd>  
+        <dd>ASP.NET and web development</dd>  
       <dt>Azure</dt>  
-      <dd>Azure development</dd>  
+        <dd>Azure development</dd>  
       <dt>Data</dt>  
-      <dd>Data storage and processing</dd>  
+        <dd>Data storage and processing</dd>  
       <dt>DataScience</dt>  
-      <dd>Data science and analytical applications</dd>  
+        <dd>Data science and analytical applications</dd>  
       <dt>ManagedDesktop</dt>  
-      <dd>.NET desktop development</dd>  
+        <dd>.NET desktop development</dd>  
       <dt>ManagedGame</dt>  
-      <dd>Game development with Unity</dd>  
+        <dd>Game development with Unity</dd>  
       <dt>NativeCrossPlat</dt>  
-      <dd>Linux development with C++</dd>  
+        <dd>Linux development with C++</dd>  
       <dt>NativeDesktop</dt>  
-      <dd>Desktop development with C++</dd>  
+        <dd>Desktop development with C++</dd>  
       <dt>NativeGame</dt>  
-      <dd>Game development with C++</dd>  
+        <dd>Game development with C++</dd>  
       <dt>NativeMobile</dt>  
-      <dd>Mobile development with C++</dd> 
+        <dd>Mobile development with C++</dd> 
       <dt>NetCoreTools</dt>  
-      <dd>.NET cross-platform development (2017 and 2019 only)</dd> 
+        <dd>.NET cross-platform development (2017 and 2019 only)</dd> 
       <dt>NetCrossPlat</dt>  
-      <dd>Mobile development with .NET</dd>  
+        <dd>Mobile development with .NET</dd>  
       <dt>Node</dt>  
-      <dd>Node.js development</dd>  
+        <dd>Node.js development</dd>  
       <dt>Office</dt>  
-      <dd>Office/SharePoint development</dd>  
+        <dd>Office/SharePoint development</dd>  
       <dt>Python</dt>  
-      <dd>Python development</dd>  
+        <dd>Python development</dd>  
       <dt>Universal</dt>  
-      <dd>Universal Windows Platform development</dd>  
+        <dd>Universal Windows Platform development</dd>  
       <dt>VisualStudioExtension</dt>  
-      <dd>Visual Studio extension development</dd>  
+        <dd>Visual Studio extension development</dd>  
       <dt>WebCrossPlat</dt>  
-      <dd>Mobile development with JavaScript (Vs2017 only)</dd>  
+        <dd>Mobile development with JavaScript (VS2017 only)</dd>  
       </dl>
       ",
 
-      "defaultValue": "Community"
+      "defaultValue": "NetWeb,Azure,Data"
     },
      "languages": {
       "type": "string",
@@ -99,6 +100,6 @@
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2022.ps1'' -edition ', parameters('edition'), ' -preview:$', parameters('preview'), ' -aspnet:$',  parameters('aspnet'), ' -netcore:$',  parameters('netcore'), ' -desktop:$',  parameters('desktop'), ' -azure:$', parameters('azure'), ' -data:$', parameters('data'), ' -node:$', parameters('node'),  ' -languages ''' , parameters('languages')    ,'''  -key ''', parameters('key'), ''' \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\vs2022.ps1'' -edition ', parameters('edition'), ' -vsVersion ', parameters('vsVersion'), ' -preview:$', parameters('preview'),    ' -languages ''' , parameters('languages')    ,'''  -key ''', parameters('key'), ''' \"'  )]"
   }
 }

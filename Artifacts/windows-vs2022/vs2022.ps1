@@ -3,9 +3,8 @@ Param (
 [string] $edition = "enterprise",
 [string] $vsVersion = "2017",
 [bool]  $preview = $true,
-
 [string] $workloads= "",
-[string] $languages =  "en-US, fr-FR, es-ES ", 
+[string] $languages =  "en-US", 
 [string] $key = ""  )
 
 
@@ -18,7 +17,7 @@ $stringKey= if ($key) {"--productKey"} else {""};
 #Version number. 2017=15, 2019=16, 2022=17
 $ver=if ($vsVersion -eq "2017") {"15"} elseif ($vsVersion -eq "2019") {"16"} else {"17"}
 
-$prev =if($preview ) {"pre"} else {"release"}
+$prev =if($preview -eq 'Preview') {"pre"} else {"release"}
 
 
 $source = "https://aka.ms/vs/$ver/$prev/vs_$($edition.ToLower()).exe";
@@ -27,7 +26,7 @@ $languageParams=$languages.Split(',') | % { "--addProductLang $($_.Trim())" }
 
 $prev =if($preview ) {"Preview"} else {"Release"}
 
-$channel="VisualStudio.$ver.$prev"
+$channel="VisualStudio.$ver.$preview"
 
 $loads = ($workloads -replace "\+", ";includeRecommended" -replace "\*",";includeOptional").split(",") | % { "--add  Microsoft.VisualStudio.Workload.$($_.trim())"}
 
