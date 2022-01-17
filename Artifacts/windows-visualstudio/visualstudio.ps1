@@ -1,7 +1,7 @@
 [CmdletBinding()]
 Param ( 
 [string] $edition = "enterprise",
-[string] $vsVersion = "2017",
+[string] $vsVersion = "2022",
 [string]  $preview = "Release",
 [string] $workloads= "",
 [string] $languages =  "en-US", 
@@ -49,7 +49,7 @@ try
          $loads `
          $languageParams `
          $stringKey $keyNoDashes `
-         --quiet --norestart --wait `
+         --quiet  --wait `
               | Out-Default;
 }
 catch
