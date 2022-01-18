@@ -40,7 +40,7 @@ $LoadParams = switch ($Workloads) {
 }
 
 $loads = ($WorkloadList -replace "\+", ";includeRecommended" -replace "\*",";includeOptional").split(",") | ? -Property Length -GT 0 | % { "--add  Microsoft.VisualStudio.Workload.$($_.trim())"}
-$comps = $Components.split(",")  ? -Property Length -GT 0 | % { "--add $($_.trim())"}
+$comps = $Components.split(",") | ? -Property Length -GT 0 | % { "--add $($_.trim())"}
 
 if ($LoadParams -ne "")
 { $loads="" }
