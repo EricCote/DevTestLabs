@@ -15,7 +15,7 @@ Param (
 #Let's prepare a version of the key with no dashes.
 $keyNoDashes=$key.ToUpper().Replace("-","");
 # the param "--productKey" is only sent when there is a $key
-$stringKey= if ($key) {"--productKey"} else {""};
+$stringKey= if ($key) {"--productKey $keyNoDashes"} else {""};
 
 
 #Version number. 2017=15, 2019=16, 2022=17
@@ -59,7 +59,7 @@ catch
     Write-Error "Failed to download vs2022 installer";
 }
 
-$myParams =  " --productid Microsoft.VisualStudio.Product.$edition $loadParams $loads $comps $languageParams $stringKey $keyNoDashes $reboot --quiet  --wait  "
+$myParams =  " --productid Microsoft.VisualStudio.Product.$edition $loadParams $loads $comps $languageParams $stringKey  $reboot --quiet  --wait  "
 $myParams2 = $myParams.Split(" ");
 
 

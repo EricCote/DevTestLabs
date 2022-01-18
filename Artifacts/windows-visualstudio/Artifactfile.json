@@ -143,6 +143,6 @@
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\visualstudio.ps1'' -Edition ', parameters('Edition'), ' -VsVersion ', parameters('VsVersion'), ' -Preview ', parameters('Preview'), ' -Workloads ''' , parameters('Workloads')  , ''' -WorkloadList ''' , parameters('WorkloadList')  , ''' -Languages ''' , parameters('Languages')  , '''  -Key ''', parameters('Key'), ''' -Components ''', parameters('Components'), '''  -Restart ''',  parameters('Restart')  , '''  \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\visualstudio.ps1'' -Edition ', parameters('Edition'), ' -VsVersion ', parameters('VsVersion'), ' -Channel ', parameters('Channel'), ' -Workloads ''' , parameters('Workloads')  , ''' -WorkloadList ''' , parameters('WorkloadList')  , ''' -Languages ''' , parameters('Languages')  , '''  -Key ''', parameters('Key'), ''' -Components ''', parameters('Components'), '''  -Restart ''',  parameters('Restart')  , '''  \"'  )]"
   }
 }
