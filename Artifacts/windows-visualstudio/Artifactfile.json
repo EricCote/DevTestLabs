@@ -31,12 +31,12 @@
     "Workloads": {
       "type": "string",
       "displayName": "Workloads",
-      "description": "Install workload from a list? Or install all workloads? 
+      "description": "Install all workloads? Or install a few fomr a list? 
         <br /><br/>
         <dl>
-        <dt>Select</dt>  
+        <dt>Select Below</dt>  
           <dd>Installs specific workloads from the \"Workload List\" (see below)</dd> 
-        <dt>All</dt>  
+        <dt>All Workloads</dt>  
           <dd>Installs all workloads with the basic required components</dd> 
         <dt>All with Recommended</dt>  
           <dd>Installs all workloads with recommended components</dd> 
@@ -48,15 +48,15 @@
           <dd>Installs all workloads with all components, including unaffiliated components</dd> 
         </dl>
       ",
-      "defaultValue": "Select",
-      "allowedValues": ["Select", "All", "All with Recommended", "All with Optional", "All with Recommended and Optional", "Complete"],
+      "defaultValue": "Select Below",
+      "allowedValues": ["Select Below", "All Workloads", "All with Recommended", "All with Optional", "All with Recommended and Optional", "Complete"],
       "allowEmpty": true
     },
     "WorkloadList": {
       "type": "string",
       "displayName": "Workload List",
       "description": "Comma-separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>Reference</a>  <br />
-      <br />Use these symbols to include additional components:
+      <br />Use a suffix to include additional components:
       <br /> 
       [+] include recommended, [*] include optional, [+*] include recommended and optional 
       <br />  <br />
@@ -75,16 +75,6 @@
         <dd>.NET desktop development</dd>  
       <dt>ManagedGame</dt>  
         <dd>Game development with Unity</dd>  
-      <dt>NativeCrossPlat</dt>  
-        <dd>Linux development with C++</dd>  
-      <dt>NativeDesktop</dt>  
-        <dd>Desktop development with C++</dd>  
-      <dt>NativeGame</dt>  
-        <dd>Game development with C++</dd>  
-      <dt>NativeMobile</dt>  
-        <dd>Mobile development with C++</dd> 
-      <dt>NetCoreTools</dt>  
-        <dd>.NET cross-platform development (2017 and 2019 only)</dd> 
       <dt>NetCrossPlat</dt>  
         <dd>Mobile development with .NET</dd>  
       <dt>Node</dt>  
@@ -95,8 +85,18 @@
         <dd>Python development</dd>  
       <dt>Universal</dt>  
         <dd>Universal Windows Platform development</dd>  
+      <dt>NativeCrossPlat</dt>  
+        <dd>Linux development with C++</dd>  
+      <dt>NativeDesktop</dt>  
+        <dd>Desktop development with C++</dd>  
+      <dt>NativeGame</dt>  
+        <dd>Game development with C++</dd>  
+      <dt>NativeMobile</dt>  
+        <dd>Mobile development with C++</dd> 
       <dt>VisualStudioExtension</dt>  
         <dd>Visual Studio extension development</dd>  
+      <dt>NetCoreTools</dt>  
+        <dd>.NET cross-platform development (2017 and 2019 only)</dd> 
       <dt>WebCrossPlat</dt>  
         <dd>Mobile development with JavaScript (VS2017 only)</dd>  
       </dl>
@@ -133,8 +133,8 @@
     "Restart": {
       "type": "string",
       "displayName": "Restart",
-      "description": "Allow the install process to restart the OS, if needed.",
-      "defaultValue": "No Restart",
+      "description": "After install, restart the OS, if needed.",
+      "defaultValue": "No restart",
       "allowedValues": ["Restart if needed", "No restart"]
     }
 

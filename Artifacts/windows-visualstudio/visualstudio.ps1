@@ -31,7 +31,7 @@ $languageParams=$languages.Split(',') | where {$_ -ne "en-US"} | % { "--addProdu
 # $channelVer="VisualStudio.$ver.$Channel"
 
 $LoadParams = switch ($Workloads) {
-    "All" { "--allWorkloads"  }
+    "All Workloads" { "--allWorkloads"  }
     "All with Recommended" { "--allWorkloads --includeRecommended"  }
     "All with Optional" { "--allWorkloads --includeOptional"  }
     "All with Recommended and Optional" { "--allWorkloads --includeRecommended --includeOptional"  }
