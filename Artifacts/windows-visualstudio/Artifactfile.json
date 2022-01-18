@@ -21,22 +21,46 @@
       "allowedValues": ["2017", "2019", "2022"],
       "defaultValue": "2022"
     },
-    "Preview": {
+    "Channel": {
       "type": "string",
-      "displayName": "Release or Preview?",
-      "description": "Install latest release or preview version",
+      "displayName": "Channel",
+      "description": "Install from latest release channel, or from preview channel?",
       "allowedValues": ["Release", "Preview"],
       "defaultValue": "Release"
     },
     "Workloads": {
       "type": "string",
       "displayName": "Workloads",
-      "description": "Comma separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>Reference</a>  <br />
-      <br />Use symbols to include additional components:
+      "description": "Install workload from a list? Or install all workloads? 
+        <br /><br/>
+        <dl>
+        <dt>Select</dt>  
+          <dd>Installs specific workloads from the \"Workload List\" (see below)</dd> 
+        <dt>All</dt>  
+          <dd>Installs all workloads with the basic required components</dd> 
+        <dt>All with Recommended</dt>  
+          <dd>Installs all workloads with recommended components</dd> 
+        <dt>All with Optional</dt>  
+          <dd>Installs all workloads with optional components</dd> 
+        <dt>All with Recommended and Optional</dt>  
+          <dd>Installs all workloads with recommended and optional components</dd>   
+        <dt>Complete</dt>  
+          <dd>Installs all workloads with all components, including unaffiliated components</dd> 
+        </dl>
+      ",
+      "defaultValue": "Select",
+      "allowedValues": ["Select", "All", "All with Recommended", "All with Optional", "All with Recommended and Optional", "Complete"],
+      "allowEmpty": true
+    },
+    "WorkloadList": {
+      "type": "string",
+      "displayName": "Workload List",
+      "description": "Comma-separated list of workloads. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>Reference</a>  <br />
+      <br />Use these symbols to include additional components:
       <br /> 
-      [+] include recommended, [*] include optional, [+*] include all components 
+      [+] include recommended, [*] include optional, [+*] include recommended and optional 
       <br />  <br />
-      ex: Azure+,NetWeb*,Data+*
+      Ex: Azure+,NetWeb*,Data+*
       <br />  <br />
       <dl>
       <dt>NetWeb</dt>  
@@ -78,7 +102,7 @@
       </dl>
       ",
 
-      "defaultValue": "NetWeb,Azure,Data",
+      "defaultValue": "NetWeb+,Azure+,Data",
       "allowEmpty": true
     },
     "Languages": {
@@ -94,11 +118,31 @@
       "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial.",
       "allowEmpty": true,
       "defaultValue": "VHF9H-NXBBB-638P6-6JHCY-88JWH"
+    },
+    
+    "Components": {
+      "type": "string",
+      "displayName": "Components",
+      "description": "Comma-separated list of individual components. See <a href='https://docs.microsoft.com/en-us/visualstudio/install/workload-component-id-vs-enterprise?view=vs-2022'>Reference</a> 
+        <br /><br/>
+        Ex: Microsoft.Component.Azure.DataLake.Tools,Microsoft.NetCore.Component.Runtime.6.0
+      ",
+      "defaultValue": "",
+      "allowEmpty": true
+    },
+    "Restart": {
+      "type": "string",
+      "displayName": "Restart",
+      "description": "Allow the install process to restart the OS, if needed.",
+      "defaultValue": "No Restart",
+      "allowedValues": ["Restart if needed", "No restart"]
     }
+
   },
+
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\visualstudio.ps1'' -Edition ', parameters('Edition'), ' -VsVersion ', parameters('VsVersion'), ' -Preview ', parameters('Preview'),     ' -Workloads ''' , parameters('Workloads')  , ''' -Languages ''' , parameters('Languages')  , '''  -Key ''', parameters('Key'), ''' \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\visualstudio.ps1'' -Edition ', parameters('Edition'), ' -VsVersion ', parameters('VsVersion'), ' -Preview ', parameters('Preview'), ' -Workloads ''' , parameters('Workloads')  , ''' -WorkloadList ''' , parameters('WorkloadList')  , ''' -Languages ''' , parameters('Languages')  , '''  -Key ''', parameters('Key'), ''' -Components ''', parameters('Components'), '''  -Restart ''',  parameters('Restart')  , '''  \"'  )]"
   }
 }
