@@ -36,7 +36,7 @@ $conf=(Join-Path $OdtFolder "configuration.xml") ;
 $xml | Out-File  -FilePath $conf -Encoding utf8;
 
 "Installing Office 2021.  Might take a while."
-###  & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-default ;
+& (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-default ;
 
 ##################################
 #hide first run dialog 
@@ -96,8 +96,6 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
                  -Name "PreventFirstLaunchAfterInstall" `
                  -Value 1 -PropertyType dword `
                  -Force | out-null
-
-
 
 
 [gc]::Collect()
