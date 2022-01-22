@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
   "title": "Visual Studio",
-  "description": "Installs Visual Studio. If Community edition, no need for a product key. If no key is provided, the product provides a 30 day trial. <br /><br />Switch from trial to licensed at any time using your product key or by entering your VS account credentials.",
+  "description": "Installs Visual Studio.",
   "publisher": "Eric Côté",
   "tags": ["Windows", "Visual Studio", "VS"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-visualstudio/vs2022.svg",
@@ -115,7 +115,7 @@
     "Key": {
       "type": "string",
       "displayName": "Visual Studio key (optional)",
-      "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial.",
+      "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial. No product key needed for Community edition. Switch from trial to licensed at any time using your product key or by entering your VS account credentials.",
       "allowEmpty": true,
       "defaultValue": "VHF9H-NXBBB-638P6-6JHCY-88JWH"
     },

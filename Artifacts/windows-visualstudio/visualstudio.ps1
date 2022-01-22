@@ -25,7 +25,7 @@ $channl =if($Channel -eq 'Preview') {"pre"} else {"release"}
 $source = "https://aka.ms/vs/$ver/$channl/vs_$Edition.exe";
 
 
-$languageParams=$languages.Split(',') | where {$_ -ne "en-US"} | % { "--addProductLang $($_.Trim())" } 
+$languageParams=$languages.Split(',')  % { "--addProductLang $($_.Trim())" } 
 
 
 # $channelVer="VisualStudio.$ver.$Channel"
