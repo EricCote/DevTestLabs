@@ -36,7 +36,7 @@ $conf=(Join-Path $OdtFolder "configuration.xml") ;
 $xml | Out-File  -FilePath $conf -Encoding utf8;
 
 "Installing Office 2021.  Might take a while."
-& (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-default ;
+###  & (Join-Path $OdtFolder "setup.exe")   /configure "$conf"   | out-default ;
 
 ##################################
 #hide first run dialog 
@@ -76,9 +76,9 @@ New-PSDrive HKU Registry HKEY_USERS | out-default
 #                  -Value 1 -PropertyType dword `
 #                  -Force | out-null
 
-# #Create Registry key 
-# New-Item "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
-#                  -force | out-null
+#Create Registry key 
+New-Item "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
+                 -force | out-null
 
 #Create Registry value
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
