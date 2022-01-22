@@ -25,12 +25,9 @@ $path = [Environment]::GetEnvironmentVariable('Path', 'Machine')
 $newpath = $path +  ";%NVM_HOME%;%NVM_SYMLINK%"
 & SETX /m PATH $newpath
 
-
 $path2 = [Environment]::GetEnvironmentVariable('Path', 'Process')
 $newpath2 = $path2 + ";$nvmPath;$nodePath"
 [Environment]::SetEnvironmentVariable("Path", $newpath2, 'Process')
-
-
 
 $Settings= @"
 root: $nvmPath

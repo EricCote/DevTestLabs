@@ -44,38 +44,48 @@ $xml | Out-File  -FilePath $conf -Encoding utf8;
 New-PSDrive HKU Registry HKEY_USERS | out-default
 & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT" | out-default
 
-#Create Registry key 
-New-Item "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
-                 -force | out-null
+# #Create Registry key 
+# New-Item "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common" `
+#                  -force | out-null
 
+
+# #Create Registry value
+# New-ItemProperty -Path "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common" `
+#                  -Name "PrivacyNoticeShown" `
+#                  -Value 2 -PropertyType dword `
+#                  -Force | out-null
+
+
+# #Create Registry key 
+# New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
+#                  -force | out-null
+
+# #Create Registry value
+# New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
+#                  -Name "ShownFirstRunOptin" `
+#                  -Value 1 -PropertyType dword `
+#                  -Force | out-null
+
+# #Create Registry key 
+# New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
+#                  -force | out-null
+
+# #Create Registry value
+# New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
+#                  -Name "AcceptAllEulas" `
+#                  -Value 1 -PropertyType dword `
+#                  -Force | out-null
+
+# #Create Registry key 
+# New-Item "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
+#                  -force | out-null
 
 #Create Registry value
-New-ItemProperty -Path "HKU:\Default\Software\Microsoft\Office\16.0\Common" `
-                 -Name "PrivacyNoticeShown" `
+New-ItemProperty -Path "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
+                 -Name "OptionalConnectedExperiencesNoticeVersion" `
                  -Value 2 -PropertyType dword `
                  -Force | out-null
-
-
-#Create Registry key 
-New-Item "HKU:\Default\Software\Policies\Microsoft\Office\16.0\Common\General" `
-                 -force | out-null
-
-#Create Registry value
-New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Common\General" `
-                 -Name "ShownFirstRunOptin" `
-                 -Value 1 -PropertyType dword `
-                 -Force | out-null
-
-#Create Registry key 
-New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
-                 -force | out-null
-
-#Create Registry value
-New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" `
-                 -Name "AcceptAllEulas" `
-                 -Value 1 -PropertyType dword `
-                 -Force | out-null
-
+  
 
 #Create Registry key 
 New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
@@ -86,8 +96,6 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
                  -Name "PreventFirstLaunchAfterInstall" `
                  -Value 1 -PropertyType dword `
                  -Force | out-null
-
-
 
 
 
