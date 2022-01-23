@@ -89,7 +89,7 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel
 
 #enable UAC on Administrator account
                 
-mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force | Out-Null
+#mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force | Out-Null
 Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
                  -name "FilterAdministratorToken" `
                  -value 1 `
@@ -110,6 +110,7 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 [gc]::Collect()
+[gc]::WaitForPendingFinalizers()
 & REG UNLOAD "HKU\Default" | out-default
 
 Remove-PSDrive HKU 
