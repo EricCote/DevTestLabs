@@ -111,6 +111,8 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 [gc]::Collect()
 [gc]::WaitForPendingFinalizers()
+Start-Sleep -Seconds 1
 & REG UNLOAD "HKU\Default" | out-default
+Start-Sleep -Seconds 1
 
 Remove-PSDrive HKU 
