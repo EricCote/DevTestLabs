@@ -25,10 +25,10 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
 Install-Package -Name docker -ProviderName DockerMsftProvider -Force
 
 
-# $configfile = @"
-# { "experimental": true }
-# "@
-# Out-File -FilePath C:\ProgramData\docker\config\daemon.json -InputObject $configfile -Encoding ascii -Force
+$configfile = @"
+{ "experimental": true }
+"@
+Out-File -FilePath C:\ProgramData\docker\config\daemon.json -InputObject $configfile -Encoding ascii -Force
 
 
 # Stop-service Docker -ErrorAction SilentlyContinue
