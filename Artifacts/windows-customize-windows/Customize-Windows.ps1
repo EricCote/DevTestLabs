@@ -113,7 +113,9 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 $xml = Get-Content "C:\Windows\System32\OEMDefaultAssociations.xml"
 $ids = @( ".htm", ".html", "http", "https")
 $xml2 = $xml
-$ids | % { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
+# 
+#$ids | For-Each { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"FirefoxHTML-308046B0AF4A39CB`" ApplicationName=`"Firefox`"") }
+$ids | For-Each { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
 $xml2 | Out-File  "C:\Windows\System32\OEMDefaultAssociations.xml" -Encoding ascii
 
 
