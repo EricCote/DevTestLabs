@@ -33,7 +33,7 @@ New-ItemProperty -path $PolPath -name "HideFirstRunExperience" -value 1 -Force |
 
 #specify search engine
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
-New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "{https://www.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "https://www.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "https://www.google.com/complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
 

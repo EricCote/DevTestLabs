@@ -32,13 +32,13 @@ $chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" |
 $content = @"
 {
   "distribution": {
-    "do_not_create_desktop_shortcut"=true
-  }
-  "browser": {
-    "last_whats_new_version":$chromeVersion
+    "do_not_create_desktop_shortcut":true
   }
 }
-"@   
+"@ 
+# "browser": {
+#   "last_whats_new_version":$chromeVersion
+# }  
 
        
 $content | Out-File "C:\Program Files\Google\Chrome\Application\initial_preferences" -Force -Encoding utf8
