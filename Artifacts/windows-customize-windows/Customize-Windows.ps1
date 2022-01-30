@@ -96,20 +96,26 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
                  -force | out-null
 
 # overrides default file associations to chrome                 
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" `
-                 -name "DefaultAssociationsConfiguration" `
-                 -value "c:\windows\system32\OverrideAssociations.xml" `
-                 -force | out-null
+# Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" `
+#                  -name "DefaultAssociationsConfiguration" `
+#                  -value "c:\windows\system32\OverrideAssociations.xml" `
+#                  -force | out-null
 
-$xml =  @"
-<?xml version="1.0" encoding="UTF-8"?>
-<DefaultAssociations>
-  <Association Identifier="http" ProgId="ChromeHTML" ApplicationName="Google Chrome" />
-  <Association Identifier="https" ProgId="ChromeHTML" ApplicationName="Google Chrome" />
-</DefaultAssociations>
-"@      
+# $xml =  @"
+# <?xml version="1.0" encoding="UTF-8"?>
+# <DefaultAssociations>
+#   <Association Identifier="http" ProgId="ChromeHTML" ApplicationName="Google Chrome" />
+#   <Association Identifier="https" ProgId="ChromeHTML" ApplicationName="Google Chrome" />
+# </DefaultAssociations>
+# "@      
+# $xml | Out-File -Encoding utf8 -FilePath "c:\windows\system32\OverrideAssociations.xml"
 
-$xml | Out-File -Encoding utf8 -FilePath "c:\windows\system32\OverrideAssociations.xml"
+$xml = Get-Content "C:\Windows\System32\OEMDefaultAssociations.xml"
+$ids = @( ".htm", ".html", "http", "https")
+$xml2 = $xml
+$ids | % { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
+$xml2 | Out-File  "C:\Windows\System32\OEMDefaultAssociations.xml" -Encoding ascii
+
 
 ##################################
 # work with default user registry
