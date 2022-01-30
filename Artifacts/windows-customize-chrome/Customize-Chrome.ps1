@@ -23,16 +23,21 @@ New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "Promotion
 
 
 #get chrome version
-$chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" | 
-  Select-Object -First 1 BaseName | % { ([version]$_.BaseName).major }
+# $chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" | 
+#   Select-Object -First 1 BaseName | % { ([version]$_.BaseName).major }
 
 
 
-#hide the "what's new" page until the next update
+#remove the desktop shortcut
 $content = @"
 {
   "distribution": {
-    "do_not_create_desktop_shortcut": true
+      "msi": true,
+      "system_level": true,
+      "verbose_logging": true,
+      "msi_product_id": "9ABC27FD-AA4B-3C50-B76B-38FCFFCCDB03",
+      "allow_downgrade": false,
+      "do_not_create_desktop_shortcut": true
   }
 }
 "@ 
@@ -42,7 +47,7 @@ $content = @"
 # }  
 
        
-$content | Out-File "C:\Program Files\Google\Chrome\Application\initial_preferences" -Force -Encoding utf8
+$content | Out-File "C:\Program Files\Google\Chrome\Application\master_preferences" -Force -Encoding ascii
 
 
 #delete Desktop icon

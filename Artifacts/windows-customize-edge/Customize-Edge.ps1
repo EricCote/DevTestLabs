@@ -41,7 +41,6 @@ New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSugges
 #1 Hide favorite bar, even on the new tab page. 
 #2 Remove edge what's new page
 #  
-New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
 
 $content = @"
 { 
@@ -54,9 +53,12 @@ $content = @"
 }
 "@   
 
+$content="{}";
+
 $content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"
-       
-#$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
+      
+# New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
+# $content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
 
 
 
