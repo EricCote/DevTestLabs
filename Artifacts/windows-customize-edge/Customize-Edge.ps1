@@ -33,12 +33,13 @@ New-ItemProperty -path $PolPath -name "HideFirstRunExperience" -value 1 -Force |
 
 #specify search engine
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
-New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "{https://www.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
-New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "{google:baseURL}complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
+New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "https://www.google.com/complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
 
 ########################################################
-#Remove edge what's new page:
+#1 Hide favorite bar, even on the new tab page. 
+#2 Remove edge what's new page
 #  
 New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
 
@@ -46,23 +47,18 @@ $content = @"
 { 
     "browser": {
         "browser_version_of_last_seen_whats_new": "$LatestEdgeVersion"
+    },
+    "bookmark_bar": {
+      "show_only_on_ntp": false
     }
 }
 "@   
+
+$content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"
        
-$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
+#$content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
 
 
-# hide favorite bar, even on the new tab page. 
-$content = @"
-{
-  "bookmark_bar": {
-    "show_only_on_ntp": false
-  }
-}
-"@
-
-$content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"  -Force -Encoding utf8
 
 $content = @"
 Windows Registry Editor Version 5.00

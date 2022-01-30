@@ -31,6 +31,9 @@ $chromeVersion = Get-ChildItem "C:\Program Files\Google\Chrome\Application" |
 #hide the "what's new" page until the next update
 $content = @"
 {
+  "distribution": {
+    "do_not_create_desktop_shortcut"=true
+  }
   "browser": {
     "last_whats_new_version":$chromeVersion
   }
