@@ -12,12 +12,6 @@ if($isServer){
     Set-Service audiosrv -startuptype automatic  | out-null
     start-service audiosrv | out-null
 
-    #Disable IE protection
-    $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
-    $UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
-    Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0 | out-null
-    Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0 | out-null
-
     #disable server manager at login
     Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask 
 }
@@ -27,15 +21,15 @@ mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OneDrive' -Force | out-null
 New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\OneDrive" -name "DisableFileSyncNGSC" -value 1 | out-null
 
 #disable ie fist run popups
-mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main' -Force | out-null
-New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "DisableFirstRunCustomize" -value 1 | Out-Null
+# mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main' -Force | out-null
+# New-ItemProperty -path "HKLM:\Software\Microsoft\Internet Explorer\Main" -name "DisableFirstRunCustomize" -value 1 | Out-Null
 
-#Stop nagging default browser  
-mkdir 'HKLM:\Software\Policies\Microsoft\Edge' -Force | out-null
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0 | Out-Null
+# Edge: Stop nagging default browser 
+# mkdir 'HKLM:\Software\Policies\Microsoft\Edge' -Force | out-null
+# New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name  "DefaultBrowserSettingEnabled" -Value 0 | Out-Null
 
-#hide first run popups
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1 | Out-Null
+# Edge: hide first run popups 
+# New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Edge" -name "HideFirstRunExperience" -value 1 | Out-Null
 
 
 # disable "Choose Privacy Settings for your device"
@@ -50,6 +44,8 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
                  -name "DisablePrivacyExperience" `
                  -value 1 -Force | out-null
 
+
+#The "skip oobe" is already provided by Azure scripting
 # Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 #                  -name "SkipUserOOBE" `
 #                  -value 1
@@ -59,6 +55,9 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 
 # set taskbar
 mkdir c:\programData\script -Force | out-null
+Copy-Item ./taskbar.xml c:\ProgramData\script\taskbar.xml | out-null
+
+# set start menu
 Copy-Item ./taskbar.xml c:\ProgramData\script\taskbar.xml | out-null
 
 mkdir 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | out-null
@@ -114,8 +113,8 @@ $xml = Get-Content "C:\Windows\System32\OEMDefaultAssociations.xml"
 $ids = @( ".htm", ".html", "http", "https")
 $xml2 = $xml
 # 
-#$ids | For-Each { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"FirefoxHTML-308046B0AF4A39CB`" ApplicationName=`"Firefox`"") }
-$ids | For-Each { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
+#$ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"FirefoxHTML-308046B0AF4A39CB`" ApplicationName=`"Firefox`"") }
+$ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
 $xml2 | Out-File  "C:\Windows\System32\OEMDefaultAssociations.xml" -Encoding ascii
 
 

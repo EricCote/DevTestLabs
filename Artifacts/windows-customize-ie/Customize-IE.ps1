@@ -13,6 +13,20 @@ New-ItemProperty -Path "hklm:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 $clsid = "hklm:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Ext\CLSID"
 New-Item -Path $clsid -Force
 
+$isServer= (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
+if($isServer){
+
+    #Disable IE protection
+    $AdminKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}"
+    $UserKey = "HKLM:\SOFTWARE\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}"
+    Set-ItemProperty -Path $AdminKey -Name "IsInstalled" -Value 0 | out-null
+    Set-ItemProperty -Path $UserKey -Name "IsInstalled" -Value 0 | out-null
+
+}
+
+
+
+
 #allows extension "Lync Browser Helper, Skype for Business Browser Helper"
 New-ItemProperty -Path $clsid -Name "{31D09BA0-12F5-4CCE-BE8A-2923E76605DA}"  -Value 1
 

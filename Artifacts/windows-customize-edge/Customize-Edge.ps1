@@ -1,4 +1,6 @@
-﻿$ProgressPreference = 'SilentlyContinue'
+﻿[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$ProgressPreference = 'SilentlyContinue'
+
 $edgeEnterpriseMSIUri = 'https://edgeupdates.microsoft.com/api/products?view=enterprise'
 
 
@@ -11,7 +13,6 @@ $LatestEdge = ($jsonObj[$selectedIndex].Releases | `
             Where-Object { $_.Architecture -eq "x64" -and $_.Platform -eq "Windows"}  | `
             Sort-Object {$_.ReleaseId} -Descending )[0];
         
-$LatestEdgeVersion=($LatestEdge.ProductVersion  -split '\.')[0];
         
 $LatestEdgeUrl = $LatestEdge.Artifacts[0].Location;
 
@@ -42,20 +43,23 @@ New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSugges
 #2 Remove edge what's new page
 #  
 
-$content = @"
-{ 
-    "browser": {
-        "browser_version_of_last_seen_whats_new": "$LatestEdgeVersion"
-    },
-    "bookmark_bar": {
-      "show_only_on_ntp": false
-    }
-}
-"@   
 
-$content="{}";
+#$LatestEdgeVersion=($LatestEdge.ProductVersion  -split '\.')[0];
 
-$content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"
+# $content = @"
+# { 
+#     "browser": {
+#         "browser_version_of_last_seen_whats_new": "$LatestEdgeVersion"
+#     },
+#     "bookmark_bar": {
+#       "show_only_on_ntp": false
+#     }
+# }
+# "@   
+
+# $content="{}";
+
+# $content | Out-File "C:\Program Files (x86)\Microsoft\Edge\Application\initial_preferences"
       
 # New-Item -Path "C:\Users\Default\AppData\Local\Microsoft\Edge\" -Name "User Data" -ItemType "directory" -Force
 # $content | Out-File "C:\Users\Default\AppData\Local\Microsoft\Edge\User Data\Local State" -Force -Encoding utf8
