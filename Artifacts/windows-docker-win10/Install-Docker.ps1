@@ -120,7 +120,8 @@ function install-Docker
 
     $secPassword = ConvertTo-SecureString -String $Password -AsPlainText -Force
     $credential = New-Object System.Management.Automation.PSCredential("$env:COMPUTERNAME\$($UserName)", $secPassword)
-    $content = @"
+    $content = 
+@"
         & $filename install --quiet | out-default
 "@
 
@@ -152,7 +153,7 @@ function install-Docker
     $Password = 'Allo12345678!'
     Add-LocalAdminUser -UserName $UserName -Password $password 
 
-    New-Item -Path "c:\ProgramData" -Name "DockInstall" -ItemType Directory 
+    New-Item -Path "c:\ProgramData" -Name "DockInstall" -ItemType Directory -Force
 
     $filename="c:\ProgramData\DockInstall\installDocker.exe"
 
