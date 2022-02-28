@@ -132,6 +132,10 @@ function install-Docker
     {
         Invoke-Command -ComputerName $env:COMPUTERNAME -Credential $credential -FilePath "c:\ProgramData\DockInstall\dock.ps1"  | Out-Default
     }
+    catch
+    {
+
+    }
     finally
     {
         Set-LocalAccountTokenFilterPolicy -Value $oldPolicyValue | Out-Null
