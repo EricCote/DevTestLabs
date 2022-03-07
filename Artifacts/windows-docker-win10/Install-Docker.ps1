@@ -55,7 +55,7 @@ function Add-LocalAdminUser
     $user.SetInfo()
 
     $group = [ADSI]"WinNT://$env:ComputerName/Administrators,group"
-    $group.add("WinNT://$env:ComputerName/$UserName")
+    $group.add("WinNT://$env:ComputerName/$UserName") | Out-Null
 
     return $user
 }
@@ -157,7 +157,7 @@ function install-Docker
     $Password = 'Allo12345678!'
     Add-LocalAdminUser -UserName $UserName -Password $password 
 
-    New-Item -Path "c:\ProgramData" -Name "DockInstall" -ItemType Directory -Force
+    New-Item -Path "c:\ProgramData" -Name "DockInstall" -ItemType Directory -Force | out-null
 
     $filename="c:\ProgramData\DockInstall\installDocker.exe"
 
@@ -177,6 +177,20 @@ function install-Docker
     Remove-LocalAdminUser -UserName $UserName
 
     Remove-Item -Path "c:\ProgramData\DockInstall" -Force -Recurse
+
+    New-Item -Path "c:\users\default\AppData\Roaming" -Name "Docker" -ItemType "directory" -Force
+
+
+    $settings = 
+@"
+{
+  "displayedTutorial": true,
+  "licenseTermsVersion": 2,
+  "settingsVersion": 17
+}
+"@
+
+    $settings | Out-File -FilePath "c:\users\default\AppData\Roaming\Docker\settings.json" -Force | out-null
 
 
 
