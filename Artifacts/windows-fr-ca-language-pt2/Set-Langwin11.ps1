@@ -28,7 +28,7 @@ if ($Count -eq 0) {
 
 $unattend= $unattend -replace "(?ms)<UserAccounts>.*?</UserAccounts>", ""
 
-$unattend | Set-Content "C:\windows\panther\Unattend.xml"
+$unattend | Set-Content "C:\windows\panther\Unattend.xml" -encoding utf8
 
 #--------------------------------------------------------------
 
