@@ -190,7 +190,7 @@ function install-Docker
 }
 "@
 
-    $settings | Out-File -FilePath "c:\users\default\AppData\Roaming\Docker\settings.json" -Force  -Encoding utf8 | out-null
+    $settings | Out-File -FilePath "c:\users\default\AppData\Roaming\Docker\settings.json" -Force  -Encoding ascii | out-null
 
 
 
