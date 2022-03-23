@@ -217,13 +217,16 @@ if ($sqlName -match "(localdb)")
     
 if ([string]$samplePath -eq "")
 {
-    $samplePath= "C:\dbSamples"
+    $samplePath="C:\dbSamples"
 }
+
+
 
 if ([string]$backupPath -eq "")
 {
-    $backupPath= "C:\dbBackup"
+    $backupPath="C:\dbBackup"
 }
+"BackupPath:  $backupPath  --- "
 
 New-Item -type directory -path $backupPath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
 New-Item -type directory -path $samplePath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
