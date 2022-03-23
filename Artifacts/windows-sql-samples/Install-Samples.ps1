@@ -190,7 +190,8 @@ function Download-File
       [parameter(Position=2)]
       $Destination
     )
-
+    "log source:  $Source"
+    "log dest:   $Destination"
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $wc = new-object System.Net.WebClient
     $wc.DownloadFile($Source,$Destination)
