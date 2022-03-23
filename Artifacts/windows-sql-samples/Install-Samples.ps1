@@ -10,7 +10,7 @@ param
   [bool] $wideWorldImporters,
   [bool] $wideWorldImportersDW,
   [bool] $wideWorldInMemory, 
-  [string] $instanceName = '.\SQLEXPRESS',
+  [string] $instanceName,
   [string] $backupPath,
   [string] $samplePath,
   [bool] $downloadOnly,
@@ -18,9 +18,6 @@ param
   [bool] $Uninstall
 )
 
-
-# $adventureWorksLT2019=$true;
-# $adventureWorks2019=$true;
 
 $downloadFiles = if($setupOnly){$false} else {$true}
 $setupFiles= if($downloadOnly){$false} else {$true}
@@ -202,9 +199,6 @@ function Download-File
 
 
 #----------------------------------------------------------
-
-
-
 
 
 $sqlcmd=Get-SqlCmdPath
