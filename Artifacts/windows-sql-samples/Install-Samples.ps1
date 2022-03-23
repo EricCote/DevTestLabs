@@ -1,21 +1,12 @@
 
 param
 (
-  [bool] $adventureWorksLT2012,
-  [bool] $adventureWorksLT2014,
-  [bool] $adventureWorksLT2016,
-  [bool] $adventureWorksLT2017,
-  [bool] $adventureWorksLT2019 = $true,
-  [bool] $adventureWorks2014,
-  [bool] $adventureWorksDW2014,
-  [bool] $adventureWorks2016,
-  [bool] $adventureWorksDW2016,
+  [string] $version,
+  [bool] $adventureWorksLT,
+  [bool] $adventureWorks,
+  [bool] $adventureWorksDW,
   [bool] $adventureWorks2016_EXT,
   [bool] $adventureWorksDW2016_EXT,
-  [bool] $adventureWorks2017,
-  [bool] $adventureWorksDW2017,
-  [bool] $adventureWorks2019 = $true,
-  [bool] $adventureWorksDW2019,
   [bool] $wideWorldImporters,
   [bool] $wideWorldImportersDW,
   [bool] $wideWorldInMemory, 
@@ -145,8 +136,8 @@ function DownloadInstall-Database
         "Downloading $db_name..."
          $DownloadedDest="$env:temp\$db_name.bak"
          Download-File $url  $DownloadedDest
-         copy $DownloadedDest $backupPath
-         del $DownloadedDest -ErrorAction SilentlyContinue  
+         Copy-Item $DownloadedDest $backupPath
+         Remove-Item $DownloadedDest -ErrorAction SilentlyContinue  
      }
       if($setupFiles){
         $datafile= $db_name+"_data";
@@ -203,7 +194,7 @@ function Download-File
       $Destination
     )
 
-    [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $wc = new-object System.Net.WebClient
     $wc.DownloadFile($Source,$Destination)
     $wc.Dispose()
@@ -250,107 +241,60 @@ add-type -AssemblyName System.IO.Compression.FileSystem
 
 ###-------------------------------------------------------------------------------
 
-if($adventureWorksLT2011) #originallly 2012
-{
-    if ($downloadFiles)
-    {
-        "Downloading AdventureWorks LT 2012..."
-        Download-File  "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks2012/adventure-works-2012-oltp-lt-data-file.mdf" "$env:temp\AdventureWorksLT2012_Data.mdf"
-        Copy-Item  -Path "$env:temp\AdventureWorksLT2012_Data.mdf" -Destination $backupPath
-        del "$env:temp\AdventureWorksLT2012_Data.mdf" -ErrorAction SilentlyContinue
-    }
+# if($adventureWorksLT2011) #originallly 2012
+# {
+#     if ($downloadFiles)
+#     {
+#         "Downloading AdventureWorks LT 2012..."
+#         Download-File  "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks2012/adventure-works-2012-oltp-lt-data-file.mdf" "$env:temp\AdventureWorksLT2012_Data.mdf"
+#         Copy-Item  -Path "$env:temp\AdventureWorksLT2012_Data.mdf" -Destination $backupPath
+#         del "$env:temp\AdventureWorksLT2012_Data.mdf" -ErrorAction SilentlyContinue
+#     }
 
-    if ($setupFiles)
-    {
-        "Installing AdventureWorks LT 2012..."
-              Copy-Item  -Path "$backupPath\AdventureWorksLT2012_Data.mdf" -Destination $samplePath
+#     if ($setupFiles)
+#     {
+#         "Installing AdventureWorks LT 2012..."
+#               Copy-Item  -Path "$backupPath\AdventureWorksLT2012_Data.mdf" -Destination $samplePath
     
-        $cmd="
-        DROP DATABASE IF EXISTS AdventureWorksLT2012;
-        CREATE DATABASE AdventureWorksLT2012 ON 
-        ( FILENAME = N'$samplePath\AdventureWorksLT2012_Data.mdf' )
-            FOR ATTACH_REBUILD_LOG  ;
-        GO
-        ALTER AUTHORIZATION ON DATABASE::AdventureWorksLT2012 TO sa;
-        "
+#         $cmd="
+#         DROP DATABASE IF EXISTS AdventureWorksLT2012;
+#         CREATE DATABASE AdventureWorksLT2012 ON 
+#         ( FILENAME = N'$samplePath\AdventureWorksLT2012_Data.mdf' )
+#             FOR ATTACH_REBUILD_LOG  ;
+#         GO
+#         ALTER AUTHORIZATION ON DATABASE::AdventureWorksLT2012 TO sa;
+#         "
         
-        run-sql $sqlName $cmd
-    }
-}
+#         run-sql $sqlName $cmd
+#     }
+# }
 
 ###------------------------------------------------------
-if ($adventureWorksLT2012)
+if ($adventureWorksLT)
 {
-    DownloadInstall-Database "AdventureWorksLT2012" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2012.bak"   
+    $name = "AdventureWorksLT" + $version
+
+    DownloadInstall-Database $name `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/$name.bak"   
 }
 
 ###----------------------------------------------------
 
-If($adventureWorksLT2014)
-{   
-     DownloadInstall-Database "AdventureWorksLT2014" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2014.bak"   
-    
-}
-
-###------------------------------------------------------
-if ($adventureWorksLT2016)
+if ($adventureWorks)
 {
-    DownloadInstall-Database "AdventureWorksLT2016" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2016.bak"   
+    $name = "AdventureWorks" + $version
+
+    DownloadInstall-Database $name `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/$name.bak"   
 }
 
-###----------------------------------------------------
-
-If($adventureWorksLT2017)
+if ($adventureWorksDW)
 {
-     DownloadInstall-Database "AdventureWorksLT2017" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2017.bak"   
-    
+    $name = "AdventureWorksDW" + $version
+
+    DownloadInstall-Database $name `
+           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/$name.bak"   
 }
-
-If($adventureWorksLT2019)
-{
-     DownloadInstall-Database "AdventureWorksLT2019" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksLT2019.bak"   
-    
-}
-
-
-
-
-###------------------------------------------------------
-if ($adventureWorks2014)
-{
-    DownloadInstall-Database "AdventureWorks2014" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2014.bak"   
-}
-
-###----------------------------------------------------
-
-If($adventureWorksDW2014)
-{
-    DownloadInstall-Database "AdventureWorksDW2014" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2014.bak" 
-    
-}
-
-###------------------------------------------------------
-if ($adventureWorks2016)
-{
-    DownloadInstall-Database "AdventureWorks2016" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2016.bak" 
-}
-
-###------------------------------------------------------
-If($adventureWorksDW2016)
-{
-  DownloadInstall-Database "AdventureWorksDW2016" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2016.bak"  
-}
-
-
 
 
 ###------------------------------------------------------
@@ -367,43 +311,6 @@ If($adventureWorksDW2016_EXT)
   DownloadInstall-Database "AdventureWorksDW2016_EXT" `
            "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2016_EXT.bak" 
 }
-
-
-###----------------------------------------------------
-
-if ($adventureWorks2017)
-{
-  DownloadInstall-Database "AdventureWorks2017" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2017.bak" 
-}
-
-
-###----------------------------------------------------
-
-
-If($adventureWorksDW2017)
-{
-  DownloadInstall-Database "AdventureWorksDW2017" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2017.bak"  
-}
-
-if ($adventureWorks2019)
-{
-  DownloadInstall-Database "AdventureWorks2019" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorks2019.bak" 
-}
-
-
-###----------------------------------------------------
-
-
-If($adventureWorksDW2019)
-{
-  DownloadInstall-Database "AdventureWorksDW2019" `
-           "https://github.com/Microsoft/sql-server-samples/releases/download/adventureworks/AdventureWorksDW2019.bak"  
-}
-
-
 
 
 $SqlFeature=if ($wideWorldInMemory)  {"Full"} else {"Standard"}
@@ -462,7 +369,7 @@ if($wideWorldImportersDW)
         Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImportersDW-$SqlFeature.bak" "$env:temp\WideWorldImportersDW-$SqlFeature.bak"
 
         Copy-Item "$env:temp\WideWorldImportersDW-*.bak" -Destination $backupPath
-        del "$env:temp\WideWorldImportersDW-*.bak" -ErrorAction SilentlyContinue
+        Remove-Item "$env:temp\WideWorldImportersDW-*.bak" -ErrorAction SilentlyContinue
 
     }
     if($setupFiles){

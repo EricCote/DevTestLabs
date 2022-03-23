@@ -126,9 +126,35 @@ New-PSDrive HKU Registry HKEY_USERS | out-null
 
 # Show file extensions
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                    -name HideFileExt `
-                    -Value 0 -PropertyType dword `
-                    -Force | out-null
+                 -name HideFileExt `
+                 -Value 0 -PropertyType dword `
+                 -Force | out-null
+
+# Hide widgets  (win10/11)                 
+New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+                 -name TaskbarDa `
+                 -Value 0 -PropertyType dword `
+                 -Force | out-null       
+                    
+# Hide TaskView (win11)                  
+New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+                 -name ShowTaskViewButton `
+                 -Value 0 -PropertyType dword `
+                 -Force | out-null   
+                    
+# Hide Chat     (win11)              
+New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+                 -name TaskbarMn `
+                 -Value 0 -PropertyType dword `
+                 -Force | out-null     
+
+# Hide Search 
+
+# New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+# -name SearchboxTaskbarMode `
+# -Value 0 -PropertyType dword `
+# -Force | out-null   
+
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 [gc]::Collect()
