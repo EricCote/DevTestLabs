@@ -18,6 +18,9 @@ param
   [bool] $Uninstall
 )
 
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$ProgressPreference = 'SilentlyContinue'
+
 
 $downloadFiles = if($setupOnly){$false} else {$true}
 $setupFiles= if($downloadOnly){$false} else {$true}
@@ -131,10 +134,12 @@ function DownloadInstall-Database
     )
      if($downloadFiles){
         "Downloading $db_name..."
-         $DownloadedDest="$env:temp\$db_name.bak"
-         Download-File $url  $DownloadedDest
-         Copy-Item -Path $DownloadedDest -Destination $backupPath -force
-         Remove-Item $DownloadedDest -ErrorAction SilentlyContinue  
+        $DownloadedDest="$backupPath\$db_name.bak"
+        Invoke-WebRequest -UseBasicParsing -uri $url -OutFile $DownloadedDest
+        
+        #Download-File $url  $DownloadedDest
+        #Copy-Item -Path $DownloadedDest -Destination $backupPath -force
+        #Remove-Item $DownloadedDest -ErrorAction SilentlyContinue  
      }
       if($setupFiles){
         $datafile= $db_name+"_data";
@@ -183,18 +188,18 @@ function DownloadInstall-Database
         }
 }
 
-function Download-File
-{
-    Param([parameter(Position=1)]
-      $Source, 
-      [parameter(Position=2)]
-      $Destination
-    )
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    $wc = new-object System.Net.WebClient
-    $wc.DownloadFile($Source,$Destination)
-    $wc.Dispose()
-}
+# function Download-File
+# {
+#     Param([parameter(Position=1)]
+#       $Source, 
+#       [parameter(Position=2)]
+#       $Destination
+#     )
+#     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+#     $wc = new-object System.Net.WebClient
+#     $wc.DownloadFile($Source,$Destination)
+#     $wc.Dispose()
+# }
 
 
 #----------------------------------------------------------
@@ -322,12 +327,10 @@ if ($wideWorldImporters)
 {
     if($downloadFiles){
         "Downloading Wide World Importers..."
-        Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-$SqlFeature.bak"    "$env:temp\WideWorldImporters-$SqlFeature.bak"
-
-        Copy-Item  -Path "$env:temp\WideWorldImporters-*.bak" -Destination $backupPath
-
-        Remove-Item "$env:temp\WideWorldImporters*.bak" -ErrorAction SilentlyContinue
-    }
+        Invoke-WebRequest -UseBasicParsing `
+           -Uri "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImporters-$SqlFeature.bak" `
+           -OutFile   "$backupPath\WideWorldImporters-$SqlFeature.bak"
+  }
     if($setupFiles){
         "Installing Wide World Importers..."
         $part=""
@@ -361,11 +364,9 @@ if($wideWorldImportersDW)
 {
     if($downloadFiles) {
         "Downloading Wide World Importers DW..."
-        Download-File "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImportersDW-$SqlFeature.bak" "$env:temp\WideWorldImportersDW-$SqlFeature.bak"
-
-        Copy-Item "$env:temp\WideWorldImportersDW-*.bak" -Destination $backupPath
-        Remove-Item "$env:temp\WideWorldImportersDW-*.bak" -ErrorAction SilentlyContinue
-
+        Invoke-WebRequest -UseBasicParsing `
+        -Uri "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImportersDW-$SqlFeature.bak" `
+        -OutFile   "$backupPath\WideWorldImporters-$SqlFeature.bak"
     }
     if($setupFiles){
         "Installing Wide World Importers DW..."
