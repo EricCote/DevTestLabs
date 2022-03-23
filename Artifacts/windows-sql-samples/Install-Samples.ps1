@@ -423,5 +423,5 @@ if ($Uninstall)
 }
 
 if ($sqlName -match "(localdb)") {
- & "C:\Program Files\Microsoft SQL Server\130\Tools\Binn\SqlLocalDB.exe" stop
+ & "C:\Program Files\Microsoft SQL Server\150\Tools\Binn\SqlLocalDB.exe" stop
 }
