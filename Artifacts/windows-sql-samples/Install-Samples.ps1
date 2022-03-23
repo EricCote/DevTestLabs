@@ -136,6 +136,7 @@ function DownloadInstall-Database
         "Downloading $db_name..."
         $DownloadedDest="$backupPath\$db_name.bak"
         Invoke-WebRequest -UseBasicParsing -uri $url -OutFile $DownloadedDest
+        "log: $DownloadedDest $url"
         
         #Download-File $url  $DownloadedDest
         #Copy-Item -Path $DownloadedDest -Destination $backupPath -force
