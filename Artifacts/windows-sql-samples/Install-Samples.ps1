@@ -133,7 +133,7 @@ function DownloadInstall-Database
         "Downloading $db_name..."
          $DownloadedDest="$env:temp\$db_name.bak"
          Download-File $url  $DownloadedDest
-         Copy-Item $DownloadedDest $backupPath
+         Copy-Item -Path $DownloadedDest -Destination $backupPath -force
          Remove-Item $DownloadedDest -ErrorAction SilentlyContinue  
      }
       if($setupFiles){
@@ -190,8 +190,6 @@ function Download-File
       [parameter(Position=2)]
       $Destination
     )
-    "log source:  $Source"
-    "log dest:   $Destination"
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
     $wc = new-object System.Net.WebClient
     $wc.DownloadFile($Source,$Destination)
@@ -226,7 +224,6 @@ if ([string]$backupPath -eq "")
 {
     $backupPath="C:\dbBackup"
 }
-"BackupPath:  $backupPath  --- "
 
 New-Item -type directory -path $backupPath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
 New-Item -type directory -path $samplePath -InformationAction SilentlyContinue -ErrorAction SilentlyContinue
