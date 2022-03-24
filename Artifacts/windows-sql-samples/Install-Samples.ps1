@@ -151,15 +151,14 @@ function DownloadInstall-Database
 
 
         if ($datafile -like "AdventureWorksLT201[679]*") {
-            $datafile="AdventureWorksLT2012_Data"
-            $logfile="AdventureWorksLT2012_Log"
+            $datafilename="AdventureWorksLT2012_Data"
+            $logfilename="AdventureWorksLT2012_Log"
         }
         elseif ($datafile -like "AdventureWorksLT201[24]*") {
-            $datafile="AdventureWorksLT2008_Data"
-            $logfile="AdventureWorksLT2008_Log"
+            $datafilename="AdventureWorksLT2008_Data"
+            $logfilename="AdventureWorksLT2008_Log"
         }
 
-     
         if  ($datafile -like "AdventureWorks201[79]*") {
           $datafilename="AdventureWorks2017"
           $logfilename="AdventureWorks2017_log"
