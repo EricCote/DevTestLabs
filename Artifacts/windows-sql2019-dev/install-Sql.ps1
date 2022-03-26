@@ -172,7 +172,7 @@ if ($installType -eq "normalInstall") {
         /tcpEnabled=1 `
         /AgtSvcStartupType=automatic `
         /UpdateEnabled=true `
-        /UpdateSource="c:\cu" `
+        /UpdateSource="c:\sqlCU" `
         $pidString `
     | Out-Default
 
@@ -197,6 +197,8 @@ if ($installType -eq "prepareBeforeImage") {
         /IAcceptSqlServerLicenseTerms `
         /SqlSvcInstantFileInit `
         /InstanceID=$instanceName `
+        /UpdateEnabled=true `
+        /UpdateSource="c:\sqlCU" `
     | Out-Default
 }
 
