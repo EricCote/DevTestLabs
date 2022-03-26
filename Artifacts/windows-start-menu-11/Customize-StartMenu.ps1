@@ -1,8 +1,8 @@
 
 # https://oofhours.com/2021/10/27/customize-the-windows-11-start-menu/
 
-$currentDevice="HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device"
-$defaultDevice="HKLM:\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\device"
+$currentDevice = "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device"
+$defaultDevice = "HKLM:\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\device"
 
 $json = Get-Content -Path ".\LayoutModification.json" -Raw
 
@@ -26,15 +26,15 @@ Copy-Item ./taskbar.xml c:\ProgramData\script\taskbar.xml | out-null
 
 mkdir 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | out-null
 Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
-                 -name "StartLayoutFile" `
-                 -value "C:\ProgramData\script\taskbar.xml" `
-                 -force | out-null;
+    -name "StartLayoutFile" `
+    -value "C:\ProgramData\script\taskbar.xml" `
+    -force | out-null;
 Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
-                 -name "ReapplyStartLayoutEveryLogon" `
-                 -value 1 -Force | out-null;
-# Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
-#                  -name "LockedStartLayout" `
-#                  -value 1 -Force | out-null;
+    -name "ReapplyStartLayoutEveryLogon" `
+    -value 1 -Force | out-null;
+Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
+    -name "LockedStartLayout" `
+    -value 1 -Force | out-null;
 
                  
 
