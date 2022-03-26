@@ -9,7 +9,7 @@ $json = Get-Content -Path ".\LayoutModification.json" -Raw
 New-Item -Path $currentDevice -Name Start -Force | Out-Null
 
 
-New-Item -Path $defaultDevice -Name Start –Force | Out-Null
+New-Item -Path $defaultDevice -Name Start -Force | Out-Null
 
 
 New-ItemProperty -path "$currentDevice\Start" -name "ConfigureStartPins_ProviderSet" -value 1 -Force | Out-Null
