@@ -41,17 +41,3 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
 # The following is a temp fix
 $file = Get-Content -Path "C:\Program Files\Azure Data Studio\azuredatastudio.VisualElementsManifest.xml" -Raw
 $file -replace 'Code - OSS', 'Azure Data Studio' | Set-Content -Path  "C:\Program Files\Azure Data Studio\azuredatastudio.VisualElementsManifest.xml"
-
-
-# 1..10 | % {
-# $computer = [ADSI]"WinNT://$env:ComputerName"
-# $user = $computer.Create("User", "Eric$_")
-# $user.SetPassword("af123123123!")
-# $user.Put("Description", "eric$_")
-# $user.SetInfo()
-
-# $group = [ADSI]"WinNT://$env:ComputerName/Administrators,group"
-# $group.add("WinNT://$env:ComputerName/Eric$_") | Out-Null
-# }
-
-# return $user
