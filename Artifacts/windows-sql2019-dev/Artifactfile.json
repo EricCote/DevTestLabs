@@ -97,11 +97,17 @@
       "displayName": "Product ID",
       "description": "If you want to register your eval version to a licensed version of SQL Server, you will need to end the Product ID Key (PID). The format is 00000-00000-00000-00000-00000.",
       "allowEmpty": true
+    },
+    "keepISOFolder": {
+      "type": "bool",
+      "displayName": "Keep ISO folders",
+      "description": "Keeps large folder with the original ISO and CU around.",
+      "defaultValue": true
     }
   },
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\install-sql.ps1'' -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components ''',  parameters('components'), ''' -instanceName ',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -reporting:$', parameters('reporting'), ' -analysis:$', parameters('analysis'),  ' -tabular:$', parameters('tabular'), ' -integration:$',  parameters('integration') , ' -dataQualityClient:$', parameters('dataQualityClient'), ' -masterDataService:$', parameters('masterDataService'), ' -RServices:$', parameters('RServices'),  ' -polyBase:$', parameters('polyBase'),   ' -prodid ''',  parameters('prodid') , ''' \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\install-sql.ps1'' -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components ''',  parameters('components'), ''' -instanceName ',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -reporting:$', parameters('reporting'), ' -analysis:$', parameters('analysis'),  ' -tabular:$', parameters('tabular'), ' -integration:$',  parameters('integration') , ' -dataQualityClient:$', parameters('dataQualityClient'), ' -masterDataService:$', parameters('masterDataService'), ' -RServices:$', parameters('RServices'),  ' -polyBase:$', parameters('polyBase'),   ' -KeepISOFolder:$', parameters('keepISOFolder') ,' -prodid ''',  parameters('prodid') , ''' \"'  )]"
   }
 }
