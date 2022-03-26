@@ -53,25 +53,8 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 #                  -name "SkipMachineOOBE" `
 #                  -value 1
 
-# set taskbar
-mkdir c:\programData\script -Force | out-null
-Copy-Item ./taskbar.xml c:\ProgramData\script\taskbar.xml | out-null
 
-# set start menu
-Copy-Item ./taskbar.xml c:\ProgramData\script\taskbar.xml | out-null
 
-mkdir 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' -Force | out-null
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
-                 -name "StartLayoutFile" `
-                 -value "C:\ProgramData\script\taskbar.xml" `
-                 -force | out-null;
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
-                 -name "LockedStartLayout" `
-                 -value 1 -Force | out-null;
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
-                 -name "ReapplyStartLayoutEveryLogon" `
-                 -value 1 -Force | out-null;
-                 
 
 # Allow sideload of apps
 Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
@@ -148,6 +131,16 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
                  -Value 0 -PropertyType dword `
                  -Force | out-null     
 
+#Create Registry key 
+New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
+-force | out-null
+
+#Remove Teams Startup
+New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
+-Name "PreventFirstLaunchAfterInstall" `
+-Value 1 -PropertyType dword `
+-Force | out-null
+
 # Hide Search 
 
 # New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
@@ -157,10 +150,12 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
 
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
+Remove-PSDrive HKU 
+
 [gc]::Collect()
 [gc]::WaitForPendingFinalizers()
 Start-Sleep -Seconds 1
 & REG UNLOAD "HKU\Default" | out-default
 Start-Sleep -Seconds 1
 
-Remove-PSDrive HKU 
+
