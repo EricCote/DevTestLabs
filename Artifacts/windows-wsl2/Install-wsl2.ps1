@@ -9,6 +9,8 @@ Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu.a
 Invoke-WebRequest -uri "https://github.com/microsoft/WSL/releases/download/0.50.2/Microsoft.WSL_0.50.2.0_x64_ARM64.msixbundle" -UseBasicParsing -OutFile "$env:TEMP\wsl2.msixbundle"
 Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\wsl2.msixbundle"  -Regions all 
 
+Remove-Item -Path "$env:TEMP\Ubuntu.appx"  -Force
+Remove-Item -Path "$env:TEMP\wsl2.msixbundle"  -Force
 
 #wsl --install
 restart-computer
