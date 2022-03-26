@@ -102,7 +102,7 @@
       "type": "bool",
       "displayName": "Keep ISO folders",
       "description": "Keeps large folder with the original ISO and CU around.",
-      "defaultValue": true
+      "defaultValue": false
     }
   },
 
