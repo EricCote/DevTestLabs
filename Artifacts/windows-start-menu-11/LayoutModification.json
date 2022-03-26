@@ -1,0 +1,81 @@
+{
+    "pinnedList": [
+        {
+            "desktopAppId": "Chrome"
+        },
+        {
+            "desktopAppId": "MSEdge"
+        },
+        {
+            "desktopAppId": "Microsoft.Windows.Explorer"
+        },
+        {
+            "packagedAppId": "Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
+        },
+        {
+            "desktopAppId": "Microsoft.VisualStudioCode"
+        },
+        {
+            "desktopAppId": "VisualStudio.05cb8cd8"
+        },
+        {
+            "desktopAppId": "Microsoft.Office.WINWORD.EXE.15"
+        },
+        {
+            "desktopAppId": "Microsoft.Office.EXCEL.EXE.15"
+        },
+        {
+            "desktopAppId": "Microsoft.Office.POWERPNT.EXE.15"
+        },
+        {
+            "desktopAppId": "Microsoft.Office.ONENOTE.EXE.15"
+        },
+        {
+            "desktopAppId": "Microsoft.Office.MSACCESS.EXE.15"
+        },
+        {
+            "packagedAppId": "windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel"
+        },
+        {
+            "desktopAppId": "{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\\Microsoft SQL Server Management Studio 18\\Common7\\IDE\\Ssms.exe"
+        },
+        {
+            "desktopAppId": "Microsoft.azuredatastudio"
+        },
+        {
+            "desktopAppId": "Docker.DockerForWindows.Settings"
+        },
+        {
+            "packagedAppId": "CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc!ubuntu"
+        },
+        {
+            "packagedAppId": "Microsoft.WindowsNotepad_8wekyb3d8bbwe!App"
+        },
+        {
+            "packagedAppId": "Microsoft.Paint_8wekyb3d8bbwe!App"
+        },
+        {
+            "packagedAppId": "Microsoft.Getstarted_8wekyb3d8bbwe!App"
+        },
+        {
+            "packagedAppId": "Microsoft.WindowsCalculator_8wekyb3d8bbwe!App"
+        },
+        {
+            "packagedAppId": "Microsoft.WindowsAlarms_8wekyb3d8bbwe!App"
+        },
+        {
+            "packagedAppId": "Microsoft.Windows.Photos_8wekyb3d8bbwe!App"
+        },
+        {
+            "desktopAppId": "com.squirrel.Teams.Teams"
+        },
+        {
+            "packagedAppId": "Microsoft.WindowsStore_8wekyb3d8bbwe!App"
+        }
+    ],
+    "firstRunOEMPins": [ 
+        {
+            "packagedAppId": "MicrosoftWindows.Client.CBS_cw5n1h2txyewy!WebExperienceHost"
+        }
+    ] 
+}

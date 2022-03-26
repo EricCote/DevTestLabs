@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Start Menu Layout Windows 10",
+  "description": "Will customize the Start Menu and the Task Bar for new users. Adds Menu links for Office, Visual Studio, Chrome and Firefox. Completely cleans the public desktop.",
+  "publisher": "Eric Côté",
+  "tags": ["Start Menu", "Layout", "TaskBar"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Customize-StartMenu.ps1"
+  }
+}
