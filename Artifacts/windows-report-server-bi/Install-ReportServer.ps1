@@ -19,8 +19,8 @@ $links | % {  Invoke-WebRequest -Uri $_  -UseBasicParsing -OutFile $(Join-path -
 
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=58158"  -UseBasicParsing).RawContent
 $page -match '{url:\"(.*?)\"'
-$reportBuilderSrc = $matches[1]
-Invoke-WebRequest -Uri $reportBuilderSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $reportBuilderSrc  -Leaf))
+$pbiReportBuilderSrc = $matches[1]
+Invoke-WebRequest -Uri $pbiReportBuilderSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $pbiReportBuilderSrc  -Leaf))
 
 
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=50400"  -UseBasicParsing).RawContent
@@ -69,7 +69,7 @@ Initialize-Rs -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportSe
 "init rs" | Out-File  -FilePath $out -append
 
 & msiexec /i  "$path\PBIDesktopRS_x64.msi" /quiet ACCEPT_EULA=1  | out-default
-& msiexec /i  "$path\PowerBiReportBuilder.en-US.msi" /quiet   | out-default
+& msiexec /i  "$path\PowerBiReportBuilder.msi" /quiet   | out-default
 & msiexec /i  "$path\SSRS.MobileReportPublisher.Installer.msi" /quiet   | out-default
 & msiexec /i  "$path\ReportBuilder.msi" /quiet   | out-default
 
