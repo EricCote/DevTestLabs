@@ -163,7 +163,7 @@
         "osType": "Windows",
         "formulaContent": {
           "properties": {
-            "size": "Standard_D4s_v4",
+            "size": "Standard_D4s_v5",
             "userName": "afi",
             "password": "af123123123!",
             "isAuthenticationWithSshKey": false,
@@ -173,6 +173,10 @@
             "artifacts": [
               {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-windows",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-start-menu-11",
                 "parameters": []
               },
               {
@@ -273,6 +277,10 @@
                   },
                   {
                     "name": "prodid"
+                  },
+                  {
+                    "name": "keepISOFolder",
+                    "value": "false"
                   }
                 ]
               },
@@ -280,64 +288,20 @@
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-sql-samples",
                 "parameters": [
                   {
-                    "name": "adventureWorksLT2012",
+                    "name": "version",
+                    "value": "2019"
+                  },
+                  {
+                    "name": "adventureWorksLT",
                     "value": "false"
                   },
                   {
-                    "name": "adventureWorksLT2014",
+                    "name": "adventureWorks",
                     "value": "false"
                   },
                   {
-                    "name": "adventureWorksLT2016",
+                    "name": "adventureWorksDW",
                     "value": "false"
-                  },
-                  {
-                    "name": "adventureWorksLT2017",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorksLT2019",
-                    "value": "true"
-                  },
-                  {
-                    "name": "adventureWorks2014",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorksDW2014",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorks2016",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorksDW2016",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorks2016_EXT",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorksDW2016_EXT",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorks2017",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorksDW2017",
-                    "value": "false"
-                  },
-                  {
-                    "name": "adventureWorks2019",
-                    "value": "true"
-                  },
-                  {
-                    "name": "adventureWorksDW2019",
-                    "value": "true"
                   },
                   {
                     "name": "wideWorldImporters",
@@ -349,6 +313,14 @@
                   },
                   {
                     "name": "wideWorldInMemory",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorks2016_EXT",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksDW2016_EXT",
                     "value": "false"
                   },
                   {
@@ -377,10 +349,53 @@
                 ]
               },
               {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-ssms",
+                "parameters": []
+              },
+              {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-report-server-bi",
                 "parameters": []
               },
-
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-visualstudio",
+                "parameters": [
+                  {
+                    "name": "Edition",
+                    "value": "Enterprise"
+                  },
+                  {
+                    "name": "VsVersion",
+                    "value": "2019"
+                  },
+                  {
+                    "name": "Channel",
+                    "value": "Release"
+                  },
+                  {
+                    "name": "Workloads",
+                    "value": "Select Below"
+                  },
+                  {
+                    "name": "WorkloadList",
+                    "value": "Data"
+                  },
+                  {
+                    "name": "Languages",
+                    "value": "en-US"
+                  },
+                  {
+                    "name": "Key",
+                    "value": "BF8Y8-GN2QH-T84XB-QVY3B-RC4DF"
+                  },
+                  {
+                    "name": "Components"
+                  },
+                  {
+                    "name": "Restart",
+                    "value": "Restart if needed"
+                  }
+                ]
+              },
               {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-ssdt",
                 "parameters": []
@@ -388,13 +403,17 @@
               {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-sql-10990",
                 "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-report-samples",
+                "parameters": []
               }
             ],
 
             "galleryImageReference": {
               "offer": "WindowsServer",
               "publisher": "MicrosoftWindowsServer",
-              "sku": "2019-Datacenter",
+              "sku": "2022-Datacenter",
               "osType": "Windows",
               "version": "latest"
             },
@@ -412,10 +431,11 @@
         "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ],
       "properties": {
+        "description": "Windows 11 Basic",
         "osType": "Windows",
         "formulaContent": {
           "properties": {
-            "size": "Standard_NV4as_v4",
+            "size": "Standard_D4s_v5",
             "userName": "afi",
             "password": "af123123123!",
             "isAuthenticationWithSshKey": false,
@@ -425,6 +445,71 @@
             "artifacts": [
               {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-windows",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-start-menu-11",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-fr-ca-language",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-fr-ca-language-pt2",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-git",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-vscode64",
+                "parameters": [
+                  {
+                    "name": "Architecture",
+                    "value": "64-bit"
+                  },
+                  {
+                    "name": "DesktopIcon",
+                    "value": "false"
+                  }
+                ]
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-7zip",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-office2021-pro-plus",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-nvm-node",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-wsl2",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-docker-win10",
                 "parameters": []
               }
             ],
@@ -444,15 +529,16 @@
     {
       "type": "Microsoft.DevTestLab/labs/formulas",
       "apiVersion": "2018-09-15",
-      "name": "[concat(variables('labName'), '/VS2022')]",
+      "name": "[concat(variables('labName'), '/win_server_2022')]",
       "dependsOn": [
         "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
       ],
       "properties": {
+        "description": "Windows Server 2022",
         "osType": "Windows",
         "formulaContent": {
           "properties": {
-            "size": "Standard_D4s_v4",
+            "size": "Standard_D4s_v5",
             "userName": "afi",
             "password": "af123123123!",
             "isAuthenticationWithSshKey": false,
@@ -465,6 +551,18 @@
                 "parameters": []
               },
               {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-start-menu-11",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
+                "parameters": []
+              },
+              {
                 "artifactId": "/artifactsources/public repo/artifacts/windows-chrome",
                 "parameters": []
               },
@@ -473,11 +571,74 @@
                 "parameters": []
               },
               {
-                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
+                "artifactId": "/artifactsources/public repo/artifacts/windows-vscode64",
+                "parameters": [
+                  {
+                    "name": "Architecture",
+                    "value": "64-bit"
+                  },
+                  {
+                    "name": "DesktopIcon",
+                    "value": "false"
+                  }
+                ]
+              }
+            ],
+            "galleryImageReference": {
+              "offer": "WindowsServer",
+              "publisher": "MicrosoftWindowsServer",
+              "sku": "2022-datacenter-smalldisk",
+              "osType": "Windows",
+              "version": "latest"
+            },
+            "allowClaim": false,
+            "storageType": "Premium"
+          }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.DevTestLab/labs/formulas",
+      "apiVersion": "2018-09-15",
+      "name": "[concat(variables('labName'), '/VS2022')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]"
+      ],
+      "properties": {
+        "description": "Visual Studio 2022",
+        "osType": "Windows",
+        "formulaContent": {
+          "properties": {
+            "size": "Standard_D4s_v5",
+            "userName": "afi",
+            "password": "af123123123!",
+            "isAuthenticationWithSshKey": false,
+            "labSubnetName": "MainSubnet",
+            "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
+            "disallowPublicIpAddress": false,
+            "artifacts": [
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-windows",
                 "parameters": []
               },
               {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-ie",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-edge",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-customize-chrome",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-git",
                 "parameters": []
               },
               {
@@ -493,16 +654,145 @@
                   }
                 ]
               },
-              {
-                "artifactId": "/artifactsources/public repo/artifacts/windows-git",
-                "parameters": []
-              },
+
               {
                 "artifactId": "/artifactsources/myrepo/artifacts/windows-office2021-pro-plus",
                 "parameters": []
               },
               {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-sql2019-dev",
+                "parameters": [
+                  {
+                    "name": "sqlEdition",
+                    "value": "dev"
+                  },
+                  {
+                    "name": "installType",
+                    "value": "normalInstall"
+                  },
+                  {
+                    "name": "admins",
+                    "value": "'BUILTIN\\Users', 'NT AUTHORITY\\SYSTEM'"
+                  },
+                  {
+                    "name": "components",
+                    "value": "SQL"
+                  },
+                  {
+                    "name": "instanceName",
+                    "value": "MSSQLSERVER"
+                  },
+                  {
+                    "name": "reporting",
+                    "value": "false"
+                  },
+                  {
+                    "name": "analysis",
+                    "value": "false"
+                  },
+                  {
+                    "name": "tabular",
+                    "value": "false"
+                  },
+                  {
+                    "name": "integration",
+                    "value": "false"
+                  },
+                  {
+                    "name": "dataQualityClient",
+                    "value": "false"
+                  },
+                  {
+                    "name": "masterDataService",
+                    "value": "false"
+                  },
+                  {
+                    "name": "RServices",
+                    "value": "false"
+                  },
+                  {
+                    "name": "polyBase",
+                    "value": "false"
+                  },
+                  {
+                    "name": "prodid"
+                  },
+                  {
+                    "name": "keepISOFolder",
+                    "value": "false"
+                  }
+                ]
+              },
+              {
                 "artifactId": "/artifactsources/public repo/artifacts/windows-ssms",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-sql-samples",
+                "parameters": [
+                  {
+                    "name": "version",
+                    "value": "2019"
+                  },
+                  {
+                    "name": "adventureWorksLT",
+                    "value": "true"
+                  },
+                  {
+                    "name": "adventureWorks",
+                    "value": "true"
+                  },
+                  {
+                    "name": "adventureWorksDW",
+                    "value": "true"
+                  },
+                  {
+                    "name": "wideWorldImporters",
+                    "value": "false"
+                  },
+                  {
+                    "name": "wideWorldImportersDW",
+                    "value": "false"
+                  },
+                  {
+                    "name": "wideWorldInMemory",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorks2016_EXT",
+                    "value": "false"
+                  },
+                  {
+                    "name": "adventureWorksDW2016_EXT",
+                    "value": "false"
+                  },
+                  {
+                    "name": "instanceName"
+                  },
+                  {
+                    "name": "backupPath",
+                    "value": "c:\\dbBackup"
+                  },
+                  {
+                    "name": "samplePath",
+                    "value": "c:\\dbSamples"
+                  },
+                  {
+                    "name": "downloadOnly",
+                    "value": "false"
+                  },
+                  {
+                    "name": "setupOnly",
+                    "value": "false"
+                  },
+                  {
+                    "name": "uninstall",
+                    "value": "false"
+                  }
+                ]
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-start-menu-11",
                 "parameters": []
               },
               {
@@ -510,49 +800,56 @@
                 "parameters": []
               },
               {
-                "artifactId": "/artifactsources/myrepo/artifacts/windows-vs2022",
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-visualstudio",
                 "parameters": [
                   {
-                    "name": "edition",
+                    "name": "Edition",
                     "value": "Enterprise"
                   },
                   {
-                    "name": "preview",
-                    "value": "false"
+                    "name": "VsVersion",
+                    "value": "2022"
                   },
                   {
-                    "name": "aspnet",
-                    "value": "true"
+                    "name": "Channel",
+                    "value": "Release"
                   },
                   {
-                    "name": "netcore",
-                    "value": "true"
+                    "name": "Workloads",
+                    "value": "Select Below"
                   },
                   {
-                    "name": "desktop",
-                    "value": "true"
+                    "name": "WorkloadList",
+                    "value": "NetWeb+,Azure+,Data"
                   },
                   {
-                    "name": "azure",
-                    "value": "true"
-                  },
-                  {
-                    "name": "data",
-                    "value": "true"
-                  },
-                  {
-                    "name": "node",
-                    "value": "true"
-                  },
-                  {
-                    "name": "languages",
+                    "name": "Languages",
                     "value": "en-US"
                   },
                   {
-                    "name": "key",
-                    "value": ""
+                    "name": "Key",
+                    "value": "VHF9H-NXBBB-638P6-6JHCY-88JWH"
+                  },
+                  {
+                    "name": "Components"
+                  },
+                  {
+                    "name": "Restart",
+                    "value": "Restart if needed"
                   }
                 ]
+              },
+              {
+                "artifactId": "/artifactsources/public repo/artifacts/windows-7zip",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-wsl2",
+                "parameters": []
+              },
+              {
+                "artifactId": "/artifactsources/myrepo/artifacts/windows-docker-win10",
+                "parameters": []
               }
             ],
             "galleryImageReference": {
@@ -568,134 +865,134 @@
         }
       }
     },
-    {
-      "type": "Microsoft.DevTestLab/labs/virtualmachines",
-      "apiVersion": "2018-09-15",
-      "name": "[concat(variables('labName'),'/VsMVC-', copyIndex())]",
-      "location": "[resourceGroup().location]",
-      "dependsOn": [
-        "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]",
-        "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
-        "[resourceId('Microsoft.DevTestLab/labs/artifactsources', variables('labName'), 'myrepo')]"
-      ],
-      "copy": {
-        "name": "CoursWin",
-        "count": 3
-      },
-      "properties": {
-        "userName": "afi",
-        "password": "af123123123!",
-        "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
-        "labSubnetName": "MainSubnet",
-        "size": "Standard_D4s_v4",
-        "disallowPublicIpAddress": false,
-        "storageType": "Premium",
-        "allowClaim": false,
-        "galleryImageReference": {
-          "offer": "windows-11",
-          "publisher": "microsoftwindowsdesktop",
-          "sku": "win11-21h2-ent",
-          "osType": "Windows",
-          "version": "latest"
-        },
-        "artifacts": [
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-windows')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-chrome')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-chrome')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-edge')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-ie')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-vscode64')]",
-            "parameters": [
-              {
-                "name": "Architecture",
-                "value": "64-bit"
-              },
-              {
-                "name": "DesktopIcon",
-                "value": "false"
-              }
-            ]
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-git')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-office2021-pro-plus')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-ssms')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-nvm-node')]",
-            "parameters": []
-          },
-          {
-            "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-vs2022')]",
-            "parameters": [
-              {
-                "name": "edition",
-                "value": "Enterprise"
-              },
-              {
-                "name": "preview",
-                "value": "false"
-              },
-              {
-                "name": "aspnet",
-                "value": "true"
-              },
-              {
-                "name": "netcore",
-                "value": "true"
-              },
-              {
-                "name": "desktop",
-                "value": "true"
-              },
-              {
-                "name": "azure",
-                "value": "true"
-              },
-              {
-                "name": "data",
-                "value": "true"
-              },
-              {
-                "name": "node",
-                "value": "true"
-              },
-              {
-                "name": "languages",
-                "value": "en-US"
-              },
-              {
-                "name": "key",
-                "value": ""
-              }
-            ]
-          }
-        ]
-      }
-    },
+    // {
+    //   "type": "Microsoft.DevTestLab/labs/virtualmachines",
+    //   "apiVersion": "2018-09-15",
+    //   "name": "[concat(variables('labName'),'/VsMVC-', copyIndex())]",
+    //   "location": "[resourceGroup().location]",
+    //   "dependsOn": [
+    //     "[resourceId('Microsoft.DevTestLab/labs', variables('labName'))]",
+    //     "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
+    //     "[resourceId('Microsoft.DevTestLab/labs/artifactsources', variables('labName'), 'myrepo')]"
+    //   ],
+    //   "copy": {
+    //     "name": "CoursWin",
+    //     "count": 3
+    //   },
+    //   "properties": {
+    //     "userName": "afi",
+    //     "password": "af123123123!",
+    //     "labVirtualNetworkId": "[resourceId('Microsoft.DevTestLab/labs/virtualnetworks', variables('labName'), variables('labVirtualNetworkName'))]",
+    //     "labSubnetName": "MainSubnet",
+    //     "size": "Standard_D4s_v4",
+    //     "disallowPublicIpAddress": false,
+    //     "storageType": "Premium",
+    //     "allowClaim": false,
+    //     "galleryImageReference": {
+    //       "offer": "windows-11",
+    //       "publisher": "microsoftwindowsdesktop",
+    //       "sku": "win11-21h2-ent",
+    //       "osType": "Windows",
+    //       "version": "latest"
+    //     },
+    //     "artifacts": [
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-windows')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-chrome')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-chrome')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-edge')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-customize-ie')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-vscode64')]",
+    //         "parameters": [
+    //           {
+    //             "name": "Architecture",
+    //             "value": "64-bit"
+    //           },
+    //           {
+    //             "name": "DesktopIcon",
+    //             "value": "false"
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-git')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-office2021-pro-plus')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'public repo', 'windows-ssms')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-nvm-node')]",
+    //         "parameters": []
+    //       },
+    //       {
+    //         "artifactId": "[resourceId('Microsoft.DevTestLab/labs/artifactSources/artifacts', variables('labName'), 'myrepo', 'windows-vs2022')]",
+    //         "parameters": [
+    //           {
+    //             "name": "edition",
+    //             "value": "Enterprise"
+    //           },
+    //           {
+    //             "name": "preview",
+    //             "value": "false"
+    //           },
+    //           {
+    //             "name": "aspnet",
+    //             "value": "true"
+    //           },
+    //           {
+    //             "name": "netcore",
+    //             "value": "true"
+    //           },
+    //           {
+    //             "name": "desktop",
+    //             "value": "true"
+    //           },
+    //           {
+    //             "name": "azure",
+    //             "value": "true"
+    //           },
+    //           {
+    //             "name": "data",
+    //             "value": "true"
+    //           },
+    //           {
+    //             "name": "node",
+    //             "value": "true"
+    //           },
+    //           {
+    //             "name": "languages",
+    //             "value": "en-US"
+    //           },
+    //           {
+    //             "name": "key",
+    //             "value": ""
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
+    // },
 
     {
       "type": "Microsoft.Network/publicIPAddresses",
@@ -740,24 +1037,26 @@
           }
         ]
       }
+    },
+
+    {
+      "type": "microsoft.devtestlab/labs/schedules",
+      "name": "[concat(variables('labName'),'/LabVmsShutdown')]",
+      "apiVersion": "2018-09-15",
+      "location": "canadacentral",
+      "properties": {
+        "status": "Enabled",
+        "taskType": "LabVmsShutdownTask",
+        "dailyRecurrence": {
+          "time": "1715"
+        },
+        "timeZoneId": "Eastern Standard Time"
+      },
+      "dependsOn": [
+        "[resourceId('microsoft.devtestlab/labs', variables('labName'))]"
+      ]
     }
 
-    // {
-    //   "type": "microsoft.devtestlab/labs/schedules",
-    //   "name": "[concat(variables('labName'),'/LabVmsShutdown')]",
-    //   "apiVersion": "2016-05-15",
-    //   "properties": {
-    //     "status": "Enabled",
-    //     "taskType": "LabVmsShutdownTask",
-    //     "dailyRecurrence": {
-    //       "time": "[parameters('shutdownTime')]"
-    //     },
-    //     "timeZoneId": "[parameters('timeZone')]"
-    //   },
-    //   "dependsOn": [
-    //     "[resourceId('microsoft.devtestlab/labs', variables('labName'))]"
-    //   ]
-    // },
     // {
     //   "type": "microsoft.devtestlab/labs/schedules",
     //   "name": "[concat(variables('labName'),'/labvmreclamation')]",
