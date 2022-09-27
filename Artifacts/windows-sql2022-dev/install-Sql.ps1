@@ -165,7 +165,6 @@ if ($installType -eq "normalInstall") {
         /IAcceptROpenLicenseTerms `
         /IAcceptSqlServerLicenseTerms `
         /InstanceName=$instanceName `
-        /RsInstallMode="DefaultNativeMode" `
         /SqlSysAdminAccounts= $adminString `
         /AsSysAdminAccounts= $adminString `
         /AsServerMode=$ASMode `
