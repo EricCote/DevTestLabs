@@ -90,7 +90,8 @@ if ($installType -ne "completeAfterDeploy" ) {
     #Download SqlServer 2022 iso (dev or eval)
     if ($sqlEdition -eq "dev" -or $sqlEdition -eq "eval") {
         if ($sqlEdition -eq "dev") {
-            $isofile = "SQLServer2022-x64-ENU-Dev.iso";
+            #  $isofile = "SQLServer2022-x64-ENU-Dev.iso";
+            $isofile = "SQLServer2022-x64-ENU.iso";
             $source = "https://go.microsoft.com/fwlink/?linkid=2162123"
         } 
         else {
