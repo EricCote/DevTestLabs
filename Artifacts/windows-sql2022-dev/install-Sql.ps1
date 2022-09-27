@@ -172,7 +172,7 @@ if ($installType -eq "normalInstall") {
         /tcpEnabled=1 `
         /AgtSvcStartupType=automatic `
         /UpdateEnabled=true `
-        /UpdateSource="c:\sqlCU2" `
+        #   /UpdateSource="c:\sqlCU" `
         $pidString `
     | Out-Default
 
