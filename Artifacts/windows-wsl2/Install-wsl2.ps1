@@ -6,7 +6,12 @@ Invoke-WebRequest -uri "https://aka.ms/wslubuntu2004" -UseBasicParsing -OutFile 
 Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\Ubuntu.appx"  -Regions all 
 
 
-Invoke-WebRequest -uri "https://github.com/microsoft/WSL/releases/download/0.50.2/Microsoft.WSL_0.50.2.0_x64_ARM64.msixbundle" -UseBasicParsing -OutFile "$env:TEMP\wsl2.msixbundle"
+$latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
+$response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
+$download_url = $response.assets[0].url
+
+
+Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msixbundle"
 Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\wsl2.msixbundle"  -Regions all 
 
 Remove-Item -Path "$env:TEMP\Ubuntu.appx"  -Force
