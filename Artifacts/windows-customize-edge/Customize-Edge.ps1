@@ -10,8 +10,8 @@ $jsonObj = ConvertFrom-Json $([String]::new($response.Content));
 $selectedIndex = [array]::indexof($jsonObj.Product, "Stable");
 
 $LatestEdge = ($jsonObj[$selectedIndex].Releases | `
-        Where-Object { $_.Architecture -eq "x64" -and $_.Platform -eq "Windows" }  | `
-        Sort-Object { $_.ReleaseId } -Descending )[0];
+                Where-Object { $_.Architecture -eq "x64" -and $_.Platform -eq "Windows" }  | `
+                Sort-Object { $_.ReleaseId } -Descending )[0];
         
         
 $LatestEdgeUrl = $LatestEdge.Artifacts[0].Location;
@@ -40,6 +40,8 @@ New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSugges
 
 Remove-Item -Path "$env:temp\edge.msi" -Force
 
+### remove the "Edge Sign In Required" policy from the windows "cloud" version
+#Remove-ItemProperty -path "HKCU:\Software\Policies\Microsoft\Edge" -name "BrowserSignin" 
 
 
 ########################################################

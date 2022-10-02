@@ -1,26 +1,22 @@
 ﻿$ProgressPreference = 'SilentlyContinue'
 
-$sasold = "sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D"
-$sas = "sp=rl&st=2022-10-02T07:44:44Z&se=2026-10-02T15:44:44Z&spr=https&sv=2021-06-08&sr=c&sig=8COlEmuB7LVPphsQWBhfGPqx1guSF4MRWmRKdVU5Bvg%3D" 
-$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-22h2/fr-ca";
+$sas = "sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D"
+$blobLocation = "https://azureshelleric.blob.core.windows.net/win11/fr-ca";
 
-$logPath = "$env:temp\log-sys-fr-ca.txt"
 
+$logPath= "$env:temp\wow1.txt"
 
 $linkArray = @(
     "Microsoft-Windows-EMS-SAC-Desktop-Tools-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-InternetExplorer-Optional-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
     "Microsoft-Windows-Notepad-System-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",    
     "Microsoft-Windows-Notepad-System-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
     "Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
     "Microsoft-Windows-Printing-PMCPPC-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
+    "Microsoft-Windows-Printing-WFS-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-WMIC-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-WMIC-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
     "Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab"
 )
@@ -43,7 +39,7 @@ $FOD = @(
     # "Microsoft.Windows.WordPad~~~~0.0.1.0"
 );
 
-$url = "$blobLocation/Microsoft-Windows-Client-Language-Pack_x64_fr-ca.cab?$sas"
+$url="$blobLocation/Microsoft-Windows-Client-Language-Pack_x64_fr-ca.cab?$sas"
 
 
 Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$env:temp\lang.cab"
@@ -58,23 +54,23 @@ Add-WindowsPackage -online -PackagePath  "$env:temp\lang.cab"
 
 
 
-$FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
+$FOD | ForEach-Object  { Add-WindowsCapability -Online -Name $_  }
 "Added FOD capabilities"  | out-file $logPath -append
 
 
-$packages = $linkArray | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
+$packages = $linkArray | ForEach-Object { @{url="$blobLocation/$($_)?$sas"; filename=$_ }  }
 "generate a list of package names and url" | out-file $logPath -append
 
 
-$packages | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename) } 
+$packages | ForEach-Object  { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename)  } 
 "loop for download" | out-file $logPath -append
 
 
-$packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename) }
+$packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename)  }
 "loop for integrating windows package"  | out-file $logPath -append
 
 
-$url2 = "https://azureshelleric.blob.core.windows.net/win11-22h2/inbox-apps/inbox.zip?$sas"
+$url2="https://azureshelleric.blob.core.windows.net/win11/inbox-apps/inbox.zip?$sas"
 Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$env:temp\inbox.zip"
 "Download inbox files"  | out-file $logPath -append
 
