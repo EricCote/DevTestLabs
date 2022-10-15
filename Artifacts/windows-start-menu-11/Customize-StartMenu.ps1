@@ -39,5 +39,5 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer" `
                  
 
 # The following is a temp fix
-$file = Get-Content -Path "C:\Program Files\Azure Data Studio\azuredatastudio.VisualElementsManifest.xml" -Raw
-$file -replace 'Code - OSS', 'Azure Data Studio' | Set-Content -Path  "C:\Program Files\Azure Data Studio\azuredatastudio.VisualElementsManifest.xml"
+#$file = Get-Content -Path "C:\Program Files\Azure Data Studio\azuredatastudio.VisualElementsManifest.xml" -Raw
+#$file -replace 'Code - OSS', 'Azure Data Studio' | Set-Content -Path  "C:\Program Files\Azure Data Studio\azuredatastudio.VisualElementsManifest.xml"

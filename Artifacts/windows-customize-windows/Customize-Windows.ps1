@@ -6,8 +6,8 @@ tzutil /s "Eastern Standard Time"
 new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force | out-null
 
 # is this a serverOS?
-$isServer= (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
-if($isServer){
+$isServer = (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
+if ($isServer) {
     #enable sound
     Set-Service audiosrv -startuptype automatic  | out-null
     start-service audiosrv | out-null
@@ -41,8 +41,8 @@ New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\OneDrive" -nam
 mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OOBE' -Force | out-null
 # disable "Choose Privacy Settings for your device"
 Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
-                 -name "DisablePrivacyExperience" `
-                 -value 1 -Force | out-null
+    -name "DisablePrivacyExperience" `
+    -value 1 -Force | out-null
 
 
 #The "skip oobe" is already provided by Azure scripting
@@ -58,24 +58,24 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 
 # Allow sideload of apps
 Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
-                 -name "AllowAllTrustedApps" `
-                 -value 1 `
-                 -force | out-null
+    -name "AllowAllTrustedApps" `
+    -value 1 `
+    -force | out-null
 
 #Enable Dev Mode
 mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -force | Out-Null
 Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" `
-                 -name "AllowDevelopmentWithoutDevLicense" `
-                 -value 1 `
-                 -force | out-null
+    -name "AllowDevelopmentWithoutDevLicense" `
+    -value 1 `
+    -force | out-null
 
 #enable UAC on Administrator account
                 
 #mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force | Out-Null
 Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
-                 -name "FilterAdministratorToken" `
-                 -value 1 `
-                 -force | out-null
+    -name "FilterAdministratorToken" `
+    -value 1 `
+    -force | out-null
 
 # overrides default file associations to chrome                 
 # Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" `
@@ -109,37 +109,44 @@ New-PSDrive HKU Registry HKEY_USERS | out-null
 
 # Show file extensions
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                 -name HideFileExt `
-                 -Value 0 -PropertyType dword `
-                 -Force | out-null
+    -name HideFileExt `
+    -Value 0 -PropertyType dword `
+    -Force | out-null
 
 # Hide widgets  (win10/11)                 
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                 -name TaskbarDa `
-                 -Value 0 -PropertyType dword `
-                 -Force | out-null       
+    -name TaskbarDa `
+    -Value 0 -PropertyType dword `
+    -Force | out-null       
                     
 # Hide TaskView (win11)                  
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                 -name ShowTaskViewButton `
-                 -Value 0 -PropertyType dword `
-                 -Force | out-null   
+    -name ShowTaskViewButton `
+    -Value 0 -PropertyType dword `
+    -Force | out-null   
                     
 # Hide Chat     (win11)              
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-                 -name TaskbarMn `
-                 -Value 0 -PropertyType dword `
-                 -Force | out-null     
+    -name TaskbarMn `
+    -Value 0 -PropertyType dword `
+    -Force | out-null   
+                 
+# more pins / less recommended  in start menu (win11, 22h2) 0=default, 1=more pins, 2=more recommendations
+New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+    -name Start_Layout `
+    -Value 1 -PropertyType dword `
+    -Force | out-null   
+                 
 
 #Create Registry key 
 New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
--force | out-null
+    -force | out-null
 
 #Remove Teams Startup
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
--Name "PreventFirstLaunchAfterInstall" `
--Value 1 -PropertyType dword `
--Force | out-null
+    -Name "PreventFirstLaunchAfterInstall" `
+    -Value 1 -PropertyType dword `
+    -Force | out-null
 
 # Hide Search 
 
