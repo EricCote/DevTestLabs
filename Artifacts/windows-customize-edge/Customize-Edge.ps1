@@ -26,11 +26,20 @@ msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 $PolPath = "HKLM:\Software\Policies\Microsoft\Edge"
 
 mkdir "$PolPath\Recommended"  -Force | out-null
+mkdir "$PolPath\Main"  -Force | out-null
+
+
 #Stop nagging default browser  
 New-ItemProperty -path $PolPath -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
 
 #hide first run popups
 New-ItemProperty -path $PolPath -name "HideFirstRunExperience" -value 1 -Force | Out-Null
+
+# Disable Favorites Bar 
+New-ItemProperty -path "$PolPath\Main" -name "ConfigureFavoritesBar" -value 0 -Force | Out-Null
+
+
+
 
 #specify search engine
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderEnabled" -value 1 -Force | Out-Null
