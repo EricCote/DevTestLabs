@@ -97,13 +97,13 @@ if ($installType -ne "completeAfterDeploy" ) {
         else {
             # "eval" 
             $isofile = "SQLServer2022-x64-ENU.iso";
-            $source = "https://go.microsoft.com/fwlink/?linkid=2162123"
+            $source = "https://go.microsoft.com/fwlink/?linkid=2215158"
         }
 
         $SSEIFile = "$env:temp\sql2022.exe"
 
         #get link to latest version of CU (Cummulative Update) from download page
-        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=100809"  -UseBasicParsing).RawContent
+        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=105013"  -UseBasicParsing).RawContent
         $page -match '{url:\"(.*?)\"'
         $cuSource = $matches[1]
 
@@ -115,7 +115,7 @@ if ($installType -ne "completeAfterDeploy" ) {
         $wc.DownloadFile($Source, $SSEIFile)
 
         #download CU install in ISO Folder
-        $wc.DownloadFile($cuSource, "c:\sqlCU\SQLServer2019-cu-x64.exe")
+        $wc.DownloadFile($cuSource, "c:\sqlCU\SQLServer2022-cu-x64.exe")
         $wc.Dispose()
 
         #Launch setup to download ISO Folder
@@ -134,11 +134,11 @@ if ($installType -ne "completeAfterDeploy" ) {
 
     }
     else {
-        #Download SqlServer 2019 Express
+        #Download SqlServer 2022 Express
 
 
-        $source = "https://go.microsoft.com/fwlink/?linkid=866658"
-        $SSEIFile = "$env:temp\sql2019.exe" 
+        $source = "https://go.microsoft.com/fwlink/?linkid=2216019"
+        $SSEIFile = "$env:temp\sql2022.exe" 
     
         $wc = new-object System.Net.WebClient
         $wc.DownloadFile($Source, $SSEIFile)
@@ -213,7 +213,7 @@ if ($installType -eq "completeAfterDeploy") {
     else 
     { $pidString = "" }
 
-    & "$env:programFiles\Microsoft SQL Server\150\Setup Bootstrap\SQLServer2019\setup.exe" /q `
+    & "$env:programFiles\Microsoft SQL Server\160\Setup Bootstrap\SQLServer2022\setup.exe" /q `
         /Action=CompleteImage `
         /SuppressPrivacyStatementNotice `
         /IAcceptROpenLicenseTerms `
