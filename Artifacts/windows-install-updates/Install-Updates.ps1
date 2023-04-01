@@ -2,14 +2,14 @@
 $ProgressPreference = 'SilentlyContinue'
 
 
-Install-PackageProvider -Name NuGet -force
-Install-Module PSWindowsUpdate -force
+# Install-PackageProvider -Name NuGet -force
+# Install-Module PSWindowsUpdate -force
 
-Get-WUInstall -acceptall -ignorereboot 
+# Get-WUInstall -acceptall -ignorereboot 
 
-Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
+# Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
 
-Get-WURebootStatus
+# Get-WURebootStatus
 
 
 

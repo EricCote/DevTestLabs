@@ -1,16 +1,12 @@
 {
-    "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-    "title": "Windows Updates",
-    "description": "Download and installs Windows Updates. You need to restart Windows to complete the installation.",
-    "publisher": "Eric Côté",
-    "tags": [
-        "Windows Updates",
-        "Updates",
-        "WU"
-    ],
-    "iconUri": "https://i.microsoft.com/global/ImageStore/PublishingImages/logos/56x56/windows_symbol_clr_56x56.png",
-    "targetOsType": "Windows",
-    "runCommand": {
-        "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File install-updates.ps1"
-    }
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Windows Updates",
+  "description": "Download and installs Windows Updates. You need to restart Windows to complete the installation.",
+  "publisher": "Eric Côté",
+  "tags": ["Windows Updates", "Updates", "WU"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Updates.ps1"
+  }
 }
