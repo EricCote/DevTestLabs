@@ -1,7 +1,16 @@
-﻿#ssms setup
-$source = "https://aka.ms/ssmsfullsetup"
-$destination = "$env:temp\ssms-setup-enu.exe"
+﻿param (
+    [string]$lang = "English (409)"
+)
 
-(New-Object System.Net.WebClient).DownloadFile($Source, $Destination)
+$Query = [regex]::Matches($lang, "\((.*)\)")
+$num = $Query.Groups[1].Value
+$langNumber="0x$num"
+$source="https://aka.ms/ssmsfullsetup?clcid=$langNumber"
 
-& $Destination /install /quiet | out-default
+
+$destination = "$env:temp\ssms-setup.exe"
+
+Invoke-WebRequest  -UseBasicParsing -Uri $source  -OutFile $destination
+
+& $destination /install /quiet | out-default
+

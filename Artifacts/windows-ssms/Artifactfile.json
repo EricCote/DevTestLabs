@@ -6,8 +6,30 @@
   "tags": ["SQL", "SSMS", "Management Studio"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ssms.png",
 
+  "parameters": {
+    "lang": {
+      "type": "string",
+      "displayName": "Language",
+      "description": "Install language for SSMS (English is always available)",
+      "allowedValues": [
+        "Chinese - Simplified (804)",
+        "Chinese - Traditional (404)",
+        "English (409)",
+        "French (40c)",
+        "German (407)",
+        "Italian (410)",
+        "Japanese (411)",
+        "Korean (412)",
+        "Portuguese (416)",
+        "Russian (419)",
+        "Spanish (40a)"
+      ],
+      "defaultValue": "English (409)"
+    }
+  },
+
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-ssms.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Install-ssms.ps1 -lang \"', parameters('lang'), '\"' )]"
   }
 }
