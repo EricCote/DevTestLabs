@@ -15,11 +15,11 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 
 
 Invoke-WebRequest -UseBasicParsing -Uri "https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi" -OutFile "$env:temp\wsl_update_x64.msi"  
-&msiexec /i "$env:temp\wsl_update_x64.msi" /quiet 
+& msiexec /i "$env:temp\wsl_update_x64.msi" /quiet 
 
 #wsl.exe --status
 #wsl.exe --update
-#wsl.exe --install
+#& wsl.exe --install
 
 #(get-command wsl).path
 
