@@ -7,6 +7,6 @@
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-wsl2/wsl.png",
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-wsl2.ps1"
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-wsl2-test.ps1"
   }
 }
