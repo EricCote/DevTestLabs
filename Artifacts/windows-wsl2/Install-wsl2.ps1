@@ -15,7 +15,7 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 
 #wsl.exe --status
 #wsl.exe --update
-#wsl.exe --install
+wsl.exe --install
 
 (get-command wsl).path
 
