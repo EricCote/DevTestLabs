@@ -2,19 +2,6 @@
 $ProgressPreference = 'SilentlyContinue'
 
 
-Install-PackageProvider -Name NuGet -force
-Install-Module PSWindowsUpdate -force
-
-Get-WUInstall -acceptall -ignorereboot 
-
-Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
-
-Get-WURebootStatus
-
-
-
-#---------------------
-
 
 
 $sas = "sp=rl&st=2022-10-02T07:44:44Z&se=2026-10-02T15:44:44Z&spr=https&sv=2021-06-08&sr=c&sig=8COlEmuB7LVPphsQWBhfGPqx1guSF4MRWmRKdVU5Bvg%3D" 
@@ -45,4 +32,20 @@ foreach ($app in (Get-ChildItem $env:TEMP\appx\*.appx )) {
 Remove-Item $env:TEMP\appx  -Recurse -Force
 Remove-Item "C:\Windows\Temp\appx"  -Recurse -Force
 
-Restart-Computer
+
+
+#------------------------------------------
+
+Install-PackageProvider -Name NuGet -force
+Install-Module PSWindowsUpdate -force
+
+Get-WUInstall  -AcceptAll -Install -AutoReboot
+
+#Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
+
+Get-WURebootStatus
+
+
+
+#---------------------
+
