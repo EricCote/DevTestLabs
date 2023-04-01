@@ -18,3 +18,5 @@ wsl.exe --update
 wsl.exe --install
 
 (get-command wsl).path
+
+Restart-Computer
