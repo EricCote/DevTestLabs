@@ -1,7 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 
 Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-Disable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 
 #$latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
@@ -13,9 +13,9 @@ Disable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux" 
 #Add-AppxProvisionedPackage -Online -SkipLicense -PackagePath "$env:TEMP\wsl2.msixbundle"  -Regions all 
 #Add-AppxPackage -Path "$env:TEMP\wsl2.msixbundle"  
 
-wsl.exe --status
-wsl.exe --update
-wsl.exe --install
+#wsl.exe --status
+#wsl.exe --update
+#wsl.exe --install
 
 (get-command wsl).path
 
