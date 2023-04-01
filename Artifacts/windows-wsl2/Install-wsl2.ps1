@@ -1,3 +1,5 @@
+$ProgressPreference = 'SilentlyContinue'
+
 Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
 Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
@@ -14,3 +16,5 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 wsl --status
 wsl --update
 wsl --install
+
+(get-command wsl).path
