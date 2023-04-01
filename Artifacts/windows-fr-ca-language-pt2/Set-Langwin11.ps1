@@ -1,16 +1,11 @@
-﻿
-# $UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
-# $UserLanguageList.Add("en-US")
-
-# Set-WinUserLanguageList -LanguageList $UserLanguageList -force
-
-#-------------------------------------------------------------------------
-
+﻿#Get the unattend.xml file content
 $unattend = Get-Content "C:\windows\panther\Unattend.xml" -raw
 
-#add intl section, (if it doesn't exist)
+
+#add intl section, (if it doesn't exist yet)
 $Count = [regex]::matches($unattend,"Microsoft-Windows-International-Core").count
 
+#If it doesn't exist, we add the international settings in the file
 if ($Count -eq 0) {
   $unattend = $unattend.Replace('<settings pass="oobeSystem" wasPassProcessed="true">',
   @"
@@ -26,11 +21,47 @@ if ($Count -eq 0) {
   )
 }
 
+
+#Let's remove the userAccounts part
+#we don't want to create the accounts a second time (leads to errors?) 
 $unattend= $unattend -replace "(?ms)<UserAccounts>.*?</UserAccounts>", ""
 
+#Save unattend.xml
 $unattend | Set-Content "C:\windows\panther\Unattend.xml" -encoding utf8
 
+
+#This registry value says that the last part of unattended.xml 
+#(step7, oobeSystem) has not completed and needs to run again.
+#see: https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/update-windows-settings-and-scripts-create-your-own-answer-file-sxs?view=windows-11
+New-ItemProperty `
+   -path "HKLM:\SYSTEM\Setup\Status\UnattendPasses" `
+   -name "oobeSystem" `
+   -value 0  `
+   -Force | Out-Null
+
+
 #--------------------------------------------------------------
+
+# Lets run the last part of unattended.xml again. And set the language.
+& C:\Windows\System32\oobe\oobeldr.exe /system
+
+
+#------------------------------------------------------------------
+# We could try to set the current language list...  
+# but this fails because it gets reset by oobe during first login
+
+# $UserLanguageList = New-WinUserLanguageList -Language "fr-CA"
+# $UserLanguageList.Add("en-US")
+
+# Set-WinUserLanguageList -LanguageList $UserLanguageList -force
+
+#-------------------------------------------------------------------------
+
+
+
+#--------------------------------------------------------------
+#We could create a oobe.xml file in the oobe folder.  
+# I dont remember if this works with the unattended process during first login.
 
 # $oobe = @"
 # <FirstExperience>
@@ -51,12 +82,3 @@ $unattend | Set-Content "C:\windows\panther\Unattend.xml" -encoding utf8
 # $oobe | Set-Content "C:\windows\System32\oobe\info\oobe.xml"
 
 #---------------------------------------------------------------
-
-# New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\ImageServicingData" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
-# New-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Setup\State" -name "ImageState" -value "IMAGE_STATE_SPECIALIZE_RESEAL_TO_OOBE" -Force | Out-Null
-New-ItemProperty -path "HKLM:\SYSTEM\Setup\Status\UnattendPasses" -name "oobeSystem" -value 0  -Force | Out-Null
-
-
-#--------------------------------------------------------------
-
-& C:\Windows\System32\oobe\oobeldr.exe /system

@@ -89,6 +89,12 @@ foreach ($app in (Get-ChildItem $env:TEMP\appx\*.*xbundle )) {
 }
 
 
+Remove-Item "$env:TEMP\appx"  -Recurse -Force
+Remove-Item "$env:temp\inbox.zip"  -Force
+$packages | ForEach-Object{remove-item (join-path  $env:temp   $_.filename) -force}
+"Remove downloaded files"   | out-file $logPath -append
+
+
 restart-computer
 "Restarted  $(Get-Date -Format T)"   | out-file $logPath -append
 
