@@ -35,11 +35,11 @@ Remove-Item "C:\Windows\Temp\appx"  -Recurse -Force
 Install-PackageProvider -Name NuGet -force
 Install-Module PSWindowsUpdate -force
 
-Get-WUInstall  -AcceptAll -Install -IgnoreReboot
+Get-WUInstall  -AcceptAll -Install -IgnoreReboot -Confirm:false
 
 #Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
 
-Get-WURebootStatus
+#Get-WURebootStatus
 
 
 
