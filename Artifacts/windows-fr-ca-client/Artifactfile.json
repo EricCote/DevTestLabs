@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Language fr-CA Windows 11",
+  "description": "Sets the display language to French Canadian.  Only works with Windows 11 22H2.",
+  "publisher": "Eric Côté",
+  "tags": [
+    "Français",
+    "Francais",
+    "French",
+    "Canada",
+    "Regional Settings",
+    "Language"
+  ],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
+  }
+}
