@@ -37,6 +37,8 @@ Install-Module PSWindowsUpdate -force
 
 Get-WUInstall  -AcceptAll -Install -IgnoreReboot -Confirm:false
 
+Restart-Computer
+
 #Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
 
 #Get-WURebootStatus
