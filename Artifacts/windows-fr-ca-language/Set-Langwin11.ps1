@@ -43,45 +43,64 @@ $FOD = @(
     # "Microsoft.Windows.WordPad~~~~0.0.1.0"
 );
 
+$FOD2 = @("Microsoft-Windows-LanguageFeatures-Basic-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
+"Microsoft-Windows-LanguageFeatures-Basic-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
+"Microsoft-Windows-LanguageFeatures-Handwriting-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
+"Microsoft-Windows-LanguageFeatures-OCR-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
+"Microsoft-Windows-LanguageFeatures-Speech-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
+"Microsoft-Windows-LanguageFeatures-TextToSpeech-fr-ca-Package~31bf3856ad364e35~amd64~~.cab"
+)
+
+
+
 $url = "$blobLocation/Microsoft-Windows-Client-Language-Pack_x64_fr-ca.cab?$sas"
 
 
-Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$env:temp\lang.cab"
-"Lang Downloaded $(Get-Date -Format T)"  | out-file  $logPath -append
-Add-WindowsPackage -online -PackagePath  "$env:temp\lang.cab"
-"Lang Installed $(Get-Date -Format T)" | out-file  $logPath -append
+$destination="$env:temp\lang"
+New-Item  $destination
 
+Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$destination\lang.cab"
+"Lang Downloaded $(Get-Date -Format T)"  | out-file  $logPath -append
+Add-WindowsPackage -online -PackagePath  "$destination\lang.cab"
+"Lang Installed $(Get-Date -Format T)" | out-file  $logPath -append
 
 
 # $FOD | ForEach-Object  { if ($_ -notmatch "Language\.")  {  Remove-WindowsCapability -Online -Name $_  }}
 # "Removed capabilities" | out-file "$env:temp\wow3.txt"
 
 
+#$FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
+#$FOD2
+$packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ ; shortName= $_} }
+"list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
 
-$FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
-"Added FOD capabilities $(Get-Date -Format T)"  | out-file $logPath -append
+$packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $destination   $_.filename) } 
+"loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
+
+$FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }
+"loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
 
 
 $packages = $linkArray | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
 "generate a list of package names and url $(Get-Date -Format T)" | out-file $logPath -append
 
 
-$packages | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $env:temp   $_.filename) } 
+$packages | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile (join-path  $destination   $_.filename) } 
 "loop for download $(Get-Date -Format T)" | out-file $logPath -append
 
 
-$packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $env:temp   $_.filename) }
+$packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path  $destination   $_.filename) }
 "loop for integrating windows package $(Get-Date -Format T)"  | out-file $logPath -append
 
 
 $url2 = "https://azureshelleric.blob.core.windows.net/win11-22h2/inbox-apps/inbox.zip?$sas"
-Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$env:temp\inbox.zip"
+Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
 "Download inbox files $(Get-Date -Format T)"  | out-file $logPath -append
 
-Expand-Archive -Path "$env:temp\inbox.zip" -DestinationPath "$env:temp\appx"   -Force
+Expand-Archive -Path "$destinationp\inbox.zip" -DestinationPath "$destination\appx"   -Force
 "Unzip inbox files $(Get-Date -Format T)"  | out-file $logPath -append
 
-foreach ($app in (Get-ChildItem $env:TEMP\appx\*.*xbundle )) {
+foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
     $app.BaseName + " prep  $(Get-Date -Format T)"  | out-file $logPath -append
     $lic = "$($app.DirectoryName)\$($app.BaseName).xml"
     Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic  | Out-Null
@@ -89,9 +108,7 @@ foreach ($app in (Get-ChildItem $env:TEMP\appx\*.*xbundle )) {
 }
 
 
-Remove-Item "$env:TEMP\appx"  -Recurse -Force
-Remove-Item "$env:temp\inbox.zip"  -Force
-$packages | ForEach-Object{remove-item (join-path  $env:temp   $_.filename) -force}
+Remove-Item $destination  -Recurse -Force
 "Remove downloaded files"   | out-file $logPath -append
 
 
