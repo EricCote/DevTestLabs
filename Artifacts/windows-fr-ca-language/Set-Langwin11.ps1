@@ -57,7 +57,7 @@ $url = "$blobLocation/Microsoft-Windows-Client-Language-Pack_x64_fr-ca.cab?$sas"
 
 
 $destination="$env:temp\lang"
-New-Item  $destination
+New-Item  $destination -ItemType Directory -force
 
 Invoke-WebRequest -UseBasicParsing -Uri $url -OutFile "$destination\lang.cab"
 "Lang Downloaded $(Get-Date -Format T)"  | out-file  $logPath -append
@@ -71,10 +71,10 @@ Add-WindowsPackage -online -PackagePath  "$destination\lang.cab"
 
 #$FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
 #$FOD2
-$packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ ; shortName= $_} }
+$packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
 "list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
 
-$packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$_.filename" } 
+$packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
 "loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
 
 $FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }
@@ -85,7 +85,7 @@ $packages = $linkArray | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; fi
 "generate a list of package names and url $(Get-Date -Format T)" | out-file $logPath -append
 
 
-$packages | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$_.filename" } 
+$packages | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
 "loop for download $(Get-Date -Format T)" | out-file $logPath -append
 
 
@@ -97,7 +97,7 @@ $url2 = "https://azureshelleric.blob.core.windows.net/win11-22h2/inbox-apps/inbo
 Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
 "Download inbox files $(Get-Date -Format T)"  | out-file $logPath -append
 
-Expand-Archive -Path "$destinationp\inbox.zip" -DestinationPath "$destination\appx"   -Force
+Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
 "Unzip inbox files $(Get-Date -Format T)"  | out-file $logPath -append
 
 foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
