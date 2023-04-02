@@ -1,15 +1,15 @@
 $ProgressPreference = 'SilentlyContinue'
 
-$dest = "${env:Temp}\office";
-new-item $dest -ItemType Directory  -Force
+$odtFolder = "${env:Temp}\office";
+new-item $odtFolder -ItemType Directory  -Force
 
 
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117"  -UseBasicParsing).RawContent;
 $page -match '{url:\"(.*?)\"';
-$OdtSource = $matches[1];
+$OdtUrl = $matches[1];
 
 
-Invoke-WebRequest -UseBasicParsing -Uri $OdtSource -OutFile "$dest\OdtOffice.exe"
+Invoke-WebRequest -UseBasicParsing -Uri $OdtUrl -OutFile "$env:temp\OdtOffice.exe"
 
 $xmlOld= @"
 <Configuration>
@@ -48,7 +48,7 @@ $xml= @"
 
     
 
-& $fileDest  /extract:"$OdtFolder" /quiet | out-null ; 
+& "$env:Temp\OdtOffice.exe"  /extract:"$OdtFolder" /quiet | out-null ; 
 
 $conf=(Join-Path $OdtFolder "configuration.xml") ;
 $xml | Out-File  -FilePath $conf -Encoding utf8;
