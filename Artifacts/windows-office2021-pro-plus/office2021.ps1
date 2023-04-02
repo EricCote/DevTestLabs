@@ -11,7 +11,7 @@ $OdtUrl = $matches[1];
 
 Invoke-WebRequest -UseBasicParsing -Uri $OdtUrl -OutFile "$env:temp\OdtOffice.exe"
 
-$xmlOld= @"
+$xml= @"
 <Configuration>
   <Add OfficeClientEdition="64" Channel="PerpetualVL2021">
     <Product ID="ProPlus2021Volume" PIDKEY="FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH">
@@ -29,7 +29,7 @@ $xmlOld= @"
 "@
 
 
-$xml= @"
+$xmlOffice365= @"
 <Configuration>
   <Add OfficeClientEdition="64" Channel="Current">
     <Product ID="O365ProPlusRetail"  PIDKEY="DRNV7-VGMM2-B3G9T-4BF84-VMFTK">
