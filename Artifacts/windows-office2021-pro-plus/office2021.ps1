@@ -32,7 +32,7 @@ $xmlOld= @"
 $xml= @"
 <Configuration>
   <Add OfficeClientEdition="64" Channel="Current">
-    <Product ID="O365ProPlusRetail">
+    <Product ID="O365ProPlusRetail"  PIDKEY="DRNV7-VGMM2-B3G9T-4BF84-VMFTK">
       <Language ID="en-us" />
       <Language ID="fr-ca" />
       <!--  <ExcludeApp ID="Teams" />  -->
