@@ -1,18 +1,17 @@
 $ProgressPreference = 'SilentlyContinue'
 
+$dest = "${env:Temp}\office";
+new-item $dest -ItemType Directory  -Force
+
 
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117"  -UseBasicParsing).RawContent;
 $page -match '{url:\"(.*?)\"';
 $OdtSource = $matches[1];
 
-$tempFolder= $env:Temp;
 
-$OdtFolder = $tempFolder;
-$fileDest= ("$tempFolder\OdtOffice.exe");
+Invoke-WebRequest -UseBasicParsing -Uri $OdtSource -OutFile "$dest\OdtOffice.exe"
 
-Invoke-WebRequest -UseBasicParsing -Uri $OdtSource -OutFile $fileDest
-
-$xml= @"
+$xmlOld= @"
 <Configuration>
   <Add OfficeClientEdition="64" Channel="PerpetualVL2021">
     <Product ID="ProPlus2021Volume" PIDKEY="FXYTK-NJJ8C-GB6DW-3DYQT-6F7TH">
@@ -28,6 +27,25 @@ $xml= @"
 
 </Configuration>
 "@
+
+
+$xml= @"
+<Configuration>
+  <Add OfficeClientEdition="64" Channel="Current">
+    <Product ID="O365ProPlusRetail">
+      <Language ID="en-us" />
+      <Language ID="fr-ca" />
+      <!--  <ExcludeApp ID="Teams" />  -->
+    </Product>
+  </Add>
+
+  <Updates Enabled="TRUE" Channel="Current" />
+  <Display Level="None" AcceptEULA="TRUE" /> 
+  <!--  <Property Name="AUTOACTIVATE" Value="1" />  -->
+
+</Configuration>
+"@
+
     
 
 & $fileDest  /extract:"$OdtFolder" /quiet | out-null ; 
@@ -80,7 +98,7 @@ New-PSDrive HKU Registry HKEY_USERS | out-default
 New-Item "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
                  -force | out-null
 
-#Create Registry value
+#Removes a connected warning
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Privacy\SettingsStore\Anonymous" `
                  -Name "OptionalConnectedExperiencesNoticeVersion" `
                  -Value 2 -PropertyType dword `
@@ -91,7 +109,7 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Microsoft\Office\16.0\Common\Priva
 New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
                  -force | out-null
 
-#Create Registry value
+#Remove an automatic run from Teams
 New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
                  -Name "PreventFirstLaunchAfterInstall" `
                  -Value 1 -PropertyType dword `
