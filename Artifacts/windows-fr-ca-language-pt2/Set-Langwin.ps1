@@ -1,4 +1,9 @@
-﻿#Get the unattend.xml file content
+﻿
+param(
+  [string] $lang="en-CA"
+)
+
+#Get the unattend.xml file content
 $unattend = Get-Content "C:\windows\panther\Unattend.xml" -raw
 
 
@@ -12,9 +17,9 @@ if ($Count -eq 0) {
   <settings pass="oobeSystem">
     <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <InputLocale>0c0c:00011009;1009:00011009</InputLocale>
-      <SystemLocale>fr-CA</SystemLocale>
-      <UILanguage>fr-CA</UILanguage>
-      <UserLocale>fr-CA</UserLocale>
+      <SystemLocale>$lang</SystemLocale>
+      <UILanguage>$lang</UILanguage>
+      <UserLocale>$lang</UserLocale>
       <UILanguageFallback>en-US</UILanguageFallback>
     </component>
 "@

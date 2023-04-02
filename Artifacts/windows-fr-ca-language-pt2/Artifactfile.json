@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
   "title": "Language fr-CA part 2",
-  "description": "Sets the display language to French Canadian.  Only works with Windows 11 for now.",
+  "description": "Sets the display language for first load. Can be changed by the user.",
   "publisher": "Eric Côté",
   "tags": [
     "Français",
@@ -11,9 +11,18 @@
     "Regional Settings",
     "Language"
   ],
+  "parameters": {
+    "lang": {
+      "type": "string",
+      "displayName": "Language",
+      "description": "Sets the default language and localization for Windows. Can be changed by the user.",
+      "allowedValues": ["fr-CA", "en-CA", "en-US"],
+      "defaultValue": "en-CA"
+    }
+  },
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Langwin.ps1 -lang \"', parameters('lang'), '\"' )]"
   }
 }
