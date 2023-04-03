@@ -48,8 +48,12 @@ $link="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software
 Invoke-WebRequest -UseBasicParsing -uri $link  -OutFile "$env:temp\wslupdate.cab"
 
 & expand "$env:temp\wslupdate.cab" /f:* "$env:temp\wslupdate.msi"
-& msiexec /i "$env:temp\wslupdate.msi" /quiet
 
+
+
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name WslInstalling -Value "true"
+& msiexec /i "$env:temp\wslupdate.msi" /quiet
+Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name WslInstalling
 
 remove-item "$env:temp\wslupdate.cab" -force
 remove-item "$env:temp\wslupdate.msi" -Recurse  -force
