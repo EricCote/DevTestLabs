@@ -52,7 +52,7 @@ Invoke-WebRequest -UseBasicParsing -uri $link  -OutFile "$env:temp\wslupdate.cab
 
 
 
-New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name WslInstalling -Value 1
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name WslInstalling -Value 1 -PropertyType string
 & msiexec /i "$env:temp\wslupdate.msi" /quiet
 Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss" -Name WslInstalling
 
