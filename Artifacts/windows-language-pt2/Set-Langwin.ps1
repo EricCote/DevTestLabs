@@ -6,13 +6,13 @@ param(
 #Get the unattend.xml file content
 $unattend = Get-Content "C:\windows\panther\Unattend.xml" -raw
 
-$inputLocale="0409:00000409;0c0c:00011009"
+$inputLocale="0409:00000409;1009:00011009;0c0c:00011009"
 
 if ($lang -match "fr") 
 {$inputLocale= "0c0c:00011009;1009:00011009"}
 
 if ($lang -match "en-CA") 
-{$inputLocale= "0409:00000409;1009:00011009;0c0c:00011009"}
+{$inputLocale= "1009:00011009;0c0c:00011009"}
 
 #add intl section, (if it doesn't exist yet)
 $Count = [regex]::matches($unattend,"Microsoft-Windows-International-Core").count

@@ -23,6 +23,7 @@ $linkArray = @(
 $FOD = @(
     "Language.Basic~~~fr-CA~0.0.1.0",
     "Language.Basic~~~fr-FR~0.0.1.0",
+    "Language.Basic~~~en-CA~0.0.1.0",
     "Language.Handwriting~~~fr-FR~0.0.1.0",
     "Language.OCR~~~fr-CA~0.0.1.0",
     "Language.Speech~~~fr-CA~0.0.1.0",
@@ -40,6 +41,7 @@ $FOD = @(
 $FOD2 = @(
 "Microsoft-Windows-LanguageFeatures-Basic-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Basic-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
+"Microsoft-Windows-LanguageFeatures-Basic-en-ca-Package~31bf3856ad364e35~amd64~~.cab"
 "Microsoft-Windows-LanguageFeatures-Handwriting-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-OCR-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Speech-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
