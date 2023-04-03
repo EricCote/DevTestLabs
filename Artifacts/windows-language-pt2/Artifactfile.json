@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "Language fr-CA part 2",
+  "title": "Language Display part 2",
   "description": "Sets the display language for first load. Can be changed by the user.",
   "publisher": "Eric Côté",
   "tags": [
