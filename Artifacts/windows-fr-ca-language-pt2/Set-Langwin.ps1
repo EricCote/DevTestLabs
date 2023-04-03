@@ -6,6 +6,13 @@ param(
 #Get the unattend.xml file content
 $unattend = Get-Content "C:\windows\panther\Unattend.xml" -raw
 
+$inputLocale="0409:00000409;0c0c:00011009"
+
+if ($lang -match "fr") 
+{$inputLocale= "0c0c:00011009;1009:00011009"}
+
+if ($lang -match "en-CA") 
+{$inputLocale= "0409:00000409;1009:00011009;0c0c:00011009"}
 
 #add intl section, (if it doesn't exist yet)
 $Count = [regex]::matches($unattend,"Microsoft-Windows-International-Core").count
@@ -16,7 +23,7 @@ if ($Count -eq 0) {
   @"
   <settings pass="oobeSystem">
     <component name="Microsoft-Windows-International-Core" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <InputLocale>0c0c:00011009;1009:00011009</InputLocale>
+      <InputLocale>$inputLocale</InputLocale>
       <SystemLocale>$lang</SystemLocale>
       <UILanguage>$lang</UILanguage>
       <UserLocale>$lang</UserLocale>
