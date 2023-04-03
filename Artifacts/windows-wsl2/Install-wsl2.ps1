@@ -35,7 +35,7 @@ function install-appx($name, $id){
   
   Add-AppxProvisionedPackage -SkipLicense -PackagePath "$env:temp\$name" -online
 
-  Remove-Item "$env:temp\$name.appxbundle" -force
+  Remove-Item "$env:temp\$name" -force
 }
 
 install-appx -name "wsl.msixbundle" -id "9P9TQF7MRM4R"
@@ -44,17 +44,15 @@ install-appx -name "ubuntu.appxbundle" -id "9NBLGGH4MSV6"
 
 
 
-# $link="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/03/wsl_update_x64_8b248da7042adb19e7c5100712ecb5e509b3ab5f.cab"
+$link="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/03/wsl_update_x64_8b248da7042adb19e7c5100712ecb5e509b3ab5f.cab"
+Invoke-WebRequest -UseBasicParsing -uri $link  -OutFile "$env:temp\wslupdate.cab"
 
-# Invoke-WebRequest -UseBasicParsing -uri $link  -OutFile "$env:temp\wslupdate.cab"
-
-# & expand "$env:temp\wslupdate.cab" /f:* "$env:temp\wslupdate.msi"
-
-# & msiexec /i "$env:temp\wslupdate.msi" /passive
+& expand "$env:temp\wslupdate.cab" /f:* "$env:temp\wslupdate.msi"
+& msiexec /i "$env:temp\wslupdate.msi" /quiet
 
 
-# remove-item "$env:temp\wslupdate.cab" -force
-# remove-item "$env:temp\wslupdate.msi" -Recurse  -force
+remove-item "$env:temp\wslupdate.cab" -force
+remove-item "$env:temp\wslupdate.msi" -Recurse  -force
 
 
 
