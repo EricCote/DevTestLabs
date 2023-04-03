@@ -20,9 +20,9 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 
 $ProgressPreference = 'SilentlyContinue'
 
-function install-product($name, $id){
+function install-appx($name, $id){
   $postParams = @{type='ProductId';url=$id ;ring='Retail';lang='en-US'}
-
+  
   $res = invoke-webrequest  -UseBasicParsing `
      -Uri "https://store.rg-adguard.net/api/GetFiles" `
      -ContentType "application/x-www-form-urlencoded" `
@@ -38,9 +38,9 @@ function install-product($name, $id){
   Remove-Item "$env:temp\$name.appxbundle" -force
 }
 
-install-product('wsl.msixbundle','9P9TQF7MRM4R')
+install-appx -name "wsl.msixbundle" -id "9P9TQF7MRM4R"
 
-install-product('ubuntu.appxbundle','9NBLGGH4MSV6')
+install-appx -name "ubuntu.appxbundle" -id "9NBLGGH4MSV6"
 
 
 
