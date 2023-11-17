@@ -57,6 +57,10 @@ New-ItemProperty `
 # Lets run the last part of unattended.xml again. And set the language.
 & C:\Windows\System32\oobe\oobeldr.exe /system
 
+
+Start-Sleep -Seconds 20
+
+
 restart-computer
 
 

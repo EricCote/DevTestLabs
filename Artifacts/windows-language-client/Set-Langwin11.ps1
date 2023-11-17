@@ -67,9 +67,8 @@ Add-WindowsPackage -online -PackagePath  "$destination\lang.cab"
 "Lang Installed $(Get-Date -Format T)" | out-file  $logPath -append
 
 
-# $FOD | ForEach-Object  { if ($_ -notmatch "Language\.")  {  Remove-WindowsCapability -Online -Name $_  }}
-# "Removed capabilities" | out-file "$env:temp\wow3.txt"
-
+# $FOD | ForEach-Object  { if ($_ -notmatch "$destination\.")  {  Remove-WindowsCapability -Online -Name $_  }}
+# "Removed capabilities" | out-file  $logPath -append
 
 # $FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
 # "Classic way of installing online"  | out-file $logPath -append
@@ -81,7 +80,8 @@ $packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; file
 $packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
 "loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
 
-$FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }
+##the following line could be faster if -LimitAccess was used
+$FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination  }  
 "loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
 
 
