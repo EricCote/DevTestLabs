@@ -70,20 +70,20 @@ Add-WindowsPackage -online -PackagePath  "$destination\lang.cab"
 # $FOD | ForEach-Object  { if ($_ -notmatch "$destination\.")  {  Remove-WindowsCapability -Online -Name $_  }}
 # "Removed capabilities" | out-file  $logPath -append
 
-# $FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
-# "Classic way of installing online"  | out-file $logPath -append
+$FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
+"Classic way of installing online"  | out-file $logPath -append
 
 ####################
 #$FOD2
-$packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
-"list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
+# $packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
+# "list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
 
-$packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
-"loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
+# $packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
+# "loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
 
-##the following line could be faster if -LimitAccess was used
-$FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }  
-"loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
+# ##the following line could be faster if -LimitAccess was used
+# $FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }  
+# "loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
 ######################
 
 $packages = $linkArray | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
