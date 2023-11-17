@@ -22,6 +22,6 @@
     }
   },
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1 -OnlineDownload:$', parameters('OnlineDownload') )]powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1 -OnlineDownload:$', parameters('OnlineDownload') )]"
   }
 }
