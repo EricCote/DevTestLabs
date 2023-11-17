@@ -117,6 +117,6 @@ Remove-Item $destination  -Recurse -Force
 "Remove downloaded files"   | out-file $logPath -append
 
 
-restart-computer
-"Restarted  $(Get-Date -Format T)"   | out-file $logPath -append
+# restart-computer
+# "Restarted  $(Get-Date -Format T)"   | out-file $logPath -append
 
