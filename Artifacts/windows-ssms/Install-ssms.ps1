@@ -14,3 +14,8 @@ Invoke-WebRequest  -UseBasicParsing -Uri $source  -OutFile $destination
 
 & $destination /install /quiet | out-default
 
+Remove-Item $destination
+
+
+
+
