@@ -35,7 +35,7 @@ $content = @"
       "msi": true,
       "system_level": true,
       "verbose_logging": true,
-      "msi_product_id": "9ABC27FD-AA4B-3C50-B76B-38FCFFCCDB03",
+      "msi_product_id": "19B37A31-CC51-332C-AB5D-860490DA5960",
       "allow_downgrade": false,
       "do_not_create_desktop_shortcut": true
   }
@@ -48,6 +48,7 @@ $content = @"
 
        
 $content | Out-File "C:\Program Files\Google\Chrome\Application\master_preferences" -Force -Encoding ascii
+$content | Out-File "C:\Program Files\Google\Chrome\Application\initial_preferences" -Force -Encoding ascii
 
 
 #delete Desktop icon

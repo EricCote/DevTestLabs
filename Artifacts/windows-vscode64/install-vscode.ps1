@@ -121,9 +121,12 @@ try
     Write-Host "Installing Visual Studio Code ($Architecture)."
     & "$setupExe" /SP- /SUPPRESSMSGBOXES /VERYSILENT /NORESTART /LOG="$setupLog" /MERGETASKS="$tasks" | Out-Default
 
+    Remove-Item "$setupExe"
+
     Write-Host "`nThe artifact was applied successfully.`n"
 
     #installs french language pack
+    New-Item -Path C:\users\default -Name .vscode  -ItemType Directory
     & "C:\Program Files\Microsoft VS Code\bin\code.cmd" --extensions-dir "C:\users\default\.vscode\extensions"   --install-extension MS-CEINTL.vscode-language-pack-fr --force
 }
 finally
