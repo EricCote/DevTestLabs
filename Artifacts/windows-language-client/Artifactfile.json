@@ -17,7 +17,7 @@
     "onlineDownload": {
       "type": "bool",
       "displayName": "Online Download",
-      "description": "Should we use local files or download online files.  If true, it is slower",
+      "description": "Should we use the 'local files' or download online files?  If true, it is slower",
       "defaultValue": false
     }
   },
