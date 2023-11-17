@@ -1,5 +1,5 @@
 ﻿param(
-  [bool] $DownloadOnline="false"
+  [bool] $DownloadOnline=$false
 )
 
 
