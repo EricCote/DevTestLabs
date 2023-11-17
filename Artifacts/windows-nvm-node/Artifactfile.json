@@ -4,7 +4,7 @@
   "description": "Installs Nvm, and then Nodejs, both lts and latest versions",
   "publisher": "Eric Côté",
   "tags": ["nvm", "nvm-windows", "node", "nodejs", "node.js"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/office.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-nvm-node/node.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File nvm.ps1"
