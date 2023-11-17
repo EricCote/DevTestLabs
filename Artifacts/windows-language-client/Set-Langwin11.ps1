@@ -1,4 +1,9 @@
-﻿$ProgressPreference = 'SilentlyContinue'
+﻿param(
+  [bool] $DownloadOnline="false"
+)
+
+
+$ProgressPreference = 'SilentlyContinue'
 
 $sasold = "sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D"
 $sas = "sp=rl&st=2022-10-02T07:44:44Z&se=2026-10-02T15:44:44Z&spr=https&sv=2021-06-08&sr=c&sig=8COlEmuB7LVPphsQWBhfGPqx1guSF4MRWmRKdVU5Bvg%3D" 
@@ -70,21 +75,28 @@ Add-WindowsPackage -online -PackagePath  "$destination\lang.cab"
 # $FOD | ForEach-Object  { if ($_ -notmatch "$destination\.")  {  Remove-WindowsCapability -Online -Name $_  }}
 # "Removed capabilities" | out-file  $logPath -append
 
+
+if ($DownloadOnline) {
+    $FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
+    "Classic way of installing online"  | out-file $logPath -append
+}else {
+    $packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
+    "list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
+
+    $packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
+    "loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
+
+    ##the following line is faster when -LimitAccess is used
+    $FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }  
+    "loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
+}
+
+
+
 $FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
 "Classic way of installing online"  | out-file $logPath -append
 
-####################
-#$FOD2
-# $packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
-# "list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
 
-# $packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -OutFile "$destination\$($_.filename)" } 
-# "loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
-
-# ##the following line could be faster if -LimitAccess was used
-# $FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }  
-# "loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
-######################
 
 $packages = $linkArray | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
 "generate a list of package names and url $(Get-Date -Format T)" | out-file $logPath -append

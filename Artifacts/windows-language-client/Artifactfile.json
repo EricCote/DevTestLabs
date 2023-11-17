@@ -13,7 +13,15 @@
   ],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
+  "parameters": {
+    "lang": {
+      "type": "bool",
+      "displayName": "OnlineDownload",
+      "description": "Should we use local files or download online files",
+      "defaultValue": false
+    }
+  },
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1 -OnlineDownload:$', parameters('OnlineDownload') )]powershell.exe -ExecutionPolicy bypass -File Set-Langwin11.ps1"
   }
 }
