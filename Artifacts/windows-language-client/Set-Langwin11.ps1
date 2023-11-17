@@ -45,7 +45,7 @@ $FOD = @(
 );
 
 $FOD2 = @("Microsoft-Windows-LanguageFeatures-Basic-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
-"Microsoft-Windows-LanguageFeatures-Basic-fr-fr-Package~31bf3856ad364e35~amd64~~.cab"
+"Microsoft-Windows-LanguageFeatures-Basic-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Basic-en-ca-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Handwriting-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-OCR-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
@@ -73,6 +73,7 @@ Add-WindowsPackage -online -PackagePath  "$destination\lang.cab"
 # $FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
 # "Classic way of installing online"  | out-file $logPath -append
 
+####################
 #$FOD2
 $packagesFod = $FOD2 | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
 "list of FOD packages $(Get-Date -Format T)"  | out-file $logPath -append
@@ -81,9 +82,9 @@ $packagesFod | ForEach-Object { Invoke-WebRequest -UseBasicParsing -Uri $_.url -
 "loop for FOD download $(Get-Date -Format T)" | out-file $logPath -append
 
 ##the following line could be faster if -LimitAccess was used
-$FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination  }  
+$FOD | ForEach-Object { Add-WindowsCapability -Online  -Name $_  -Source $destination -LimitAccess }  
 "loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
-
+######################
 
 $packages = $linkArray | ForEach-Object { @{url = "$blobLocation/$($_)?$sas"; filename = $_ } }
 "generate a list of package names and url $(Get-Date -Format T)" | out-file $logPath -append
