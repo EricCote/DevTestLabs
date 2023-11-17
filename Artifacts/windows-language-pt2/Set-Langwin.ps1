@@ -58,10 +58,10 @@ New-ItemProperty `
 & C:\Windows\System32\oobe\oobeldr.exe /system
 
 
-Start-Sleep -Seconds 20
+# Start-Sleep -Seconds 20
 
 
-restart-computer
+# restart-computer
 
 
 #------------------------------------------------------------------
