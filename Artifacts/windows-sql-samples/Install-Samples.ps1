@@ -143,14 +143,17 @@ function DownloadInstall-Database
         #Remove-Item $DownloadedDest -ErrorAction SilentlyContinue  
      }
       if($setupFiles){
-        $datafile= $db_name+"_data";
+        $suffix = if ($db_name -like "AdventureWorks201[46]*") {'_data'} else {''}
+        $suffix = if ($db_name -like "AdventureWorksDW201[46]*") {'_data'} else {$suffix}
+        $suffix = if ($db_name -like "AdventureWorksLT*") {'_data'} else {$suffix}
+        $datafile= $db_name+$suffix;
         $logfile=$db_name+"_log"
    
         $datafilename=$datafile;
         $logfilename=$logfile;
 
 
-        if ($datafile -like "AdventureWorksLT201[679]*") {
+        if ($datafile -like "AdventureWorksLT201[67]*") {
             $datafilename="AdventureWorksLT2012_Data"
             $logfilename="AdventureWorksLT2012_Log"
         }
@@ -159,14 +162,7 @@ function DownloadInstall-Database
             $logfilename="AdventureWorksLT2008_Log"
         }
 
-        if  ($datafile -like "AdventureWorks201[79]*") {
-          $datafilename="AdventureWorks2017"
-          $logfilename="AdventureWorks2017_log"
-        }
-        if  ($datafile -like "AdventureWorksDW201[79]*") {
-          $datafilename="AdventureWorksDW2017"
-          $logfilename="AdventureWorksDW2017_log"
-        }
+        
 
         "Installing $db_name..."
         $cmd="
@@ -354,7 +350,6 @@ if ($wideWorldImporters)
         GO
         ALTER AUTHORIZATION ON DATABASE::WideWorldImporters TO sa;
         "
-
         Run-Sql $sqlName $cmd
     }
 }
@@ -368,7 +363,7 @@ if($wideWorldImportersDW)
         "Downloading Wide World Importers DW..."
         Invoke-WebRequest -UseBasicParsing `
         -Uri "https://github.com/Microsoft/sql-server-samples/releases/download/wide-world-importers-v1.0/WideWorldImportersDW-$SqlFeature.bak" `
-        -OutFile   "$backupPath\WideWorldImporters-$SqlFeature.bak"
+        -OutFile   "$backupPath\WideWorldImportersDW-$SqlFeature.bak"
     }
     if($setupFiles){
         "Installing Wide World Importers DW..."

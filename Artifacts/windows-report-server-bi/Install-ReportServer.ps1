@@ -11,25 +11,25 @@ $result= Invoke-WebRequest -Uri $link1 -UseBasicParsing -MaximumRedirection 0 -E
 $result.Headers.Location -match "=(.*)"
 $num = $matches[1]
 
+# ProweBI report Server
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=$num"  -UseBasicParsing).RawContent
 $myMatches = [regex]::Matches($page,'{url:\"(.*?)\"')
 $links = $myMatches | % { $_.Groups[1].value}
 $links | % {  Invoke-WebRequest -Uri $_  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $_  -Leaf))    }
 
-
+# PowerBI Report Builder
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=58158"  -UseBasicParsing).RawContent
 $page -match '{url:\"(.*?)\"'
 $pbiReportBuilderSrc = $matches[1]
 Invoke-WebRequest -Uri $pbiReportBuilderSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $pbiReportBuilderSrc  -Leaf))
 
+# SQL Server Mobile Report Publisher (deprecated)-----------------
+# $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=50400"  -UseBasicParsing).RawContent
+# $page -match '{url:\"(.*?)\"'
+# $reportMobileSrc = $matches[1]
+# Invoke-WebRequest -Uri $reportMobileSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $reportMobileSrc -Leaf))
 
-$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=50400"  -UseBasicParsing).RawContent
-$page -match '{url:\"(.*?)\"'
-$reportMobileSrc = $matches[1]
-Invoke-WebRequest -Uri $reportMobileSrc  -UseBasicParsing -OutFile $(Join-path -path $env:TEMP -ChildPath $( split-path $reportMobileSrc -Leaf))
-
-
-
+# Microsoft Report Builder
 $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=53613"  -UseBasicParsing).RawContent
 $page -match '{url:\"(.*?)\"'
 $reportBuilderSrc = $matches[1]
@@ -62,15 +62,14 @@ Set-PbiRsUrlReservation   -ComputerName "localhost"  -ReportServerInstance "PBIR
 
 Stop-Service PowerBIReportServer
 Start-Service PowerBIReportServer
-
 "restart service" | Out-File  -FilePath $out -append
 
 Initialize-Rs -ComputerName "localhost"  -ReportServerInstance "PBIRS" -ReportServerVersion "SQLServervNext"
 "init rs" | Out-File  -FilePath $out -append
-
-& msiexec /i  "$path\PBIDesktopRS_x64.msi" /quiet ACCEPT_EULA=1  | out-default
+                    
+& "$path\PBIDesktopSetupRS_x64.exe" /quiet ACCEPT_EULA=1  | out-default
 & msiexec /i  "$path\PowerBiReportBuilder.msi" /quiet   | out-default
-& msiexec /i  "$path\SSRS.MobileReportPublisher.Installer.msi" /quiet   | out-default
+# & msiexec /i  "$path\SSRS.MobileReportPublisher.Installer.msi" /quiet   | out-default
 & msiexec /i  "$path\ReportBuilder.msi" /quiet   | out-default
 
 "All installed" | Out-File  -FilePath $out -append

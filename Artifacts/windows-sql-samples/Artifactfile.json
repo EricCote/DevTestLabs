@@ -11,7 +11,7 @@
       "displayName": "Database Version",
       "description": "Which sample database version to install",
       "allowedValues": ["2012", "2014", "2016", "2017", "2019", "2022"],
-      "defaultValue": "2019"
+      "defaultValue": "2022"
     },
     "adventureWorksLT": {
       "type": "bool",

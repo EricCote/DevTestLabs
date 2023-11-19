@@ -12,9 +12,16 @@
 
 #SSDT 2019
 
-& .\install-vsix   -PackageName "ProBITools.MicrosoftAnalysisServicesModelingProjects"
+# & .\install-vsix   -PackageName "ProBITools.MicrosoftAnalysisServicesModelingProjects"
 
-& .\install-vsix   -PackageName "ProBITools.MicrosoftReportProjectsforVisualStudio"
+# & .\install-vsix   -PackageName "ProBITools.MicrosoftReportProjectsforVisualStudio"
 
-& .\install-vsix   -PackageName "SSIS.SqlServerIntegrationServicesProjects" -IsExe
+# & .\install-vsix   -PackageName "SSIS.SqlServerIntegrationServicesProjects" -IsExe
 
+#SSDT 2022
+
+& .\install-vsix   -PackageName "ProBITools.MicrosoftAnalysisServicesModelingProjects2022"
+                 
+& .\install-vsix   -PackageName "ProBITools.MicrosoftReportProjectsforVisualStudio2022"
+
+& .\install-vsix   -PackageName "SSIS.MicrosoftDataToolsIntegrationServices" -IsExe
