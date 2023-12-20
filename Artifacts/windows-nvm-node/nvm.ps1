@@ -1,3 +1,4 @@
+$ProgressPreference = 'SilentlyContinue'
 $latestSvc="https://api.github.com/repos/coreybutler/nvm-windows/releases/latest";
 
 $Compute=Invoke-RestMethod -URI $latestSvc -UseBasicParsing
