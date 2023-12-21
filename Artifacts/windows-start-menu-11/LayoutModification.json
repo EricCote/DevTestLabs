@@ -16,10 +16,7 @@
       "desktopAppId": "Microsoft.VisualStudioCode"
     },
     {
-      "desktopAppId": "VisualStudio.9c925ae0"
-    },
-    {
-      "desktopAppId": "VisualStudio.5134984b"
+      "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio 2022.lnk"
     },
     {
       "desktopAppId": "Microsoft.Office.WINWORD.EXE.15"
