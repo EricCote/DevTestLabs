@@ -3,6 +3,8 @@ param(
   [string] $lang="en-CA"
 )
 
+"Language set is: $lang"
+
 #Get the unattend.xml file content
 $unattend = Get-Content "C:\windows\panther\Unattend.xml" -raw
 
