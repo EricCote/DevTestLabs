@@ -36,6 +36,11 @@ if ($Count -eq 0) {
 }
 
 
+if ($Count -eq 1) {
+  $unattend = $unattend.Replace('<settings pass="oobeSystem" wasPassProcessed="true">','<settings pass="oobeSystem">')
+}
+
+
 #Let's remove the userAccounts part
 #we don't want to create the accounts a second time (leads to errors?) 
 $unattend= $unattend -replace "(?ms)<UserAccounts>.*?</UserAccounts>", ""
