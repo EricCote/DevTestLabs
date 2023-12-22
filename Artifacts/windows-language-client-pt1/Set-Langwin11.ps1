@@ -2,33 +2,12 @@
   [bool] $DownloadOnline=$false
 )
 
-
 $ProgressPreference = 'SilentlyContinue'
 
-$sasold = "sp=rl&st=2021-11-27T21:25:00Z&se=2024-11-29T18:01:00Z&sv=2020-08-04&sr=c&sig=MoK27t71M1qqeqZcOzMunBIKNBP5WDUi8JRGSgmg0js%3D"
 $sas = "sp=rl&st=2022-10-02T07:44:44Z&se=2026-10-02T15:44:44Z&spr=https&sv=2021-06-08&sr=c&sig=8COlEmuB7LVPphsQWBhfGPqx1guSF4MRWmRKdVU5Bvg%3D" 
 $blobLocation = "https://azureshelleric.blob.core.windows.net/win11-22h2/fr-ca";
 
 $logPath = "$env:temp\log-sys-fr-ca.txt"
-
-
-$linkArray = @(
-    "Microsoft-Windows-EMS-SAC-Desktop-Tools-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-InternetExplorer-Optional-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-Notepad-System-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",    
-    "Microsoft-Windows-Notepad-System-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-Printing-PMCPPC-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-WMIC-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-WMIC-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab"
-)
 
 
 $FOD = @(
@@ -91,9 +70,6 @@ if ($DownloadOnline) {
     "loop for integrating FOD package $(Get-Date -Format T)"  | out-file $logPath -append
 }
 
-
-# $FOD | ForEach-Object { Add-WindowsCapability -Online -Name $_ }
-# "Classic way of installing online"  | out-file $logPath -append
 
 restart-computer
 "Restarted  $(Get-Date -Format T)"   | out-file $logPath -append
