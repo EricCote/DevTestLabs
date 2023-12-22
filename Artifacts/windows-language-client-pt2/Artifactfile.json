@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "Language Windows Client fr-CA",
+  "title": "Language Windows Client fr-CA part 2",
   "description": "Sets the display language to French Canadian.  Only works with Windows 11 22H2.",
   "publisher": "Eric Côté",
   "tags": [
