@@ -5,6 +5,8 @@ $ResolveWingetPath = Resolve-Path "C:\Program Files\WindowsApps\Microsoft.Deskto
 
 cd  $WingetPath
 
+"$WingetPath"
+
 winget settings --enable LocalArchiveMalwareScanOverride
 
 winget settings --enable InstallerHashOverride
