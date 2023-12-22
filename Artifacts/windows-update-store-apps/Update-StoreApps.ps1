@@ -11,15 +11,17 @@ cd  $WingetPath
 
 ./winget settings --enable InstallerHashOverride
 
-./winget upgrade `
-       --all `
-       --silent `
-       --accept-source-agreements `
-       --accept-package-agreements `
-       --disable-interactivity `
-       --verbose-logs `
-       --include-unknown `
-       --force `
-       --scope machine
+./winget upgrade 
+
+# `
+#        --all `
+#        --silent `
+#        --accept-source-agreements `
+#        --accept-package-agreements `
+#        --disable-interactivity `
+#        --verbose-logs `
+#        --include-unknown `
+#        --force `
+#        --scope machine
 
        
