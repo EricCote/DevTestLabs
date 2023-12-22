@@ -7,11 +7,11 @@ dir  $WingetPath
 
 "Path : $WingetPath"
 
-winget settings --enable LocalArchiveMalwareScanOverride
+./winget settings --enable LocalArchiveMalwareScanOverride
 
-winget settings --enable InstallerHashOverride
+./winget settings --enable InstallerHashOverride
 
-winget upgrade `
+./winget upgrade `
        --all `
        --silent `
        --accept-source-agreements `
