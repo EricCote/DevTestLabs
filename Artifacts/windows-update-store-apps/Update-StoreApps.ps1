@@ -3,7 +3,7 @@ $ResolveWingetPath = Resolve-Path "C:\Program Files\WindowsApps\Microsoft.Deskto
            $WingetPath = $ResolveWingetPath[-1].Path
     }
 
-cd  $WingetPath
+dir  $WingetPath
 
 "Path : $WingetPath"
 
