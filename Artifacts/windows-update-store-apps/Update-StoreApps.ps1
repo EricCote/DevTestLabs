@@ -11,7 +11,7 @@ cd  $WingetPath
 
 # ./winget settings --enable InstallerHashOverride
 
-./winget upgrade  `
+./winget upgrade  
        # --all `
        # --silent `
        # --accept-source-agreements `
