@@ -17,7 +17,6 @@ cd  $WingetPath
        --accept-source-agreements `
        --accept-package-agreements `
        --verbose-logs `
-       --include-unknown `
        --force `
        --scope machine
 

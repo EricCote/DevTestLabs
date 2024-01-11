@@ -48,4 +48,7 @@ Remove-PSDrive HKU
 [gc]::Collect()
 [gc]::WaitForPendingFinalizers()
 
+Start-Sleep -Seconds 1
 & REG UNLOAD "HKU\Default" | out-default
+Start-Sleep -Seconds 1
+
