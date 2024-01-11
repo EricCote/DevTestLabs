@@ -158,11 +158,10 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 Remove-PSDrive HKU 
-
+0
 [gc]::Collect()
 [gc]::WaitForPendingFinalizers()
-Start-Sleep -Seconds 1
+
 & REG UNLOAD "HKU\Default" | out-default
-Start-Sleep -Seconds 1
 
 

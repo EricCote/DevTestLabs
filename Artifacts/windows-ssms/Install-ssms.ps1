@@ -2,6 +2,8 @@
     [string]$lang = "English (409)"
 )
 
+$ProgressPreference = "SilentlyContinue"
+
 $Query = [regex]::Matches($lang, "\((.*)\)")
 $num = $Query.Groups[1].Value
 $langNumber="0x$num"

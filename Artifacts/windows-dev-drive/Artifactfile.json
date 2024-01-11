@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "Dev Drive install",
+  "description": "Installs Windows Dev Drive",
+  "publisher": "Eric Côté",
+  "tags": ["Windows", "Dev Drive", "Dev Home"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Dev-Drive.ps1"
+  }
+}

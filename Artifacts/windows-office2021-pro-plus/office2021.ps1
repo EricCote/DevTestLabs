@@ -115,11 +115,12 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
                  -Value 1 -PropertyType dword `
                  -Force | out-null
 
-Remove-PSDrive HKU
-
+Remove-PSDrive HKU 
+0
 [gc]::Collect()
+[gc]::WaitForPendingFinalizers()
 
-& REG UNLOAD HKU\Default | out-null
+& REG UNLOAD "HKU\Default" | out-default
 
 
 
