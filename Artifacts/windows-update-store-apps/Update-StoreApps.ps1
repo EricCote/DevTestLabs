@@ -7,21 +7,37 @@ cd  $WingetPath
 
 "Path : $WingetPath"
 
-./winget settings --enable LocalArchiveMalwareScanOverride
+# ./winget settings --enable LocalArchiveMalwareScanOverride
 
-./winget settings --enable InstallerHashOverride
+# ./winget settings --enable InstallerHashOverride
 
-./winget upgrade 
+./winget upgrade  `
+       --all `
+       --silent `
+       --accept-source-agreements `
+       --accept-package-agreements `
+       --disable-interactivity `
+       --verbose-logs `
+       --include-unknown `
+       --force `
+       --scope machine
 
-# `
-#        --all `
-#        --silent `
-#        --accept-source-agreements `
-#        --accept-package-agreements `
-#        --disable-interactivity `
-#        --verbose-logs `
-#        --include-unknown `
-#        --force `
-#        --scope machine
+    
 
-       
+@"
+# & winget settings --enable LocalArchiveMalwareScanOverride
+
+# & winget settings --enable InstallerHashOverride
+
+& winget upgrade `
+       --all `
+       --silent `
+       --accept-source-agreements `
+       --accept-package-agreements `
+       --disable-interactivity `
+       --verbose-logs `
+       --include-unknown `
+       --force `
+       --scope machine
+"@
+
