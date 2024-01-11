@@ -12,12 +12,12 @@ cd  $WingetPath
 # ./winget settings --enable InstallerHashOverride
 
 ./winget upgrade  `
-       --all `
-       --silent `
-       --accept-source-agreements `
-       --accept-package-agreements `
-       --verbose-logs `
-       --force 
+       # --all `
+       # --silent `
+       # --accept-source-agreements `
+       # --accept-package-agreements `
+       # --verbose-logs `
+       # --force 
 
     
 
