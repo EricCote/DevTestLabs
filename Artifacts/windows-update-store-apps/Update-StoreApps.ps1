@@ -16,7 +16,6 @@ cd  $WingetPath
        --silent `
        --accept-source-agreements `
        --accept-package-agreements `
-       --disable-interactivity `
        --verbose-logs `
        --include-unknown `
        --force `
