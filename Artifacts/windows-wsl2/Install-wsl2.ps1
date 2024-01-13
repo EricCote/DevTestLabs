@@ -1,7 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
-Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+# Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
+# Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 ### Getting the WSL app from the GitHub repo
 
@@ -44,7 +44,6 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 # & msiexec /i "$env:temp\wsl_update_x64.msi" /quiet 
 
 ### more recent version of kernel update  (is it necessary anymore???)
-
 # $link="https://catalog.s.download.windowsupdate.com/d/msdownload/update/software/updt/2022/03/wsl_update_x64_8b248da7042adb19e7c5100712ecb5e509b3ab5f.cab"
 # Invoke-WebRequest -UseBasicParsing -uri $link  -OutFile "$env:temp\wslupdate.cab"
 
@@ -63,7 +62,7 @@ Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  
 
 #wsl.exe --status
 #wsl.exe --update
-#& wsl.exe --install
+& wsl.exe --install --inbox --no-distribution
 
 #(get-command wsl).path
 
