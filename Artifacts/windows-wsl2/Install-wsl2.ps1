@@ -1,7 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
 Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+#Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 ### Getting the WSL app from the GitHub repo
 
