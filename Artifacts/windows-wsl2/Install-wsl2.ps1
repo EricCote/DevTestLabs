@@ -5,7 +5,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 ### Getting the WSL app from the GitHub repo
 
-$""latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
+$latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
 $response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
 $download_url=""
 
