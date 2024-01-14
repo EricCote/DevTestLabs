@@ -5,17 +5,17 @@ $ProgressPreference = 'SilentlyContinue'
 
 ### Getting the WSL app from the GitHub repo
 
-$latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
-$response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
-$download_url=""
+# $latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
+# $response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
+# $download_url=""
 
-foreach ($item in $response.assets){
-  if($item.browser_download_url.contains("x64.msi")){
-    $download_url=$item.browser_download_url;
-  }
-} 
+# foreach ($item in $response.assets){
+#   if($item.browser_download_url.contains("x64.msi")){
+#     $download_url=$item.browser_download_url;
+#   }
+# } 
 
-Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
+# Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
 
 msiexec /i "$env:TEMP\wsl2.msi" /quiet /log "$env:TEMP\wsl2.log"
 
