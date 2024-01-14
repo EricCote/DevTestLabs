@@ -1,7 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
-# Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-# Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
+Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 ### Getting the WSL app from the GitHub repo
 
@@ -66,8 +66,6 @@ $ProgressPreference = 'SilentlyContinue'
 # & wsl.exe --install --web-download --no-launch --no-distribution | out-default
 
 #Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
-choco install -y Microsoft-Windows-Subsystem-Linux --source="'windowsfeatures'"
 
 
 #(get-command wsl).path
