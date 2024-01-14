@@ -65,6 +65,8 @@ $ProgressPreference = 'SilentlyContinue'
 # & wsl.exe --install --inbox --no-distribution --no-launch | out-default
 # & wsl.exe --install --web-download --no-launch --no-distribution | out-default
 
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
 choco install -y Microsoft-Windows-Subsystem-Linux --source="'windowsfeatures'"
 
 
