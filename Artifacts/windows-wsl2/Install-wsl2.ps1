@@ -62,7 +62,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 #wsl.exe --status
 #wsl.exe --update
-& wsl.exe --install --inbox --no-distribution
+& wsl.exe --install --inbox --no-distribution --no-launch
 
 #(get-command wsl).path
 
