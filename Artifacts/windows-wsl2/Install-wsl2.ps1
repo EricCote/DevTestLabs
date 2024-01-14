@@ -1,27 +1,27 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
-Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
+# Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
 #Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 ### Getting the WSL app from the GitHub repo
 
-# $latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
-# $response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
-# $download_url=""
+$""latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
+$response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
+$download_url=""
 
-# foreach ($item in $response.assets){
-#   if($item.browser_download_url.contains("x64.msi")){
-#     $download_url=$item.browser_download_url;
-#   }
-# } 
+foreach ($item in $response.assets){
+  if($item.browser_download_url.contains("x64.msi")){
+    $download_url=$item.browser_download_url;
+  }
+} 
 
-# Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
-# 'wow!'
+Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
+'wow!'
 
-# msiexec /i "$env:TEMP\wsl2.msi" /quiet /log "$env:TEMP\wsl2.log"
+msiexec /i "$env:TEMP\wsl2.msi" /quiet /log "$env:TEMP\wsl2.log"
 
-# get-content "$env:TEMP\wsl2.log"
-
+get-content "$env:TEMP\wsl2.log" | Out-Default
+"wow again"
 
 
 #$latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
@@ -89,4 +89,4 @@ Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -nor
 
 #(get-command wsl).path
 
-Restart-Computer
+# Restart-Computer
