@@ -17,8 +17,9 @@ foreach ($item in $response.assets){
 
 Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
 
-msiexec /i "$env:TEMP\wsl2.msi" /quiet
+msiexec /i "$env:TEMP\wsl2.msi" /quiet /log "$env:TEMP\wsl2.log"
 
+get-content "$env:TEMP\wsl2.log"
 
 
 
