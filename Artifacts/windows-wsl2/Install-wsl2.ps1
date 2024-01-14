@@ -63,8 +63,9 @@ $ProgressPreference = 'SilentlyContinue'
 #wsl.exe --status
 #wsl.exe --update
 # & wsl.exe --install --inbox --no-distribution --no-launch | out-default
-& wsl.exe --install --web-download --no-launch --no-distribution | out-default
+# & wsl.exe --install --web-download --no-launch --no-distribution | out-default
 
+choco install -y Microsoft-Windows-Subsystem-Linux --source="'windowsfeatures'"
 
 
 #(get-command wsl).path
