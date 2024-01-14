@@ -1,7 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
 # Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-#Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+# Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 ### Getting the WSL app from the GitHub repo
 
@@ -16,11 +16,11 @@ $ProgressPreference = 'SilentlyContinue'
 # } 
 
 # Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
-'wow!'
+# 'wow!'
 
-& msiexec /i "$env:TEMP\wsl3.msi" /quiet /l*v "$env:TEMP\wsl3.log"  | out-null
-get-content "$env:TEMP\wsl3.log" | Out-Default
-"wow again"
+# & msiexec /i "$env:TEMP\wsl3.msi" /quiet /l*v "$env:TEMP\wsl3.log"  | out-null
+# get-content "$env:TEMP\wsl3.log" | Out-Default
+# "wow again"
 
 
 #$latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
@@ -80,7 +80,7 @@ get-content "$env:TEMP\wsl3.log" | Out-Default
 
 #wsl.exe --status
 #wsl.exe --update
-# & wsl.exe --install --inbox --no-distribution --no-launch | out-default
+& wsl.exe --install --inbox --no-distribution --no-launch | out-default
 # & wsl.exe --install --web-download --no-launch --no-distribution | out-default
 
 #Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
