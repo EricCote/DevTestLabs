@@ -1,7 +1,7 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
-#Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-#Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
+Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
 
 ### Getting the WSL app from the GitHub repo
 
@@ -16,11 +16,11 @@ $ProgressPreference = 'SilentlyContinue'
 # } 
 
 # Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
-'wow!'
+# 'wow!'
 
-msiexec /i "$env:TEMP\wsl2.msi" /quiet /log "$env:TEMP\wsl2.log"
+# msiexec /i "$env:TEMP\wsl2.msi" /quiet /log "$env:TEMP\wsl2.log"
 
-get-content "$env:TEMP\wsl2.log"
+# get-content "$env:TEMP\wsl2.log"
 
 
 
@@ -89,4 +89,4 @@ get-content "$env:TEMP\wsl2.log"
 
 #(get-command wsl).path
 
-#Restart-Computer
+Restart-Computer
