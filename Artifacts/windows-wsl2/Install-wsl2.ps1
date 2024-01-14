@@ -89,4 +89,4 @@ get-content "$env:TEMP\wsl2.log"
 
 #(get-command wsl).path
 
-Restart-Computer
+#Restart-Computer
