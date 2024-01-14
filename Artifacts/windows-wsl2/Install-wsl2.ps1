@@ -18,8 +18,8 @@ $ProgressPreference = 'SilentlyContinue'
 # Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.msi"
 'wow!'
 
-& msiexec /i "$env:TEMP\wsl2.msi" /quiet /l*v "$env:TEMP\wsl2.log"  | out-null
-get-content "$env:TEMP\wsl2.log" | Out-Default
+& msiexec /i "$env:TEMP\wsl3.msi" /quiet /l*v "$env:TEMP\wsl3.log"  | out-null
+get-content "$env:TEMP\wsl3.log" | Out-Default
 "wow again"
 
 
