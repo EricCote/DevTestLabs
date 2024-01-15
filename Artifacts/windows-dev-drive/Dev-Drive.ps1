@@ -14,13 +14,9 @@ assign letter=d
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
 
-New-Item  -path "HKLM:SYSTEM\CurrentControlSet\Control\AutoAttachVirtualDisk\{06c7f665-66b9-4c56-be67-fe9e9906458b}" -force | out-null
+Get-VirtualDisk | Where-Object {$_.IsManualAttach –eq $True} | Set-VirtualDisk –IsManualAttach $False
 
-New-ItemProperty -path "HKLM:SYSTEM\CurrentControlSet\Control\AutoAttachVirtualDisk\{06c7f665-66b9-4c56-be67-fe9e9906458b}" `
-    -name Path `
-    -Value 'C:\ProgramData\disks\DevDrive.vhdx' -PropertyType string `
-    -Force | out-null
-
+#####
 
 New-Item -ItemType Directory -Path "d:\Packages" -Force | out-null 
 New-Item -ItemType Directory -Path "d:\Packages\npm" -Force | out-null
