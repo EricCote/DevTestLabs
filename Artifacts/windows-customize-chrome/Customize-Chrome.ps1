@@ -20,6 +20,10 @@ New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "DefaultBr
 #don't display welcome page
 New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "PromotionalTabsEnabled" -Value 0 | Out-Null
 
+#don't display privacy page that replaces cookies
+New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "PrivacySandboxPromptEnabled" -Value 0 | Out-Null
+
+
 
 
 #get chrome version
@@ -32,12 +36,12 @@ New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Google\Chrome" -name  "Promotion
 $content = @"
 {
   "distribution": {
-      "msi": true,
-      "system_level": true,
-      "verbose_logging": true,
-      "msi_product_id": "19B37A31-CC51-332C-AB5D-860490DA5960",
-      "allow_downgrade": false,
-      "do_not_create_desktop_shortcut": true
+    "msi": true,
+    "system_level": true,
+    "verbose_logging": true,
+    "msi_product_id": "19B37A31-CC51-332C-AB5D-860490DA5960",
+    "allow_downgrade": false,
+    "do_not_create_desktop_shortcut": true
   }
 }
 "@ 

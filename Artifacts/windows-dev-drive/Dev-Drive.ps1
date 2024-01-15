@@ -1,9 +1,12 @@
+# del C:\programdata\disks\devDrive.vhdx
+
 New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
 
 out-file -filePath C:\ProgramData\disks\dp.txt -Encoding utf8  -InputObject @"
-create vdisk file=C:\programdata\disks\devDrive.vhdx maximum=50000 type=fixed
+create vdisk file=C:\programdata\disks\devDrive.vhdx maximum=52000 type=fixed
 attach vdisk
-create partition  primary
+convert gpt
+create partition primary
 assign letter=d
 "@
 
@@ -11,14 +14,31 @@ assign letter=d
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
 
+New-Item  -path "HKLM:SYSTEM\CurrentControlSet\Control\AutoAttachVirtualDisk\{06c7f665-66b9-4c56-be67-fe9e9906458b}" -force | out-null
+
+New-ItemProperty -path "HKLM:SYSTEM\CurrentControlSet\Control\AutoAttachVirtualDisk\{06c7f665-66b9-4c56-be67-fe9e9906458b}" `
+    -name Path `
+    -Value 'C:\ProgramData\disks\DevDrive.vhdx' -PropertyType string `
+    -Force | out-null
+
+
 New-Item -ItemType Directory -Path "d:\Packages" -Force | out-null 
 New-Item -ItemType Directory -Path "d:\Packages\npm" -Force | out-null
 New-Item -ItemType Directory -Path "d:\Packages\.nuget" -Force | out-null
+New-Item -ItemType Directory -Path "D:\Packages\.nuget\packages" -Force | out-null
+New-Item -ItemType Directory -Path "d:\Packages\vcpkg" -Force | out-null 
+New-Item -ItemType Directory -Path "d:\Packages\pip" -Force | out-null
+New-Item -ItemType Directory -Path "d:\Packages\cargo" -Force | out-null
 
 New-Item -ItemType Directory -Path "d:\temp" -Force | out-null 
 
 & SETX /M npm_config_cache D:\Packages\npm
-& setx /M NUGET_PACKAGES D:\Packages\.nuget\packages
+& SETX /M NUGET_PACKAGES D:\Packages\.nuget\packages
+& SETX /M RestorePackagesPath D:\Packages\.nuget\packages
+& SETX /M VCPKG_DEFAULT_BINARY_CACHE D:\Packages\vcpkg
+& SETX /M PIP_CACHE_DIR D:\Packages\pip
+& SETX /M CARGO_HOME D:\Packages\cargo
+
 
 
 
