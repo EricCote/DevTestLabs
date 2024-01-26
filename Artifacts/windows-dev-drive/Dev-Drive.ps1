@@ -1,21 +1,23 @@
 # del C:\programdata\disks\devDrive.vhdx
 
-New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
+# New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
 
 
 # create vdisk file=C:\programdata\disks\devDrive.vhdx maximum=52000 type=fixed
 # attach vdisk
 # convert gpt
 
-out-file -filePath C:\ProgramData\disks\dp.txt -Encoding utf8  -InputObject @"
-select volume 0
+out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
+select volume c
 shrink desired=53000
 select disk 0
 create partition primary
-assign letter=d
+assign letter=s
 "@
 
-& DiskPart /s C:\ProgramData\disks\dp.txt | Out-Null
+& DiskPart /s $env:temp\dp.txt 
+
+& remove-item $env:temp\dp.txt 
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
 
