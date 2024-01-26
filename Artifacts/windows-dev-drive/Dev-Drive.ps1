@@ -10,9 +10,11 @@
 out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
 select volume c
 shrink desired=53000
+select volume d
+remove letter=d
 select disk 0
 create partition primary
-assign letter=s
+assign letter=d 
 "@
 
 & DiskPart /s $env:temp\dp.txt 
