@@ -1,12 +1,26 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
   "title": "Windows Updates",
-  "description": "Download and installs Windows Updates. You need to restart Windows to complete the installation.",
+  "description": "Download and installs Windows Updates.",
   "publisher": "Eric Côté",
   "tags": ["Windows Updates", "Updates", "WU"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
+  "parameters": {
+    "myFlag": {
+      "type": "bool",
+      "displayName": "My Flag",
+      "description": "True or false",
+      "defaultValue": false
+    },
+    "myString": {
+      "type": "string",
+      "displayName": "My String",
+      "description": "test1 or test2",
+      "defaultValue": "test1"
+    }
+  },
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Install-Updates.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Install-Updates.ps1 -MyFlag:$', parameters('myFlag'), ' -MyString  ',  parameters('myString')  )]"
   }
 }
