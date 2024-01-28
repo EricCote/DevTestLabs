@@ -6,7 +6,22 @@
   "tags": ["Who", "sleep"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
+  "parameters": {
+    "myFlag": {
+      "type": "bool",
+      "displayName": "My Flag",
+      "description": "True or false",
+      "defaultValue": false
+    },
+    "myString": {
+      "type": "string",
+      "displayName": "My String",
+      "description": "test1 or test2",
+      "defaultValue": "test1"
+    }
+  },
   "runCommand": {
-    "commandToExecute": "powershell -ExecutionPolicy bypass -File Test-Stuff.ps1 "
+    "oldCommandToExecute": "powershell -ExecutionPolicy bypass -File Test-Stuff.ps1 ",
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Test-Stuff.ps1 -MyFlag:$', parameters('myFlag'), ' -MyString  ',  parameters('myString')  )]"
   }
 }

@@ -24,9 +24,9 @@ $MyFlag | Out-Default
 # fix to install the proper version of security center:
 
 
-$secLink='https://www.winhelponline.com/apps/SecurityHealthSetup.exe'
-invoke-webrequest -UseBasicParsing  $secLink -OutFile $env:TEMP\securityhealthsetup.exe
-& $env:TEMP\securityhealthsetup.exe
+# $secLink='https://www.winhelponline.com/apps/SecurityHealthSetup.exe'
+# invoke-webrequest -UseBasicParsing  $secLink -OutFile $env:TEMP\securityhealthsetup.exe
+# & $env:TEMP\securityhealthsetup.exe
 
 #----------------------------------------------------------
 
