@@ -43,7 +43,7 @@ Install-Module PSWindowsUpdate -force
 Get-WUInstall  -AcceptAll -Install -IgnoreReboot 
 
 
-if ($Restart){
+if ($Restart.isPresent){
   "Let's restart"
   Restart-Computer
 }
