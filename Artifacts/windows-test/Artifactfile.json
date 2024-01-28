@@ -21,7 +21,6 @@
     }
   },
   "runCommand": {
-    "oldCommandToExecute": "powershell -ExecutionPolicy bypass -File Test-Stuff.ps1 ",
     "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Test-Stuff.ps1 -MyFlag:$', parameters('myFlag'), ' -MyString  ',  parameters('myString')  )]"
   }
 }
