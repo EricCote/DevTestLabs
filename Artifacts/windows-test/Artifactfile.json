@@ -11,7 +11,7 @@
       "type": "bool",
       "displayName": "My Flag",
       "description": "True or false",
-      "defaultValue": "false"
+      "defaultValue": false
     },
     "myString": {
       "type": "string",

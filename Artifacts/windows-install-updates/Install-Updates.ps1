@@ -1,3 +1,7 @@
+[CmdletBinding()]
+param(
+    [switch] $Restart
+)
 
 $ProgressPreference = 'SilentlyContinue'
 
@@ -30,6 +34,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 
 
+
 #------------------------------------------
 
 Install-PackageProvider -Name NuGet -force
@@ -37,7 +42,12 @@ Install-Module PSWindowsUpdate -force
 
 Get-WUInstall  -AcceptAll -Install -IgnoreReboot 
 
-Restart-Computer
+
+if ($Restart){
+  "Let's restart"
+  Restart-Computer
+}
+
 
 #Install-WindowsUpdate -AcceptAll -verbose -IgnoreReboot
 
