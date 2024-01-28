@@ -9,6 +9,9 @@ param(
 $MyString | Out-Default
 $MyFlag | Out-Default
 
+
+'-----------__________________' | Out-Default
+
 # report languages
 
 # $OSInfo = Get-WmiObject -Class Win32_OperatingSystem
