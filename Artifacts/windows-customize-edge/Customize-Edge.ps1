@@ -24,9 +24,10 @@ msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 
 
 $PolPath = "HKLM:\Software\Policies\Microsoft\Edge"
+$UpPath = "HKLM:\Software\Policies\Microsoft\EdgeUpdate"
 
-mkdir "$PolPath\Recommended"  -Force | out-null
-
+New-Item -Type Directory -Path "$PolPath\Recommended"  -Force | out-null
+New-Item -Type Directory -Path $UpPath  -Force | out-null
 
 #Stop nagging default browser  
 New-ItemProperty -path $PolPath -name  "DefaultBrowserSettingEnabled" -Value 0 -Force | Out-Null
@@ -42,7 +43,7 @@ New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderEnable
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "https://www.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "https://www.google.com/complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
-New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -name "CreateDesktopShortcutDefault" -value 0 -Force | Out-Null
+New-ItemProperty -path $UpPath -name "CreateDesktopShortcutDefault" -value 0 -Force | Out-Null
 
 
 
