@@ -39,24 +39,21 @@ proxy: none
 
 $settings | Out-File $nvmPath\settings.txt -Encoding ascii
 
-$workaround= @"
-nvm install latest
-nvm install lts
-nvm use lts
-"@;
-
-$workaround | Out-File $env:temp\nvm.bat -Encoding ascii
-
-##start-process -wait $env:temp\nvm.bat
-
-Remove-Item $env:temp\nvm.bat -force
-
 & nvm install latest
 & nvm install lts
 & nvm use lts
 
 
+## This workaround is not needed anymore
+# $workaround= @"
+# nvm install latest
+# nvm install lts
+# nvm use lts
+# "@;
 
+# $workaround | Out-File $env:temp\nvm.bat -Encoding ascii
+# start-process -wait $env:temp\nvm.bat
+# Remove-Item $env:temp\nvm.bat -force
 
 
 #   rmdir 'C:\ProgramData\nvm' -Recurse -Force
