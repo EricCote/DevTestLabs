@@ -23,10 +23,13 @@ assign letter=d
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
 
+& fsutil devdrv trust d: /V
+
 # does not work :-(
 # Get-VirtualDisk | Where-Object {$_.IsManualAttach -eq $True} | Set-VirtualDisk -IsManualAttach $False
 
 #####
+
 
 New-Item -ItemType Directory -Path "d:\Packages" -Force | out-null 
 New-Item -ItemType Directory -Path "d:\Packages\npm" -Force | out-null
