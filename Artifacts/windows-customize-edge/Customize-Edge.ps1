@@ -42,8 +42,14 @@ New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderEnable
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearchURL" -value "https://www.google.com/search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "https://www.google.com/complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
+New-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate" -name "CreateDesktopShortcutDefault" -value 0 -Force | Out-Null
+
+
 
 Remove-Item -Path "$env:temp\edge.msi" -Force
+
+
+
 
 ### remove the "Edge Sign In Required" policy from the windows "cloud" version
 #Remove-ItemProperty -path "HKCU:\Software\Policies\Microsoft\Edge" -name "BrowserSignin" 
@@ -97,3 +103,5 @@ Windows Registry Editor Version 5.00
 $content -replace '\n', "`r`n" | Out-File "$env:temp\fake-mdm.reg"  -Force -Encoding unicode 
 
 & reg import "$env:temp\fake-mdm.reg" | out-null
+
+Remove-Item -Path "$env:temp\fake-mdm.reg" -Force
