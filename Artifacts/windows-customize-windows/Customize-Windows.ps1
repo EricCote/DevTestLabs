@@ -113,23 +113,17 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
     -Value 0 -PropertyType dword `
     -Force | out-null
 
-# Hide widgets  (win10/11)                 
-New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-    -name TaskbarDa `
-    -Value 0 -PropertyType dword `
-    -Force | out-null       
-                    
 # Hide TaskView (win11)                  
-New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-    -name ShowTaskViewButton `
-    -Value 0 -PropertyType dword `
-    -Force | out-null   
+# New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+#     -name ShowTaskViewButton `
+#     -Value 0 -PropertyType dword `
+#     -Force | out-null   
                     
 # Hide Chat     (win11)              
-New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-    -name TaskbarMn `
-    -Value 0 -PropertyType dword `
-    -Force | out-null   
+# New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+#     -name TaskbarMn `
+#     -Value 0 -PropertyType dword `
+#     -Force | out-null   
                  
 # more pins / less recommended  in start menu (win11, 22h2) 0=default, 1=more pins, 2=more recommendations
 New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
@@ -155,10 +149,26 @@ New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Tea
 # -Value 0 -PropertyType dword `
 # -Force | out-null   
 
+# Hide widgets  (win10/11)                 
+# New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+#     -name TaskbarDa `
+#     -Value 0 -PropertyType dword `
+#     -Force | out-null       
+
+
+#Hide Widgets Workaround
+#https://forums.mydigitallife.net/threads/taskbarda-widgets-registry-change-is-now-blocked.88547/page-2
+
+Copy-Item (Get-Command reg).Source '.\reg1.exe'
+
+Start-Process -NoNewWindow -Wait -FilePath '.\reg1.exe' -ArgumentList "add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f 1>NUL"
+
+Remove-Item '.\reg1.exe'
+
+
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
 Remove-PSDrive HKU 
-0
 [gc]::Collect()
 [gc]::WaitForPendingFinalizers()
 
