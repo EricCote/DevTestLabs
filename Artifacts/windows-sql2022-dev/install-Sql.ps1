@@ -102,8 +102,8 @@ if ($installType -ne "completeAfterDeploy" ) {
         $SSEIFile = "$env:temp\sql2022.exe"
 
         #get link to latest version of CU (Cummulative Update) from download page
-        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=105013"  -UseBasicParsing).RawContent
-        $page -match '{url:\"(.*?)\"'
+        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/details.aspx?id=105013"  -UseBasicParsing).RawContent
+        $page -match '\"url\":\"(.*?)\"'
         $cuSource = $matches[1]
 
         #create folder    
