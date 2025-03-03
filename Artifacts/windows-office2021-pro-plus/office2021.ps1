@@ -4,9 +4,10 @@ $odtFolder = "${env:Temp}\office";
 new-item $odtFolder -ItemType Directory  -Force
 
 
-$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/confirmation.aspx?id=49117"  -UseBasicParsing).RawContent;
-$page -match '{url:\"(.*?)\"';
-$OdtUrl = $matches[1];
+$page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/details.aspx?id=49117"  -UseBasicParsing).RawContent;
+$page -match '\"url\":\"(.*?)\"';
+$OdtUrl = $matches[1]; 
+
 
 
 Invoke-WebRequest -UseBasicParsing -Uri $OdtUrl -OutFile "$env:temp\OdtOffice.exe"
