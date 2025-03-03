@@ -7,7 +7,9 @@ $download_url=$compute.assets.Where({$_.name -eq "nvm-noinstall.zip"}).browser_d
 
 $zipFile= "$env:temp\nvm-noinstall.zip"
 $nvmPath= "$env:programdata\nvm"
-$nodePath= "$env:programfiles\nodejs"
+$nodePath= "C:\nvm4w\nodejs"
+
+New-Item -Path c: -Name nvm4w -ItemType Directory -Force
 
 Invoke-WebRequest -UseBasicParsing -uri $download_url -OutFile $zipFile
 
@@ -42,6 +44,14 @@ $settings | Out-File $nvmPath\settings.txt -Encoding ascii
 & nvm install latest
 & nvm install lts
 & nvm use lts
+
+ 
+#This workaround resets the permissions for the node folders in nvm. 
+$folders = Get-ChildItem -Path C:\ProgramData\nvm -Directory
+Foreach ($folder in $folders) {
+    ICACLS ("$($folder.fullname)") /reset  | Out-Null
+} 
+
 
 
 ## This workaround is not needed anymore
