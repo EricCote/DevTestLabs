@@ -19,9 +19,6 @@ $LatestEdgeUrl = $LatestEdge.Artifacts[0].Location;
 #download edge
 Invoke-WebRequest -Uri $LatestEdgeUrl -OutFile "$env:temp\edge.msi" -UseBasicParsing;
 
-#install edge
-msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
-
 
 $PolPath = "HKLM:\Software\Policies\Microsoft\Edge"
 $UpPath = "HKLM:\Software\Policies\Microsoft\EdgeUpdate"
@@ -44,13 +41,17 @@ New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSearch
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderName" -value "Google" -Force | Out-Null
 New-ItemProperty -path "$PolPath\Recommended" -name "DefaultSearchProviderSuggestURL" -value "https://www.google.com/complete/search?output=chrome&q={searchTerms}" -Force | Out-Null
 New-ItemProperty -path $UpPath -name "CreateDesktopShortcutDefault" -value 0 -Force | Out-Null
+#New-ItemProperty -path $UpPath -name "CreateDesktopShortcut" -value 0 -Force | Out-Null
 
-
+#install edge
+msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
 
 Remove-Item -Path "$env:temp\edge.msi" -Force
 
+Get-ChildItem -Path "C:\Users\Public\Desktop" -Name "Microsoft Edge.lnk"
 
-
+#Remove-Item -Path "C:\Users\Public\Desktop\Microsoft Edge.lnk" -Force
+ 
 
 ### remove the "Edge Sign In Required" policy from the windows "cloud" version
 #Remove-ItemProperty -path "HKCU:\Software\Policies\Microsoft\Edge" -name "BrowserSignin" 
