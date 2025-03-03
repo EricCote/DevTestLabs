@@ -44,7 +44,7 @@ New-ItemProperty -path $UpPath -name "CreateDesktopShortcutDefault" -value 0 -Fo
 #New-ItemProperty -path $UpPath -name "CreateDesktopShortcut" -value 0 -Force | Out-Null
 
 #install edge
-msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 | out-null
+& msiexec /q /i "$env:temp\edge.msi"  ALLUSERS=1 DONOTCREATEDESKTOPSHORTCUT=1 | out-null
 
 Remove-Item -Path "$env:temp\edge.msi" -Force
 
