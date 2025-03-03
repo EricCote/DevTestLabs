@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
   "title": "SQL SSDT",
-  "description": "Installs Sql Server Data Tools.",
+  "description": "Installs Sql Server Data Tools. VS2022 is required.",
   "publisher": "Eric Côté",
   "tags": ["SQL", "SSDT", "Sql Server Data Tools"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ssdt.png",

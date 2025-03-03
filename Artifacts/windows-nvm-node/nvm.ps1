@@ -9,7 +9,7 @@ $zipFile= "$env:temp\nvm-noinstall.zip"
 $nvmPath= "$env:programdata\nvm"
 $nodePath= "C:\nvm4w\nodejs"
 
-New-Item -Path c: -Name nvm4w -ItemType Directory -Force
+New-Item -Path c:\ -Name nvm4w -ItemType Directory -Force
 
 Invoke-WebRequest -UseBasicParsing -uri $download_url -OutFile $zipFile
 

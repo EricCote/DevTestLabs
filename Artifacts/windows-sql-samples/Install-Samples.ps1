@@ -18,6 +18,10 @@ param
   [bool] $Uninstall
 )
 
+#$backupPath="c:\dbBackup"
+#$samplePath="c:\dbSamples"
+
+
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $ProgressPreference = 'SilentlyContinue'
 
