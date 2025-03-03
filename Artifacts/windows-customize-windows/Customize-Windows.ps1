@@ -114,10 +114,10 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
     -Force | out-null
 
 # Hide TaskView (win11)                  
-# New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
-#     -name ShowTaskViewButton `
-#     -Value 0 -PropertyType dword `
-#     -Force | out-null   
+New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `
+    -name ShowTaskViewButton `
+    -Value 0 -PropertyType dword `
+    -Force | out-null   
                     
 # Hide Chat     (win11)              
 # New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced" `

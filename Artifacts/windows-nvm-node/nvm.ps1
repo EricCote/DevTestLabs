@@ -45,12 +45,14 @@ $settings | Out-File $nvmPath\settings.txt -Encoding ascii
 & nvm install lts
 & nvm use lts
 
- 
-#This workaround resets the permissions for the node folders in nvm. 
+  
+# This resets the permissions for the node folders, (ex: /23.0.1/)
+# so any user can read the folder. 
 $folders = Get-ChildItem -Path C:\ProgramData\nvm -Directory
 Foreach ($folder in $folders) {
     ICACLS ("$($folder.fullname)") /reset  | Out-Null
-} 
+}
+ 
 
 
 
