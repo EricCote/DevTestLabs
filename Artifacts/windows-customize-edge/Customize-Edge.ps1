@@ -48,10 +48,9 @@ New-ItemProperty -path $UpPath -name "CreateDesktopShortcutDefault" -value 0 -Fo
 
 Remove-Item -Path "$env:temp\edge.msi" -Force
 
-Get-ChildItem -Path "C:\Users\Public\Desktop" -Name "Microsoft Edge.lnk"
-
-#Remove-Item -Path "C:\Users\Public\Desktop\Microsoft Edge.lnk" -Force
+Remove-Item -Path "C:\Users\Public\Desktop\Microsoft Edge.lnk" -Force
  
+Get-ChildItem -Path "C:\Users\Public\Desktop" -Name "Microsoft Edge.lnk"
 
 ### remove the "Edge Sign In Required" policy from the windows "cloud" version
 #Remove-ItemProperty -path "HKCU:\Software\Policies\Microsoft\Edge" -name "BrowserSignin" 
