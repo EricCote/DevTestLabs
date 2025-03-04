@@ -12,6 +12,10 @@ $MyFlag | Out-Default
 
 '-----------__________________' | Out-Default
 
+
+Install-Language -Language "fr-CA" 
+
+
 # report languages
 
 # $OSInfo = Get-WmiObject -Class Win32_OperatingSystem
