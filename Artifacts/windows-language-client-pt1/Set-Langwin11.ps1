@@ -5,7 +5,9 @@
 $ProgressPreference = 'SilentlyContinue'
 
 $sas = "sp=rl&st=2022-10-02T07:44:44Z&se=2026-10-02T15:44:44Z&spr=https&sv=2021-06-08&sr=c&sig=8COlEmuB7LVPphsQWBhfGPqx1guSF4MRWmRKdVU5Bvg%3D" 
-$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-22h2/fr-ca";
+$sas = "sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D" 
+
+$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-24h2/fr-ca";
 
 $logPath = "$env:temp\log-sys-fr-ca.txt"
 
@@ -28,7 +30,8 @@ $FOD = @(
     # "Microsoft.Windows.WordPad~~~~0.0.1.0"
 );
 
-$FOD2 = @("Microsoft-Windows-LanguageFeatures-Basic-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
+$FOD2 = @(
+"Microsoft-Windows-LanguageFeatures-Basic-fr-ca-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Basic-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Basic-en-ca-Package~31bf3856ad364e35~amd64~~.cab",
 "Microsoft-Windows-LanguageFeatures-Handwriting-fr-fr-Package~31bf3856ad364e35~amd64~~.cab",

@@ -6,7 +6,8 @@
 $ProgressPreference = 'SilentlyContinue'
 
 $sas = "sp=rl&st=2022-10-02T07:44:44Z&se=2026-10-02T15:44:44Z&spr=https&sv=2021-06-08&sr=c&sig=8COlEmuB7LVPphsQWBhfGPqx1guSF4MRWmRKdVU5Bvg%3D" 
-$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-22h2/fr-ca";
+$sas="sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D"
+$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-24h2/fr-ca";
 
 $logPath = "$env:temp\log-sys-fr-ca.txt"
 
@@ -21,12 +22,11 @@ $linkArray = @(
     "Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
     "Microsoft-Windows-Printing-PMCPPC-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
+    "Microsoft-Windows-SenseClient-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",   
     "Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
     "Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-WMIC-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-WMIC-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab",
-    "Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
-    "Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab"
+    "Microsoft-Windows-VBSCRIPT-FoD-Package~31bf3856ad364e35~amd64~fr-CA~.cab",
+    "Microsoft-Windows-VBSCRIPT-FoD-Package~31bf3856ad364e35~wow64~fr-CA~.cab"
 )
 
 
@@ -46,7 +46,7 @@ $packages | ForEach-Object { Add-WindowsPackage -Online -PackagePath (join-path 
 "loop for integrating windows package $(Get-Date -Format T)"  | out-file $logPath -append
 
 
-$url2 = "https://azureshelleric.blob.core.windows.net/win11-22h2/inbox-apps/inbox.zip?$sas"
+$url2 = "https://azureshelleric.blob.core.windows.net/win11-24h2/inbox-apps/inbox.zip?$sas"
 Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
 "Download inbox files $(Get-Date -Format T)"  | out-file $logPath -append
 
