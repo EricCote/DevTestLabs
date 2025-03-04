@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LayoutModificationTemplate
-xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"
-xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"
-xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout"
-xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout"
-Version="1">
+<LayoutModificationTemplate xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"
+    xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"
+    xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout"
+    xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout" Version="1">
     <CustomTaskbarLayoutCollection PinListPlacement="Replace">
         <defaultlayout:TaskbarLayout>
-            <taskbar:TaskbarPinList >    
+            <taskbar:TaskbarPinList >
                 <taskbar:DesktopApp DesktopApplicationID="Microsoft.Windows.Explorer" />
                 <taskbar:DesktopApp DesktopApplicationID="MSEdge" />
-                <taskbar:DesktopApp DesktopApplicationID="chrome" />            
+                <taskbar:DesktopApp DesktopApplicationID="chrome" />
                 <taskbar:UWA AppUserModelID="Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" />
                 <taskbar:DesktopApp DesktopApplicationID="Microsoft.Office.WINWORD.EXE.15" />
-                <taskbar:DesktopApp DesktopApplicationID="Microsoft.VisualStudioCode" />   
+                <taskbar:DesktopApp DesktopApplicationID="Microsoft.VisualStudioCode" />
                 <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Visual Studio 2022.lnk" />
-                <taskbar:DesktopApp DesktopApplicationID="{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\Microsoft SQL Server Management Studio 19\Common7\IDE\Ssms.exe" />
-                <taskbar:DesktopApp DesktopApplicationID="Microsoft.azuredatastudio" />
-            </taskbar:TaskbarPinList>        
+                <taskbar:DesktopApp DesktopApplicationID="{7C5A40EF-A0FB-4BFC-874A-C0F2E0B9FA8E}\Microsoft SQL Server Management Studio 20\Common7\IDE\Ssms.exe" />
+            </taskbar:TaskbarPinList>
         </defaultlayout:TaskbarLayout>
     </CustomTaskbarLayoutCollection>
 </LayoutModificationTemplate>
