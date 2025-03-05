@@ -13,8 +13,10 @@ $MyFlag | Out-Default
 '-----------__________________' | Out-Default
 
 
-Install-Language -Language "fr-CA" 
+Install-Language -Language "fr-CA" -CopyToSettings
+Set-SystemPreferredUILanguage "fr-CA"
 
+Restart-Computer -Force
 
 # report languages
 
