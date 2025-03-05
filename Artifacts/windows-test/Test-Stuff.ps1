@@ -12,7 +12,7 @@ $MyFlag | Out-Default
 
 '-----------__________________' | Out-Default
 
-Install-Language -Language "fr-CA" 
+#Install-Language -Language "fr-CA" 
 
 
 $ProgressPreference = 'SilentlyContinue'
@@ -23,6 +23,8 @@ $logPath = "$env:temp\log-sys-fr-ca.txt"
 
 
 $destination="$env:temp\lang"
+
+new-item -ItemType Directory -Path $destination -Force
 
 
 $url2 = "$blobLocation/inbox.zip?$sas"
