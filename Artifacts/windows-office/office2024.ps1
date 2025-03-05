@@ -21,7 +21,7 @@ $xmlOffice2024= @"
     </Product>
   </Add>
 
-  <Updates Enabled="TRUE" Channel="PerpetualVL2021" />
+  <Updates Enabled="TRUE" Channel="PerpetualVL2024" />
   <Display Level="None" AcceptEULA="TRUE" /> 
   <!--  <Property Name="AUTOACTIVATE" Value="1" />  -->
 
