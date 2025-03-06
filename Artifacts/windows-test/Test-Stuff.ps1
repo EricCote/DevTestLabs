@@ -12,6 +12,9 @@ $MyFlag | Out-Default
 
 '-----------__________________' | Out-Default
 
+dism /online /Get-ProvisioningPackageInfo
+
+
 #Install-Language -Language "fr-CA" 
 
 
@@ -48,10 +51,12 @@ Remove-Item $destination  -Recurse -Force
 "Remove downloaded files  $(Get-Date -Format T)" | out-file $logPath -append  #>
 
 
-Import-Module Appx
+<# Import-Module Appx
 Import-Module Dism
 Get-AppxPackage -AllUsers | Where PublisherId -eq 8wekyb3d8bbwe | Format-List -Property PackageFullName,PackageUserInformation
  
+ #>
+
 
 
 #Install-Language -Language "fr-CA" -CopyToSettings
