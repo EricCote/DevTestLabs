@@ -15,7 +15,7 @@ $MyFlag | Out-Default
 #Install-Language -Language "fr-CA" 
 
 
-$ProgressPreference = 'SilentlyContinue'
+<# $ProgressPreference = 'SilentlyContinue'
 $sas="sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D"
 $blobLocation = "https://azureshelleric.blob.core.windows.net/win11-24h2/inbox-apps";
 
@@ -45,9 +45,13 @@ foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
 
 
 Remove-Item $destination  -Recurse -Force
-"Remove downloaded files  $(Get-Date -Format T)" | out-file $logPath -append 
+"Remove downloaded files  $(Get-Date -Format T)" | out-file $logPath -append  #>
 
 
+Import-Module Appx
+Import-Module Dism
+Get-AppxPackage -AllUsers | Where PublisherId -eq 8wekyb3d8bbwe | Format-List -Property PackageFullName,PackageUserInformation
+ 
 
 
 #Install-Language -Language "fr-CA" -CopyToSettings
