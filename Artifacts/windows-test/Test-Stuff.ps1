@@ -37,17 +37,17 @@ new-item -ItemType Directory -Path $destination -Force | Out-Null
 
 $url2 = "$blobLocation/inbox.zip?$sas"
 Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
-"Download inbox files $(Get-Date -Format T)"  | out-file $logPath -append
+"Download inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
 Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
-"Unzip inbox files $(Get-Date -Format T)"  | out-file $logPath -append
+"Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
  
 foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
-    $app.BaseName + " prep  $(Get-Date -Format T)"  | out-file $logPath -append
+    $app.BaseName + " prep  $(Get-Date -Format T)"  | tee -file $logPath -append
     $lic = "$($app.DirectoryName)\$($app.BaseName).xml"
-    Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic | out-file $logPath -append
-    $app.BaseName + " done  $(Get-Date -Format T)"  | out-file $logPath -append
+    Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic *>&1 | tee -file $logPath -append
+    $app.BaseName + " done  $(Get-Date -Format T)"  | tee -file $logPath -append
     break
 }
 #>
