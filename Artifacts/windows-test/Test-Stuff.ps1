@@ -12,15 +12,20 @@ $MyFlag | Out-Default
 
 '-----------__________________' | Out-Default
 
-dism /online /Get-ProvisioningPackageInfo
+# dism /online /Get-ProvisioningPackageInfo
 
 
 #Install-Language -Language "fr-CA" 
 
 
-<# $ProgressPreference = 'SilentlyContinue'
+$ProgressPreference = 'SilentlyContinue'
+$Ver =  Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -name DisplayVersion 
+
+
+
+
 $sas="sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D"
-$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-24h2/inbox-apps";
+$blobLocation = "https://azureshelleric.blob.core.windows.net/$Ver/inbox-apps";
 
 $logPath = "$env:temp\log-sys-fr-ca.txt"
 
@@ -45,10 +50,10 @@ foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
     $app.BaseName + " done  $(Get-Date -Format T)"  | out-file $logPath -append
     break
 }
-
+#>
 
 Remove-Item $destination  -Recurse -Force
-"Remove downloaded files  $(Get-Date -Format T)" | out-file $logPath -append  #>
+"Remove downloaded files  $(Get-Date -Format T)" | out-file $logPath -append  
 
 
 <# Import-Module Appx
