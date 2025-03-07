@@ -21,11 +21,12 @@ $MyFlag | Out-Default
 $ProgressPreference = 'SilentlyContinue'
 $Ver = Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -name DisplayVersion 
 
-if ($ver -eq '23H2') { $ver = '22H2' }
+if ($Ver -eq '23H2') { $Ver = '22h2' } 
 
+$Ver = $ver.ToLower();
 
-$sas = "sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D"
-$blobLocation = "https://azureshelleric.blob.core.windows.net/$Ver/inbox-apps";
+$sas = "sv=2022-11-02&ss=b&srt=co&sp=rwdlaciytfx&se=2030-03-07T22:21:14Z&st=2025-03-07T14:21:14Z&spr=https&sig=xvYvvZHVuDVhQZdoal86XK35qlSEgQaTrFZC1qHPlLw%3D"
+$blobLocation = "https://azureshelleric.blob.core.windows.net/win11-$Ver/inbox-apps";
 
 $logPath = "$env:temp\log-sys-fr-ca.txt"
 
