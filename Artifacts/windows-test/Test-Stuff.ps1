@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("test1","test2")] 
+    [ValidateSet("test1", "test2")] 
     [string] $MyString = 'test1',
     [switch] $MyFlag
 )
@@ -19,18 +19,18 @@ $MyFlag | Out-Default
 
 
 $ProgressPreference = 'SilentlyContinue'
-$Ver =  Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -name DisplayVersion 
+$Ver = Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -name DisplayVersion 
+
+if ($ver -eq '23h2') { $ver = '22h2' }
 
 
-
-
-$sas="sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D"
+$sas = "sp=rl&st=2025-03-04T18:33:42Z&se=2030-03-05T02:33:42Z&spr=https&sv=2022-11-02&sr=c&sig=bTucvhs7LFnn40suvivcWV6tuBrQmV6qUlAfd6EZeSc%3D"
 $blobLocation = "https://azureshelleric.blob.core.windows.net/$Ver/inbox-apps";
 
 $logPath = "$env:temp\log-sys-fr-ca.txt"
 
 
-$destination="$env:temp\lang"
+$destination = "$env:temp\lang"
 
 new-item -ItemType Directory -Path $destination -Force | Out-Null
 
