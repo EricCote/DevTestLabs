@@ -49,9 +49,8 @@ foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
     $lic = "$($app.DirectoryName)\$($app.BaseName).xml"
     Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic *>&1 | tee -file $logPath -append
     $app.BaseName + " done  $(Get-Date -Format T)"  | tee -file $logPath -append
-    break
 }
-#>
+
 
 Remove-Item $destination  -Recurse -Force
 "Remove downloaded files  $(Get-Date -Format T)" | out-file $logPath -append  
