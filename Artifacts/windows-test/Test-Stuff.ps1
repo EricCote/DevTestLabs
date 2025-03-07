@@ -15,7 +15,7 @@ $MyFlag | Out-Default
 # dism /online /Get-ProvisioningPackageInfo
 
 
-#Install-Language -Language "fr-CA" 
+Install-Language -Language "fr-CA" 
 
 
 $ProgressPreference = 'SilentlyContinue'
