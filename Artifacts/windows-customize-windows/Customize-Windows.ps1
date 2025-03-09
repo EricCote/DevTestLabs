@@ -139,14 +139,14 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
                  
 
 #Create Registry key 
-New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
-    -force | out-null
+# New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
+#     -force | out-null
 
-#Remove Teams Startup
-New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
-    -Name "PreventFirstLaunchAfterInstall" `
-    -Value 1 -PropertyType dword `
-    -Force | out-null
+# #Remove Teams Startup
+# New-ItemProperty -Path "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
+#     -Name "PreventFirstLaunchAfterInstall" `
+#     -Value 1 -PropertyType dword `
+#     -Force | out-null
 
 # Hide Search 
 
