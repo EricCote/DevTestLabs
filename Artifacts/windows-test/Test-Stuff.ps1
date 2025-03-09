@@ -15,7 +15,7 @@ function test1 {
 }
 
 function test2 {
-    Install-Language -Language "fr-CA" 
+    # Install-Language -Language "fr-CA" 
 
 
     $ProgressPreference = 'SilentlyContinue'
@@ -44,8 +44,8 @@ function test2 {
     # "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
 
-    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml" *>&1 | tee -file $logPath -append
-    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.xml" *>&1 | tee -file $logPath -append
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml"
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.xml" 
 
 
 
@@ -63,7 +63,7 @@ function test2 {
 
     #Get-Content c:\windows\logs\dism\dism.log | Out-Default
 
-    Get-ChildItem "C:\program files\WindowsApps" | Select-Object name
+    Get-ChildItem "C:\program files\WindowsApps" | Select-Object name | Format-Table
     # Get-ChildItem "$destination/appx" 
 
 }
