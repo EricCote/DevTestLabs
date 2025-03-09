@@ -36,12 +36,12 @@ function test2 {
     new-item -ItemType Directory -Path $destination -Force | Out-Null
 
 
-    # $url2 = "$blobLocation/inbox.zip?$sas"
-    # Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
-    # "Download inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
+    $url2 = "$blobLocation/inbox.zip?$sas"
+    Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
+    "Download inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
-    # Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
-    # "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
+    Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
+    "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
 
     Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml"
