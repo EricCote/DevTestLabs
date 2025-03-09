@@ -16,6 +16,10 @@ function test1 {
 
 function test2 {
     # Install-Language -Language "fr-CA" 
+    Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
+        -name "AllowDevelopmentWithoutDevLicense" `
+        -value 1 `
+        -force | out-null
 
 
     $ProgressPreference = 'SilentlyContinue'
@@ -43,9 +47,13 @@ function test2 {
     Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
     "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
+    Remove-AppxProvisionedPackage -Online -PackageName Microsoft.WindowsNotepad_11.2312.18.0_neutral_~_8wekyb3d8bbwe
+    Remove-AppxProvisionedPackage -Online -PackageName Microsoft.ZuneMusic_11.2312.8.0_neutral_~_8wekyb3d8bbwe
 
     Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml"
     Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.xml" 
+
+
 
     # Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -skipLicense
     # Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -skipLicense
