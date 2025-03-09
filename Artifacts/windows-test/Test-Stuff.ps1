@@ -6,18 +6,7 @@ param(
 )
 
 
-if ($test -eq "test1") { test1 }
-if ($test -eq "test2") { test2 }
-if ($test -eq "test3") { test3 }
-if ($test -eq "test4") { test4 }
 
-
-$MyFlag | Out-Default
-
-
-'-----------__________________' | Out-Default
-
-# dism /online /Get-ProvisioningPackageInfo
 
 
 function test1 {
@@ -71,7 +60,7 @@ function test2 {
 
 }
 
-function test2 {
+function test3 {
     Import-Module Appx
     Import-Module Dism
     Get-AppxPackage -AllUsers | Where PublisherId -eq 8wekyb3d8bbwe | Format-List -Property PackageFullName, PackageUserInformation
@@ -118,3 +107,7 @@ function test2 {
 #----------------------------------------------------------
 
 
+if ($test -eq "test1") { test1 }
+if ($test -eq "test2") { test2 }
+if ($test -eq "test3") { test3 }
+if ($test -eq "test4") { test4 }
