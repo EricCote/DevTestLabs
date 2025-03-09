@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param(
-    [ValidateSet("test1", "test2")] 
+    [ValidateSet("test1", "test2", "test3", "test4")] 
     [string] $test = 'test1',
     [switch] $MyFlag
 )
