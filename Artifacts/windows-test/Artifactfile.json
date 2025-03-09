@@ -13,14 +13,15 @@
       "description": "True or false",
       "defaultValue": false
     },
-    "myString": {
+    "testing": {
       "type": "string",
       "displayName": "My String",
       "description": "test1 or test2",
+      "allowedValues": ["test1", "test2", "test3", "test4"],
       "defaultValue": "test1"
     }
   },
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass  \"& ./Test-Stuff.ps1 -MyString ', parameters('myString'), ' -MyFlag:$', parameters('myFlag'), ' \"' )]"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass  \"& ./Test-Stuff.ps1 -test ', parameters('testing'), ' -MyFlag:$', parameters('myFlag'), ' \"' )]"
   }
 }
