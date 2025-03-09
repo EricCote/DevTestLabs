@@ -43,20 +43,26 @@ function test2 {
     Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
     "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
- 
-    foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
-        $app.BaseName + " prep  $(Get-Date -Format T)"  | tee -file $logPath -append
-        $lic = "$($app.DirectoryName)\$($app.BaseName).xml"
-        Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic *>&1 | tee -file $logPath -append
-        $app.BaseName + " done  $(Get-Date -Format T)"  | tee -file $logPath -append
-        break;
-    }
+
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" *>&1 | tee -file $logPath -append
+      
 
 
-    Remove-Item $destination  -Recurse -Force
-    "Remove downloaded files  $(Get-Date -Format T)" | tee -file $logPath -append  
+    # foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
+    #     $app.BaseName + " prep  $(Get-Date -Format T)"  | tee -file $logPath -append
+    #     $lic = "$($app.DirectoryName)\$($app.BaseName).xml"
+    #     Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic *>&1 | tee -file $logPath -append
+    #     $app.BaseName + " done  $(Get-Date -Format T)"  | tee -file $logPath -append
+    #     break;
+    # }
+
+
+    # Remove-Item $destination  -Recurse -Force
+    # "Remove downloaded files  $(Get-Date -Format T)" | tee -file $logPath -append  
 
     Get-Content c:\windows\logs\dism\dism.log | Out-Default
+
+    Get-ChildItem "C:\program files\WindowsApps" 
 
 }
 
