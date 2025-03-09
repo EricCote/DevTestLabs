@@ -17,8 +17,6 @@ function test1 {
 function test2 {
     #Install-Language -Language "fr-CA" 
 
-    $ver = '24h2'
-
 
     $ProgressPreference = 'SilentlyContinue'
     $Ver = Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -name DisplayVersion 
@@ -38,12 +36,12 @@ function test2 {
     new-item -ItemType Directory -Path $destination -Force | Out-Null
 
 
-    $url2 = "$blobLocation/inbox.zip?$sas"
-    Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
-    "Download inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
+    # $url2 = "$blobLocation/inbox.zip?$sas"
+    # Invoke-WebRequest -UseBasicParsing -Uri $url2 -OutFile "$destination\inbox.zip"
+    # "Download inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
-    Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
-    "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
+    # Expand-Archive -Path "$destination\inbox.zip" -DestinationPath "$destination\appx"   -Force
+    # "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
 
     Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" *>&1 | tee -file $logPath -append
@@ -62,9 +60,10 @@ function test2 {
     # Remove-Item $destination  -Recurse -Force
     # "Remove downloaded files  $(Get-Date -Format T)" | tee -file $logPath -append  
 
-    Get-Content c:\windows\logs\dism\dism.log | Out-Default
+    #Get-Content c:\windows\logs\dism\dism.log | Out-Default
 
-    Get-ChildItem "C:\program files\WindowsApps" 
+    #Get-ChildItem "C:\program files\WindowsApps" 
+    Get-ChildItem "$destination/appx" 
 
 }
 
