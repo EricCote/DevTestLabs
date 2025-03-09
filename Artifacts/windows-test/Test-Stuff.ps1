@@ -71,7 +71,7 @@ function test2 {
 function test3 {
     Import-Module Appx
     Import-Module Dism
-    Get-AppxPackage -AllUsers | Where PublisherId -eq 8wekyb3d8bbwe | Format-List -Property PackageFullName, PackageUserInformation
+    Get-AppxPackage -AllUsers | Format-Table -Property PackageFullName, PackageUserInformation
 }
 <# 
  #>
