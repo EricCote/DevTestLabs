@@ -69,10 +69,10 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel
     -value 1 `
     -force | out-null
 
-Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
-    -name "AllowDevelopmentWithoutDevLicense" `
-    -value 1 `
-    -force | out-null
+# Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
+#     -name "AllowDevelopmentWithoutDevLicense" `
+#     -value 1 `
+#     -force | out-null
 
 
 #enable UAC on Administrator account

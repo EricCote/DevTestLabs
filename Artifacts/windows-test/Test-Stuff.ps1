@@ -10,8 +10,8 @@ param(
 
 
 function test1 {
-    Get-ChildItem "C:\program files\WindowsApps" 
-
+    # Get-ChildItem "C:\program files\WindowsApps" 
+    Get-AppxProvisionedPackage -online
 }
 
 function test2 {
@@ -44,11 +44,11 @@ function test2 {
     "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
 
-    # Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml"
-    # Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.xml" 
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml"
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.xml" 
 
-    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -skipLicense
-    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -skipLicense
+    # Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -skipLicense
+    # Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -skipLicense
 
 
     # foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
