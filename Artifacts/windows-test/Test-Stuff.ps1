@@ -25,7 +25,7 @@ function test1 {
 
 }
 
-function testx {
+function test2 {
     #Install-Language -Language "fr-CA" 
 
 
@@ -60,6 +60,7 @@ function testx {
         $lic = "$($app.DirectoryName)\$($app.BaseName).xml"
         Add-AppxProvisionedPackage -Online -PackagePath $($app.fullname) -LicensePath $lic *>&1 | tee -file $logPath -append
         $app.BaseName + " done  $(Get-Date -Format T)"  | tee -file $logPath -append
+        break;
     }
 
 
