@@ -15,7 +15,7 @@ function test1 {
 }
 
 function test2 {
-    #Install-Language -Language "fr-CA" 
+    Install-Language -Language "fr-CA" 
 
 
     $ProgressPreference = 'SilentlyContinue'
