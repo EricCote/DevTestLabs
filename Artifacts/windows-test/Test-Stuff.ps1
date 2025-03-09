@@ -63,7 +63,7 @@ function test2 {
 
     #Get-Content c:\windows\logs\dism\dism.log | Out-Default
 
-    Get-ChildItem "C:\program files\WindowsApps" 
+    Get-ChildItem "C:\program files\WindowsApps" | Select-Object name
     # Get-ChildItem "$destination/appx" 
 
 }
