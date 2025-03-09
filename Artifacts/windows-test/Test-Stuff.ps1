@@ -17,6 +17,8 @@ function test1 {
 function test2 {
     #Install-Language -Language "fr-CA" 
 
+    $ver = '24h2'
+
 
     $ProgressPreference = 'SilentlyContinue'
     $Ver = Get-ItemPropertyValue -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -name DisplayVersion 
