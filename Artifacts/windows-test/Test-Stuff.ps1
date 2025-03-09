@@ -44,8 +44,9 @@ function test2 {
     # "Unzip inbox files $(Get-Date -Format T)"  | tee -file $logPath -append
 
 
-    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" *>&1 | tee -file $logPath -append
-      
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.ZuneMusic_8wekyb3d8bbwe.xml" *>&1 | tee -file $logPath -append
+    Add-AppxProvisionedPackage -Online -PackagePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle" -LicensePath "$destination\appx\Microsoft.WindowsNotepad_8wekyb3d8bbwe.msixbundle.xml" *>&1 | tee -file $logPath -append
+
 
 
     # foreach ($app in (Get-ChildItem $destination\appx\*.*xbundle )) {
