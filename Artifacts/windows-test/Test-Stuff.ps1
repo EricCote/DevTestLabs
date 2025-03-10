@@ -89,8 +89,9 @@ function test4 {
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
     Copy-Item (Get-Command reg).Source '.\reg5.exe'
-    & '.\reg5.exe' 'add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
-    & '.\reg5.exe' 'add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v xxx /t REG_DWORD /d 0 /f'
+    & '.\reg5.exe' 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /reg:64 /f'
+    & '.\reg5.exe' 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v xxx /t REG_DWORD /d 0 /reg:64 /f'
+    & '.\reg5.exe' 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
    
     Remove-Item '.\reg5.exe'
 
