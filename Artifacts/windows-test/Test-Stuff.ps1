@@ -85,6 +85,8 @@ function test3 {
  #>
 
 function test4 {
+    set-location  c:\windows\system32
+
     New-PSDrive HKU Registry HKEY_USERS | out-null
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
