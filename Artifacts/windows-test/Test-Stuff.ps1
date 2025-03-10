@@ -92,7 +92,7 @@ function test4 {
     & '.\reg5.exe' 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /reg:64 /f'
     & '.\reg5.exe' 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v xxx /t REG_DWORD /d 0 /reg:64 /f'
     & '.\reg5.exe' 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
-   
+    "wow"
     Remove-Item '.\reg5.exe'
 
 
