@@ -86,6 +86,25 @@ function test3 {
 <# 
  #>
 
+function test4 {
+    New-PSDrive HKU Registry HKEY_USERS | out-null
+    & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  | out-null
+
+    Copy-Item (Get-Command reg).Source '.\reg1.exe'
+    Start-Process -NoNewWindow -Wait -FilePath '.\reg1.exe' -ArgumentList "add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f 1>NUL"
+    Remove-Item '.\reg1.exe'
+
+
+    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name TaskbarDa 
+    "TaskbarDa=$tb"
+
+    #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
+    Remove-PSDrive HKU 
+    [gc]::Collect()
+    [gc]::WaitForPendingFinalizers()
+
+    & REG UNLOAD "HKU\Default" | out-default
+}
 
 
 #Install-Language -Language "fr-CA" -CopyToSettings
