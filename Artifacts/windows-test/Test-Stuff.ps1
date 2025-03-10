@@ -90,10 +90,12 @@ function test4 {
 
     Copy-Item (Get-Command reg).Source '.\reg5.exe'
     & '.\reg5.exe' 'add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
+    & '.\reg5.exe' 'add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v xxx /t REG_DWORD /d 0 /f'
+   
     Remove-Item '.\reg5.exe'
 
 
-    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name TaskbarDa 
+    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name xxx 
     "TaskbarDa=$tb"
 
     #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
