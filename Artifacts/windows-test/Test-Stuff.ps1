@@ -89,6 +89,11 @@ function test4 {
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
     Copy-Item (Get-Command reg).Source "$env:temp\reg5.exe"
+    & "$env:temp\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa /t REG_DWORD /d 0 /f'
+
+    & "$env:temp\reg5.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa'
+   
+
     & "$env:temp\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
 
     & "$env:temp\reg5.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
