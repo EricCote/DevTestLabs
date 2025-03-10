@@ -101,7 +101,7 @@ function test4 {
     Remove-Item "$env:temp\reg5.exe"
 
 
-    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name TaskbarDa 
+    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -name TaskbarDa 
     "TaskbarDa=$tb"
 
     #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
