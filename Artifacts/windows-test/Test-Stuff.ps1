@@ -85,26 +85,12 @@ function test3 {
  #>
 
 function test4 {
-    set-location  c:\windows\system32
 
     New-PSDrive HKU Registry HKEY_USERS | out-null
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
-    Copy-Item (Get-Command reg).Source ".\reg5.exe"
-    & "reg.exe" add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa /t REG_DWORD /d 0 /f
 
-    & "reg.exe" query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa
-   
-
-    & ".\reg5.exe" add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f
-
-    & ".\reg5.exe" query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa
-
-    Remove-Item ".\reg5.exe"
-
-
-    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -name TaskbarDa 
-    "TaskbarDa=$tb"
+  
 
     #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
     Remove-PSDrive HKU 
