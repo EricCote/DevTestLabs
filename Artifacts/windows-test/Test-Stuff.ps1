@@ -88,9 +88,9 @@ function test4 {
     New-PSDrive HKU Registry HKEY_USERS | out-null
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  | out-null
 
-    Copy-Item (Get-Command reg).Source '.\reg1.exe'
-    Start-Process -NoNewWindow -Wait -FilePath '.\reg1.exe' -ArgumentList "add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f 1>NUL"
-    Remove-Item '.\reg1.exe'
+    Copy-Item (Get-Command reg).Source '.\reg5.exe'
+    & '.\reg5.exe add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
+    Remove-Item '.\reg5.exe'
 
 
     $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name TaskbarDa 
