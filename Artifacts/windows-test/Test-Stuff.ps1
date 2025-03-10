@@ -96,10 +96,10 @@ function test4 {
     & "reg.exe" query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa
    
 
-    & ".\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
+    & ".\reg5.exe" add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f
 
-    & ".\reg5.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
-    get-location
+    & ".\reg5.exe" query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa
+
     Remove-Item ".\reg5.exe"
 
 
