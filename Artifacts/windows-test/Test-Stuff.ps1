@@ -86,7 +86,7 @@ function test3 {
 
 function test4 {
     New-PSDrive HKU Registry HKEY_USERS | out-null
-    & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  | out-null
+    & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
     Copy-Item (Get-Command reg).Source '.\reg5.exe'
     & '.\reg5.exe add HKEY_USERS\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
