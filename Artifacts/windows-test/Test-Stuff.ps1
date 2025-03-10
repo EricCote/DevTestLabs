@@ -89,14 +89,14 @@ function test4 {
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
     Copy-Item (Get-Command reg).Source "$env:temp\reg5.exe"
-    & "$env:temp\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /reg:64 /f'
-    & "$env:temp\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v xxx /t REG_DWORD /d 0 /reg:64 /f'
+    & "$env:temp\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
+
     & "$env:temp\reg5.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
     "wow"
     Remove-Item "$env:temp\reg5.exe"
 
 
-    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name xxx 
+    $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced' -name TaskbarDa 
     "TaskbarDa=$tb"
 
     #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
