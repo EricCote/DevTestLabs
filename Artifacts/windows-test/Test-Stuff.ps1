@@ -88,17 +88,17 @@ function test4 {
     New-PSDrive HKU Registry HKEY_USERS | out-null
     & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  
 
-    Copy-Item (Get-Command reg).Source "$env:temp\reg5.exe"
-    & "$env:temp\reg.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa /t REG_DWORD /d 0 /f'
+    Copy-Item (Get-Command reg).Source ".\reg5.exe"
+    & "reg.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa /t REG_DWORD /d 0 /f'
 
-    & "$env:temp\reg.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa'
+    & "reg.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer /v TaskbarDa'
    
 
-    & "$env:temp\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
+    & ".\reg5.exe" 'add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f'
 
-    & "$env:temp\reg5.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
-    "wow"
-    Remove-Item "$env:temp\reg5.exe"
+    & ".\reg5.exe" 'query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa'
+    get-location
+    Remove-Item ".\reg5.exe"
 
 
     $tb = Get-ItemPropertyValue -Path 'HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer' -name TaskbarDa 
