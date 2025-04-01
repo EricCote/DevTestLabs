@@ -83,6 +83,16 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
     -value 1 `
     -force | out-null
 
+
+# enable rounded corners on Windows 11
+# mkdir "HKLM:\SOFTWARE\Microsoft\Windows\DWM" -force | Out-Null
+Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\DWM" `
+    -name "ForceEffectMode" `
+    -value 2 `
+    -force | out-null
+
+
+
 # overrides default file associations to chrome                 
 # Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" `
 #                  -name "DefaultAssociationsConfiguration" `
