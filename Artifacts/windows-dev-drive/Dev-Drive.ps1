@@ -7,21 +7,19 @@ $vhd = "C:\ProgramData\disks\devDrive.vhdx"
 
 if ($IsVhd) {
     New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
-    
-
+   
     out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
+    select volume d
+    remove letter=d
     create vdisk file="C:\ProgramData\disks\devDrive.vhdx" maximum=52000 type=expandable
     attach vdisk
     convert gpt
     create partition primary
-    select volume d
-    remove letter=d
-    assign letter=e
+    assign letter=d
+    rem format quick fs=ntfs label=DevDrive
 "@ 
 
-    & DiskPart /s $env:temp\dp.txt 
-    
-    & remove-item $env:temp\dp.txt 
+     
 }
 else {
     out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
@@ -33,18 +31,15 @@ else {
     create partition primary
     assign letter=d 
 "@
-    
-    & DiskPart /s $env:temp\dp.txt 
-    
-    & remove-item $env:temp\dp.txt 
 
 }
 
-Start-Sleep -Seconds 2
+
+& DiskPart /s $env:temp\dp.txt 
+& remove-item $env:temp\dp.txt
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
-
-& fsutil devdrv trust d: /V
+& fsutil devdrv trust /f D: 
 
 
 #####
@@ -141,3 +136,4 @@ if ($IsVhd) {
     
 
 
+ 
