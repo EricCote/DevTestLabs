@@ -9,8 +9,8 @@ if ($IsVhd) {
     New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
    
     out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
-    select volume d
-    remove letter=d
+    rem select volume d
+    rem remove letter=d
     create vdisk file="C:\ProgramData\disks\devDrive.vhdx" maximum=52000 type=expandable
     attach vdisk
     convert gpt
@@ -25,8 +25,8 @@ else {
     out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
     select volume c
     shrink desired=53000
-    select volume d
-    remove letter=d
+    rem select volume d
+    rem remove letter=d
     select disk 0
     create partition primary
     assign letter=d 
