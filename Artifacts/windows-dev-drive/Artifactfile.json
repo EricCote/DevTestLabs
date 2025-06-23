@@ -6,7 +6,21 @@
   "tags": ["Windows", "Dev Drive", "Dev Home"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
+  "parameters": {
+    "IsVhd": {
+      "type": "bool",
+      "displayName": "Use VHDX",
+      "description": "Use VHDX instead of partitions",
+      "defaultValue": false
+    },
+    "RemapTemp": {
+      "type": "bool",
+      "displayName": "Remap Temp",
+      "description": "The User's Temp folder will be stored on the Dev Drive",
+      "defaultValue": false
+    }
+  },
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Dev-Drive.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Dev-Drive.ps1 -RemapTemp:$', parameters('RemapTemp')   ,' -IsVhd:$', parameters('IsVhd'), ' \"' )]"
   }
 }

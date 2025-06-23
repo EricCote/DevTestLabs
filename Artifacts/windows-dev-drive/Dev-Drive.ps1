@@ -1,32 +1,51 @@
-# del C:\programdata\disks\devDrive.vhdx
+param (
+    [switch]$IsVhd,
+    [switch]$RemapTemp
+)
 
-# New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
+$vhd = "C:\ProgramData\disks\devDrive.vhdx"
 
+if ($IsVhd) {
+    New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
+    
 
-# create vdisk file=C:\programdata\disks\devDrive.vhdx maximum=52000 type=fixed
-# attach vdisk
-# convert gpt
+    out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
+    create vdisk file="C:\ProgramData\disks\devDrive.vhdx" maximum=52000 type=expandable
+    attach vdisk
+    convert gpt
+    create partition primary
+    assign letter=d 
+"@ 
 
-out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
-select volume c
-shrink desired=53000
-select volume d
-remove letter=d
-select disk 0
-create partition primary
-assign letter=d 
+    & DiskPart /s $env:temp\dp.txt 
+    
+    & remove-item $env:temp\dp.txt 
+}
+else {
+    out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
+    select volume c
+    shrink desired=53000
+    select volume d
+    remove letter=d
+    select disk 0
+    create partition primary
+    assign letter=d 
 "@
+    
+    & DiskPart /s $env:temp\dp.txt 
+    
+    & remove-item $env:temp\dp.txt 
 
-& DiskPart /s $env:temp\dp.txt 
+}
 
-& remove-item $env:temp\dp.txt 
+
+
+
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
 
 & fsutil devdrv trust d: /V
 
-# does not work :-(
-# Get-VirtualDisk | Where-Object {$_.IsManualAttach -eq $True} | Set-VirtualDisk -IsManualAttach $False
 
 #####
 
@@ -56,28 +75,69 @@ New-Item -ItemType Directory -Path "d:\temp" -Force | out-null
 ##################################
 # work with default user registry
 ##################################
-New-PSDrive HKU Registry HKEY_USERS | out-null
-& REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  | out-null
+if ($RemapTemp) {
+    New-PSDrive HKU Registry HKEY_USERS | out-null
+    & REG LOAD "HKU\Default" "C:\Users\Default\NTUSER.DAT"  | out-null
 
-# use temp folder on dev drive
-New-ItemProperty -path "HKU:Default\Environment" `
-    -name TEMP `
-    -Value 'D:\temp' -PropertyType string `
-    -Force | out-null
+    # use temp folder on dev drive
+    New-ItemProperty -path "HKU:Default\Environment" `
+        -name TEMP `
+        -Value 'D:\temp' -PropertyType string `
+        -Force | out-null
 
-# use temp folder on dev drive                 
-New-ItemProperty -path "HKU:Default\Environment" `
-    -name TMP `
-    -Value 'D:\temp' -PropertyType string `
-    -Force | out-null     
+    # use temp folder on dev drive                 
+    New-ItemProperty -path "HKU:Default\Environment" `
+        -name TMP `
+        -Value 'D:\temp' -PropertyType string `
+        -Force | out-null     
           
-#for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
-Remove-PSDrive HKU 
-0
-[gc]::Collect()
-[gc]::WaitForPendingFinalizers()
+    #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
+    Remove-PSDrive HKU 
+    0
+    [gc]::Collect()
+    [gc]::WaitForPendingFinalizers()
 
-Start-Sleep -Seconds 1
-& REG UNLOAD "HKU\Default" | out-default
-Start-Sleep -Seconds 1
+    Start-Sleep -Seconds 1
+    & REG UNLOAD "HKU\Default" | out-default
+    Start-Sleep -Seconds 1
+
+}
+
+ 
+if ($IsVhd) {
+    #read position 00210018 
+    $startPositionHex = "0x00210018"
+    
+    # Convert the hexadecimal starting position to a decimal integer
+    $startPositionDecimal = [int64]$startPositionHex
+    
+    $fileStream = New-Object System.IO.FileStream($vhd, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite )
+    
+    # Create a BinaryReader object to read from the FileStream
+    $binaryReader = New-Object System.IO.BinaryReader($fileStream)
+    
+    # Seek to the specified offset
+    $fileStream.Seek($startPositionDecimal, [System.IO.SeekOrigin]::Begin)
+    
+    # Read the specified number of bytes
+    $guidBytes = $binaryReader.ReadBytes(16)
+    
+    $guid = New-Object System.Guid(, $guidBytes)
+    
+    $binaryReader.Close()
+    $fileStream.Close()
+    $guid.ToString()
+    
+    
+    New-Item -path "hklm:\SYSTEM\CurrentControlSet\Control\AutoAttachVirtualDisks\{$guid}" -force | Out-Null
+    New-ItemProperty -Path  "hklm:\SYSTEM\CurrentControlSet\Control\AutoAttachVirtualDisks\{$guid}"  `
+        -name "Path" `
+        -value $vhd  `
+        -force | out-null
+    
+}
+    
+     
+    
+
 
