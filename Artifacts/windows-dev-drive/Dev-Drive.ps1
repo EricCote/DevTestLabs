@@ -58,12 +58,12 @@ New-Item -ItemType Directory -Path "p:\Projects" -Force | out-null
 
 New-Item -ItemType Directory -Path "p:\temp" -Force | out-null 
 
-& SETX /M npm_config_cache D:\Packages\npm
-& SETX /M NUGET_PACKAGES D:\Packages\.nuget\packages
-& SETX /M RestorePackagesPath D:\Packages\.nuget\packages
-& SETX /M VCPKG_DEFAULT_BINARY_CACHE D:\Packages\vcpkg
-& SETX /M PIP_CACHE_DIR D:\Packages\pip
-& SETX /M CARGO_HOME D:\Packages\cargo
+& SETX /M npm_config_cache p:\Packages\npm
+& SETX /M NUGET_PACKAGES p:\Packages\.nuget\packages
+& SETX /M RestorePackagesPath p:\Packages\.nuget\packages
+& SETX /M VCPKG_DEFAULT_BINARY_CACHE p:\Packages\vcpkg
+& SETX /M PIP_CACHE_DIR p:\Packages\pip
+& SETX /M CARGO_HOME p:\Packages\cargo
 
 
 
