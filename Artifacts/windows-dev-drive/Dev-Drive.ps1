@@ -14,7 +14,9 @@ if ($IsVhd) {
     attach vdisk
     convert gpt
     create partition primary
-    assign letter=d 
+    select volume d
+    remove letter=d
+    assign letter=e
 "@ 
 
     & DiskPart /s $env:temp\dp.txt 
@@ -37,9 +39,6 @@ else {
     & remove-item $env:temp\dp.txt 
 
 }
-
-
-Start-Sleep -Seconds 3
 
 
 
