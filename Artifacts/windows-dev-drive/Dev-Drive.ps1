@@ -39,6 +39,7 @@ else {
 }
 
 
+Start-Sleep -Seconds 3
 
 
 
