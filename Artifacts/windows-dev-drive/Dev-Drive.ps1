@@ -40,7 +40,7 @@ else {
 
 }
 
-
+Start-Sleep -Seconds 2
 
 & Format D: /v:DevDrive /DevDrv /Q /y 
 
