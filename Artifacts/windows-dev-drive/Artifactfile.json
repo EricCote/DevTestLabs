@@ -17,8 +17,7 @@
       "type": "bool",
       "displayName": "Remap Temp",
       "description": "The User's Temp folder will be stored on the Dev Drive",
-      "defaultValue": false,
-      "allowedValues": ["eval", "dev", "express"]
+      "defaultValue": false
     },
     "DriveLetter": {
       "type": "string",
