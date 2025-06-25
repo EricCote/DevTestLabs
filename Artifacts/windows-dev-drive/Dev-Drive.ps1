@@ -1,6 +1,7 @@
 param (
     [switch]$IsVhd,
-    [switch]$RemapTemp
+    [switch]$RemapTemp,
+    [string]$DriveLetter = "P"
 )
 
 $vhd = "C:\ProgramData\disks\devDrive.vhdx"
@@ -9,13 +10,13 @@ if ($IsVhd) {
     New-Item -ItemType Directory -Path "C:\ProgramData\disks" -Force | Out-Null
    
     out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
-    rem select volume d
-    rem remove letter=d
+    rem select volume ${DriveLetter}
+    rem remove letter=${DriveLetter}
     create vdisk file="C:\ProgramData\disks\devDrive.vhdx" maximum=52000 type=expandable
     attach vdisk
     convert gpt
     create partition primary
-    assign letter=p
+    assign letter=${DriveLetter}
     rem format quick fs=ntfs label=DevDrive
 "@ 
 
@@ -25,11 +26,11 @@ else {
     out-file -filePath $env:temp\dp.txt -Encoding utf8  -InputObject @"
     select volume c
     shrink desired=53000
-    rem select volume d
-    rem remove letter=d
+    rem select volume ${DriveLetter}
+    rem remove letter=${DriveLetter}
     select disk 0
     create partition primary
-    assign letter=p
+    assign letter=${DriveLetter}
 "@
 
 }
@@ -38,32 +39,32 @@ else {
 & DiskPart /s $env:temp\dp.txt 
 & remove-item $env:temp\dp.txt
 
-& Format p: /v:DevDrive /DevDrv /Q /y 
-& fsutil devdrv trust /f p: 
+& Format ${DriveLetter}: /v:DevDrive /DevDrv /Q /y 
+& fsutil devdrv trust /f ${DriveLetter}: 
 
 
 #####
 
 
-New-Item -ItemType Directory -Path "p:\Packages" -Force | out-null 
-New-Item -ItemType Directory -Path "p:\Packages\npm" -Force | out-null
-New-Item -ItemType Directory -Path "p:\Packages\.nuget" -Force | out-null
-New-Item -ItemType Directory -Path "p:\Packages\.nuget\packages" -Force | out-null
-New-Item -ItemType Directory -Path "p:\Packages\vcpkg" -Force | out-null 
-New-Item -ItemType Directory -Path "p:\Packages\pip" -Force | out-null
-New-Item -ItemType Directory -Path "p:\Packages\cargo" -Force | out-null
-New-Item -ItemType Directory -Path "p:\Packages\cargo" -Force | out-null
-New-Item -ItemType Directory -Path "p:\Projects" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages" -Force | out-null 
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\npm" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\.nuget" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\.nuget\packages" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\vcpkg" -Force | out-null 
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\pip" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\cargo" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Packages\cargo" -Force | out-null
+New-Item -ItemType Directory -Path "${DriveLetter}:\Projects" -Force | out-null
 
 
-New-Item -ItemType Directory -Path "p:\temp" -Force | out-null 
+New-Item -ItemType Directory -Path "${DriveLetter}:\temp" -Force | out-null 
 
-& SETX /M npm_config_cache p:\Packages\npm
-& SETX /M NUGET_PACKAGES p:\Packages\.nuget\packages
-& SETX /M RestorePackagesPath p:\Packages\.nuget\packages
-& SETX /M VCPKG_DEFAULT_BINARY_CACHE p:\Packages\vcpkg
-& SETX /M PIP_CACHE_DIR p:\Packages\pip
-& SETX /M CARGO_HOME p:\Packages\cargo
+& SETX /M npm_config_cache ${DriveLetter}:\Packages\npm
+& SETX /M NUGET_PACKAGES ${DriveLetter}:\Packages\.nuget\packages
+& SETX /M RestorePackagesPath ${DriveLetter}:\Packages\.nuget\packages
+& SETX /M VCPKG_DEFAULT_BINARY_CACHE ${DriveLetter}:\Packages\vcpkg
+& SETX /M PIP_CACHE_DIR ${DriveLetter}:\Packages\pip
+& SETX /M CARGO_HOME ${DriveLetter}:\Packages\cargo
 
 
 
@@ -80,13 +81,13 @@ if ($RemapTemp) {
     # use temp folder on dev drive
     New-ItemProperty -path "HKU:Default\Environment" `
         -name TEMP `
-        -Value 'p:\temp' -PropertyType string `
+        -Value "${DriveLetter}:\temp" -PropertyType string `
         -Force | out-null
 
     # use temp folder on dev drive                 
     New-ItemProperty -path "HKU:Default\Environment" `
         -name TMP `
-        -Value 'p:\temp' -PropertyType string `
+        -Value "${DriveLetter}:\temp" -PropertyType string `
         -Force | out-null     
           
     #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
