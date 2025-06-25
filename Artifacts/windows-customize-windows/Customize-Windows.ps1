@@ -147,6 +147,21 @@ New-ItemProperty -path "HKU:Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Ex
     -Value 1 -PropertyType dword `
     -Force | out-null   
                  
+# Terminal: Set default terminal to Windows Terminal
+New-Item -path "HKU:Default\Console\%%Startup" -force | out-null
+
+New-ItemProperty -path "HKU:Default\Console\%%Startup" `
+    -name DelegationConsole `
+    -Value "{2EACA947-7F5F-4CFA-BA87-8F7FBEEFBE69}" `
+    -PropertyType string `
+    -Force | out-null   
+
+New-ItemProperty -path "HKU:Default\Console\%%Startup" `
+    -name DelegationTerminal `
+    -Value "{E12CFF52-A866-4C77-9A90-F570A7AA2C6B}" `
+    -PropertyType string `
+    -Force | out-null   
+                     
 
 #Create Registry key 
 # New-Item "HKU:\Default\SOFTWARE\Policies\Microsoft\Office\16.0\Teams" `
@@ -181,6 +196,7 @@ Copy-Item (Get-Command reg).Source ".\reg5.exe"
 & ".\reg5.exe" add HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa /t REG_DWORD /d 0 /f
 & ".\reg5.exe" query HKU\Default\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced /v TaskbarDa
 Remove-Item ".\reg5.exe"
+
 
 
 #for explanation: https://stackoverflow.com/questions/25438409/reg-unload-and-new-key
