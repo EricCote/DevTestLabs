@@ -1,9 +1,13 @@
 $ProgressPreference = 'SilentlyContinue'
 ### Enabling services for WSL
-Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform" -online -norestart
-Enable-WindowsOptionalFeature -FeatureName "Microsoft-Windows-Subsystem-Linux"  -online  -norestart
+Enable-WindowsOptionalFeature -FeatureName "VirtualMachinePlatform,Microsoft-Windows-Subsystem-Linux" -online -norestart
 
-Restart-Computer -Force
+### Enabling WSL 2 as the default version
+wsl --set-default-version 2 | Out-Default
+
+wsl --update | Out-Default
+
+Restart-Computer 
 ### Getting the WSL app from the GitHub repo
 
 # $latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
