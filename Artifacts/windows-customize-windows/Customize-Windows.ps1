@@ -1,4 +1,11 @@
 
+[CmdletBinding()]
+param(
+    [switch] $RoundedCorners
+)
+
+
+
 #Set eastern time zone
 tzutil /s "Eastern Standard Time"
 
@@ -54,8 +61,6 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 #                  -value 1
 
 
-
-
 # Allow sideload of apps
 Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
     -name "AllowAllTrustedApps" `
@@ -84,14 +89,15 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
     -force | out-null
 
 
-# enable rounded corners on Windows 11
-# mkdir "HKLM:\SOFTWARE\Microsoft\Windows\DWM" -force | Out-Null
-Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\DWM" `
-    -name "ForceEffectMode" `
-    -value 2 `
-    -force | out-null
 
-
+if ($RoundedCorners) {
+    # enable rounded corners on Windows 11
+    # mkdir "HKLM:\SOFTWARE\Microsoft\Windows\DWM" -force | Out-Null
+    Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\DWM" `
+        -name "ForceEffectMode" `
+        -value 2 `
+        -force | out-null
+}
 
 # overrides default file associations to chrome                 
 # Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System" `

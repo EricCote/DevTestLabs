@@ -6,7 +6,15 @@
   "tags": ["Windows"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
+  "parameters": {
+    "RoundedCorners": {
+      "type": "bool",
+      "displayName": "Rounded Corners",
+      "description": "Force Windows 11 to use rounded corners even when there is no graphic card",
+      "defaultValue": false
+    }
+  },
   "runCommand": {
-    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Customize-Windows.ps1"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"./Customize-Windows.ps1   -RoundedCorners:$', parameters('RoundedCorners'),  ' \"')]"
   }
 }
