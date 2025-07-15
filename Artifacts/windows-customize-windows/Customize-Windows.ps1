@@ -2,12 +2,14 @@
 [CmdletBinding()]
 param(
     [switch] $RoundedCorners
+    [string] $TimeZone
+    [switch] $AdminUAC
 )
 
 
 
 #Set eastern time zone
-tzutil /s "Eastern Standard Time"
+tzutil /s "$TimeZone"
 
 #disable new network popup.  All new networks are now considered "public"
 new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force | out-null
@@ -81,13 +83,13 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModel
 
 
 #enable UAC on Administrator account
-                
-#mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force | Out-Null
-Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
-    -name "FilterAdministratorToken" `
-    -value 1 `
-    -force | out-null
-
+if ($AdminUAC) {
+    #mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -force | Out-Null
+    Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
+        -name "FilterAdministratorToken" `
+        -value 1 `
+        -force | out-null
+    }
 
 
 if ($RoundedCorners) {
