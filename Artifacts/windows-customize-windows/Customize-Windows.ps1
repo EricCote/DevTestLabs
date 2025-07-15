@@ -1,8 +1,8 @@
 
 [CmdletBinding()]
 param(
-    [switch] $RoundedCorners
-    [string] $TimeZone
+    [switch] $RoundedCorners,
+    [string] $TimeZone,
     [switch] $AdminUAC
 )
 
