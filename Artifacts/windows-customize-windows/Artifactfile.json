@@ -168,6 +168,6 @@
     }
   },
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"./Customize-Windows.ps1   -RoundedCorners:$', parameters('RoundedCorners'), '  -AdminUAC:$', parameters('AdminUAC'), '  -TimeZone ', parameters('TimeZone'), ' \"')]"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"./Customize-Windows.ps1   -RoundedCorners:$', parameters('RoundedCorners'), '  -AdminUAC:$', parameters('AdminUAC'), '  -TimeZone \"\"', parameters('TimeZone'), '\"\" \"')]"
   }
 }
