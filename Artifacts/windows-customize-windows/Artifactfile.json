@@ -19,6 +19,18 @@
       "description": "Enable UAC prompts for the default Administrator User",
       "defaultValue": true
     }, 
+    "PublicNetwork": {
+      "type": "bool",
+      "displayName": "Public Network",
+      "description": "Considers taht new networks will automatically be",
+      "defaultValue": false
+    }, 
+    "DisableOneDriveSync": {
+      "type": "bool",
+      "displayName": "Disable OneDrive Sync",
+      "description": "Disables OneDrive Sync by default",
+      "defaultValue": true
+    }, 
     "TimeZone": {
       "type": "string",
       "displayName": "Time Zone",
@@ -168,6 +180,6 @@
     }
   },
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Customize-Windows.ps1   -RoundedCorners:$', parameters('RoundedCorners'), '  -AdminUAC:$', parameters('AdminUAC'), '  -TimeZone ''', parameters('TimeZone'), ''' \"')]"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Customize-Windows.ps1   -RoundedCorners:$', parameters('RoundedCorners'), '  -AdminUAC:$', parameters('AdminUAC'), '  -PublicNetwork:$', parameters('PublicNetwork'), '  -DisableOneDriveSync:$', parameters('DisableOneDriveSync'), '  -TimeZone ''', parameters('TimeZone'), ''' \"')]"
   }
 }

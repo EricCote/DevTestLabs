@@ -2,17 +2,19 @@
 [CmdletBinding()]
 param(
     [switch] $RoundedCorners,
-    [string] $TimeZone,
-    [switch] $AdminUAC
+    [switch] $AdminUAC,
+    [switch] $PublicNetwork,
+    [switch] $DisableOneDriveSync,
+    [string] $TimeZone
 )
-
-
 
 #Set eastern time zone
 tzutil /s "$TimeZone"
 
 #disable new network popup.  All new networks are now considered "public"
-new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force | out-null
+if ($PublicNetwork){
+    new-Item HKLM:\System\CurrentControlSet\Control\Network\NewNetworkWindowOff -Force | out-null
+}
 
 # is this a serverOS?
 $isServer = (Get-WmiObject  Win32_OperatingSystem).productType -gt 1
@@ -25,9 +27,12 @@ if ($isServer) {
     Get-ScheduledTask -TaskName "ServerManager" | Disable-ScheduledTask 
 }
 
+
 #Disable OneDrive Sync
-mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OneDrive' -Force | out-null
-New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\OneDrive" -name "DisableFileSyncNGSC" -value 1 | out-null
+if($DisableOneDriveSync) {
+  mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OneDrive' -Force | out-null
+  New-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\OneDrive" -name "DisableFileSyncNGSC" -value 1 | out-null
+}
 
 #disable ie fist run popups
 # mkdir 'HKLM:\Software\Microsoft\Internet Explorer\Main' -Force | out-null
