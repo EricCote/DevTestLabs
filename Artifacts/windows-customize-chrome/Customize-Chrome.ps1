@@ -55,5 +55,17 @@ $content | Out-File "C:\Program Files\Google\Chrome\Application\master_preferenc
 $content | Out-File "C:\Program Files\Google\Chrome\Application\initial_preferences" -Force -Encoding ascii
 
 
+$DefaultToChrome = $true
+
+if($DefaultToChrome){
+    $xml = Get-Content "C:\Windows\System32\OEMDefaultAssociations.xml"
+    $ids = @( ".htm", ".html", "http", "https")
+    $xml2 = $xml
+
+    $ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
+    $xml2 | Out-File  "C:\Windows\System32\OEMDefaultAssociations.xml" -Encoding ascii
+}
+
+
 #delete Desktop icon
 Remove-Item 'C:\Users\Public\Desktop\Google Chrome.lnk' -Force

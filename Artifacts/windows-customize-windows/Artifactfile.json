@@ -7,34 +7,46 @@
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/windows11.svg",
   "targetOsType": "Windows",
   "parameters": {
-    "RoundedCorners": {
-      "type": "bool",
-      "displayName": "Rounded Corners",
-      "description": "Force Windows 11 to use rounded corners even when there is no graphic card. (Will slow Alt-Tab)",
-      "defaultValue": false
-    },    
-    "AdminUAC": {
-      "type": "bool",
-      "displayName": "Enable UAC",
-      "description": "Enable UAC prompts for the default Administrator User",
-      "defaultValue": true
-    }, 
+
     "PublicNetwork": {
       "type": "bool",
-      "displayName": "Public Network",
-      "description": "Considers taht new networks will automatically be",
+      "displayName": "Default Network is Public",
+      "description": "Considers that new networks will automatically be public networks. Changes the rules for Windows Firewall.",
       "defaultValue": false
     }, 
     "DisableOneDriveSync": {
       "type": "bool",
       "displayName": "Disable OneDrive Sync",
-      "description": "Disables OneDrive Sync by default",
+      "description": "Disables OneDrive Sync by default. Prevents OneDrive from starting at boot. Removes the OneDrive folder from Explorer.",
+      "defaultValue": true
+    }, 
+            "DisablePrivacyExperience": {
+      "type": "bool",
+      "displayName": "Disable Privacy Experience",
+      "description": "Disables the Privacy Experience that appears when you first log in to Windows 11. This is the screen that asks you to enable or disable telemetry and other privacy settings.",
+      "defaultValue": true
+    },         "EnableDevMode": {
+      "type": "bool",
+      "displayName": "Enable Developer Mode",
+      "description": "Enables Developer Mode on Windows 11. This allows you to install apps from outside the Microsoft Store, use the Windows Subsystem for Linux, and more.",
+      "defaultValue": true
+    }, 
+        "RoundedCorners": {
+      "type": "bool",
+      "displayName": "Rounded Corners",
+      "description": "Force Windows 11 to use rounded corners even when there is no graphic card. (Will slow display, especially for Alt-Tab)",
+      "defaultValue": false
+    },    
+    "AdminUAC": {
+      "type": "bool",
+      "displayName": "Enable UAC",
+      "description": "Enable UAC prompts for the default Administrator User. Useful for security purposes.",
       "defaultValue": true
     }, 
     "TimeZone": {
       "type": "string",
       "displayName": "Time Zone",
-      "description": "TimeZone of the computer.",
+      "description": "Time zone of this computer.",
       "defaultValue": "Eastern Standard Time",
       "allowedValues": [
         "Dateline Standard Time",
@@ -180,6 +192,6 @@
     }
   },
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Customize-Windows.ps1   -RoundedCorners:$', parameters('RoundedCorners'), '  -AdminUAC:$', parameters('AdminUAC'), '  -PublicNetwork:$', parameters('PublicNetwork'), '  -DisableOneDriveSync:$', parameters('DisableOneDriveSync'), '  -TimeZone ''', parameters('TimeZone'), ''' \"')]"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass \"& ./Customize-Windows.ps1   -PublicNetwork:$', parameters('PublicNetwork'), '  -DisableOneDriveSync:$', parameters('DisableOneDriveSync'), '  -DisablePrivacyExperience:$', parameters('DisablePrivacyExperience'), '  -EnableDevMode:$', parameters('EnableDevMode'),  '  -RoundedCorners:$', parameters('RoundedCorners'), '  -AdminUAC:$', parameters('AdminUAC'), '  -TimeZone ''', parameters('TimeZone'), ''' \"')]"
   }
 }

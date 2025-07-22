@@ -1,10 +1,13 @@
 
 [CmdletBinding()]
 param(
-    [switch] $RoundedCorners,
-    [switch] $AdminUAC,
+
     [switch] $PublicNetwork,
     [switch] $DisableOneDriveSync,
+    [switch] $DisablePrivacyExperience,
+    [switch] $EnableDevMode,
+    [switch] $AdminUAC,
+    [switch] $RoundedCorners,
     [string] $TimeZone
 )
 
@@ -52,11 +55,13 @@ if($DisableOneDriveSync) {
 #                  -value 1
 
 
-mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OOBE' -Force | out-null
 # disable "Choose Privacy Settings for your device"
-Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
-    -name "DisablePrivacyExperience" `
-    -value 1 -Force | out-null
+if($DisablePrivacyExperience) {
+    mkdir 'HKLM:\Software\Policies\Microsoft\Windows\OOBE' -Force | out-null
+    Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
+        -name "DisablePrivacyExperience" `
+        -value 1 -Force | out-null
+}   
 
 
 #The "skip oobe" is already provided by Azure scripting
@@ -68,23 +73,34 @@ Set-ItemProperty -path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE" `
 #                  -value 1
 
 
-# Allow sideload of apps
-Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
-    -name "AllowAllTrustedApps" `
-    -value 1 `
-    -force | out-null
 
-#Enable Dev Mode
-mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -force | Out-Null
-Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" `
-    -name "AllowDevelopmentWithoutDevLicense" `
-    -value 1 `
-    -force | out-null
+if ($EnableDevMode){
+    # Allow sideloading of apps
+    mkdir "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" -force | Out-Null
+    Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" `
+        -name "AllowAllTrustedApps" `
+        -value 1 `
+        -force | out-null
+
+    #Enable Dev Mode
+    Set-ItemProperty -path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AppModelUnlock" `
+        -name "AllowDevelopmentWithoutDevLicense" `
+        -value 1 `
+        -force | out-null
+
+}
 
 # Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
 #     -name "AllowDevelopmentWithoutDevLicense" `
 #     -value 1 `
 #     -force | out-null
+
+# Allow sideloading of apps
+# Set-ItemProperty -path "HKLM:\Software\Policies\Microsoft\Windows\Appx" `
+#     -name "AllowAllTrustedApps" `
+#     -value 1 `
+#     -force | out-null
+
 
 
 #enable UAC on Administrator account
@@ -121,14 +137,18 @@ if ($RoundedCorners) {
 # "@      
 # $xml | Out-File -Encoding utf8 -FilePath "c:\windows\system32\OverrideAssociations.xml"
 
-$xml = Get-Content "C:\Windows\System32\OEMDefaultAssociations.xml"
-$ids = @( ".htm", ".html", "http", "https")
-$xml2 = $xml
-# 
-#$ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"FirefoxHTML-308046B0AF4A39CB`" ApplicationName=`"Firefox`"") }
-$ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
-$xml2 | Out-File  "C:\Windows\System32\OEMDefaultAssociations.xml" -Encoding ascii
 
+# Set default browser to Chrome
+
+# if($DefaultToChrome){
+#     $xml = Get-Content "C:\Windows\System32\OEMDefaultAssociations.xml"
+#     $ids = @( ".htm", ".html", "http", "https")
+#     $xml2 = $xml
+#     # 
+#     #$ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"FirefoxHTML-308046B0AF4A39CB`" ApplicationName=`"Firefox`"") }
+#     $ids | ForEach-Object { $xml2 = $xml2.replace("Identifier=`"$_`" ProgId=`"MSEdgeHTM`" ApplicationName=`"Microsoft Edge`"", "Identifier=`"$_`" ProgId=`"ChromeHTML`" ApplicationName=`"Google Chrome`"") }
+#     $xml2 | Out-File  "C:\Windows\System32\OEMDefaultAssociations.xml" -Encoding ascii
+# }
 
 ##################################
 # work with default user registry
