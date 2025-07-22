@@ -35,7 +35,7 @@
     "components": {
       "type": "string",
       "displayName": "Components",
-      "description": "Put the same values as you would in FEATURES. The default is SQL (includes the SQL Server Database Engine, Replication, Fulltext, Data Quality Server and connectvity)",
+      "description": "Put the same values as you would in FEATURES. The default is SQL",
       "defaultValue": "SQL"
     },
     "instanceName": {
@@ -44,54 +44,49 @@
       "description": "SQL Server Instance Name",
       "defaultValue": "MSSQLSERVER"
     },
-    "reporting": {
+    "Replication": {
       "type": "bool",
-      "displayName": "Reporting Services",
-      "description": "Installs Reporting Services",
-      "defaultValue": true
+      "displayName": "Replication",
+      "description": "Installs Replication components",
+      "defaultValue": false
     },
-    "analysis": {
+     "RPython": {
+      "type": "bool",
+      "displayName": "R Language and Python components",
+      "description": "Installs R Language and Python components",
+      "defaultValue": false
+    },
+    "FullText": {
+      "type": "bool",
+      "displayName": "Full-Text Services",
+      "description": "Installs Full-Text Services",
+      "defaultValue": false
+    },
+    "PolyBase": {
+      "type": "bool",
+      "displayName": "PolyBase",
+      "description": "Installs PolyBase components.",
+      "defaultValue": false
+    },
+    "Analysis": {
       "type": "bool",
       "displayName": "Analysis Services",
       "description": "Installs Analysis Services",
-      "defaultValue": true
+      "defaultValue": false
     },
-    "tabular": {
+    "Tabular": {
       "type": "bool",
       "displayName": "Tabular Mode",
       "description": "Installs Analysis Services in Tabular or Multidimensional mode",
       "defaultValue": true
     },
-    "integration": {
+    "Integration": {
       "type": "bool",
       "displayName": "Integration",
       "description": "Installs Integration Services",
       "defaultValue": true
     },
-    "dataQualityClient": {
-      "type": "bool",
-      "displayName": "Data Quality Client",
-      "description": "Installs Data Quality Client",
-      "defaultValue": false
-    },
-    "masterDataService": {
-      "type": "bool",
-      "displayName": "Master Data Services",
-      "description": "Installs Master Data Services",
-      "defaultValue": false
-    },
-    "RServices": {
-      "type": "bool",
-      "displayName": "R Services (In-Database)",
-      "description": "Installs R Services to the SQL Instance",
-      "defaultValue": false
-    },
-    "polyBase": {
-      "type": "bool",
-      "displayName": "PolyBase (JRE required)",
-      "description": "Installs PolyBase components. Java Runtime Environment (JRE) needs to be installed.",
-      "defaultValue": false
-    },
+
     "prodid": {
       "type": "string",
       "displayName": "Product ID",
@@ -108,6 +103,6 @@
 
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\install-sql.ps1'' -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components ''',  parameters('components'), ''' -instanceName ',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -reporting:$', parameters('reporting'), ' -analysis:$', parameters('analysis'),  ' -tabular:$', parameters('tabular'), ' -integration:$',  parameters('integration') , ' -dataQualityClient:$', parameters('dataQualityClient'), ' -masterDataService:$', parameters('masterDataService'), ' -RServices:$', parameters('RServices'),  ' -polyBase:$', parameters('polyBase'),   ' -KeepISOFolder:$', parameters('keepISOFolder') ,' -prodid ''',  parameters('prodid') , ''' \"'  )]"
+    "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\install-sql.ps1'' -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components ''',  parameters('components'), ''' -instanceName ',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -Replication:$', parameters('Replication'), ' -RPython:$', parameters('RPython'),  ' -FullText:$', parameters('FullText'),  ' -PolyBase:$', parameters('PolyBase'),   ' -Analysis:$', parameters('Analysis'),  ' -Tabular:$', parameters('Tabular'), ' -Integration:$',  parameters('Integration') ,  ' -KeepISOFolder:$', parameters('keepISOFolder') ,' -prodid ''',  parameters('prodid') , ''' \"'  )]"
   }
 }

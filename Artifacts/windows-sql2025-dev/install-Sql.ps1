@@ -1,4 +1,4 @@
-﻿
+﻿ 
 Param
 (
     [string] $sqlEdition = "dev", #3 values possible: eval, dev, express
@@ -6,16 +6,17 @@ Param
     [string] $components = "SQL",
     [string] $instanceName = "MSSQLSERVER",
     [array]  $admins = @("localmachine\afi", "NT AUTHORITY\SYSTEM"),
-    [string] [AllowEmptyString()] $prodid = "",	
-    [bool]   $reporting = $false,
-    [bool]   $analysis = $false,
-    [bool]   $tabular = $false,
-    [bool]   $integration = $false,
-    [bool]   $dataQualityClient = $false,
-    [bool]   $masterDataService = $false,
-    [bool]   $RServices = $false,
-    [bool]   $polyBase = $false,
-    [bool]   $keepISOFolder = $false
+    [string] [AllowEmptyString()] $prodid = "",
+    [switch]   $Replication = $false,	
+    [switch]   $RPython = $false,
+    [switch]   $FullText = $false,
+    [switch]   $PolyBase = $false,
+    [switch]   $Analysis = $false,
+    [switch]   $Tabular = $false,
+    [switch]   $Integration = $false,
+    [switch]   $KeepISOFolder = $false
+
+
 )
 
 
@@ -37,6 +38,8 @@ Param
 
 $ProgressPreference = 'SilentlyContinue'
 
+
+
 try {
     $temp = (New-Object System.Security.Principal.NTAccount($admins[0] -replace "localmachine\\", "$env:computername\")).Translate([System.Security.Principal.SecurityIdentifier]).Value
 }
@@ -50,19 +53,18 @@ $adminString = ($admins | ForEach-Object { ($_ -replace "localmachine\\", "$env:
 
 "Liste: " + $adminString
 
-$arrayFeatures = @($components, "Tools")
-if ($reporting) { $arrayFeatures += "RS" } 
-if ($analysis) { $arrayFeatures += "AS" }
-if ($integration) { $arrayFeatures += "IS" }
-if ($dataQualityClient) { $arrayFeatures += "DQC" }
-if ($masterDataService) { $arrayFeatures += "MDS" }
-if ($RServices) { $arrayFeatures += "AdvancedAnalytics" }
-if ($PolyBase) { $arrayFeatures += "PolyBase" }
+$arrayFeatures = @($components)
+
+if ($Replication) { $arrayFeatures += "Replication" } 
+if ($RPython) { $arrayFeatures += "AdvancedAnalytics" }
+if ($FullText) { $arrayFeatures += "FullText" } 
+if ($PolyBase) { $arrayFeatures += "PolyBaseCore" }
+if ($Analysis) { $arrayFeatures += "AS" }
+if ($Integration) { $arrayFeatures += "IS" }
 
 $features = "/Features=" + ($arrayFeatures -join ",")
 
 $ASMode = if ($tabular) { "TABULAR" }else { "MULTIDIMENSIONAL" }
-
 
 
 #download ssei, and download the iso or files
@@ -75,30 +77,33 @@ if ($installType -ne "completeAfterDeploy" ) {
         } 
         else {
             # "eval" 
-            $isofile = "SQLServer2022-x64-ENU.iso";
-            $source = "https://go.microsoft.com/fwlink/?linkid=2162123"
+            $isofile = "SQLServer2025-x64-ENU.iso";
+            $source = "https://go.microsoft.com/fwlink/?linkid=2314611"
         }
 
-        $SSEIFile = "$env:temp\sql2022.exe"
+        $SSEIFile = "$env:temp\sql2025.exe"
 
-        #get link to latest version of CU (Cummulative Update) from download page
-        $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/details.aspx?id=105013"  -UseBasicParsing).RawContent
-        $page -match '\"url\":\"(.*?)\"'
-        $cuSource = $matches[1]
+        Invoke-WebRequest -Uri $source -OutFile $SSEIFile -UseBasicParsing 
 
-        #create folder    
-        New-Item -Path c:\ -Name sqlCU  -ItemType Directory -Force
+        
+        # #get link to latest version of CU (Cummulative Update) from download page
+        # $page = (Invoke-WebRequest "https://www.microsoft.com/en-us/download/details.aspx?id=105013"  -UseBasicParsing).RawContent
+        # $page -match '\"url\":\"(.*?)\"'
+        # $cuSource = $matches[1]
 
-        #download SQL Install in temp
-        $wc = new-object System.Net.WebClient
-        $wc.DownloadFile($Source, $SSEIFile)
+        # #create folder    
+        # New-Item -Path c:\ -Name sqlCU  -ItemType Directory -Force
 
-        #download CU install in ISO Folder
-        $wc.DownloadFile($cuSource, "c:\sqlCU\SQLServer2022-cu-x64.exe")
-        $wc.Dispose()
+        # #download SQL Install in temp
+        # $wc = new-object System.Net.WebClient
+        # $wc.DownloadFile($Source, $SSEIFile)
+
+        # #download CU install in ISO Folder
+        # $wc.DownloadFile($cuSource, "c:\sqlCU\SQLServer2022-cu-x64.exe")
+        # $wc.Dispose()
 
         #Launch setup to download ISO Folder
-        & $SSEIFile /action=download /mediapath=c:\sqlISO /mediatype=ISO language=en-US /Quiet | Out-Default
+        & $SSEIFile /action=download /mediapath=c:\sqlISO /mediatype=ISO /language=en-US /Quiet | Out-Default
          
         #Get ISO path
         $isoFile2 = "c:\sqlISO\$isoFile";
@@ -141,7 +146,6 @@ if ($installType -eq "normalInstall") {
         /Action=install `
         $features `
         /SuppressPrivacyStatementNotice `
-        /IAcceptROpenLicenseTerms `
         /IAcceptSqlServerLicenseTerms `
         /InstanceName=$instanceName `
         /SqlSysAdminAccounts= $adminString `
@@ -236,3 +240,4 @@ if ($keepISOFolder -eq $false) {
 
 
 
+ 
