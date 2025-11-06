@@ -13,7 +13,7 @@
     "lang": {
       "type": "string",
       "displayName": "Languages",
-      "description": "Install languages for SSMS <br />
+      "description": "Install languages for **SSMS** <br />
       <br />
       <dl>
       <dt>cs-CZ</dt>  
@@ -72,8 +72,7 @@
       <dt>HybridAndMigration</dt>  
         <dd>Assess database upgrade readiness, and move your data with ease.</dd>  
       </dl>
-      ","defaultValue": "AI+,BI+,HybridAndMigration+",
-    "allowEmpty": true
+      ","defaultValue": "AI+,BI+,HybridAndMigration+","allowEmpty": true
   },
   "targetOsType": "Windows",
   "runCommand": {
