@@ -46,19 +46,19 @@
         <dd>Chinese - Traditional</dd>
       </dl>","defaultValue": "en-US"
     }
-  },
+  
   "WorkloadList": {
-    "type": "string",
-    "displayName": "Workload List",
-    "description": "Comma-separated list of workloads. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a>  <br />
+      "type": "string",
+      "displayName": "Workload List",
+      "description": "Comma-separated list of workloads. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a>  <br />
       <br />Use a suffix to include additional components:
       <br /> 
       [+
-    ] include recommended,
-    [*
-    ] include optional,
-    [+*
-    ] include recommended and optional 
+      ] include recommended,
+      [*
+      ] include optional,
+      [+*
+      ] include recommended and optional 
       <br />  <br />
       Ex: AI+,BI+,HybridAndMigration+
       <br />  <br />
@@ -73,7 +73,8 @@
         <dd>Assess database upgrade readiness, and move your data with ease.</dd>  
       </dl>
       ","defaultValue": "AI+,BI+,HybridAndMigration+","allowEmpty": true
-  },
+    }
+  }
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Install-ssms.ps1 -lang \"', parameters('lang'), '\" -WorkloadList \"', parameters('WorkloadList') , '\"  ' )]"
