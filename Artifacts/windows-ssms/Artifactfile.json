@@ -79,9 +79,9 @@
     "Components": {
       "type": "string",
       "displayName": "Components",
-      "description": "Comma-separated list of individual components. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a> 
-        <br /><br/>
-        Ex: Microsoft.SSMS.Component.IS,Microsoft.SSMS.ComponentGroup.Copilot","defaultValue": "","allowEmpty": true
+      "description": "Ex: Microsoft.SSMS.Component.IS,Microsoft.SSMS.ComponentGroup.Copilot",
+      "defaultValue": "",
+      "allowEmpty": true
     },
     "Restart": {
       "type": "string",

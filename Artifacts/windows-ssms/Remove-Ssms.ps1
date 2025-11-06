@@ -76,6 +76,9 @@ uninstall-program "Microsoft Visual C++ 2015 Redistributable (x64)*"
 rd "C:\Program Files (x86)\Microsoft Visual Studio 14.0" -recurse -force
 
 
+# Comma-separated list of individual components. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a> 
+#         <br /><br/>
+
 
 # Install all workloads? Or install a few from a list? 
 #         <br /><br/>
