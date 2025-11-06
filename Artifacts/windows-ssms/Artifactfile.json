@@ -45,9 +45,8 @@
       <dt>zh-TW</dt>  
         <dd>Chinese - Traditional</dd>
       </dl>","defaultValue": "en-US"
-    }
-  
-  "WorkloadList": {
+    },
+    "WorkloadList": {
       "type": "string",
       "displayName": "Workload List",
       "description": "Comma-separated list of workloads. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a>  <br />
