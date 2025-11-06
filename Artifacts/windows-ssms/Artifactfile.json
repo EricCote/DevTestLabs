@@ -30,6 +30,31 @@
         "22"
       ],
       "defaultValue": "21"
+    },
+    "Channel": {
+      "type": "string",
+      "displayName": "Channel",
+      "description": "Install from latest release channel, or from preview channel?",
+      "allowedValues": [
+        "Release",
+        "Preview"
+      ],
+      "defaultValue": "Release"
+    },
+    "Workloads": {
+      "type": "string",
+      "displayName": "Workloads",
+      "description": "Select the workloads to install.",
+      "defaultValue": "Select Below",
+      "allowedValues": [
+        "Select Below",
+        "All Workloads",
+        "All with Recommended",
+        "All with Optional",
+        "All with Recommended and Optional",
+        "Complete"
+      ],
+      "allowEmpty": true
     }
   },
   "targetOsType": "Windows",
