@@ -70,7 +70,7 @@
       "defaultValue": "en-US"
     },
     "Key": {
-      "type": "",
+      "type": "string",
       "displayName": "Visual Studio key (optional)",
       "description": "Visual Studio key in the format aaaaa-bbbbb-ccccc-ddddd-eeeee. Leave empty for 30 day trial. No product key needed for Community edition. Switch from trial to licensed at any time using your product key or by entering your VS account credentials.",
       "allowEmpty": true,
