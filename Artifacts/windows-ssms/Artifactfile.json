@@ -13,13 +13,11 @@
     "Edition": {
       "type": "string",
       "displayName": "Edition",
-      "description": "Visual Studio Edition (Enterprise, Professional or Community)",
+      "description": "Edition (SSMS)",
       "allowedValues": [
-        "Enterprise",
-        "Professional",
-        "Community"
+        "SSMS"
       ],
-      "defaultValue": "Community"
+      "defaultValue": "SSMS"
     },
     "Version": {
       "type": "string",
