@@ -76,6 +76,52 @@ uninstall-program "Microsoft Visual C++ 2015 Redistributable (x64)*"
 rd "C:\Program Files (x86)\Microsoft Visual Studio 14.0" -recurse -force
 
 
+
+# Install all workloads? Or install a few from a list? 
+#         <br /><br/>
+#         <dl>
+#         <dt>Select Below</dt>  
+#           <dd>Installs specific workloads from the \"Workload List\" (see below)</dd> 
+#         <dt>All Workloads</dt>  
+#           <dd>Installs all workloads with the basic required components</dd> 
+#         <dt>All with Recommended</dt>  
+#           <dd>Installs all workloads with recommended components</dd> 
+#         <dt>All with Optional</dt>  
+#           <dd>Installs all workloads with optional components</dd> 
+#         <dt>All with Recommended and Optional</dt>  
+#           <dd>Installs all workloads with recommended and optional components</dd>   
+#         <dt>Complete</dt>  
+#           <dd>Installs all workloads with all components, including unaffiliated components</dd> 
+#         </dl>
+
+
+
+# Comma-separated list of workloads. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a>  <br />
+#       <br />Use a suffix to include additional components:
+#       <br /> 
+#       [+
+#     ] include recommended,
+#     [*
+#     ] include optional,
+#     [+*
+#     ] include recommended and optional 
+#       <br />  <br />
+#       Ex: AI+,BI+,HybridAndMigration+
+#       <br />  <br />
+#        <br />  <br />
+#       <dl>
+#       <dt>AI</dt>  
+#         <dd>AI-powered assistants</dd>  
+#       <dt>BI</dt>  
+#         <dd>Business intelligence, Analytics, Integration, Reports</dd>  
+#       <dt>CodeTools</dt>  
+#         <dd>Tools to help with code (Git, Query Hint)</dd>  
+#       <dt>HybridAndMigration</dt>  
+#         <dd>Assess database upgrade readiness, and move your data with ease.</dd>  
+#       </dl>
+
+
+
 #  <br />
 #       <dl>
 #       <dt>cs-CZ</dt>  
