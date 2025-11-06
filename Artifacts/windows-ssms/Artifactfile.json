@@ -60,8 +60,7 @@
         <dt>Complete</dt>  
           <dd>Installs all workloads with all components, including unaffiliated components</dd> 
         </dl>
-      ","defaultValue": "Select Below","allowedValues": ["Select Below","All Workloads",
-      "All with Recommended",
+      ","defaultValue": "Select Below","allowedValues": ["Select Below","All Workloads","All with Recommended",
       "All with Optional",
       "All with Recommended and Optional",
       "Complete"
@@ -125,13 +124,6 @@
       "Restart if needed",
       "No restart"
     ]
-  },
-  "WorkloadList": {
-    "type": "string",
-    "displayName": "Workload List",
-    "description": "Comma-separated list of workloads. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a>  <br /><br/>a",
-    "defaultValue": "AI+,BI+,HybridAndMigration+",
-    "allowEmpty": true
   }
 },
 "targetOsType": "Windows",
