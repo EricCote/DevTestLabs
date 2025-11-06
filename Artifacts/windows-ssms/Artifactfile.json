@@ -1,35 +1,82 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "SQL SSMS",
-  "description": "Installs Sql Server Management Studio.",
+  "title": "SQL SSMS (Modern)",
+  "description": "Installs Sql Server Management Studio 21.x",
   "publisher": "Eric Côté",
-  "tags": ["SQL", "SSMS", "Management Studio"],
+  "tags": [
+    "SQL",
+    "SSMS",
+    "Management Studio"
+  ],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ssms.png",
-
   "parameters": {
     "lang": {
       "type": "string",
-      "displayName": "Language",
-      "description": "Install language for SSMS (English is always available)",
-      "allowedValues": [
-        "Chinese - Simplified (804)",
-        "Chinese - Traditional (404)",
-        "English (409)",
-        "French (40c)",
-        "German (407)",
-        "Italian (410)",
-        "Japanese (411)",
-        "Korean (412)",
-        "Portuguese (416)",
-        "Russian (419)",
-        "Spanish (40a)"
-      ],
-      "defaultValue": "English (409)"
+      "displayName": "Languages",
+      "description": "Install languages for SSMS <br />
+      <br />
+      <dl>
+      <dt>cs-CZ</dt>  
+        <dd>Czech</dd>
+      <dt>de-DE</dt>  
+        <dd>German</dd>
+      <dt>en-US</dt>  
+        <dd>English</dd>
+      <dt>es-ES</dt>  
+        <dd>Spanish</dd>
+      <dt>fr-FR</dt>  
+        <dd>French</dd>
+      <dt>it-IT</dt>  
+        <dd>Italian</dd>
+      <dt>ja-JP</dt>  
+        <dd>Japanese</dd>
+      <dt>ko-KR</dt>  
+        <dd>Korean</dd>
+      <dt>pl-PL</dt>  
+        <dd>Polish</dd>
+      <dt>pt-BR</dt>  
+        <dd>Portuguese - Brazil</dd>
+      <dt>ru-RU</dt>  
+        <dd>Russian</dd>
+      <dt>tr-TR</dt>  
+        <dd>Turkish</dd>
+      <dt>zh-CN</dt>  
+        <dd>Chinese - Simplified</dd>
+      <dt>zh-TW</dt>  
+        <dd>Chinese - Traditional</dd>
+      </dl>","defaultValue": "en-US"
     }
   },
-
+  "WorkloadList": {
+    "type": "string",
+    "displayName": "Workload List",
+    "description": "Comma-separated list of workloads. See <a href='https://learn.microsoft.com/en-us/ssms/install/workload-component-ids'>Reference</a>  <br />
+      <br />Use a suffix to include additional components:
+      <br /> 
+      [+
+    ] include recommended,
+    [*
+    ] include optional,
+    [+*
+    ] include recommended and optional 
+      <br />  <br />
+      Ex: AI+,BI+,HybridAndMigration+
+      <br />  <br />
+      <dl>
+      <dt>AI</dt>  
+        <dd>AI-powered assistants</dd>  
+      <dt>BI</dt>  
+        <dd>Business intelligence, Analytics, Integration, Reports</dd>  
+      <dt>CodeTools</dt>  
+        <dd>Tools to help with code (Git, Query Hint)</dd>  
+      <dt>HybridAndMigration</dt>  
+        <dd>Assess database upgrade readiness, and move your data with ease.</dd>  
+      </dl>
+      ","defaultValue": "AI+,BI+,HybridAndMigration+",
+    "allowEmpty": true
+  },
   "targetOsType": "Windows",
   "runCommand": {
-    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Install-ssms.ps1 -lang \"', parameters('lang'), '\"' )]"
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Install-ssms.ps1 -lang \"', parameters('lang'), '\" -WorkloadList \"', parameters('WorkloadList') , '\"  ' )]"
   }
 }

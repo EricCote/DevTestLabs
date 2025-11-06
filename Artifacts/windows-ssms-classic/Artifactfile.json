@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "SQL SSMS (Classic)",
+  "description": "Installs Sql Server Management Studio 20.x",
+  "publisher": "Eric Côté",
+  "tags": [
+    "SQL",
+    "SSMS",
+    "Management Studio"
+  ],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ssms.png",
+  "parameters": {
+    "lang": {
+      "type": "string",
+      "displayName": "Language",
+      "description": "Install language for SSMS (English is always available)",
+      "allowedValues": [
+        "Chinese - Simplified (804)",
+        "Chinese - Traditional (404)",
+        "English (409)",
+        "French (40c)",
+        "German (407)",
+        "Italian (410)",
+        "Japanese (411)",
+        "Korean (412)",
+        "Portuguese (416)",
+        "Russian (419)",
+        "Spanish (40a)"
+      ],
+      "defaultValue": "English (409)"
+    }
+  },
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy bypass -File Install-ssms.ps1 -lang \"', parameters('lang'), '\"' )]"
+  }
+}
