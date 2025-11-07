@@ -58,7 +58,7 @@
       "type": "string",
       "displayName": "Workload List",
       "description": "sdffs",
-      "defaultValue": "AI+,BI+,HybridAndMigration+",
+      "defaultValue": "AI+*,BI+*,HybridAndMigration+*,CodeTools+*",
       "allowEmpty": true
     },
     "Languages": {
