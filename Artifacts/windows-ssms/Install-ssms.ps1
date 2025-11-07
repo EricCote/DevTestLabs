@@ -67,7 +67,7 @@ $myParams2 = $myParams.Split(" ");
 "& $dest $myParams2"
 
 try {      
-    & $dest $myParams2 
+    & $dest $myParams2 | Out-Null
 }
 catch {
     Write-Error 'Failed to install SSMS';
