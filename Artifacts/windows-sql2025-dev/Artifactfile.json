@@ -3,16 +3,22 @@
   "title": "SQL Server -- 2025 Developer",
   "description": "Installs Sql Server 2025 Developer. If you plan on using Sysprep, you should instead install the \"Preparation\" and \"Completion\" steps.",
   "publisher": "Eric Côté",
-  "tags": ["SQL", "Developer"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/sql.png",
-
+  "tags": [
+    "SQL",
+    "Developer"
+  ],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/SQLServer2025.svg",
   "parameters": {
     "sqlEdition": {
       "type": "string",
       "displayName": "Sql Edition",
       "description": "The possible values are: eval, dev, express",
       "defaultValue": "dev",
-      "allowedValues": ["eval", "dev", "express"]
+      "allowedValues": [
+        "eval",
+        "dev",
+        "express"
+      ]
     },
     "installType": {
       "type": "string",
@@ -50,7 +56,7 @@
       "description": "Installs Replication components",
       "defaultValue": false
     },
-     "RPython": {
+    "RPython": {
       "type": "bool",
       "displayName": "R Language and Python components",
       "description": "Installs R Language and Python components",
@@ -86,7 +92,6 @@
       "description": "Installs Integration Services",
       "defaultValue": true
     },
-
     "prodid": {
       "type": "string",
       "displayName": "Product ID",
@@ -100,7 +105,6 @@
       "defaultValue": false
     }
   },
-
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "[concat('powerShell.exe -ExecutionPolicy bypass \" & ''.\\install-sql.ps1'' -sqlEdition ', parameters('sqlEdition'), ' -installType ', parameters('installType'), ' -components ''',  parameters('components'), ''' -instanceName ',  parameters('instanceName'), ' -admins ',  parameters('admins'), ' -Replication:$', parameters('Replication'), ' -RPython:$', parameters('RPython'),  ' -FullText:$', parameters('FullText'),  ' -PolyBase:$', parameters('PolyBase'),   ' -Analysis:$', parameters('Analysis'),  ' -Tabular:$', parameters('Tabular'), ' -Integration:$',  parameters('Integration') ,  ' -KeepISOFolder:$', parameters('keepISOFolder') ,' -prodid ''',  parameters('prodid') , ''' \"'  )]"

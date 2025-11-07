@@ -8,7 +8,7 @@
     "SSMS",
     "Management Studio"
   ],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-ssms/ssms.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/ssms2025.png",
   "parameters": {
     "Edition": {
       "type": "string",
