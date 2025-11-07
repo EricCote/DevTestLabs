@@ -25,7 +25,7 @@ $stringKey = if ($key) { "--productKey $keyNoDashes" } else { "" };
 $ver = $Version
 
 $channl = if ($Channel -eq 'Preview') { "preview" } else { "release" }
-$source = "https://aka.ms/vs/$ver/$channl/vs_$Edition.exe";
+$source = "https://aka.ms/ssms/$ver/$channl/vs_$Edition.exe";
 
 
 $languageParams = $languages.Split(',') | ForEach-Object { "--addProductLang $($_.Trim())" } 
@@ -51,7 +51,7 @@ if ($LoadParams -ne "")
 $reboot = if ($restart -eq "No restart") { "--noRestart" } else { "" }
 
 
-$dest = ( "${env:Temp}\vs_setup.exe");
+$dest = ( "${env:Temp}\vs_ssms.exe");
 
 try {
     Invoke-WebRequest  -UseBasicParsing -Uri $source  -OutFile $dest
