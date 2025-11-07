@@ -96,7 +96,7 @@ function Run-Sql {
     )   
 
 
-    return & $sqlcmd -S $svr -E -Q $SqlString;
+    return & $sqlcmd -S $svr -E -C -Q $SqlString;
 }
 
 function Get-SqlEdition {   
