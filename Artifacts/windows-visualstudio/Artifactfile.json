@@ -4,7 +4,7 @@
   "description": "Installs Visual Studio.",
   "publisher": "Eric Côté",
   "tags": ["Windows", "Visual Studio", "VS"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-visualstudio/vs2022.svg",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/vs2026.png",
 
   "parameters": {
     "Edition": {
