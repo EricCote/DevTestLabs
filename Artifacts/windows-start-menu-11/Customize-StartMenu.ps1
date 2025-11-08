@@ -1,6 +1,10 @@
 
 # https://oofhours.com/2021/10/27/customize-the-windows-11-start-menu/
 
+# To list apps ids
+# run:  shell:Appsfolder
+#and then group by "App User Model ID" (AUMId)
+
 $currentDevice = "HKLM:\SOFTWARE\Microsoft\PolicyManager\current\device"
 $defaultDevice = "HKLM:\SOFTWARE\Microsoft\PolicyManager\providers\B5292708-1619-419B-9923-E5D9F3925E71\default\device"
 
