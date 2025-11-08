@@ -12,26 +12,26 @@
       "displayName": "Edition",
       "description": "Visual Studio Edition (Enterprise, Professional or Community)",
       "allowedValues": ["Enterprise", "Professional", "Community"],
-      "defaultValue": "Community"
+      "defaultValue": "Enterprise"
     },
     "VsVersion": {
       "type": "string",
       "displayName": "Version",
       "description": "Visual Studio version (2017, 2019, 2022)",
-      "allowedValues": ["2017", "2019", "2022"],
-      "defaultValue": "2022"
+      "allowedValues": ["2017", "2019", "2022", "2026"],
+      "defaultValue": "2026"
     },
     "Channel": {
       "type": "string",
       "displayName": "Channel",
       "description": "Install from latest release channel, or from preview channel?",
-      "allowedValues": ["Release", "Preview"],
+      "allowedValues": ["Release", "Preview", "Insiders"],
       "defaultValue": "Release"
     },
     "Workloads": {
       "type": "string",
       "displayName": "Workloads",
-      "description": "Install all workloads? Or install a few fomr a list? 
+      "description": "Install all workloads? Or install a few from a list? 
         <br /><br/>
         <dl>
         <dt>Select Below</dt>  
