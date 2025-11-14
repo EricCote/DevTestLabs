@@ -19,7 +19,7 @@
       "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio 2022.lnk"
     },
     {
-      "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Insiders.lnk"
+      "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio.lnk"
     },
     {
       "desktopAppId": "Microsoft.Office.WINWORD.EXE.15"
@@ -46,7 +46,7 @@
       "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft SQL Server Tools 21\\SQL Server Management Studio 21.lnk"
     },
     {
-      "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft SQL Server Tools 22\\SQL Server Management Studio 22 Preview.lnk"
+      "desktopAppLink": "%ALLUSERSPROFILE%\\Microsoft\\Windows\\Start Menu\\Programs\\Microsoft SQL Server Tools 22\\SQL Server Management Studio 22.lnk"
     },
     {
       "desktopAppId": "Docker.DockerForWindows.Settings"
