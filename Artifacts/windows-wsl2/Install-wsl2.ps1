@@ -15,7 +15,7 @@ $TaskName = "Install WSL"
 $myScript = @"
 WSL --install
 Disable-ScheduledTask -TaskName "$TaskName"
-Restart-Computer
+# Restart-Computer
 "@
 
 New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force
