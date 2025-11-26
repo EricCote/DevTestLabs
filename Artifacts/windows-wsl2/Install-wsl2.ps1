@@ -3,7 +3,60 @@ $ProgressPreference = 'SilentlyContinue'
 Enable-WindowsOptionalFeature -FeatureName VirtualMachinePlatform, Microsoft-Windows-Subsystem-Linux -online -norestart
 
 
+
+
+ 
+
+# new-itemproperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name install  -Value "powershell -ExecutionPolicy bypass -File c:\programdata\scripts\test.ps1"  -Force | out-null;
+
+$TaskName = "Install WSL"
+
+
+$myScript = @"
+WSL --install
+Disable-ScheduledTask -TaskName "$TaskName"
+Restart-Computer
+"@
+
+New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force
+
+$myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1"
+
+
+# Define the task details
+
+$TaskDescription = "Installs WSL as the current user with elevated privileges upon logon."
+$ActionPath = "powershell.exe"
+# *** REPLACE with your script path ***
+$ActionArguments = "-ExecutionPolicy Bypass -File `"C:\programdata\scripts\wsl.ps1`""
+
+# --- 1. Define the Action (What to run) ---
+$TaskAction = New-ScheduledTaskAction -Execute $ActionPath -Argument $ActionArguments
+
+# --- 2. Define the Trigger (When to run) ---
+# Creates a trigger that fires 'At logon for *this* user'
+# Use '-User $env:UserName' to target only the user running the script
+$TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User '$env:COMPUTERNAME\afi'
+
+# --- 3. Define the Principal (Who runs and with what rights) ---
+# Use $env:USERNAME to specify the current user.
+# Use '-RunLevel Highest' to request elevation (UAC prompt will appear if not already admin).
+$TaskPrincipal = New-ScheduledTaskPrincipal -UserId '$env:COMPUTERNAME\afi' -RunLevel Highest
+
+# --- 4. Register the Scheduled Task ---
+Write-Host "Registering task: $TaskName"
+Register-ScheduledTask -TaskName $TaskName `
+    -Description $TaskDescription `
+    -Action $TaskAction `
+    -Trigger $TaskTrigger `
+    -Principal $TaskPrincipal `
+    -Force 
+
+
+
 Restart-Computer 
+
+
 ### Getting the WSL app from the GitHub repo
 
 # $latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
