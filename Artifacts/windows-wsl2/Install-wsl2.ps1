@@ -10,7 +10,7 @@ Enable-WindowsOptionalFeature -FeatureName VirtualMachinePlatform, Microsoft-Win
 # new-itemproperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name install  -Value "powershell -ExecutionPolicy bypass -File c:\programdata\scripts\test.ps1"  -Force | out-null;
 
 $TaskName = "Install WSL"
-
+$adminName = "afi"
 
 $myScript = @"
 WSL --install
@@ -36,12 +36,12 @@ $TaskAction = New-ScheduledTaskAction -Execute $ActionPath -Argument $ActionArgu
 # --- 2. Define the Trigger (When to run) ---
 # Creates a trigger that fires 'At logon for *this* user'
 # Use '-User $env:UserName' to target only the user running the script
-$TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User '$env:COMPUTERNAME\administrator'
+$TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:COMPUTERNAME\$adminName"
 
 # --- 3. Define the Principal (Who runs and with what rights) ---
 # Use $env:USERNAME to specify the current user.
 # Use '-RunLevel Highest' to request elevation (UAC prompt will appear if not already admin).
-$TaskPrincipal = New-ScheduledTaskPrincipal -UserId '$env:COMPUTERNAME\administrator' -RunLevel Highest
+$TaskPrincipal = New-ScheduledTaskPrincipal -UserId "$env:COMPUTERNAME\$adminName" -RunLevel Highest
 
 # --- 4. Register the Scheduled Task ---
 Write-Host "Registering task: $TaskName"
