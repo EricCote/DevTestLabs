@@ -73,12 +73,12 @@ if ($installType -ne "completeAfterDeploy" ) {
     if ($sqlEdition -eq "dev" -or $sqlEdition -eq "eval") {
         if ($sqlEdition -eq "dev") {
             $isofile = "SQLServer2025-x64-ENU-Dev.iso";
-            $source = "https://go.microsoft.com/fwlink/?linkid=2314611"
+            $source = "https://go.microsoft.com/fwlink/?linkid=2342429"
         } 
         else {
             # "eval" 
             $isofile = "SQLServer2025-x64-ENU.iso";
-            $source = "https://go.microsoft.com/fwlink/?linkid=2314611"
+            $source = "https://go.microsoft.com/fwlink/?linkid=2342429"
         }
 
         $SSEIFile = "$env:temp\sql2025.exe"

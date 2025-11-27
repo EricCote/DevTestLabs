@@ -20,7 +20,7 @@ Disable-ScheduledTask -TaskName "$TaskName"
 
 New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force
 
-$myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1"
+$myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1" | out-null
 
 
 # Define the task details
@@ -36,12 +36,12 @@ $TaskAction = New-ScheduledTaskAction -Execute $ActionPath -Argument $ActionArgu
 # --- 2. Define the Trigger (When to run) ---
 # Creates a trigger that fires 'At logon for *this* user'
 # Use '-User $env:UserName' to target only the user running the script
-$TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User '$env:COMPUTERNAME\afi'
+$TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User '$env:COMPUTERNAME\administrator'
 
 # --- 3. Define the Principal (Who runs and with what rights) ---
 # Use $env:USERNAME to specify the current user.
 # Use '-RunLevel Highest' to request elevation (UAC prompt will appear if not already admin).
-$TaskPrincipal = New-ScheduledTaskPrincipal -UserId '$env:COMPUTERNAME\afi' -RunLevel Highest
+$TaskPrincipal = New-ScheduledTaskPrincipal -UserId '$env:COMPUTERNAME\administrator' -RunLevel Highest
 
 # --- 4. Register the Scheduled Task ---
 Write-Host "Registering task: $TaskName"
