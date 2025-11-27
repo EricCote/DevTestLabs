@@ -10,7 +10,7 @@ Enable-WindowsOptionalFeature -FeatureName VirtualMachinePlatform, Microsoft-Win
 # new-itemproperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name install  -Value "powershell -ExecutionPolicy bypass -File c:\programdata\scripts\test.ps1"  -Force | out-null;
 
 $TaskName = "Install WSL"
-$adminName = "afi"
+$adminName = "administrator"
 
 $myScript = @"
 WSL --install
