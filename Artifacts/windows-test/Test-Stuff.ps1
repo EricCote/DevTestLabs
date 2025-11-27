@@ -10,8 +10,7 @@ param(
 
 
 function test1 {
-    # Get-ChildItem "C:\program files\WindowsApps" 
-    Get-AppxProvisionedPackage -online
+  get-localUser
 }
 
 function test2 {
