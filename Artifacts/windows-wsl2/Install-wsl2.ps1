@@ -13,7 +13,7 @@ $TaskName = "Install WSL"
 $adminName = "afi"
 
 $myScript = @"
-WSL --install
+WSL --install --no-launch
 Disable-ScheduledTask -TaskName "$TaskName"
 # Restart-Computer
 "@
