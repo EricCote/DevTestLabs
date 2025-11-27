@@ -10,7 +10,7 @@ Enable-WindowsOptionalFeature -FeatureName VirtualMachinePlatform, Microsoft-Win
 # new-itemproperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name install  -Value "powershell -ExecutionPolicy bypass -File c:\programdata\scripts\test.ps1"  -Force | out-null;
 
 $TaskName = "Install WSL"
-$adminName = "administrator"
+$adminName = "afi"
 
 $myScript = @"
 WSL --install
@@ -18,9 +18,9 @@ Disable-ScheduledTask -TaskName "$TaskName"
 # Restart-Computer
 "@
 
-New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force
+New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force | out-null
 
-$myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1" | out-null
+$myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1" 
 
 
 # Define the task details
