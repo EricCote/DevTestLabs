@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
+  "title": "WSL2 Prerequisites",
+  "description": "Will prepare WSL2 on Windows 11. Installs on Windows Server when windowing system is installed.",
+  "publisher": "Eric Côté",
+  "tags": ["Wsl"],
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-wsl2-install/wsl.png",
+  "targetOsType": "Windows",
+  "runCommand": {
+    "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Prep-wsl2.ps1"
+  }
+}

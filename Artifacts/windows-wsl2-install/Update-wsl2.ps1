@@ -1,6 +1,14 @@
 
-  $ProgressPreference = 'SilentlyContinue'
- 
+
+
+
+ $ProgressPreference = 'SilentlyContinue'
+
+$regPath = "HKLM:\Software\Microsoft\Windows\CurrentVersion\Lxss"
+
+New-Item -Path $regPath -Force | out-null
+new-itemproperty -Path $regPath -Name "OOBEComplete" -Value "1"  -Force | out-null
+
  $latestSvc = "https://api.github.com/repos/microsoft/WSL/releases/latest";
  $response = Invoke-RestMethod -URI $latestSvc -UseBasicParsing
  $download_url=""

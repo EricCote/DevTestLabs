@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "WSL2 Update",
-  "description": "Updates WSL2 after &quot;WSL2 install&quot; is installed",
+  "title": "WSL2 Install",
+  "description": "Installs WSL2 on the system, after the prerequisites are isntalled",
   "publisher": "Eric Côté",
   "tags": ["Wsl"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-wsl2/wsl.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-wsl2-install/wsl.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Update-wsl2.ps1"
