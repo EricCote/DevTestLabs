@@ -19,7 +19,7 @@ Invoke-WebRequest -uri $download_url -UseBasicParsing -OutFile "$env:TEMP\wsl2.m
 "Installed WSL2"
 "---------------"
 
- & C:\Windows\System32\wsl.exe --install ubuntu --no-launch | out-default
+ # & C:\Windows\System32\wsl.exe --install ubuntu --no-launch | out-default
 
 "---------------"
 

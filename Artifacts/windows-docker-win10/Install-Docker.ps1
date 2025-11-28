@@ -112,6 +112,7 @@ function install-Docker {
     $content = 
     @"
         & $filename install --quiet | out-default
+        & C:\Windows\System32\wsl.exe --install ubuntu --no-launch | out-default
 "@
 
     $content | Out-File "c:\ProgramData\DockInstall\dock.ps1"
