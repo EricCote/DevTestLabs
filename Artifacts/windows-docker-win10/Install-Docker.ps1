@@ -112,7 +112,6 @@ function install-Docker {
     $content = 
     @"
         & $filename install --quiet | out-default
-        & C:\Windows\System32\wsl.exe --install ubuntu --no-launch | out-default
 "@
 
     $content | Out-File "c:\ProgramData\DockInstall\dock.ps1"
@@ -172,9 +171,11 @@ $settings =
 {
   "AutoStart": false,
   "DisplayedOnboarding": true,
-  "EnableDockerAI": false,
-  "licenseTermsVersion": 2,
-  "settingsVersion": 41
+  "EnableCLIHints": true,
+  "EnableDockerAI": true,
+  "LicenseTermsVersion": 2,
+  "SettingsVersion": 43,
+  "UseBackgroundIndexing": false
 }
 "@
 
