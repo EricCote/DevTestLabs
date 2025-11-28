@@ -4,53 +4,56 @@ Enable-WindowsOptionalFeature -FeatureName VirtualMachinePlatform, Microsoft-Win
 
 
 
-
- 
-
-# new-itemproperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name install  -Value "powershell -ExecutionPolicy bypass -File c:\programdata\scripts\test.ps1"  -Force | out-null;
-
-$TaskName = "Install WSL"
-$adminName = "afi"
-
-$myScript = @"
-WSL --install --no-launch
-Disable-ScheduledTask -TaskName "$TaskName"
-# Restart-Computer
-"@
-
-New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force | out-null
-
-$myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1" 
+# ### Setting registry key to avoid "Welcome to WSL" on WSL first launch
+# $regPath="HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Lxss"
+# New-Item -Path $regPath -Force | out-null
+# Set-ItemProperty -Path $regPath -Name "OOBEComplete" -Value 1 -Force | out-null
 
 
-# Define the task details
+# # new-itemproperty "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce" -Name install  -Value "powershell -ExecutionPolicy bypass -File c:\programdata\scripts\test.ps1"  -Force | out-null;
 
-$TaskDescription = "Installs WSL as the current user with elevated privileges upon logon."
-$ActionPath = "powershell.exe"
-# *** REPLACE with your script path ***
-$ActionArguments = "-ExecutionPolicy Bypass -File `"C:\programdata\scripts\wsl.ps1`""
+# $TaskName = "Install WSL"
+# $adminName = "afi"
 
-# --- 1. Define the Action (What to run) ---
-$TaskAction = New-ScheduledTaskAction -Execute $ActionPath -Argument $ActionArguments
+# $myScript = @"
+# WSL --install --no-launch
+# Disable-ScheduledTask -TaskName "$TaskName"
+# # Restart-Computer
+# "@
 
-# --- 2. Define the Trigger (When to run) ---
-# Creates a trigger that fires 'At logon for *this* user'
-# Use '-User $env:UserName' to target only the user running the script
-$TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:COMPUTERNAME\$adminName"
+# New-Item -Path "C:\ProgramData\scripts" -ItemType Directory -Force | out-null
 
-# --- 3. Define the Principal (Who runs and with what rights) ---
-# Use $env:USERNAME to specify the current user.
-# Use '-RunLevel Highest' to request elevation (UAC prompt will appear if not already admin).
-$TaskPrincipal = New-ScheduledTaskPrincipal -UserId "$env:COMPUTERNAME\$adminName" -RunLevel Highest
+# $myScript | Set-Content -Path "C:\ProgramData\scripts\wsl.ps1" 
 
-# --- 4. Register the Scheduled Task ---
-Write-Host "Registering task: $TaskName"
-Register-ScheduledTask -TaskName $TaskName `
-    -Description $TaskDescription `
-    -Action $TaskAction `
-    -Trigger $TaskTrigger `
-    -Principal $TaskPrincipal `
-    -Force 
+
+# # Define the task details
+
+# $TaskDescription = "Installs WSL as the current user with elevated privileges upon logon."
+# $ActionPath = "powershell.exe"
+# # *** REPLACE with your script path ***
+# $ActionArguments = "-ExecutionPolicy Bypass -File `"C:\programdata\scripts\wsl.ps1`" -windowstyle hidden -noninteractive "
+
+# # --- 1. Define the Action (What to run) ---
+# $TaskAction = New-ScheduledTaskAction -Execute $ActionPath -Argument $ActionArguments
+
+# # --- 2. Define the Trigger (When to run) ---
+# # Creates a trigger that fires 'At logon for *this* user'
+# # Use '-User $env:UserName' to target only the user running the script
+# $TaskTrigger = New-ScheduledTaskTrigger -AtLogOn -User "$env:COMPUTERNAME\$adminName"
+
+# # --- 3. Define the Principal (Who runs and with what rights) ---
+# # Use $env:USERNAME to specify the current user.
+# # Use '-RunLevel Highest' to request elevation (UAC prompt will appear if not already admin).
+# $TaskPrincipal = New-ScheduledTaskPrincipal -UserId "$env:COMPUTERNAME\$adminName" -RunLevel Highest
+
+# # --- 4. Register the Scheduled Task ---
+# Write-Host "Registering task: $TaskName"
+# Register-ScheduledTask -TaskName $TaskName `
+#     -Description $TaskDescription `
+#     -Action $TaskAction `
+#     -Trigger $TaskTrigger `
+#     -Principal $TaskPrincipal `
+#     -Force 
 
 
 
