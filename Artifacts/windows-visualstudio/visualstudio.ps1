@@ -57,7 +57,9 @@ try {
 catch {
     Write-Error "Failed to download VS installer";
 }
-"b"
+
+"$source"
+
 $myParams = " --productid Microsoft.VisualStudio.Product.$edition $loadParams $loads $comps $languageParams $stringKey  $reboot --quiet  --wait  "
 $myParams2 = $myParams.Split(" ");
 
