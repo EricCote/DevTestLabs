@@ -20,7 +20,11 @@ $stringKey = if ($key) { "--productKey $keyNoDashes" } else { "" };
 
 
 #Version number. 2017=15, 2019=16, 2022=17, 2026=18, 2029=19
-$ver = if ($vsVersion -eq "2017") { "15" } elseif ($vsVersion -eq "2019") { "16" } elseif ($vsVersion -eq "2022") { "17" } elseif ($VsVersion -eq "2026") { "18" } else { "19" }
+$ver = if ($vsVersion -eq "2017") { "15" } 
+elseif ($vsVersion -eq "2019") { "16" } 
+elseif ($vsVersion -eq "2022") { "17" } 
+elseif ($VsVersion -eq "2026") { "18" } 
+else { "19" }
 
 $channl = if ($Channel -eq 'Preview') { "pre" } elseif ($Channel -eq 'Insiders') { "insiders" } elseif ($vsVersion -lt "2026") { "release" } else {"stable" }
 $source = "https://aka.ms/vs/$ver/$channl/vs_$Edition.exe";

@@ -4,7 +4,7 @@
   "description": "Installs WSL2 on the system, after the prerequisites are isntalled",
   "publisher": "Eric Côté",
   "tags": ["Wsl"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-wsl2-install/wsl.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/Images/wsl.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Update-wsl2.ps1"

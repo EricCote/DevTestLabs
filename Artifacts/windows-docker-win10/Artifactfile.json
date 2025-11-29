@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/Azure/azure-devtestlab/master/schemas/2016-11-28/dtlArtifacts.json",
-  "title": "Install Docker on Windows 10",
-  "description": "Will install Docker on Windows 10.",
+  "title": "Docker on Windows 11",
+  "description": "Will install Docker on Windows 11.",
   "publisher": "Eric Côté",
   "tags": ["Docker"],
   "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/windows-docker-win10/docker.svg",

@@ -4,7 +4,7 @@
   "description": "Installs Office Click-to-Run. Has a five days grace period to enter your product key or your credentials.",
   "publisher": "Eric Côté",
   "tags": ["Windows", "Office", "Word", "Excel", "Powerpoint"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/office.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/office.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Office2024.ps1"
