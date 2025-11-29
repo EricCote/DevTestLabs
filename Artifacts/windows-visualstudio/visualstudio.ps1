@@ -50,14 +50,14 @@ $reboot = if ($restart -eq "No restart") { "--noRestart" } else { "" }
 
 
 $dest = ( "${env:Temp}\vs_setup.exe");
-
+"a"
 try {
     Invoke-WebRequest  -UseBasicParsing -Uri $source  -OutFile $dest
 }
 catch {
     Write-Error "Failed to download VS installer";
 }
-
+"b"
 $myParams = " --productid Microsoft.VisualStudio.Product.$edition $loadParams $loads $comps $languageParams $stringKey  $reboot --quiet  --wait  "
 $myParams2 = $myParams.Split(" ");
 
@@ -69,7 +69,7 @@ catch {
     Write-Error 'Failed to install Visual studio';
 }
 
-
+"c"
 "& $dest $myParams2"
 
 
