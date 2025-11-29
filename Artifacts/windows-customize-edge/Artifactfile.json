@@ -4,7 +4,7 @@
   "description": "Will customize the New Edge browser, removing the welcome page.",
   "publisher": "Eric Côté",
   "tags": ["Edge", "Browser"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/Images/edge.svg",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/edge.svg",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Customize-Edge.ps1"

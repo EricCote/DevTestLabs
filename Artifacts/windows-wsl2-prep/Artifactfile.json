@@ -4,7 +4,7 @@
   "description": "Will prepare WSL2 on Windows 11. Installs on Windows Server when windowing system is installed.",
   "publisher": "Eric Côté",
   "tags": ["Wsl"],
-  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Artifacts/Images/wsl.png",
+  "iconUri": "https://github.com/EricCote/DevTestLabs/raw/master/Images/wsl.png",
   "targetOsType": "Windows",
   "runCommand": {
     "commandToExecute": "powershell.exe -ExecutionPolicy bypass -File Prep-wsl2.ps1"

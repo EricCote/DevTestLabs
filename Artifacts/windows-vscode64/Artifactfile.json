@@ -4,7 +4,7 @@
   "publisher": "Eric Cote",
   "description": "Installs the latest stable version of Visual Studio Code. Includes the french language pack.",
   "tags": ["Windows", "VSCode", "Visual Studio"],
-  "iconUri": "https://github.com/Azure/azure-devtestlab/raw/master/Artifacts/Images/vscode.svg",
+  "iconUri": "https://github.com/Azure/azure-devtestlab/raw/master/Images/vscode.svg",
   "targetOsType": "Windows",
   "parameters": {
     "Architecture": {
