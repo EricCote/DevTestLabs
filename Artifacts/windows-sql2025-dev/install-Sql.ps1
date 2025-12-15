@@ -1,4 +1,10 @@
-﻿ 
+﻿
+# Eval:     https://go.microsoft.com/fwlink/?linkid=2342429
+# Dev:      https://go.microsoft.com/fwlink/?linkid=2338332
+# Express:  https://go.microsoft.com/fwlink/?linkid=2216019
+
+
+
 Param
 (
     [string] $sqlEdition = "dev", #3 values possible: eval, dev, express
@@ -78,7 +84,8 @@ if ($installType -ne "completeAfterDeploy" ) {
         else {
             # "eval" 
             $isofile = "SQLServer2025-x64-ENU.iso";
-            $source = "https://go.microsoft.com/fwlink/?linkid=2342429"
+            $source = "https://go.microsoft.com/fwlink/?linkid=2338332"
+
         }
 
         $SSEIFile = "$env:temp\sql2025.exe"
@@ -118,7 +125,7 @@ if ($installType -ne "completeAfterDeploy" ) {
 
     }
     else {
-        #Download SqlServer 2022 Express
+        #Download SqlServer 2025 Express
 
 
         $source = "https://go.microsoft.com/fwlink/?linkid=2216019"
